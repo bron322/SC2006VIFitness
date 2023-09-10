@@ -5,6 +5,7 @@ import "./index.css";
 import LandingPage from "./routes/landingPage";
 import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
+import RegisterPage from "./routes/RegisterPage";
 import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
     path: "/login",
     errorElement: <ErrorPage />,
     element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    errorElement: <ErrorPage />,
+    element: <RegisterPage />,
   },
   {
     path: "/user",
