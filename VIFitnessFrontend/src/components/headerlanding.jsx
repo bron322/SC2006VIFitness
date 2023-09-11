@@ -1,35 +1,34 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import './styles/header.css'
 import VILOGO from './styles/photos/VILOGO.jpg'
 
 
 
 function Header() {
-  // const [isSticky, setIsSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
-  // // Function to handle the scroll event
-  // function handleScroll() {
-  //   if (window.scrollY > 100) {
-  //     setIsSticky(true);
-  //   } else {
-  //     setIsSticky(false);
-  //   }
-  // }
+  // Function to handle the scroll event
+  function handleScroll() {
+    if (window.scrollY > 1100) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  }
 
-  // // Add a scroll event listener to determine when the header becomes sticky
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll);
+  // Add a scroll event listener to determine when the header becomes sticky
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
 
-  //   // Clean up the event listener when the component unmounts
-  //   return function cleanup() {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
+    // Clean up the event listener when the component unmounts
+    return function cleanup() {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
 
   return (
-      // <div className={`sticky-header ${isSticky ? 'animate' : ''}`}> 
-      <div className= "sticky-header">
+      <div className={`sticky-header ${isSticky ? 'animate' : ''}`}> 
           <div className="logo-container">
             <a href="/">
               <img
