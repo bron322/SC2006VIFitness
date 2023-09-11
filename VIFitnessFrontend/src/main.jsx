@@ -10,6 +10,7 @@ import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
+import TestPage from "./routes/TestPage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
         element: <WorkoutPlannerPage />,
       },
     ],
+  },
+  {
+    path: "/test",
+    errorElement: <ErrorPage />,
+    element: <TestPage />,
   },
 ]);
 
