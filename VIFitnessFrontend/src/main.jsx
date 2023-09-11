@@ -11,7 +11,7 @@ import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
 import TestPage from "./routes/TestPageLebron";
-import TestPageOscar from "./routes/TestPageOscar";
+import TestPageOscar from "./routes/TestingPageOscar";
 
 const router = createBrowserRouter([
   {
