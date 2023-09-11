@@ -27,6 +27,42 @@ function Header() {
   }, []);
 
 
+  const [isHoverR, setIsHoverR] = useState(false);
+  const [isHoverL, setIsHoverL] = useState(false);
+  const buttonR = document.getElementsByClassName('register');
+
+  for (let i = 0; i < buttonR.length; i++) {
+    const button = buttonR[i];
+
+  button.addEventListener('mouseenter', () => {
+    // Change button background color on hover
+    setIsHoverR(true);
+  });
+
+  // Add event listener for mouseleave (when hover ends)
+  button.addEventListener('mouseleave', () => {
+    // Restore the original button background color
+    setIsHoverR(false);
+  });
+  }
+
+  const buttonL = document.getElementsByClassName('login');
+
+  for (let i = 0; i < buttonL.length; i++) {
+    const button = buttonL[i];
+
+  button.addEventListener('mouseenter', () => {
+    // Change button background color on hover
+    setIsHoverL(true);
+  });
+
+  // Add event listener for mouseleave (when hover ends)
+  button.addEventListener('mouseleave', () => {
+    // Restore the original button background color
+    setIsHoverL(false);
+  });
+  }
+
   return (
       <div className={`sticky-header ${isSticky ? 'animate' : ''}`}> 
           <div className="logo-container">
@@ -37,8 +73,8 @@ function Header() {
               style={{ width: '10%', height: '10%', display: 'block' }}></img></a>
           </div>
           <div className="login-register-container">
-            <div className="login"><a href="/Login" className='white-link'>Login</a></div>
-            <div className="register"><a href="/Register" className='white-link'>Register</a></div>
+            <div className={`login ${isHoverL ? 'animate' : ''}`}><a href="/Login" className='white-link'>Login</a></div>
+            <div className={`register ${isHoverR ? 'animate' : ''}`}><a href="/Register" className='white-link'>Register</a></div>
           </div>
       </div>
     );

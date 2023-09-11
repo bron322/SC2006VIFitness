@@ -34,10 +34,26 @@
 
 .login {
     background-color: gray;
+    border-radius: 10px;
+    border: 1px solid #ddd;
 }
 
 .register {
-    background-color: blue;
+    background-color: #097FD9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.register.animate {
+    box-shadow: inset 0 0 3px 3px #2c2c2c;
+    background-color: #097FD9;
+    border-radius: 10px;
+}
+
+.login.animate {
+    box-shadow: inset 0 0 3px 3px #2c2c2c;
+    background-color: gray;
+    border-radius: 10px;
 }
 
 .white-link {
