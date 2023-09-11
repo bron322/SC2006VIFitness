@@ -7,10 +7,12 @@ body {
     margin: 0;
     overflow: hidden;
     position: relative;
+    z-index: 1;
 }
 .image-container img {
     width: 100%; 
     height: auto; 
     position: relative;
     top: -250px;
+    z-index: 1;
   }
