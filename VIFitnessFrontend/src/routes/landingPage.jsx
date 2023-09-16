@@ -21,6 +21,67 @@ export default function LandingPage() {
           <h3>Browse our features </h3>
         </div>
 
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 .sticky-header {
-    padding: 2rem;
+    padding: 10px;
     background: #000000;
     font-size: 1em;
     display: flex;
@@ -19,42 +19,12 @@
     }
   }
 .sticky-header.animate {
+    padding: 10px;
     opacity: 0.9;
     position: sticky;
     animation: slideIn 1s ease;
 }
-.login,
-.register {
-    text-transform: uppercase;
-    display: inline-flex;
-    padding: 0.5em 0.5em;
-    margin-right: 0.5em;
-    font-weight: bold;
-}
 
-.login {
-    background-color: gray;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-.register {
-    background-color: #097FD9;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-.register.animate {
-    box-shadow: inset 0 0 3px 3px #2c2c2c;
-    background-color: #097FD9;
-    border-radius: 10px;
-}
-
-.login.animate {
-    box-shadow: inset 0 0 3px 3px #2c2c2c;
-    background-color: gray;
-    border-radius: 10px;
-}
 
 .white-link {
     color: white;
@@ -68,8 +38,19 @@
 }
 
 .logo-container {
+    padding-left: 30px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 60px;
+    overflow: hidden;
 }
 
+p {
+    font-size: 30px;
+
+}
+
+.img {
+    filter: invert(1);
+}

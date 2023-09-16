@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react'
 import './styles/header.css'
 import VILOGO from './styles/photos/VILOGO.jpg'
+import Button from "../components/button";
 
 
 
@@ -27,54 +28,19 @@ function Header() {
   }, []);
 
 
-  const [isHoverR, setIsHoverR] = useState(false);
-  const [isHoverL, setIsHoverL] = useState(false);
-  const buttonR = document.getElementsByClassName('register');
-
-  for (let i = 0; i < buttonR.length; i++) {
-    const button = buttonR[i];
-
-  button.addEventListener('mouseenter', () => {
-    // Change button background color on hover
-    setIsHoverR(true);
-  });
-
-  // Add event listener for mouseleave (when hover ends)
-  button.addEventListener('mouseleave', () => {
-    // Restore the original button background color
-    setIsHoverR(false);
-  });
-  }
-
-  const buttonL = document.getElementsByClassName('login');
-
-  for (let i = 0; i < buttonL.length; i++) {
-    const button = buttonL[i];
-
-  button.addEventListener('mouseenter', () => {
-    // Change button background color on hover
-    setIsHoverL(true);
-  });
-
-  // Add event listener for mouseleave (when hover ends)
-  button.addEventListener('mouseleave', () => {
-    // Restore the original button background color
-    setIsHoverL(false);
-  });
-  }
-
   return (
       <div className={`sticky-header ${isSticky ? 'animate' : ''}`}> 
           <div className="logo-container">
-            <a href="/">
-              <img
+            <a href="/" className='white-link'>
+              <img className='img'
               src = {VILOGO}
               alt = "LOGO" 
-              style={{ width: '10%', height: '10%', display: 'block' }}></img></a>
+              style={{ width: '30%', height: '30%', display: 'block', overflow: 'hidden'}}></img>
+              </a>
           </div>
           <div className="login-register-container">
-            <div className={`login ${isHoverL ? 'animate' : ''}`}><a href="/Login" className='white-link'>Login</a></div>
-            <div className={`register ${isHoverR ? 'animate' : ''}`}><a href="/Register" className='white-link'>Register</a></div>
+            <Button name = "login"/>
+            <Button theme="blue" name="register"/>
           </div>
       </div>
     );
