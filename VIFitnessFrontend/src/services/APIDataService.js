@@ -1,13 +1,18 @@
 import http from "../http-common.js";
 
-class APIDataService {
-  // GET all users
-  getAll() {
-    return http.get("/users");
-  }
+// GET all users
+const getAll = async () => {
+  return http.get("/users");
+};
 
-  //GET user by username
-  get(username) {
-    return http.get(`/user/${username}`);
-  }
-}
+//GET user by username
+const get = async (username) => {
+  return http.get(`/user/${username}`);
+};
+
+const APIDataService = {
+  getAll,
+  get,
+};
+
+export default APIDataService;
