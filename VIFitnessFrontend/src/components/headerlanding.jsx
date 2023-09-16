@@ -1,7 +1,9 @@
+
 import React, { Component, useState, useEffect } from 'react'
 import './styles/header.css'
 import VILOGO from './styles/photos/VILOGO.jpg'
 import Button from "../components/button";
+
 
 
 
@@ -11,6 +13,7 @@ function Header() {
   // Function to handle the scroll event
   function handleScroll() {
     if (window.scrollY > 1100) {
+
       setIsSticky(true);
     } else {
       setIsSticky(false);
@@ -42,8 +45,10 @@ function Header() {
             <Button name = "login"/>
             <Button theme="blue" name="register"/>
           </div>
+
       </div>
-    );
+    </div>
+  );
 }
 
 export default Header;
