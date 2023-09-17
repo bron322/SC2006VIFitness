@@ -2,25 +2,28 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import APIDataService from "../services/APIDataService.js";
+import NutritionixService from "../services/NutritionixService.js";
+import FoodList from "../components/FoodList.jsx";
 
 export default function TestPage() {
   const [usernameQuery, setUsernameQuery] = useState("");
+  const [foodQuery, setFoodQuery] = useState("");
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [nutritionData, setNutritionData] = useState([]);
 
+  // keep track of username input field
   const handleChange = (e) => {
     setUsernameQuery(e.target.value);
   };
 
+  // keep track of food input field
+  const foodInputChange = (e) => {
+    setFoodQuery(e.target.value);
+  };
+
+  // Query mongoDB for user data on button click
   const queryUserData = async () => {
-    // APIDataService.get(usernameQuery)
-    //   .then((response) => {
-    //     setUserData(response.data);
-    //     console.log(response.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     setIsLoading(true);
     try {
       const response = await APIDataService.get(usernameQuery);
@@ -31,10 +34,24 @@ export default function TestPage() {
     setTimeout(() => setIsLoading(false), 1000);
   };
 
+  // Query NutritionixAPI on button click
+  const queryNutrition = async () => {
+    let data = {
+      query: foodQuery,
+    };
+    try {
+      const response = await NutritionixService.getNutrients(data);
+      setNutritionData(response.data.foods);
+      // console.log(nutritionData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="test-page-wrapper">
-        <h1>This is test page</h1>
+        <h1>Oscar's Test View</h1>
       </div>
       <input placeholder="Enter Username" onChange={handleChange}></input>
       <button onClick={queryUserData}>Fetch</button>
@@ -46,6 +63,17 @@ export default function TestPage() {
         </h1>
       )}
 
+      <input placeholder="Enter food" onChange={foodInputChange}></input>
+      <button onClick={queryNutrition}>Get Nutrition</button>
+      {nutritionData.map((item, index) => {
+        return (
+          <FoodList
+            key={index}
+            name={item.food_name}
+            calorie={item.nf_calories}
+          />
+        );
+      })}
       <Link to={"/user"}>Login</Link>
     </>
   );
