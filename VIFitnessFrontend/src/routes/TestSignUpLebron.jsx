@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-// this is Lebron's log in page 
+// This is Lebron's sign up page
 
-export default function TestPage() {
+export default function TestSignUpLebron() {
   const handlesubmit = (e) => {
     console.log("test");
   };

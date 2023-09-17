@@ -12,6 +12,7 @@ import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
 import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
+import TestSignUpLebron from "./routes/TestSignUpLebron";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
     path: "/testoscar",
     errorElement: <ErrorPage />,
     element: <TestPageOscar />,
+  },
+  {
+    path: "/testsignuplebron",
+    errorElement: <ErrorPage />,
+    element: <TestSignUpLebron />,
   },
 ]);
 
