@@ -5,8 +5,19 @@ export default axios.create({
   credentials: true,
   headers: {
     "Content-type": "application/json",
-    "Access-Control-Allow-Origin": "http://localhost:5173", // Allow CORS from any origin
-    "Access-Control-Allow-Methods": "GET, HEAD, POST, PUT, DELETE, OPTIONS", // Allow all HTTP methods
-    "Access-Control-Allow-Headers": "*", // Allow specified headers
   },
 });
+
+const appID = import.meta.env.VITE_NUTRITIONIX_ID;
+const appKey = import.meta.env.VITE_NUTRITIONIX_KEY;
+
+const Nutrionixhttp = axios.create({
+  baseURL: "https://trackapi.nutritionix.com/",
+  headers: {
+    "x-app-id": appID,
+    "x-app-key": appKey,
+    "x-remote-user-id": 0,
+  },
+});
+
+export { Nutrionixhttp };
