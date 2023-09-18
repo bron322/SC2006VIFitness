@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios'
-import {toast} from 'react-hot-toast';
+import {Toaster, toast} from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import APIDataService from "../services/APIDataService";
 
 // This is Lebron's sign up page
 
@@ -14,36 +15,55 @@ export default function TestSignUpLebron() {
   };
 
   const [data, setData] = useState({
-    name:'',
+    username:'',
     password:'',
   })
 
   const registerUser = async (e) =>{
-    e.preventDefault()
-    const {name, password} = data
-    try {
-      const{data}  = await axios.post('/testregister', {name, password})
-      if(data.error){
-        toast.error(data.error)
-      } else {
-        setData({})
+    console.log("button pressed");
+    let check = await checkDuplicate(data.username);
+    console.log(check);
+    if(check) {
+      toast.error("Username taken");
+    } else{
+      try{
+        const response = await APIDataService.create(data);
         toast.success('Login successful. Welcome to VI Fitness!')
-        navigate('/home') //directing to the home page
+        navigate('/testlogin') //directing to the home page
+      } catch(err) {
+        console.log(err)
       }
-    } catch (error) {
-      console.log(error)
+    }
+  }
+
+  const checkDuplicate = async (username) => {
+    let response;
+    try{
+      response = await APIDataService.get(username);
+    } catch(err){
+      console.log(err);
+    }
+    if(response.data === "Null") {
+      console.log("Null");
+      return false;
+    }else{
+      console.log("Duplicate");
+      return true;
     }
   }
 
   return(
     <div>
-      <form onSubmit={registerUser}>
+      <Toaster position="bottom-right" toastOptions={{duration: 2000}}/>
+      <Form onSubmit={registerUser}>
         <label>Username : </label>
-        <input type = 'text' placeholder='Enter your username:' value = {data.name} onChange = {(e) => setData({...data, name:e.target.value})}/>
+        <input type = 'text' placeholder='Enter your username:' value = {data.username} onChange = {(e) => {
+          console.log(data);
+          setData({...data, username:e.target.value})}}/>
         <label>Password : </label>
         <input type = 'password' placeholder='Enter your password:' value = {data.password} onChange = {(e) => setData({...data, password:e.target.value})} />
         <button type = 'submit'>Submit</button>
-      </form>
+      </Form>
 
       <Link to={"/testlogin"} onClick={handlesubmit}>
         Log In

@@ -13,7 +13,6 @@ import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
 import TestSignUpLebron from "./routes/TestSignUpLebron";
-import {Toaster} from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
