@@ -31,11 +31,11 @@ export default function LandingPage() {
              alt = "LOGO"></img>
         </div>
 
-        <div className="text-container">
+        <div className="text-container" style={{ position: 'absolute' }}>
           <h2>Helps for your</h2>
           <h2>ideal body fitness</h2>
           <a href="#macros" className="white-link">
-            <h3>Browse our features <FontAwesomeIcon icon={faArrowRight} size="sm"/></h3>
+            <div className="text">Browse our features <FontAwesomeIcon icon={faArrowRight} size="sm"/></div>
           </a> 
         </div>
 
