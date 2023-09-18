@@ -57,7 +57,9 @@ Button.defaultProps = {
 const button = (props) => {
   return (
     <div className='button-wrapper'>
-        <Link to={props => link[props.name].link} className='white-link'>
+        <Link 
+        to={link[props.name].link} 
+        className='white-link'>
             <Button theme={props.theme}> 
                 {props.name}
             </Button>
