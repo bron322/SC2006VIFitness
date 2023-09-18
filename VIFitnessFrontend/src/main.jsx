@@ -10,6 +10,7 @@ import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
+import TestPageLebron from "./routes/TestPageLebron";
 import Dashboard from "./routes/ProfilePage/Dashboard";
 import Contacts from "./routes/ProfilePage/Contacts";
 import Team from "./routes/ProfilePage/team";
@@ -23,6 +24,7 @@ import Geography from "./routes/ProfilePage/Geography";
 import Calendar from "./routes/ProfilePage/calendar";
 import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
+import TestSignUpLebron from "./routes/TestSignUpLebron";
 
 const router = createBrowserRouter([
   {
@@ -106,14 +108,19 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/testlebron",
+    path: "/testlogin",
     errorElement: <ErrorPage />,
-    element: <TestPage />,
+    element: <TestPageLebron />,
   },
   {
     path: "/testoscar",
     errorElement: <ErrorPage />,
     element: <TestPageOscar />,
+  },
+  {
+    path: "/testregister",
+    errorElement: <ErrorPage />,
+    element: <TestSignUpLebron />,
   },
 ]);
 
