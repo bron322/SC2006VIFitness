@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Topbar from "./topbar";
-import Sidebar from "./sidebar";
+import Sidebar from "./sidebars";
 import Dashboard from "./ProfilePage/Dashboard";
 import Team from "./ProfilePage/team";
 import Invoices from "./ProfilePage/invoices";
@@ -45,7 +45,7 @@ function ProfilePage() {
               <Route path="geography" element={<Geography />} />
             </Routes>
           </main>
-          <Outlet />
+          {/* <Outlet /> */}
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
