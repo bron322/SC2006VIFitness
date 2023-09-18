@@ -5,6 +5,7 @@ export default function UserPage() {
     <>
       <div className="user-page-wrapper">
         <h1>Redirects to this page after logging in</h1>
+        
         <Outlet />
       </div>
     </>
