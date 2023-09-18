@@ -20,6 +20,8 @@ import Line from "./routes/ProfilePage/line";
 import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
+import TestPage from "./routes/TestPageLebron";
+import TestPageOscar from "./routes/TestingPageOscar";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +103,16 @@ const router = createBrowserRouter([
         element: <WorkoutPlannerPage />,
       },
     ],
+  },
+  {
+    path: "/testlebron",
+    errorElement: <ErrorPage />,
+    element: <TestPage />,
+  },
+  {
+    path: "/testoscar",
+    errorElement: <ErrorPage />,
+    element: <TestPageOscar />,
   },
 ]);
 

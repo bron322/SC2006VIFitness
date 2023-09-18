@@ -1,34 +1,30 @@
 .sticky-header {
-    padding: 2rem;
-    background: #161616;
+    padding: 10px;
+    background: #000000;
     font-size: 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
+    position: relative;
     top: 0;
     opacity: 1; 
-    transition: opacity 0.3s ease-in-out;
+    z-index: 2;
 }
+@keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 .sticky-header.animate {
-    opacity: 1;
-}
-.login,
-.register {
-    text-transform: uppercase;
-    display: inline-flex;
-    padding: 0.5em 0.5em;
-    margin-right: 0.5em;
-    font-weight: bold;
+    padding: 10px;
+    opacity: 0.9;
+    position: sticky;
+    animation: slideIn 1s ease;
 }
 
-.login {
-    background-color: gray;
-}
-
-.register {
-    background-color: blue;
-}
 
 .white-link {
     color: white;
@@ -42,8 +38,19 @@
 }
 
 .logo-container {
+    padding-left: 30px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 60px;
+    overflow: hidden;
 }
 
+p {
+    font-size: 30px;
+
+}
+
+.img {
+    filter: invert(1);
+}

@@ -1,5 +1,7 @@
-import Header from "../components/header";
+import Header from "../components/headerlanding";
 import './styles/landingPage.css'
+import BG from './styles/photos/background.jpg'
+
 
 export default function LandingPage() {
   return (
@@ -7,91 +9,78 @@ export default function LandingPage() {
       <div className="landing-page-wrapper">
         <Header />
 
-        <section>
-            <h2>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis ultrices urna. Sed in interdum urna, nec hendrerit mi. Nam congue ligula ut lacus vehicula, ut sodales metus semper. Fusce eget vehicula odio, et sollicitudin purus.</p>
-        </section>
+        
+        <div className="image-container">
+        <img src = {BG}
+             alt = "LOGO"></img>
+        </div>
 
-        <section>
-            <h2>Services</h2>
-            <ul>
-                <li>Web Design</li>
-                <li>Graphic Design</li>
-                <li>SEO Optimization</li>
-                <li>App Development</li>
-            </ul>
-        </section>
+        <div className="text-container">
+          <h2>Helps for your</h2>
+          <h2>ideal body fitness</h2>
+          <h3>Browse our features </h3>
+        </div>
+
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
+        <p>h</p>
 
       </div>
     </>
