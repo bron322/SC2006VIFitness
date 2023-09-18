@@ -1,4 +1,5 @@
 import Header from "../components/headerlanding";
+import React, { useEffect } from "react";
 import './styles/landingPage.css'
 import BG from './styles/photos/background.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,17 +8,17 @@ import { faArrowRight, faBurger, faCalendar, faCapsules, faChartLine, faMessage 
 
 export default function LandingPage() {
 
-  document.addEventListener('DOMContentLoaded', function () {
+  useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-          e.preventDefault();
+        e.preventDefault();
 
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-              behavior: 'smooth'
-          });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
       });
     });
-  });
+  }, []);
 
   return (
     <>
@@ -30,17 +31,17 @@ export default function LandingPage() {
              alt = "LOGO"></img>
         </div>
 
-        <div className="text-container">
+        <div className="text-container" style={{ position: 'absolute' }}>
           <h2>Helps for your</h2>
           <h2>ideal body fitness</h2>
-          <a href="#Macro" className="white-link" style={{ scrollBehavior: 'smooth' }}>
-            <h3>Browse our features <FontAwesomeIcon icon={faArrowRight} size="sm"/></h3>
+          <a href="#macros" className="white-link">
+            <div className="text">Browse our features <FontAwesomeIcon icon={faArrowRight} size="sm"/></div>
           </a> 
         </div>
 
         <div style={{ backgroundColor: '#000000', width: '100%', height: '300px' }}/>
 
-        <div className="content-container" id="Macro">
+        <div className="content-container" id="macros">
           <div className="content-text">
             <div className="content-header">
               <FontAwesomeIcon icon={faBurger} size="xl"/> Track Your Macros
@@ -52,7 +53,7 @@ export default function LandingPage() {
           <div className="content-image"/>
         </div>
 
-        <div className="content-container" id="Macro">
+        <div className="content-container">
           <div className="content-image"/>
           <div className="content-text">
             <div className="content-header">
@@ -64,7 +65,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="content-container" id="Macro">
+        <div className="content-container">
           <div className="content-text">
             <div className="content-header">
               <FontAwesomeIcon icon={faMessage} size="xl"/> Community
@@ -76,7 +77,7 @@ export default function LandingPage() {
           <div className="content-image"/>
         </div>
 
-        <div className="content-container" id="Macro">
+        <div className="content-container">
           <div className="content-image"/>
           <div className="content-text">
             <div className="content-header">
@@ -88,7 +89,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="content-container" id="Macro">
+        <div className="content-container">
           <div className="content-text">
             <div className="content-header">
               <FontAwesomeIcon icon={faChartLine} size="xl"/> Progression Tracking

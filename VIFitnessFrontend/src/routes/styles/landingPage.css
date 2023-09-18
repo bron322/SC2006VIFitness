@@ -17,9 +17,9 @@ body {
     z-index: 1;
   }
   .text-container {
-    display: block;
-    justify-content: flex-start;
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     top: 300px;
     z-index: 2;
     left: 50px;
@@ -29,14 +29,17 @@ body {
     color: white;
     text-align: justify;
     line-height: 0.5;
+    padding-bottom: 50px;
   }
-  h3 {
+  .text {
     display: inline;
     background-color: #097FD9;
     font-size: 45px;
     padding: 20px;
     border-radius: 30px;
     font-weight: 500;
+    height: 100px;
+    width: 400px;
   }
   .content-container {
     background-color: #000000;
