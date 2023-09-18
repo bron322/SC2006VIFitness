@@ -9,7 +9,7 @@ import RegisterPage from "./routes/RegisterPage";
 import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
-import ProfilePage from "./routes/";
+import ProfilePage from "./routes/ProfilePage/Dashboard";
 import Dashboard from "./routes/ProfilePage/Dashboard";
 import Contacts from "./routes/ProfilePage/Contacts";
 import Team from "./routes/ProfilePage/team";
