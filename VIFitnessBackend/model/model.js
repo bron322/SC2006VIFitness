@@ -9,6 +9,7 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: Number,
   },
+  password: String
 });
 
 const User = mongoose.model("User", dataSchema);

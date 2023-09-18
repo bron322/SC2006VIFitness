@@ -10,9 +10,10 @@ import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
-import TestPage from "./routes/TestPageLebron";
+import TestPageLebron from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
 import TestSignUpLebron from "./routes/TestSignUpLebron";
+import {Toaster} from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
@@ -47,9 +48,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/testlebron",
+    path: "/testlogin",
     errorElement: <ErrorPage />,
-    element: <TestPage />,
+    element: <TestPageLebron />,
   },
   {
     path: "/testoscar",
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
     element: <TestPageOscar />,
   },
   {
-    path: "/testsignuplebron",
+    path: "/testregister",
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
   },
