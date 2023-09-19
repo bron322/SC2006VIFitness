@@ -25,6 +25,7 @@ import Calendar from "./routes/ProfilePage/calendar";
 import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
 import TestSignUpLebron from "./routes/TestSignUpLebron";
+import ChatGPTTest from "./routes/ChatGPTPage";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,11 @@ const router = createBrowserRouter([
     path: "/testregister",
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
+  },
+  {
+    path: "/chatgpt",
+    errorElement: <ErrorPage />,
+    element: <ChatGPTTest />,
   },
 ]);
 

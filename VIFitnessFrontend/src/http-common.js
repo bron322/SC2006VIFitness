@@ -10,6 +10,7 @@ export default axios.create({
 
 const appID = import.meta.env.VITE_NUTRITIONIX_ID;
 const appKey = import.meta.env.VITE_NUTRITIONIX_KEY;
+const openaiKey = import.meta.env.VITE_OPENAI_KEY;
 
 const Nutrionixhttp = axios.create({
   baseURL: "https://trackapi.nutritionix.com/",
@@ -20,4 +21,12 @@ const Nutrionixhttp = axios.create({
   },
 });
 
-export { Nutrionixhttp };
+const OpenAIhttp = axios.create({
+  baseURL:"https://api.openai.com/v1/",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + openaiKey,
+  } 
+})
+
+export { Nutrionixhttp , OpenAIhttp };
