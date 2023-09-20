@@ -5,6 +5,7 @@ import therock from './styles/photos/therock.png'
 import theking from './styles/photos/theking.png'
 import TextField from '@mui/material/TextField';
 import Header from "../components/headerlogin";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
 
@@ -87,16 +88,21 @@ export default function LoginPage() {
         <div className="h-4/5 w-4/5 bg-logincolor flex items-center justify-center"> 
           <div className="flex-1 w-full h-full p-4 flex-col items-center justify-center"> 
 
-            <div className="pt-32 pl-32 pr-32 h-1/3 w-full flex flex-col items-left">
-              <div className="text-7xl font-sans font-bold mb-4 text-left uppercase">Log In</div>
-              {isSubmitted ? (
-                <div>User is successfully logged in</div>
-              ) : (
-                renderForm
-              )}
+          <div className="">
+              <div className="pt-24 pl-32 pr-32 h-1/3 w-full flex flex-col items-left justify-between">
+                <div className="text-7xl font-sans font-bold mb-4 text-left uppercase">Log In</div>
+                  {isSubmitted ? (
+                    <div>User is successfully Logged In</div>
+                  ) : (
+                    renderForm
+                  )}
+                </div>
               </div>
-              <div className="">
-
+              <div className="flex items-center justify-center pt-2">
+                  <div className="pr-2">Already a member?</div>
+                  <Link to={"/register"} className='no-underline text-white'>
+                    REGISTER
+                  </Link>
               </div>
             </div>
 
