@@ -1,10 +1,18 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext} from "react";
 import "./styles/header.css";
 import VILOGO from "./styles/photos/VILOGO.jpg";
 import Button from "../components/button";
+import { IconButton } from "@mui/material";
+import { ColorModeContext, tokens } from "../routes/theme";
+import { useTheme } from "@mui/material";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 function Header() {
   const [isSticky, setIsSticky] = useState(false);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
 
   // Function to handle the scroll event
   function handleScroll() {
@@ -39,6 +47,7 @@ function Header() {
                 height: "30%",
                 display: "block",
                 overflow: "hidden",
+                filter: "invert(100%)"
               }}
             ></img>
           </a>
@@ -46,6 +55,13 @@ function Header() {
         <div className="login-register-container">
           <Button name="login" />
           <Button theme="blue" name="register" />
+          <IconButton onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === "dark" ? (
+              <DarkModeOutlinedIcon />
+            ) : (
+              <LightModeOutlinedIcon />
+            )}
+          </IconButton>
         </div>
       </div>
     </>
