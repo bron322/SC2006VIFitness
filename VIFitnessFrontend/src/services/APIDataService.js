@@ -10,9 +10,15 @@ const get = async (username) => {
   return http.get(`/user/${username}`);
 };
 
+//POST user by username and password
+const create = async (data) => {
+  return http.post(`/post`, data);
+}
+
 const APIDataService = {
   getAll,
   get,
+  create
 };
 
 export default APIDataService;
