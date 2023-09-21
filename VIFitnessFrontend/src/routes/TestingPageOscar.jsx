@@ -1,16 +1,19 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import APIDataService from "../services/APIDataService.js";
 import NutritionixService from "../services/NutritionixService.js";
 import FoodList from "../components/FoodList.jsx";
+import { useAuth } from "../hooks/AuthProvider.jsx";
 
-export default function TestPage() {
+export default function TestPage(props) {
   const [usernameQuery, setUsernameQuery] = useState("");
   const [foodQuery, setFoodQuery] = useState("");
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [nutritionData, setNutritionData] = useState([]);
+  const navigate = useNavigation();
+  const { login, logout } = useAuth();
 
   // keep track of username input field
   const handleChange = (e) => {
@@ -48,6 +51,10 @@ export default function TestPage() {
     }
   };
 
+  const signin = () => {
+    login(true);
+  };
+
   return (
     <>
       <div className="test-page-wrapper">
@@ -74,7 +81,7 @@ export default function TestPage() {
           />
         );
       })}
-      <Link to={"/user"}>Login</Link>
+      <button onClick={signin}>Sign in</button>
     </>
   );
 }
