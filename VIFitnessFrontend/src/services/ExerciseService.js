@@ -1,7 +1,7 @@
 import { ExerciseAPIhttp } from "../http-common";
 
-const queryWorkout = async () => {
-    return ExerciseAPIhttp.get('exercises?muscle=biceps');
+const queryWorkout = async (bodypart) => {
+    return ExerciseAPIhttp.get(`https://api.api-ninjas.com/v1/exercises?muscle=${bodypart}`);
 }
 
 const ExerciseService = {
