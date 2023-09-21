@@ -17,6 +17,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import User from "./ProfilePage/assets/user.png"
+import Logo from "../components/styles/photos/LOGO.png"
 
 function Item ({ title, to, icon, selected, setSelected }) {
   const theme = useTheme();
@@ -44,23 +46,23 @@ function Sidebars () {
 
   return (
     <Box
-      sx={{
-        "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
-        },
-      }}
+      // sx={{
+      //   "& .pro-sidebar-inner": {
+      //     background: "${colors.primary[400]} !important",
+      //   },
+      //   "& .pro-icon-wrapper": {
+      //     backgroundColor: "transparent !important",
+      //   },
+      //   "& .pro-inner-item": {
+      //     padding: "5px 35px 5px 20px !important",
+      //   },
+      //   "& .pro-inner-item:hover": {
+      //     color: "#868dfb !important",
+      //   },
+      //   "& .pro-menu-item.active": {
+      //     color: "#6870fa !important",
+      //   },
+      // }}
     >
       <Sidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
@@ -70,7 +72,7 @@ function Sidebars () {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              color: colors.blueAccent[100],
             }}
           >
             {!isCollapsed && (
@@ -80,9 +82,13 @@ function Sidebars () {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
-                </Typography>
+                <img
+                  alt="logo"
+                  width="90px"
+                  height="90px"
+                  src={Logo}
+                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
@@ -95,9 +101,9 @@ function Sidebars () {
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={"assets/user.png"}
+                  width="80px"
+                  height="80px"
+                  src={User}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -107,24 +113,27 @@ function Sidebars () {
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
+                  textAlign= "center"
                 >
-                  Ed Roh
+                  ABC
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                {/* <Typography variant="h5" color={colors.greenAccent[500]}>
                   VP Fancy Admin
-                </Typography>
+                </Typography> */}
               </Box>
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
+          <Box paddingLeft={isCollapsed ? undefined : "10%"} >
+            <Link to="dashboard"><Item
               title="Dashboard"
-              to="/"
+
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            </Link>
+            
 
             <Typography
               variant="h6"
@@ -133,20 +142,25 @@ function Sidebars () {
             >
               Data
             </Typography>
+            <Link to ="team">
             <Item
               title="Manage Team"
-              to="/team"
+             
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            </Link>
+            <Link to ="contact">
             <Item
               title="Contacts Information"
-              to="/contacts"
+              
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            </Link>
+            <Link to ="invoices">
             <Item
               title="Invoices Balances"
               to="/invoices"
@@ -154,6 +168,7 @@ function Sidebars () {
               selected={selected}
               setSelected={setSelected}
             />
+            </Link>
 
             <Typography
               variant="h6"
@@ -169,13 +184,15 @@ function Sidebars () {
               selected={selected}
               setSelected={setSelected}
             />
+            <Link to ="calendar">
             <Item
               title="Calendar"
-              to="/calendar"
+              // to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            </Link>
             <Item
               title="FAQ Page"
               to="/faq"
@@ -205,6 +222,7 @@ function Sidebars () {
               selected={selected}
               setSelected={setSelected}
             />
+            <Link to ="line">
             <Item
               title="Line Chart"
               to="/line"
@@ -212,6 +230,7 @@ function Sidebars () {
               selected={selected}
               setSelected={setSelected}
             />
+            </Link>
             <Item
               title="Geography Chart"
               to="/geography"

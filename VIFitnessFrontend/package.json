@@ -38,6 +38,7 @@
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-router-dom": "^6.15.0",
     "styled-components": "^6.0.8",
+    "tailwind": "^4.0.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
