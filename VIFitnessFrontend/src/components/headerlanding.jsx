@@ -47,6 +47,7 @@ function Header() {
                 height: "30%",
                 display: "block",
                 overflow: "hidden",
+                filter: "invert(100%)"
               }}
             ></img>
           </a>

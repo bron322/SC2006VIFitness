@@ -5,10 +5,10 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  age: {
-    required: true,
-    type: Number,
-  },
+  password: {
+    required : true,
+    type : String,
+  }
 });
 
 const User = mongoose.model("User", dataSchema);

@@ -10,7 +10,7 @@ APIrouter.post("/post", (req, res) => {
 
   const newUser = new User({
     username: req.body.username,
-    age: req.body.age,
+    password: req.body.password,
   });
 
   newUser
@@ -40,7 +40,12 @@ APIrouter.get("/users", (req, res) => {
 APIrouter.get("/user/:username", (req, res) => {
   User.findOne({ username: req.params.username })
     .then((found) => {
-      res.send(found);
+      if(found === null){
+        res.send("Null")
+      } else{
+         res.send(found);
+      }
+     
     })
     .catch((err) => {
       res.send("User not found");
@@ -54,7 +59,7 @@ APIrouter.patch("/update/:username", (req, res) => {
     {
       $set: {
         username: req.body.username,
-        age: req.body.age,
+        password: req.body.password,
       },
     }
   )
@@ -70,7 +75,6 @@ APIrouter.patch("/update/:username", (req, res) => {
 APIrouter.delete("/delete/:username", (req, res) => {
   User.deleteOne({ username: req.params.username })
     .then((result) => {
-      console.log(result);
       res.send(result);
     })
     .catch((err) => {
