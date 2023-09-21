@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+
+//View imports
 import LandingPage from "./routes/landingPage";
 import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
 import RegisterPage from "./routes/RegisterPage";
-import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
@@ -24,86 +25,103 @@ import Geography from "./routes/ProfilePage/Geography";
 import Calendar from "./routes/ProfilePage/calendar";
 import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useMode } from "./routes/theme";
+import "./routes/theme";
+
 import TestSignUpLebron from "./routes/TestSignUpLebron";
+
+//Authorisation related imports
+import ProtectedLayout from "./layouts/ProtectedLayout";
+import PublicLayout from "./layouts/PublicLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import TestRoute1 from "./routes/TestRoute1";
 
 const router = createBrowserRouter([
   {
     path: "/",
     errorElement: <ErrorPage />,
-    element: <LandingPage />,
-  },
-  {
-    path: "/login",
-    errorElement: <ErrorPage />,
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    errorElement: <ErrorPage />,
-    element: <RegisterPage />,
-  },
-  {
-    path: "/user",
-    errorElement: <ErrorPage />,
-    element: <UserPage />,
+    element: <AuthLayout />,
     children: [
       {
-        path: "profile-page",
-        element: <ProfilePage />,
+        element: <PublicLayout />,
         children: [
-            {
-              path: "dashboard",
-              element: <Dashboard />,
-            },
-            {
-              path: "contact",
-              element: <Contacts />,
-            },
-            {
-              path: "team",
-              element: <Team />,
-            },
-            {
-              path: "invoices",
-              element: <Invoices />,
-            },
-            {
-              path: "form",
-              element: <Form />,
-            },
-            {
-              path: "bar",
-              element: <Bar />,
-            },
-            {
-              path: "pie",
-              element: <Pie />,
-            },
-            {
-              path: "line",
-              element: <Line />,
-            },
-            {
-              path: "faq",
-              element: <FAQ />,
-            },
-            {
-              path: "calendar",
-              element: <Calendar />,
-            },
-            {
-              path: "geography",
-              element: <Geography />,
-            },
-        ]
+          {
+            index: true,
+            element: <LandingPage />,
+          },
+          {
+            path: "login",
+            element: <LoginPage />,
+          },
+          {
+            path: "register",
+            element: <RegisterPage />,
+          },
+        ],
       },
       {
-        path: "macros-tracker",
-        element: <MacrosPage />,
-      },
-      {
-        path: "workout-planner",
-        element: <WorkoutPlannerPage />,
+        element: <ProtectedLayout />,
+        children: [
+          {
+            path: "user",
+            element: <ProfilePage />,
+            children: [
+              {
+                path: "dashboard",
+                element: <Dashboard />,
+              },
+              {
+                path: "contact",
+                element: <Contacts />,
+              },
+              {
+                path: "team",
+                element: <Team />,
+              },
+              {
+                path: "invoices",
+                element: <Invoices />,
+              },
+              {
+                path: "form",
+                element: <Form />,
+              },
+              {
+                path: "bar",
+                element: <Bar />,
+              },
+              {
+                path: "pie",
+                element: <Pie />,
+              },
+              {
+                path: "line",
+                element: <Line />,
+              },
+              {
+                path: "faq",
+                element: <FAQ />,
+              },
+              {
+                path: "calendar",
+                element: <Calendar />,
+              },
+              {
+                path: "geography",
+                element: <Geography />,
+              },
+            ],
+          },
+          {
+            path: "macros-tracker",
+            element: <MacrosPage />,
+          },
+          {
+            path: "workout-planner",
+            element: <WorkoutPlannerPage />,
+          },
+        ],
       },
     ],
   },
@@ -113,20 +131,21 @@ const router = createBrowserRouter([
     element: <TestPageLebron />,
   },
   {
-    path: "/testoscar",
-    errorElement: <ErrorPage />,
-    element: <TestPageOscar />,
-  },
-  {
     path: "/testregister",
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
   },
+  {
+    path: "/testoscar",
+    errorElement: <ErrorPage />,
+    element: <TestPageOscar />,
+  },
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-    </RouterProvider>
+      <RouterProvider router={router}>
+      </RouterProvider>
   </React.StrictMode>
 );
