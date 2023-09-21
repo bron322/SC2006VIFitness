@@ -8,7 +8,6 @@ import LandingPage from "./routes/landingPage";
 import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
 import RegisterPage from "./routes/RegisterPage";
-import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
