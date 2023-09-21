@@ -24,7 +24,6 @@ import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
 import Calendar from "./routes/ProfilePage/calendar";
-import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
 import TestSignUpLebron from "./routes/TestSignUpLebron";
 import ChatGPTTest from "./routes/GetWorkoutPage";
@@ -34,6 +33,7 @@ import ProtectedLayout from "./layouts/ProtectedLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
+import GenerateWorkout from "./routes/GetWorkoutPage";
 
 const router = createBrowserRouter([
   {
@@ -141,7 +141,7 @@ const router = createBrowserRouter([
   {
     path: "/getworkout",
     errorElement: <ErrorPage />,
-    element: <GetWorkout />,
+    element: <GenerateWorkout />,
   }
 ]);
 
