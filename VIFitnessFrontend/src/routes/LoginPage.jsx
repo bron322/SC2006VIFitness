@@ -99,7 +99,7 @@ export default function LoginPage() {
                 </div>
               </div>
               <div className="flex items-center justify-center pt-2">
-                  <div className="pr-2">Already a member?</div>
+                  <div className="pr-2">New to our app?</div>
                   <Link to={"/register"} className='no-underline text-white'>
                     REGISTER
                   </Link>
