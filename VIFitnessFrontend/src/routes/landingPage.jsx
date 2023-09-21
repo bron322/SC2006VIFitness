@@ -27,8 +27,9 @@ export default function LandingPage() {
 
         
         <div className="image-container">
-        <img src = {BG}
-             alt = "LOGO"></img>
+        <img
+            src = {BG}
+            alt = "LOGO"></img>
         </div>
 
         <div className="text-container" style={{ position: 'absolute' }}>

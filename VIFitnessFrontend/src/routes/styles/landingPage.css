@@ -15,6 +15,7 @@ body {
     position: relative;
     top: -250px;
     z-index: 1;
+    object-position: center top;
   }
   .text-container {
     display: flex;
