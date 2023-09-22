@@ -1,6 +1,20 @@
 body {
     margin: 0;
 }
+@keyframes fadeInBottom {
+  from {
+      opacity: 0;
+      transform: translateY(50%);
+  }
+  to { opacity: 1 }
+}
+.cssanimation, .cssanimation span {
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+
+.fadeInBottom { animation-name: fadeInBottom }
+
 .image-container {
     width: 100%;
     height: 1000px;
@@ -17,16 +31,9 @@ body {
     z-index: 1;
     object-position: center top;
   }
-  .text-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    top: 300px;
-    z-index: 2;
-    left: 50px;
-  }
+
   h2 {
-    font-size: 80px;
+    font-size: 100px;
     color: white;
     text-align: justify;
     line-height: 0.5;
@@ -77,4 +84,5 @@ body {
   .white-link {
     color: white;
     text-decoration: none;
+    font-weight: 600;
 }

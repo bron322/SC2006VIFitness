@@ -32,15 +32,20 @@ export default function LandingPage() {
             alt = "LOGO"></img>
         </div>
 
-        <div className="text-container" style={{ position: 'absolute' }}>
-          <h2>Helps for your</h2>
-          <h2>ideal body fitness</h2>
-          <a href="#macros" className="white-link">
+
+        <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
+          <h2 className="cssanimation sequence fadeInBottom font-sans font-bold">Welcome to</h2>
+          <h2 className="cssanimation sequence fadeInBottom font-sans font-bold">VIFitness</h2>
+          <a href="#macros" className="white-link cssanimation sequence fadeInBottom">
             <div className="text">Browse our features <FontAwesomeIcon icon={faArrowRight} size="sm"/></div>
-          </a> 
+          </a>
         </div>
 
         <div style={{ backgroundColor: '#000000', width: '100%', height: '300px' }}/>
+
+
+
+
 
         <div className="content-container" id="macros">
           <div className="content-text">
