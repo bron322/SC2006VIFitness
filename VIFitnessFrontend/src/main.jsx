@@ -8,7 +8,6 @@ import LandingPage from "./routes/landingPage";
 import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
 import RegisterPage from "./routes/RegisterPage";
-import UserPage from "./routes/UserPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
 import ProfilePage from "./routes/ProfilePage";
@@ -25,6 +24,10 @@ import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
 import Calendar from "./routes/ProfilePage/calendar";
 import TestPageOscar from "./routes/TestingPageOscar";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { useMode } from "./routes/theme";
+import "./routes/theme";
+
 import TestSignUpLebron from "./routes/TestSignUpLebron";
 import ChatGPTTest from "./routes/GetWorkoutPage";
 
@@ -145,8 +148,10 @@ const router = createBrowserRouter([
   }
 ]);
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+      <RouterProvider router={router}>
+      </RouterProvider>
   </React.StrictMode>
 );

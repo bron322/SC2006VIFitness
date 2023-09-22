@@ -49,7 +49,7 @@ export default function Calendar() {
 
   return (
     <Box m="20px">
-      <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
+      <Header title="Calendar" />
 
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
@@ -102,6 +102,7 @@ export default function Calendar() {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
+            
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
