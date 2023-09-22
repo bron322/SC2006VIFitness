@@ -23,19 +23,20 @@ import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
 import Calendar from "./routes/ProfilePage/calendar";
-import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode } from "./routes/theme";
 import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
+import ChatGPTTest from "./routes/GetWorkoutPage";
 
 //Authorisation related imports
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
+import GenerateWorkout from "./routes/GetWorkoutPage";
 
 const router = createBrowserRouter([
   {
@@ -140,6 +141,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <TestPageOscar />,
   },
+  {
+    path: "/getworkout",
+    errorElement: <ErrorPage />,
+    element: <GenerateWorkout />,
+  }
 ]);
 
 
