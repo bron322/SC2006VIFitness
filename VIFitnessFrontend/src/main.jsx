@@ -37,6 +37,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
 import GenerateWorkout from "./routes/GetWorkoutPage";
+import LebronPage from "./routes/LebronPage";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +146,11 @@ const router = createBrowserRouter([
     path: "/getworkout",
     errorElement: <ErrorPage />,
     element: <GenerateWorkout />,
+  },
+  {
+    path: "/macros",
+    errorElement: <ErrorPage />,
+    element: <LebronPage />,
   }
 ]);
 
