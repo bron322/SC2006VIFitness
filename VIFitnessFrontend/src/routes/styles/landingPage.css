@@ -41,13 +41,10 @@ body {
   }
   .text {
     display: inline;
-    background-color: #097FD9;
     font-size: 45px;
-    padding: 20px;
     border-radius: 30px;
     font-weight: 500;
-    height: 100px;
-    width: 400px;
+
   }
   .content-container {
     background-color: #000000;

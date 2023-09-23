@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import './styles/landingPage.css'
 import BG from './styles/photos/background.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight, faBurger, faCalendar, faCapsules, faChartLine, faMessage } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faBurger, faCalendar, faCapsules, faChartLine, faMessage } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function LandingPage() {
@@ -36,8 +36,9 @@ export default function LandingPage() {
         <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
           <h2 className="cssanimation sequence fadeInBottom font-sans font-bold">Welcome to</h2>
           <h2 className="cssanimation sequence fadeInBottom font-sans font-bold">VIFitness</h2>
-          <a href="#macros" className="white-link cssanimation sequence fadeInBottom">
-            <div className="text">Browse our features <FontAwesomeIcon icon={faArrowRight} size="sm"/></div>
+          <a href="#macros" className="white-link cssanimation sequence fadeInBottom flex flex-col items-center bg-blue-500 rounded-3xl p-2 shadow-md">
+            <div className="text">Browse our features</div>
+            <div classname="text"> <FontAwesomeIcon icon={faArrowDown} size="xl"/></div>
           </a>
         </div>
 
