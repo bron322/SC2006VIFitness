@@ -13,7 +13,7 @@ export default function Form() {
 
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
+      <Header title="Edit USER" subtitle="Edit your Profile" />
 
       <Formik
         onSubmit={handleFormSubmit}
