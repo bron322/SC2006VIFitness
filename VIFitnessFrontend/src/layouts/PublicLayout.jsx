@@ -14,6 +14,7 @@ export default function PublicLayout() {
     login(true);
   };
 
+  //Callback function after login with google
   const handleCallbackResponse = (response) => {
     var userObject = jwt_decode(response.credential);
     console.log(userObject);
@@ -21,12 +22,14 @@ export default function PublicLayout() {
   };
 
   useEffect(() => {
+    //Call Google OAuth
     window.google.accounts.id.initialize({
       client_id:
         "1045036706852-09cqq9sthot4lphn50828qc5cmlkqdqk.apps.googleusercontent.com",
       callback: handleCallbackResponse,
     });
 
+    //Render Login with Google button
     window.google.accounts.id.renderButton(
       document.getElementById("signInDiv"),
       {
@@ -35,6 +38,7 @@ export default function PublicLayout() {
       }
     );
 
+    //Google login prompt
     window.google.accounts.id.prompt();
   }, []);
 
