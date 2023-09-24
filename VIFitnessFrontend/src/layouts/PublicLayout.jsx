@@ -34,6 +34,8 @@ export default function PublicLayout() {
         size: "large",
       }
     );
+
+    window.google.accounts.id.prompt();
   }, []);
 
   return (
