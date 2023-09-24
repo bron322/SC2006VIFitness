@@ -13,7 +13,6 @@ export default function TestPage(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [nutritionData, setNutritionData] = useState([]);
   const navigate = useNavigation();
-  const { login, logout } = useAuth();
 
   // keep track of username input field
   const handleChange = (e) => {
@@ -51,9 +50,7 @@ export default function TestPage(props) {
     }
   };
 
-  const signin = () => {
-    login(true);
-  };
+  const signin = () => {};
 
   return (
     <>
