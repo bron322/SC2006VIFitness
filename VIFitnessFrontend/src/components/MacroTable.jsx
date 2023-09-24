@@ -10,9 +10,9 @@ export const Table = ({ rows, deleteRow, editRow }) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Page</th>
+            <th>Food</th>
             <th className="expand">Description</th>
-            <th>Status</th>
+            <th>Calories</th>
             <th>Actions</th>
           </tr>
         </thead>

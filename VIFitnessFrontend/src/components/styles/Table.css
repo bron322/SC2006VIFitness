@@ -1,5 +1,6 @@
 .table-wrapper {
     width: 100%;
+    display: flex;
   }
   
   .table {
@@ -10,7 +11,7 @@
     box-shadow: 0px 10px 10px #ccc;
     border-radius: 10px;
     white-space: nowrap;
-    width: 100em;
+    width: 100%;
     max-width: 80%;
     margin: auto;
     table-layout: auto;
@@ -44,18 +45,18 @@
   .label {
     border-radius: 3px;
     padding: 0.3rem;
-    color: white;
+    color: rgb(255, 255, 255);
   }
   
-  .label-draft {
+  .label-lunch {
     background-color: #777;
   }
   
-  .label-live {
+  .label-breakfast {
     background-color: #42a942;
   }
   
-  .label-error {
+  .label-dinner {
     background-color: #d9534f;
   }
   
