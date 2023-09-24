@@ -16,6 +16,7 @@ export default function ProtectedLayout() {
   return (
     <>
       <h1>This is Protected Layout</h1>
+      {user.name ? <h1>Hi! {user.name}</h1> : null}
       <button onClick={SignoutAction}>Sign out</button>
       <Outlet />
     </>

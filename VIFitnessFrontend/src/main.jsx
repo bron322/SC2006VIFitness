@@ -69,7 +69,7 @@ const router = createBrowserRouter([
             element: <ProfilePage />,
             children: [
               {
-                path: "dashboard",
+                index: true,
                 element: <Dashboard />,
               },
               {
@@ -145,13 +145,11 @@ const router = createBrowserRouter([
     path: "/getworkout",
     errorElement: <ErrorPage />,
     element: <GenerateWorkout />,
-  }
+  },
 ]);
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-      <RouterProvider router={router}>
-      </RouterProvider>
+    <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
 );
