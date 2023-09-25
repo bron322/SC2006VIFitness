@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigation } from "react-router-dom";
 import APIDataService from "../services/APIDataService.js";
 import NutritionixService from "../services/NutritionixService.js";
 import FoodList from "../components/FoodList.jsx";
-import { useAuth } from "../hooks/AuthProvider.jsx";
+import jwt_decode from "jwt-decode";
+import StravaAPIService from "../services/StravaAPIService.js";
 
 export default function TestPage(props) {
   const [usernameQuery, setUsernameQuery] = useState("");
@@ -13,7 +14,6 @@ export default function TestPage(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [nutritionData, setNutritionData] = useState([]);
   const navigate = useNavigation();
-  const { login, logout } = useAuth();
 
   // keep track of username input field
   const handleChange = (e) => {
@@ -51,8 +51,34 @@ export default function TestPage(props) {
     }
   };
 
-  const signin = () => {
-    login(true);
+  const signin = () => {};
+
+  ///////////////////////////// GOOGLE OAUTH /////////////////////////////////////
+  const handleCallbackResponse = (response) => {
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+  };
+
+  useEffect(() => {
+    window.google.accounts.id.initialize({
+      client_id:
+        "1045036706852-09cqq9sthot4lphn50828qc5cmlkqdqk.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    window.google.accounts.id.renderButton(
+      document.getElementById("signInDiv"),
+      {
+        theme: "outline",
+        size: "large",
+      }
+    );
+  }, []);
+
+  ///////////////////////////// STRAVA OAUTH /////////////////////////////////////
+
+  const StravaSignIn = () => {
+    StravaAPIService.redirectAuthorisation();
   };
 
   return (
@@ -82,6 +108,8 @@ export default function TestPage(props) {
         );
       })}
       <button onClick={signin}>Sign in</button>
+      <div id="signInDiv"></div>
+      <button onClick={StravaSignIn}>Strava Sign in</button>
     </>
   );
 }

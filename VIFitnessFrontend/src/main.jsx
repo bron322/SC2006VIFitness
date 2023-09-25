@@ -26,19 +26,23 @@ import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
 import Calendar from "./routes/ProfilePage/calendar";
-import TestPage from "./routes/TestPageLebron";
 import TestPageOscar from "./routes/TestingPageOscar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode } from "./routes/theme";
 import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
+import ChatGPTTest from "./routes/GetWorkoutPage";
 
 //Authorisation related imports
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
+import GenerateWorkout from "./routes/GetWorkoutPage";
+import StravaRedirect, {
+  loader as stravaLoader,
+} from "./routes/StravaRedirect";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +65,17 @@ const router = createBrowserRouter([
             path: "register",
             element: <RegisterPage />,
           },
+          {
+            path: "testoscar",
+            errorElement: <ErrorPage />,
+            element: <TestPageOscar />,
+          },
+          {
+            path: "stravaredirect/exchange_token",
+            errorElement: <ErrorPage />,
+            element: <StravaRedirect />,
+            loader: stravaLoader,
+          },
         ],
       },
       {
@@ -71,7 +86,7 @@ const router = createBrowserRouter([
             element: <ProfilePage />,
             children: [
               {
-                path: "dashboard",
+                index: true,
                 element: <Dashboard />,
               },
               {
@@ -114,6 +129,14 @@ const router = createBrowserRouter([
                 path: "geography",
                 element: <Geography />,
               },
+              {
+                path: "macros-tracker",
+                element: <MacrosPage />,
+              },
+              {
+                path: "workout-planner",
+                element: <WorkoutPlannerPage />,
+              },
             ],
           },
           {
@@ -136,6 +159,7 @@ const router = createBrowserRouter([
             path: "workout-core",
             element: <WorkoutCorePage />,
           },
+
         ],
       },
     ],
@@ -150,17 +174,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
   },
+
   {
-    path: "/testoscar",
+    path: "/getworkout",
     errorElement: <ErrorPage />,
-    element: <TestPageOscar />,
+    element: <GenerateWorkout />,
   },
 ]);
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-      <RouterProvider router={router}>
-      </RouterProvider>
+    <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
 );
