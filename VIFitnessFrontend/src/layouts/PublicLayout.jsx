@@ -2,6 +2,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
+import StravaAPIService from "../services/StravaAPIService";
+import "./styles/PublicLayout.css";
 
 export default function PublicLayout() {
   const { user, login } = useAuth();
@@ -42,11 +44,40 @@ export default function PublicLayout() {
     window.google.accounts.id.prompt();
   }, []);
 
+  const StravaSignin = () => {
+    StravaAPIService.redirectAuthorisation();
+  };
+
   return (
     <>
       <h1>This is Unprotected Layout</h1>
-      <div id="signInDiv"></div>
-      <button onClick={SignInAction}>Sign in</button>
+      <div className="signin-button-wrapper">
+        {/* Google Sign in button */}
+        <div id="signInDiv"></div>
+
+        {/* VI Fitness Sign in button */}
+        <div className="button-wrapper">
+          <button className="button-82-pushable" onClick={SignInAction}>
+            <span className="button-82-shadow"></span>
+            <span className="button-82-edge"></span>
+            <span className="button-82-front button-text">
+              Sign in with VI Fitness
+            </span>
+          </button>
+        </div>
+
+        {/* Strava Sign in button */}
+        <div className="button-wrapper">
+          <button className="button-82-pushable" onClick={StravaSignin}>
+            <span className="button-82-shadow"></span>
+            <span className="button-82-edge"></span>
+            <span className="button-82-front button-text">
+              Sign in with Strava
+            </span>
+          </button>
+        </div>
+      </div>
+
       <Outlet />
     </>
   );
