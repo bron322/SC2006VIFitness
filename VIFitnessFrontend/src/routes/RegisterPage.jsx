@@ -5,12 +5,54 @@ import therock from './styles/photos/therock.png'
 import theking from './styles/photos/theking.png'
 import TextField from '@mui/material/TextField';
 import Header from "../components/headerlogin";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
+import {Toaster, toast} from 'react-hot-toast';
+import APIDataService from "../services/APIDataService";
+import { useNavigate } from "react-router-dom";
 
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [data, setData] = useState({
+    username:'',
+    password:'',
+  })
+
+  const registerUser = async (e) =>{
+    console.log("button pressed");
+    let check = await checkDuplicate(data.username);
+    console.log(check);
+    if(check) {
+      toast.error("Username taken");
+    } else{
+      try{
+        const response = await APIDataService.create(data);
+        toast.success('Login successful. Welcome to VI Fitness!')
+        navigate('/login') //directing to the home page
+      } catch(err) {
+        console.log(err)
+      }
+    }
+  }
+
+  const checkDuplicate = async (username) => {
+    let response;
+    try{
+      response = await APIDataService.get(username);
+    } catch(err){
+      console.log(err);
+    }
+    if(response.data === "Null") {
+      console.log("Null");
+      return false;
+    }else{
+      console.log("Duplicate");
+      return true;
+    }
+  }
 
   // User Login info
   const database = [
@@ -61,11 +103,14 @@ export default function RegisterPage() {
   // JSX code for login form
   const renderForm = (
     <div className="form">
-      <form onSubmit={handleSubmit}>
+      <Toaster position="bottom-right" toastOptions={{duration: 2000}}/>
+      <Form onSubmit={registerUser}>
         <div className="input-container font-semibold flex ">
-          <TextField id="standard-basic" label="USERNAME" variant="standard" margin="dense"/>
+          <TextField id="standard-basic" label="USERNAME" variant="standard" margin="dense"value = {data.username} onChange = {(e) => {
+          console.log(data);
+          setData({...data, username:e.target.value})}}/>
           {renderErrorMessage("uname")}
-          <TextField id="standard-basic" label="PASSWORD" variant="standard" margin="dense"/>
+          <TextField id="standard-basic" label="PASSWORD" variant="standard" margin="dense" value = {data.password} onChange = {(e) => setData({...data, password:e.target.value})}/>
           {renderErrorMessage("pass")}
           <div className="gap-[20px] font-semibold flex ">
             <TextField id="standard-basic" label="AGE" variant="standard" margin="dense"/>
@@ -75,7 +120,7 @@ export default function RegisterPage() {
         <div className="button-container pt-5">
           <input type="submit" value="REGISTER" style={{ width: '90%'}}/>
         </div>
-      </form>
+      </Form>
     </div>
   );
 

@@ -2,9 +2,10 @@ import { useState } from "react";
 import "react-pro-sidebar";
 import { Sidebar } from "react-pro-sidebar";
 import { Menu, MenuItem } from "react-pro-sidebar";
+// import "react-pro-sidebar/dist/styles.css"
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import { tokens } from "./theme";
+import { tokens } from "../routes/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -17,52 +18,55 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import User from "./ProfilePage/assets/user.png"
+import User from "../components/styles/photos/user.png"
 import Logo from "../components/styles/photos/LOGO.png"
 
-function Item ({ title, to, icon, selected, setSelected }) {
+const Item = ({ title,to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
       active={selected === title}
       style={{
-        color: colors.grey[100],
+        color: colors.grey[100]
       }}
       onClick={() => setSelected(title)}
       icon={icon}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
+      {/* <Link to= {to} /> */}
     </MenuItem>
   );
 };
 
-function Sidebars () {
+const Sidebars= ()=> {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
+  
+
   return (
     <Box
-      // sx={{
-      //   "& .pro-sidebar-inner": {
-      //     background: "${colors.primary[400]} !important",
-      //   },
-      //   "& .pro-icon-wrapper": {
-      //     backgroundColor: "transparent !important",
-      //   },
-      //   "& .pro-inner-item": {
-      //     padding: "5px 35px 5px 20px !important",
-      //   },
-      //   "& .pro-inner-item:hover": {
-      //     color: "#868dfb !important",
-      //   },
-      //   "& .pro-menu-item.active": {
-      //     color: "#6870fa !important",
-      //   },
-      // }}
+      // backgroundColor={colors.primary[400]}
+      sx={{
+        "& .pro-sidebar-inner": {
+          background: `${colors.primary[100]} !important`,
+        },
+        "& .pro-icon-wrapper": {
+          backgroundColor: "transparent !important",
+        },
+        "& .pro-inner-item": {
+          padding: "5px 35px 5px 20px !important",
+        },
+        "& .pro-inner-item:hover": {
+          color: "#868dfb !important",
+        },
+        "& .pro-menu-item.active": {
+          color: "#6870fa !important",
+        },
+      }}
     >
       <Sidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
@@ -72,7 +76,7 @@ function Sidebars () {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.blueAccent[100],
+              color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
@@ -125,19 +129,22 @@ function Sidebars () {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"} >
-            <Link to="dashboard"><Item
+            <Link to="dashboard">
+            
+              <Item
               title="Dashboard"
-
+              
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            
             </Link>
             
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Data
@@ -145,7 +152,7 @@ function Sidebars () {
             <Link to ="team">
             <Item
               title="Manage Team"
-             
+              
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -160,31 +167,33 @@ function Sidebars () {
               setSelected={setSelected}
             />
             </Link>
-            <Link to ="invoices">
+            {/* <Link to ="invoices"> */}
             <Item
               title="Invoices Balances"
-              to="/invoices"
+              // to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            </Link>
+            {/* </Link> */}
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Pages
             </Typography>
+            {/* <Link to ="form"> */}
             <Item
               title="Profile Form"
-              to="/form"
+              // to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Link to ="calendar">
+            {/* </Link> */}
+            {/* <Link to ="calendar"> */}
             <Item
               title="Calendar"
               // to="/calendar"
@@ -192,10 +201,10 @@ function Sidebars () {
               selected={selected}
               setSelected={setSelected}
             />
-            </Link>
+            {/* </Link> */}
             <Item
               title="FAQ Page"
-              to="/faq"
+              // to="/faq"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -203,37 +212,37 @@ function Sidebars () {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              // color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Charts
             </Typography>
             <Item
               title="Bar Chart"
-              to="/bar"
+              // to="/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Pie Chart"
-              to="/pie"
+              // to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Link to ="line">
+            {/* <Link to ="line"> */}
             <Item
               title="Line Chart"
-              to="/line"
+              // to="/line"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            </Link>
+            {/* </Link> */}
             <Item
               title="Geography Chart"
-              to="/geography"
+              // to="/geography"
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
