@@ -151,27 +151,6 @@ const router = createBrowserRouter([
               },
             ],
           },
-          // {
-          //   path: "macros-tracker",
-          //   element: <MacrosPage />,
-          // },
-          // {
-          //   path: "workout-planner",
-          //   element: <WorkoutPlannerPage />,
-          // },
-          // {
-          //   path: "workout-lower",
-          //   element: <WorkoutLowerPage />,
-          // },
-          // {
-          //   path: "workout-upper",
-          //   element: <WorkoutUpperPage />,
-          // },
-          // {
-          //   path: "workout-core",
-          //   element: <WorkoutCorePage />,
-          // },
-
         ],
       },
     ],
