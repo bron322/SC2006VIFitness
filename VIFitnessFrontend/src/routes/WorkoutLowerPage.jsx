@@ -1,14 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import PlannerComponent from "../components/PlannerComponent";
-import '../components/styles/WorkoutBackground.css';
+import LowerBodyComponent from "../components/LowerBodyComponent";
 import Topbar from "./topbar";
 import Sidebars from "../routes/sidebars.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
-export default function WorkoutPlannerPage() {
+export default function WorkoutLowerPage() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
@@ -21,7 +20,7 @@ export default function WorkoutPlannerPage() {
             <Sidebars isSidebar={isSidebar} />
             <main className="content">
               <Topbar setIsSidebar={setIsSidebar} />
-              <PlannerComponent />
+              <LowerBodyComponent />
             </main>
           </div>
         </ThemeProvider>

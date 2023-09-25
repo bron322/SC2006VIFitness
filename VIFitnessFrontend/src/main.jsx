@@ -10,6 +10,9 @@ import LoginPage from "./routes/LoginPage";
 import RegisterPage from "./routes/RegisterPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
+import WorkoutCorePage from "./routes/WorkoutCorePage";
+import WorkoutUpperPage from "./routes/WorkoutUpperPage";
+import WorkoutLowerPage from "./routes/WorkoutLowerPage";
 import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
 import Dashboard from "./routes/ProfilePage/Dashboard";
@@ -133,6 +136,18 @@ const router = createBrowserRouter([
               {
                 path: "workout-planner",
                 element: <WorkoutPlannerPage />,
+              },
+              {
+                path: "workout-lower",
+                element: <WorkoutLowerPage />,
+              },
+              {
+                path: "workout-upper",
+                element: <WorkoutUpperPage />,
+              },
+              {
+                path: "workout-core",
+                element: <WorkoutCorePage />,
               },
             ],
           },
