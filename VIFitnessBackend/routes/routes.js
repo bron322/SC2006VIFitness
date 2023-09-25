@@ -11,6 +11,9 @@ APIrouter.post("/post", (req, res) => {
   const newUser = new User({
     username: req.body.username,
     password: req.body.password,
+    age: req.body.age,
+    weight: req.body.weight,
+    height: req.body.height,
   });
 
   newUser
@@ -40,12 +43,11 @@ APIrouter.get("/users", (req, res) => {
 APIrouter.get("/user/:username", (req, res) => {
   User.findOne({ username: req.params.username })
     .then((found) => {
-      if(found === null){
-        res.send("Null")
-      } else{
-         res.send(found);
+      if (found === null) {
+        res.send("Null");
+      } else {
+        res.send(found);
       }
-     
     })
     .catch((err) => {
       res.send("User not found");
@@ -81,5 +83,14 @@ APIrouter.delete("/delete/:username", (req, res) => {
       res.send(err.message);
     });
 });
+
+//Add meal method
+APIrouter.post("/addMeal/:username", (req, res) => {});
+
+//Update meal method
+APIrouter.patch("/updateMeal/:username", (req, res) => {});
+
+//Delete meal method
+APIrouter.delete("/deleteMeal/:username", (req, res) => {});
 
 export { APIrouter };
