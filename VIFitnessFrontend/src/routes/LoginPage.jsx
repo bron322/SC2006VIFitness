@@ -5,10 +5,13 @@ import therock from './styles/photos/therock.png'
 import theking from './styles/photos/theking.png'
 import TextField from '@mui/material/TextField';
 import Header from "../components/headerlogin";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import APIDataService from "../services/APIDataService";
+import {Toaster, toast} from 'react-hot-toast';
 
 export default function LoginPage() {
-
+  const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -52,38 +55,74 @@ export default function LoginPage() {
     }
   };
 
+  const[data,setData] = useState({
+    name:'',
+    password:'',
+  })
+
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
+  
+  const authenticateUser = async (e) =>{
+    console.log("button pressed");
+    let authenticate = await authentication(data.username);
+    console.log(authenticate);
+    if(authenticate) {
+      toast.success('Login successful. Welcome to VI Fitness!');
+      navigate('/'); //directing to the landing page first  
+    } else {
+      toast.error("Invalid credentials bro")
+    }
+  }
+
+  const authentication = async (username) => {
+    let response;
+    try{
+      response = await APIDataService.get(username);
+    } catch(err){
+      console.log(err);
+    }
+    //when user doesn't exist or when user keys in wrong password
+    console.log(response.data);
+    if(response.data === "Null" || response.data.password != data.password) {
+      console.log("Invalid credentials");
+      return false;
+    }else{
+      console.log("Authenticated");
+      return true;
+    }
+  }
 
   // JSX code for login form
   const renderForm = (
     <div className="form">
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={authenticateUser}>
         <div className="input-container font-semibold">
           {/* <label className="text-gray-500">USERNAME</label>
           <input className="bg-logincolor" type="text" name="uname" required /> */}
-          <TextField id="standard-basic" label="USERNAME" variant="standard" margin="dense"/>
+          <TextField id="standard-basic" label="USERNAME" variant="standard" margin="dense" value = {data.username} onChange = {(e) => setData({...data, username:e.target.value})}/>
           {renderErrorMessage("uname")}
         </div>
         <div className="input-container font-semibold">
           {/* <label className="text-gray-500">PASSWORD</label>
           <input className="bg-logincolor" type="password" name="pass" required /> */}
-          <TextField id="standard-basic" label="PASSWORD" variant="standard" margin="dense"/>
+          <TextField id="standard-basic" label="PASSWORD" variant="standard" margin="dense" value = {data.password} onChange = {(e) => setData({...data, password:e.target.value})}/>
           {renderErrorMessage("pass")}
         </div>
         <div className="button-container pt-5">
           <input type="submit" value="LOG IN" style={{ width: '90%'}}/>
         </div>
-      </form>
+      </Form>
     </div>
   );
 
   return (
     <>
       <Header/>
+      <Toaster position="bottom-right" toastOptions={{duration: 2000}}/>
       <div className="h-[770px] flex items-center justify-center bg-black">
         <div className="h-4/5 w-4/5 bg-logincolor flex items-center justify-center"> 
           <div className="flex-1 w-full h-full p-4 flex-col items-center justify-center"> 

@@ -10,6 +10,7 @@ export default axios.create({
 
 const appID = import.meta.env.VITE_NUTRITIONIX_ID;
 const appKey = import.meta.env.VITE_NUTRITIONIX_KEY;
+const exerciseKey = import.meta.env.VITE_EXERCISE_KEY;
 
 const Nutrionixhttp = axios.create({
   baseURL: "https://trackapi.nutritionix.com/",
@@ -20,4 +21,15 @@ const Nutrionixhttp = axios.create({
   },
 });
 
-export { Nutrionixhttp };
+const ExerciseAPIhttp = axios.create({
+  url: "https://api.api-ninjas.com/v1/",
+  headers: {
+    "X-Api-Key": exerciseKey,
+  },
+});
+
+const StravaAPIhttp = axios.create({
+  baseURL: "https://www.strava.com/api/v3/",
+});
+
+export { Nutrionixhttp, ExerciseAPIhttp, StravaAPIhttp };
