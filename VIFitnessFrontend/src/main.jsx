@@ -40,6 +40,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
 import GenerateWorkout from "./routes/GetWorkoutPage";
+import LebronPage from "./routes/LebronPage";
 import StravaRedirect, {
   loader as stravaLoader,
 } from "./routes/StravaRedirect";
