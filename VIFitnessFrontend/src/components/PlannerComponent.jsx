@@ -17,7 +17,7 @@ const BackgroundImages = () => {
 const texts = ['Lower Body', 'Upper Body', 'Core'];
 
   return (
-    <div className="background-images-container">
+    <div className="flex h-screen">
       {images.map((image, index) => (
         <div
           key={index}
