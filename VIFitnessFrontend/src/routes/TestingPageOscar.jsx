@@ -5,6 +5,7 @@ import APIDataService from "../services/APIDataService.js";
 import NutritionixService from "../services/NutritionixService.js";
 import FoodList from "../components/FoodList.jsx";
 import jwt_decode from "jwt-decode";
+import StravaAPIService from "../services/StravaAPIService.js";
 
 export default function TestPage(props) {
   const [usernameQuery, setUsernameQuery] = useState("");
@@ -52,6 +53,7 @@ export default function TestPage(props) {
 
   const signin = () => {};
 
+  ///////////////////////////// GOOGLE OAUTH /////////////////////////////////////
   const handleCallbackResponse = (response) => {
     var userObject = jwt_decode(response.credential);
     console.log(userObject);
@@ -72,6 +74,12 @@ export default function TestPage(props) {
       }
     );
   }, []);
+
+  ///////////////////////////// STRAVA OAUTH /////////////////////////////////////
+
+  const StravaSignIn = () => {
+    StravaAPIService.redirectAuthorisation();
+  };
 
   return (
     <>
@@ -101,6 +109,7 @@ export default function TestPage(props) {
       })}
       <button onClick={signin}>Sign in</button>
       <div id="signInDiv"></div>
+      <button onClick={StravaSignIn}>Strava Sign in</button>
     </>
   );
 }

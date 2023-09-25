@@ -37,6 +37,9 @@ import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
 import GenerateWorkout from "./routes/GetWorkoutPage";
+import StravaRedirect, {
+  loader as stravaLoader,
+} from "./routes/StravaRedirect";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,17 @@ const router = createBrowserRouter([
           {
             path: "register",
             element: <RegisterPage />,
+          },
+          {
+            path: "testoscar",
+            errorElement: <ErrorPage />,
+            element: <TestPageOscar />,
+          },
+          {
+            path: "stravaredirect/exchange_token",
+            errorElement: <ErrorPage />,
+            element: <StravaRedirect />,
+            loader: stravaLoader,
           },
         ],
       },
@@ -136,11 +150,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
   },
-  {
-    path: "/testoscar",
-    errorElement: <ErrorPage />,
-    element: <TestPageOscar />,
-  },
+
   {
     path: "/getworkout",
     errorElement: <ErrorPage />,
