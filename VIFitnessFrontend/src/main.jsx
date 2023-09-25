@@ -136,14 +136,6 @@ const router = createBrowserRouter([
               },
             ],
           },
-          // {
-          //   path: "macros-tracker",
-          //   element: <MacrosPage />,
-          // },
-          // {
-          //   path: "workout-planner",
-          //   element: <WorkoutPlannerPage />,
-          // },
         ],
       },
     ],
