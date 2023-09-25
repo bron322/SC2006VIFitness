@@ -22,10 +22,14 @@ const Nutrionixhttp = axios.create({
 });
 
 const ExerciseAPIhttp = axios.create({
-  url: 'https://api.api-ninjas.com/v1/',
+  url: "https://api.api-ninjas.com/v1/",
   headers: {
-    'X-Api-Key': exerciseKey,
+    "X-Api-Key": exerciseKey,
   },
-})
+});
 
-export { Nutrionixhttp , ExerciseAPIhttp };
+const StravaAPIhttp = axios.create({
+  baseURL: "https://www.strava.com/api/v3/",
+});
+
+export { Nutrionixhttp, ExerciseAPIhttp, StravaAPIhttp };
