@@ -138,16 +138,16 @@ const router = createBrowserRouter([
                 element: <WorkoutPlannerPage />,
               },
               {
+                path: "workout-lower",
+                element: <WorkoutLowerPage />,
+              },
+              {
                 path: "workout-upper",
                 element: <WorkoutUpperPage />,
               },
               {
                 path: "workout-core",
                 element: <WorkoutCorePage />,
-              },
-              {
-                path: "workout-lower",
-                element: <WorkoutLowerPage />,
               },
             ],
           },
