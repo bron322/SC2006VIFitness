@@ -27,6 +27,44 @@ APIrouter.post("/post", (req, res) => {
     });
 });
 
+//create user with Google login
+APIrouter.post("/post/byGoogle", (req, res) => {
+  const newUser = new User({
+    username: req.body.username,
+    password: req.body.password,
+    google_data: req.body.google_data,
+  });
+
+  newUser
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err.message);
+    });
+});
+
+//create user with Strava login
+APIrouter.post("/post/byStrava", (req, res) => {
+  const newUser = new User({
+    username: req.body.username,
+    password: req.body.password,
+    strava_data: req.body.strava_data,
+  });
+
+  newUser
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err.message);
+    });
+});
+
 //Get all Method
 APIrouter.get("/users", (req, res) => {
   User.find()
@@ -42,6 +80,36 @@ APIrouter.get("/users", (req, res) => {
 //Get by ID Method
 APIrouter.get("/user/:username", (req, res) => {
   User.findOne({ username: req.params.username })
+    .then((found) => {
+      if (found === null) {
+        res.send("Null");
+      } else {
+        res.send(found);
+      }
+    })
+    .catch((err) => {
+      res.send("User not found");
+    });
+});
+
+//Get by Gmail inside Google Data Object
+APIrouter.get("/user/googledata/:gmail", (req, res) => {
+  User.findOne({ "google_data.email": req.params.gmail })
+    .then((found) => {
+      if (found === null) {
+        res.send("Null");
+      } else {
+        res.send(found);
+      }
+    })
+    .catch((err) => {
+      res.send("User not found");
+    });
+});
+
+//Get by Strava athlete id
+APIrouter.get("/user/stravadata/:stravaid", (req, res) => {
+  User.findOne({ "strava_data.athlete.id": parseInt(req.params.stravaid, 10) })
     .then((found) => {
       if (found === null) {
         res.send("Null");
