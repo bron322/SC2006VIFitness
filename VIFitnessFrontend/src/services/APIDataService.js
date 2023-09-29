@@ -10,6 +10,11 @@ const get = async (username) => {
   return http.get(`/user/${username}`);
 };
 
+//GET user by email
+const getByEmail = async (email) => {
+  return http.get(`/user/getByEmail/${email}`);
+};
+
 //GET user by gmail in google_data
 const getByGmail = async (gmail) => {
   return http.get(`/user/googledata/${gmail}`);
@@ -38,6 +43,7 @@ const createByStrava = async (data) => {
 const APIDataService = {
   getAll,
   get,
+  getByEmail,
   getByGmail,
   getByStravaID,
   create,

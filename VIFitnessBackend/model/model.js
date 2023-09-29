@@ -9,6 +9,11 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  email: {
+    required: true,
+    type: String,
+    default: "nil",
+  },
   age: { required: true, type: Number, default: 0 },
   weight: { required: true, type: Number, default: 0 },
   height: { required: true, type: Number, default: 0 },

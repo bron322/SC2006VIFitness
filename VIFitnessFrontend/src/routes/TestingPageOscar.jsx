@@ -6,6 +6,8 @@ import NutritionixService from "../services/NutritionixService.js";
 import FoodList from "../components/FoodList.jsx";
 import jwt_decode from "jwt-decode";
 import StravaAPIService from "../services/StravaAPIService.js";
+import BrevoAPIService from "../services/BrevoAPIService.js";
+import { AlertDialogButton } from "@/components/EmailVerificationButton.jsx";
 
 export default function TestPage(props) {
   const [usernameQuery, setUsernameQuery] = useState("");
@@ -75,6 +77,16 @@ export default function TestPage(props) {
     );
   }, []);
 
+  const sendEmail = async () => {
+    let data = {
+      receiverName: "oscar",
+      receiverEmail: "oscar.jh9@gmail.com",
+      verificationCode: "xxxdde",
+    };
+    const response = await BrevoAPIService.sendBrevoMail(data);
+    console.log(response);
+  };
+
   ///////////////////////////// STRAVA OAUTH /////////////////////////////////////
 
   const StravaSignIn = () => {
@@ -83,6 +95,8 @@ export default function TestPage(props) {
 
   return (
     <>
+      <AlertDialogButton />
+      <button onClick={sendEmail}>Send Email</button>
       <div className="test-page-wrapper">
         <h1>Oscar's Test View</h1>
       </div>

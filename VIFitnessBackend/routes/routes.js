@@ -10,6 +10,7 @@ APIrouter.post("/post", (req, res) => {
 
   const newUser = new User({
     username: req.body.username,
+    email: req.body.email,
     password: req.body.password,
     age: req.body.age,
     weight: req.body.weight,
@@ -80,6 +81,21 @@ APIrouter.get("/users", (req, res) => {
 //Get by ID Method
 APIrouter.get("/user/:username", (req, res) => {
   User.findOne({ username: req.params.username })
+    .then((found) => {
+      if (found === null) {
+        res.send("Null");
+      } else {
+        res.send(found);
+      }
+    })
+    .catch((err) => {
+      res.send("User not found");
+    });
+});
+
+//Get by email Method
+APIrouter.get("/user/getByEmail/:email", (req, res) => {
+  User.findOne({ email: req.params.email })
     .then((found) => {
       if (found === null) {
         res.send("Null");

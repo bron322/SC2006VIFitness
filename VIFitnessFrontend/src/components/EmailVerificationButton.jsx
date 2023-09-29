@@ -62,17 +62,17 @@ export function AlertDialogButton(props) {
   };
 
   //fetch from database to check if email already used
-  const checkDuplicate = () => {
+  const checkDuplicate = async () => {
     let response;
-    try{
-      response = await APIDataService.getByEmail
+    try {
+      response = await APIDataService.getByEmail();
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   //start of registration flow
-  const handleRegistrationFlow = async () => {
-
-  };
+  const handleRegistrationFlow = async () => {};
 
   return (
     <AlertDialog>
