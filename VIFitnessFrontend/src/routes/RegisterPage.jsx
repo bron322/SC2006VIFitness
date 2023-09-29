@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./styles/loginpage.css";
 import BG from "./styles/photos/loginbackground.jpg";
-import therock from "./styles/photos/therock.png";
 import theking from "./styles/photos/theking.png";
 import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
@@ -9,6 +8,7 @@ import { Link, Form } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import APIDataService from "../services/APIDataService";
 import { useNavigate } from "react-router-dom";
+import { AlertDialogButton } from "@/components/EmailVerificationButton";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -17,21 +17,23 @@ export default function RegisterPage() {
 
   const [data, setData] = useState({
     username: "",
+    email: "",
     password: "",
     age: 0,
     weight: 0,
+    height: 0,
   });
 
   const registerUser = async (e) => {
     console.log("button pressed");
-    let check = await checkDuplicate(data.username);
+    let check = await checkDuplicate(data.email);
     console.log(check);
     if (check) {
-      toast.error("Username taken");
+      toast.error("This email is already linked to another account");
     } else {
       try {
         const response = await APIDataService.create(data);
-        toast.success("Login successful. Welcome to VI Fitness!");
+        toast.success("Registration successful. Welcome to VI Fitness!");
         navigate("/login"); //directing to the home page
       } catch (err) {
         console.log(err);
@@ -39,10 +41,11 @@ export default function RegisterPage() {
     }
   };
 
-  const checkDuplicate = async (username) => {
+  //fetch from database to check if email already used
+  const checkDuplicate = async (email) => {
     let response;
     try {
-      response = await APIDataService.get(username);
+      response = await APIDataService.getByEmail(email);
     } catch (err) {
       console.log(err);
     }
@@ -77,6 +80,14 @@ export default function RegisterPage() {
           {renderErrorMessage("uname")}
           <TextField
             id="standard-basic"
+            label="EMAIL"
+            variant="standard"
+            margin="dense"
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+          />
+          {renderErrorMessage("email")}
+          <TextField
+            id="standard-basic"
             label="PASSWORD"
             variant="standard"
             margin="dense"
@@ -98,10 +109,17 @@ export default function RegisterPage() {
               margin="dense"
               onChange={(e) => setData({ ...data, weight: e.target.value })}
             />
+            <TextField
+              id="standard-basic"
+              label="HEIGHT"
+              variant="standard"
+              margin="dense"
+              onChange={(e) => setData({ ...data, height: e.target.value })}
+            />
           </div>
         </div>
         <div className="button-container pt-5">
-          <input type="submit" value="REGISTER" style={{ width: "90%" }} />
+          <AlertDialogButton data={data} checkDuplicate={checkDuplicate} />
         </div>
       </Form>
     </div>
@@ -110,11 +128,11 @@ export default function RegisterPage() {
   return (
     <>
       <Header />
-      <div className="h-[770px] flex items-center justify-center bg-black">
+      <div className="h-full w-full flex items-center justify-center bg-black absolute top-0">
         <div className="h-4/5 w-4/5 bg-logincolor flex items-center justify-center">
           <div className="flex-1 w-full h-full p-4 flex-col items-center justify-center">
             <div className="">
-              <div className="pt-24 pl-32 pr-32 h-1/3 w-full flex flex-col items-left justify-between">
+              <div className="pt-12 pl-32 pr-32 h-1/3 w-full flex flex-col items-left justify-between">
                 <div className="text-7xl font-sans font-bold mb-4 text-left uppercase">
                   Register
                 </div>
@@ -144,25 +162,24 @@ export default function RegisterPage() {
                 objectFit: "cover",
               }}
             ></img>
+            <div className="absolute bottom-5 right-10 w-1/2 h-[770px] pointer-events-none">
+              <img
+                className="img h-[700px] w-[700px]"
+                src={theking}
+                alt="the_king"
+                style={{
+                  display: "absolute",
+                  overflow: "hidden",
+                  objectFit: "cover",
+                  zIndex: "3",
+                  pointerEvents: "none",
+                }}
+              ></img>
+            </div>
           </div>
 
           <div></div>
         </div>
-      </div>
-
-      <div className="absolute w-1/2 h-[770px] top-20 left-1/3 right-0 bottom-0 pl-24 flex justify-center items-center pointer-events-none">
-        <img
-          className="img h-[700px] w-[700px]"
-          src={theking}
-          alt="the_king"
-          style={{
-            display: "absolute",
-            overflow: "hidden",
-            objectFit: "cover",
-            zIndex: "3",
-            pointerEvents: "none",
-          }}
-        ></img>
       </div>
     </>
   );
