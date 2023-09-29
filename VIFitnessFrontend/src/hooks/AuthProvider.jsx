@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage.js";
 import APIDataService from "../services/APIDataService.js";
 import userDataGenerator from "../utils/userDataGenerator.js";
+import {
+  adjectives,
+  animals,
+  colors,
+  uniqueNamesGenerator,
+} from "unique-names-generator";
 
 //create a context on global scope
 const AuthContext = createContext();
@@ -31,7 +37,11 @@ export const AuthProvider = ({ children }) => {
     //If user does not exist, create new user
     if (response.data === "Null") {
       const userData = {
-        username: userDataGenerator.getRandomUsername(),
+        username: uniqueNamesGenerator({
+          dictionaries: [colors, adjectives, animals],
+          separator: "-",
+        }),
+        email: userDataGenerator.getRandomUID(),
         password: userDataGenerator.getRandomPassword(),
         google_data: data,
       };
@@ -53,7 +63,11 @@ export const AuthProvider = ({ children }) => {
     //If user does not exist, create new user
     if (response.data === "Null") {
       const userData = {
-        username: userDataGenerator.getRandomUsername(),
+        username: uniqueNamesGenerator({
+          dictionaries: [colors, adjectives, animals],
+          separator: "-",
+        }),
+        email: userDataGenerator.getRandomUID(),
         password: userDataGenerator.getRandomPassword(),
         strava_data: token,
       };

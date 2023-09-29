@@ -32,6 +32,7 @@ APIrouter.post("/post", (req, res) => {
 APIrouter.post("/post/byGoogle", (req, res) => {
   const newUser = new User({
     username: req.body.username,
+    email: req.body.email,
     password: req.body.password,
     google_data: req.body.google_data,
   });
@@ -51,6 +52,7 @@ APIrouter.post("/post/byGoogle", (req, res) => {
 APIrouter.post("/post/byStrava", (req, res) => {
   const newUser = new User({
     username: req.body.username,
+    email: req.body.email,
     password: req.body.password,
     strava_data: req.body.strava_data,
   });

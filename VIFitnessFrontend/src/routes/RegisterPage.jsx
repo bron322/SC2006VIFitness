@@ -6,12 +6,9 @@ import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
-import APIDataService from "../services/APIDataService";
-import { useNavigate } from "react-router-dom";
 import { AlertDialogButton } from "@/components/EmailVerificationButton";
 
 export default function RegisterPage() {
-  const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -19,44 +16,10 @@ export default function RegisterPage() {
     username: "",
     email: "",
     password: "",
-    age: 0,
-    weight: 0,
-    height: 0,
+    age: "",
+    weight: "",
+    height: "",
   });
-
-  const registerUser = async (e) => {
-    console.log("button pressed");
-    let check = await checkDuplicate(data.email);
-    console.log(check);
-    if (check) {
-      toast.error("This email is already linked to another account");
-    } else {
-      try {
-        const response = await APIDataService.create(data);
-        toast.success("Registration successful. Welcome to VI Fitness!");
-        navigate("/login"); //directing to the home page
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
-
-  //fetch from database to check if email already used
-  const checkDuplicate = async (email) => {
-    let response;
-    try {
-      response = await APIDataService.getByEmail(email);
-    } catch (err) {
-      console.log(err);
-    }
-    if (response.data === "Null") {
-      console.log("Null");
-      return false;
-    } else {
-      console.log("Duplicate");
-      return true;
-    }
-  };
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
@@ -67,8 +30,7 @@ export default function RegisterPage() {
   // JSX code for login form
   const renderForm = (
     <div className="form">
-      <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
-      <Form onSubmit={registerUser}>
+      <Form>
         <div className="input-container font-semibold flex ">
           <TextField
             id="standard-basic"
@@ -119,7 +81,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <div className="button-container pt-5">
-          <AlertDialogButton data={data} checkDuplicate={checkDuplicate} />
+          <AlertDialogButton data={data} />
         </div>
       </Form>
     </div>

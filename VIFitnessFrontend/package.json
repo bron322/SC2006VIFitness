@@ -53,6 +53,7 @@
     "tailwind": "^4.0.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "unique-names-generator": "^4.7.1",
     "uuid": "^9.0.1",
     "yup": "^1.2.0"
   },

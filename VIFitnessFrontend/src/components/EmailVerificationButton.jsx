@@ -12,16 +12,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BrevoAPIService from "@/services/BrevoAPIService";
 import generateOTP from "@/utils/OTPGenerator";
 import { Toaster, toast } from "react-hot-toast";
 import APIDataService from "@/services/APIDataService";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 export function AlertDialogButton(props) {
   const [requested, setRequested] = useState(false); //tracks state of request code button
   const [code, setCode] = useState("12345");
   const [userInputCode, setUserInputCode] = useState("");
+  const [showVerification, setShowVerification] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
+  const [showUserExist, setShowUserExist] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
+  const navigate = useNavigate();
 
   const sendEmail = async (code) => {
     let data = {
@@ -44,6 +51,9 @@ export function AlertDialogButton(props) {
   //action when cancel button is pressed
   const handleCancel = () => {
     setRequested(false);
+    setShowLoading(true);
+    setShowUserExist(false);
+    setShowVerification(false);
   };
 
   //action when submit button is pressed
@@ -51,8 +61,10 @@ export function AlertDialogButton(props) {
     if (userInputCode === code) {
       try {
         const response = await APIDataService.create(props.data);
-        toast.success("Registration successful. Welcome to VI Fitness!");
-        navigate("/login"); //directing to the home page
+        toast.success(
+          "Registration successful. You may now login via the login page!"
+        );
+        setTimeout(navigate, 1000, "/login"); //directing to the login page
       } catch (err) {
         console.log(err);
       }
@@ -62,32 +74,84 @@ export function AlertDialogButton(props) {
   };
 
   //fetch from database to check if email already used
-  const checkDuplicate = async () => {
+  const checkDuplicate = async (email) => {
     let response;
     try {
-      response = await APIDataService.getByEmail();
-    } catch (e) {
-      console.log(e);
+      response = await APIDataService.getByEmail(email);
+    } catch (err) {
+      console.log(err);
+    }
+    if (response.data === "Null") {
+      console.log("Null");
+      return false;
+    } else {
+      console.log("Duplicate");
+      return true;
     }
   };
 
   //start of registration flow
-  const handleRegistrationFlow = async () => {};
+  const handleRegistrationFlow = async () => {
+    setTimeout(setShowLoading, 1500, false);
+    //check if user exist
+    let check = await checkDuplicate(props.data.email);
+
+    // if exist show error content
+    if (check) {
+      setShowVerification(false);
+      setShowUserExist(true);
+    } else {
+      // if dont exist show verification code content
+      setShowVerification(true);
+      setShowUserExist(false);
+    }
+  };
+
+  //check if empty field
+  const checkEmpty = () => {
+    if (props.data.username === "") {
+      return setDisableButton(true);
+    } else if (props.data.email === "") {
+      return setDisableButton(true);
+    } else if (props.data.password === "") {
+      return setDisableButton(true);
+    } else if (props.data.weight === "") {
+      return setDisableButton(true);
+    } else if (props.data.height === "") {
+      return setDisableButton(true);
+    } else if (props.data.age === "") {
+      return setDisableButton(true);
+    } else {
+      return setDisableButton(false);
+    }
+  };
+
+  useEffect(() => {
+    checkEmpty();
+  }, [props.data]);
 
   return (
     <AlertDialog>
-      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <AlertDialogTrigger asChild>
         <Button
-          onClick={props.handleRegistrationFlow}
+          onClick={handleRegistrationFlow}
           className="w-full"
           variant="register"
           size="register"
+          disabled={disableButton ? true : false}
         >
           REGISTER
         </Button>
       </AlertDialogTrigger>
-      {false ? (
+      {showLoading ? (
+        <AlertDialogContent>
+          <div className="flex justify-center">
+            <CircularProgress />
+          </div>
+        </AlertDialogContent>
+      ) : null}
+      {!showLoading && showVerification ? (
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-black pb-0">
@@ -110,7 +174,7 @@ export function AlertDialogButton(props) {
               </Label>
               <Input
                 id="name"
-                placeholder="verification code"
+                placeholder="enter code here"
                 className="col-span-2"
                 onChange={(e) => setUserInputCode(e.target.value)}
               />
@@ -128,9 +192,25 @@ export function AlertDialogButton(props) {
             <AlertDialogAction onClick={handleSubmit}>Submit</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      ) : (
-        <AlertDialogContent></AlertDialogContent>
-      )}
+      ) : null}
+      {!showLoading && showUserExist ? (
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-black pb-0">
+              Email Already Linked
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              An account was already linked to this email. Please try again with
+              a different email.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleCancel}>
+              Try Again!
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      ) : null}
     </AlertDialog>
   );
 }
