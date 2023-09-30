@@ -80,7 +80,7 @@ export default function LoginPage() {
           <input className="bg-logincolor" type="text" name="uname" required /> */}
           <TextField
             id="standard-basic"
-            label="USERNAME"
+            label="EMAIL"
             variant="standard"
             margin="dense"
             onChange={(e) => setData({ ...data, username: e.target.value })}
