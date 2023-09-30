@@ -5,11 +5,9 @@ import { faArrowRight} from '@fortawesome/free-solid-svg-icons';
 
 function LowerBodyComponent() {
     return (
-        <div className="flex w-1/3 h-full object-left">
-            <div >
-                <img src={Lower} class="h-full w-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-black"></div>
-            </div>
+        <div className="flex w-1/3 h-screen relative">
+            <img src={Lower} className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black"></div>
         </div>
         // <div className="flex w-1/3 h-full object-left">
         //     <div img src={Lower}>
