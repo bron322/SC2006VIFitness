@@ -3,23 +3,39 @@ import Lower from "./styles/photos/LowerBody.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight} from '@fortawesome/free-solid-svg-icons';
 
-function LowerBodyComponent() {
+const images = [Lower, Lower, Lower, Lower];
+const descriptions = ["Squat", "Deadlift", "Lunge", "Goblet Squat"];
+
+function LeftComponent() {
     return (
         <div className="flex w-1/3 h-screen relative">
             <img src={Lower} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black"></div>
-        </div>
-        // <div className="flex w-1/3 h-full object-left">
-        //     <div img src={Lower}>
-        //         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black w-10"></div>
-        //         <div className="flex flex-col justify-center items-center">
-        //             <div className="z-10 text-4xl text-center bg-transparent">{texts[index]}</div>  
-        //             <div className="z-10 text-center items-center"> <FontAwesomeIcon icon={faArrowRight}/> </div>
-        //         </div>
-        //     </div>
-        // </div>
-        
+        </div>        
     );
   };
+
+function RightComponent() {
+    return (
+        <div className="w-2/3 h-screen flex flex-wrap">
+            {images.map((image, index) => (
+                <div key={index} className="w-1/2 h-1/2 flex flex-col justify-center items-center relative">
+                    <img src={image} className="object-cover w-full h-3/4" alt={`Image ${index + 1}`} />
+                    <div className="absolute bottom-4 text-center w-full">{descriptions[index]}</div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function LowerBodyComponent() {
+    return (
+        <div className="flex h-screen">
+            <LeftComponent />
+            <RightComponent />
+        </div>
+    );
+}
+
 
 export default LowerBodyComponent;
