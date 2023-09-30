@@ -14,15 +14,19 @@ import GoogleAPIService from "../services/GoogleAPIService";
 import "./styles/loginpage.css";
 import { useAuth } from "../hooks/AuthProvider";
 import StravaAPIService from "../services/StravaAPIService";
+import { AxiosError } from "axios";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { googleAuthLogin, login } = useAuth();
+  const [disableButton, setDisableButton] = useState(false);
 
+  //tracks value of login form
   const [data, setData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -59,7 +63,9 @@ export default function LoginPage() {
       response = await APIDataService.get(data.username);
     } catch (err) {
       console.log(err);
-      toast.error("Something went wrong. Try again later!");
+      if (err instanceof AxiosError) {
+        toast.error("Something went wrong. Try again later!");
+      }
     }
 
     //when user doesn't exist or when user keys in wrong password
@@ -70,6 +76,21 @@ export default function LoginPage() {
       login(response.data);
     }
   };
+
+  //check if field is empty
+  const checkEmpty = () => {
+    if (data.email === "") {
+      return setDisableButton(true);
+    } else if (data.password === "") {
+      return setDisableButton(true);
+    } else {
+      return setDisableButton(false);
+    }
+  };
+
+  useEffect(() => {
+    checkEmpty();
+  }, [data]);
 
   // JSX code for login form
   const renderForm = (
@@ -83,7 +104,7 @@ export default function LoginPage() {
             label="EMAIL"
             variant="standard"
             margin="dense"
-            onChange={(e) => setData({ ...data, username: e.target.value })}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
           />
           {renderErrorMessage("uname")}
         </div>
@@ -100,7 +121,15 @@ export default function LoginPage() {
           {renderErrorMessage("pass")}
         </div>
         <div className="button-container pt-4">
-          <input type="submit" value="LOG IN" style={{ width: "90%" }} />
+          <Button
+            variant="register"
+            size="login"
+            type="submit"
+            className="login-button"
+            disabled={disableButton ? true : false}
+          >
+            LOG IN
+          </Button>
         </div>
       </Form>
     </div>
