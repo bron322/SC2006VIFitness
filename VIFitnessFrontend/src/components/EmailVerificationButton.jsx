@@ -19,6 +19,7 @@ import { Toaster, toast } from "react-hot-toast";
 import APIDataService from "@/services/APIDataService";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 export function AlertDialogButton(props) {
   const [requested, setRequested] = useState(false); //tracks state of request code button
@@ -56,11 +57,26 @@ export function AlertDialogButton(props) {
     setShowVerification(false);
   };
 
+  //hash
+  const hashPassword = async (password) => {
+    return CryptoJS.SHA256(password);
+  };
+
   //action when submit button is pressed
   const handleSubmit = async () => {
     if (userInputCode === code) {
       try {
-        const response = await APIDataService.create(props.data);
+        const hash = await hashPassword(props.data.password);
+        const newUser = {
+          username: props.data.username,
+          email: props.data.email,
+          password: hash.toString(CryptoJS.enc.Base64),
+          age: props.data.age,
+          weight: props.data.weight,
+          height: props.data.height,
+        };
+        const response = await APIDataService.create(newUser);
+
         toast.success(
           "Registration successful. You may now login via the login page!"
         );

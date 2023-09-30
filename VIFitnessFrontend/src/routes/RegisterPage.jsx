@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/loginpage.css";
 import BG from "./styles/photos/loginbackground.jpg";
 import theking from "./styles/photos/theking.png";
