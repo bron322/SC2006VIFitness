@@ -66,7 +66,7 @@ export function AlertDialogButton(props) {
         );
         setTimeout(navigate, 1000, "/login"); //directing to the login page
       } catch (err) {
-        console.log(err);
+        toast.error("Something went wrong. Try again later!");
       }
     } else {
       toast.error("Invalid Verification Code. Try Again!");
@@ -80,12 +80,11 @@ export function AlertDialogButton(props) {
       response = await APIDataService.getByEmail(email);
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong. Try again later!");
     }
     if (response.data === "Null") {
-      console.log("Null");
       return false;
     } else {
-      console.log("Duplicate");
       return true;
     }
   };
