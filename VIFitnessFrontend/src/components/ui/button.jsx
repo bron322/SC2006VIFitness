@@ -29,6 +29,7 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
         register: "h-10 px-4 py-2 rounded",
+        login: "h-10 w-[90%] px-4 py-2 rounded",
       },
     },
     defaultVariants: {

@@ -24,6 +24,10 @@ input[type="submit"]:hover {
   justify-content: center;
 }
 
+.button-container .login-button {
+  box-shadow: 0px 2px 6px 0px #000000;
+}
+
 .social-button-container {
   display: flex;
   justify-content: center;
