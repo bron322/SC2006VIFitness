@@ -179,4 +179,60 @@ APIrouter.patch("/updateMeal/:username", (req, res) => {});
 //Delete meal method
 APIrouter.delete("/deleteMeal/:username", (req, res) => {});
 
+//Add exercise method
+APIrouter.post("/addExercise/:username", (req, res) => {
+  try {
+    // const newExercise = req.body;
+    // Find the user by username and push the new exercise to their exercise array
+    User.findOneAndUpdate(
+      { username: req.params.username },
+      {
+        $push: {
+          workouts: {
+            name: req.body.exerciseData.workoutName,
+            time: "12am",
+          },
+        },
+      },
+      {
+        new: true,
+      }
+    )
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  } catch (error) {
+    console.error(error);
+    return res.send(error);
+  }
+});
+
+//Update exercise method
+APIrouter.patch("/updateExercise/:username", (req, res) => {});
+
+//Delete exercise method
+APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
+  try {
+    const { username, exerciseId } = req.params;
+
+    // Find the user by username and pull the exercise by exerciseId from their exercise array
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { username },
+      { $pull: { exercises: { _id: exerciseId } } },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User or exercise not found" });
+    }
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 export { APIrouter };

@@ -150,6 +150,11 @@ const router = createBrowserRouter([
                 path: "workout-core",
                 element: <WorkoutCorePage />,
               },
+              {
+                path: "getworkout",
+                errorElement: <ErrorPage />,
+                element: <GenerateWorkout />,
+              },
             ],
           },
         ],
@@ -165,12 +170,6 @@ const router = createBrowserRouter([
     path: "/testregister",
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
-  },
-
-  {
-    path: "/getworkout",
-    errorElement: <ErrorPage />,
-    element: <GenerateWorkout />,
   },
   {
     path: "/macros",
