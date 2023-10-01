@@ -40,6 +40,11 @@ const createByStrava = async (data) => {
   return http.post("/post/byStrava", data);
 };
 
+//POST user by ticking the exercises
+const addingExercise = async (data) => {
+  return http.post(`/addExercise/${data.username}`, data);
+}
+
 const APIDataService = {
   getAll,
   get,
@@ -49,6 +54,7 @@ const APIDataService = {
   create,
   createByGoogle,
   createByStrava,
+  addingExercise,
 };
 
 export default APIDataService;
