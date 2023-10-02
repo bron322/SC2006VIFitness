@@ -1,7 +1,25 @@
+import React, { useState } from 'react';
+
+
 export default function ExerciseList(props) {
-    return (
-      <h1>
-        Exercise name: {props.name}, Instructions: {props.instructions}
-      </h1>
-    );
-  }
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+        />
+        <span>
+          Exercise name: {props.name}, Difficulty: {props.difficulty}
+        </span>
+      </label>
+    </div>
+  );
+}
