@@ -11,6 +11,8 @@ import './styles/exercisebutton.css'
 export default function GenerateWorkout() {
   const [workoutData, setWorkoutData] = useState([]);
   const [showButton, setshowButton] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [exercisesToAddToCalendar, setExercisesToAddToCalendar] = useState([]);
 
   const getExercise = async (e) => {
     const bodypart = e.target.name;
@@ -25,13 +27,38 @@ export default function GenerateWorkout() {
     }
   }
 
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+
+    // Update the list of exercisesToAddToCalendar based on the checkbox status
+    if (!isChecked) {
+      // Add the exercise name to the list when checked
+      setExercisesToAddToCalendar([...exercisesToAddToCalendar, props.name]);
+    } else {
+      // Remove the exercise name from the list when unchecked
+      setExercisesToAddToCalendar(
+        exercisesToAddToCalendar.filter((exercise) => exercise !== props.name)
+      );
+    }
+  };
+
   const handleAddToCalendar = async () => {
     try {
+      // Access the updated value of exercisesToAddToCalendar from the state
+      const updatedExercisesToAddToCalendar = isChecked
+      ? [...exercisesToAddToCalendar, props.name]
+      : exercisesToAddToCalendar.filter((exercise) => exercise !== props.name);
+
+      // Check if there are exercises to add
+      if (updatedExercisesToAddToCalendar.length === 0) {
+        alert('No exercises selected to add to calendar.');
+        return;
+      }
+
       const exerciseDataToAdd = {
         username: 'bron322', // Replace with the actual username
         exerciseData: {
-          workoutName: "Dumbbell curls", // Use the exercise data from props
-          difficulty: "beginner", // Use the exercise data from props
+          exercises: updatedExercisesToAddToCalendar, // Pass the list of exercise names to the server
         },
       };
   
@@ -57,6 +84,8 @@ export default function GenerateWorkout() {
           return (
             <>
               <ExerciseList
+                checked={isChecked}
+                onChange={handleCheckboxChange}
                 key={index}
                 name={item.name}
                 difficulty={item.difficulty}
