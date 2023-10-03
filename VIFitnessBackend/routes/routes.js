@@ -171,47 +171,39 @@ APIrouter.delete("/delete/:username", (req, res) => {
 });
 
 //Add meal method
-APIrouter.post("/addMeal/:username", (req, res) => {});
+APIrouter.post("/addMeal/:username", (req, res) => { });
 
 //Update meal method
-APIrouter.patch("/updateMeal/:username", (req, res) => {});
+APIrouter.patch("/updateMeal/:username", (req, res) => { });
 
 //Delete meal method
-APIrouter.delete("/deleteMeal/:username", (req, res) => {});
+APIrouter.delete("/deleteMeal/:username", (req, res) => { });
 
 //Add exercise method
 APIrouter.post("/addExercise/:username", (req, res) => {
-  try {
-    // const newExercise = req.body;
-    // Find the user by username and push the new exercise to their exercise array
-    User.findOneAndUpdate(
-      { username: req.params.username },
-      {
-        $push: {
-          workouts: {
-            name: req.body.exerciseData.workoutName,
-            time: "12am",
-          },
-        },
+  const exerciseData = req.body.exerciseData;
+
+  User.findOneAndUpdate(
+    { username: req.params.username },
+    {
+      $push: {
+        workouts: {$each: exerciseData}
       },
-      {
-        new: true,
-      }
-    )
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.send(err);
-      });
-  } catch (error) {
-    console.error(error);
-    return res.send(error);
-  }
-});
+    },
+    {
+      new: true,
+    }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+}); 
 
 //Update exercise method
-APIrouter.patch("/updateExercise/:username", (req, res) => {});
+APIrouter.patch("/updateExercise/:username", (req, res) => { });
 
 //Delete exercise method
 APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
