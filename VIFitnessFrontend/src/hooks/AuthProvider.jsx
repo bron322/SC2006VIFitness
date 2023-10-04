@@ -1,6 +1,14 @@
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage.js";
+import APIDataService from "../services/APIDataService.js";
+import userDataGenerator from "../utils/userDataGenerator.js";
+import {
+  adjectives,
+  animals,
+  colors,
+  uniqueNamesGenerator,
+} from "unique-names-generator";
 
 //create a context on global scope
 const AuthContext = createContext();
@@ -21,12 +29,66 @@ export const AuthProvider = ({ children }) => {
     navigation("/", { replace: true });
   };
 
+  //Login with Google
+  const googleAuthLogin = async (data) => {
+    //check if user exist
+    const response = await APIDataService.getByGmail(data.email);
+
+    //If user does not exist, create new user
+    if (response.data === "Null") {
+      const userData = {
+        username: uniqueNamesGenerator({
+          dictionaries: [colors, adjectives, animals],
+          separator: "-",
+        }),
+        email: userDataGenerator.getRandomUID(),
+        password: userDataGenerator.getRandomPassword(),
+        google_data: data,
+      };
+      const createResponse = await APIDataService.createByGoogle(userData);
+      setUser(createResponse.data);
+      navigation("/user");
+    } else {
+      //If user exist, just log in
+      setUser(response.data);
+      navigation("/user");
+    }
+  };
+
+  //Login with Strava
+  const stravaAuthLogin = async (token) => {
+    //check if user exist
+    const response = await APIDataService.getByStravaID(token.athlete.id);
+
+    //If user does not exist, create new user
+    if (response.data === "Null") {
+      const userData = {
+        username: uniqueNamesGenerator({
+          dictionaries: [colors, adjectives, animals],
+          separator: "-",
+        }),
+        email: userDataGenerator.getRandomUID(),
+        password: userDataGenerator.getRandomPassword(),
+        strava_data: token,
+      };
+      const createResponse = await APIDataService.createByStrava(userData);
+      setUser(createResponse.data);
+      navigation("/user");
+    } else {
+      //If user exist, just log in
+      setUser(response.data);
+      navigation("/user");
+    }
+  };
+
   //useMemo to improve performance
   const value = useMemo(
     () => ({
       user,
       login,
       logout,
+      googleAuthLogin,
+      stravaAuthLogin,
     }),
     [user]
   );

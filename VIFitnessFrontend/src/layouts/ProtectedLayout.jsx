@@ -49,6 +49,7 @@ export default function ProtectedLayout() {
       ) : null}
       <button onClick={SignoutAction}>Sign out</button>
       <button onClick={GetAthleteData}>Get Strava data</button>
+      <button onClick={() => console.log(user)}>test</button>
       {Object.keys(athleteData).length !== 0 ? (
         <p>
           Your total running distance recorded is:{" "}
