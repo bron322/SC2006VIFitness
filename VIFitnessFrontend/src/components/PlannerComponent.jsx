@@ -15,6 +15,10 @@ const BackgroundImages = () => {
   ];
 
 const texts = ['Lower Body', 'Upper Body', 'Core'];
+const part1 = ['Quads','Chest','Abs'];
+const part2 = ['Hamstrings','Biceps','Obliques']
+const part3 = ['Glutes','Shoulders']
+const part4 = ['Calves','Lats']
 
   return (
     <div className="flex h-screen">
@@ -23,10 +27,14 @@ const texts = ['Lower Body', 'Upper Body', 'Core'];
           key={index}
           className="background-image"
           style={{ backgroundImage: `url(${image})` }}>
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
           <div className="flex flex-col justify-center items-center">
             <div className="z-10 text-4xl text-center bg-transparent">{texts[index]}</div>  
             <div className="z-10 text-center items-center"> <FontAwesomeIcon icon={faArrowRight}/> </div>
+            <div className="z-10 text-xl text-center bg-transparent">{part1[index]}</div>  
+            <div className="z-10 text-xl text-center bg-transparent">{part2[index]}</div>  
+            <div className="z-10 text-xl text-center bg-transparent">{part3[index]}</div> 
+            <div className="z-10 text-xl text-center bg-transparent">{part4[index]}</div>   
           </div>
         </div>
       ))}
