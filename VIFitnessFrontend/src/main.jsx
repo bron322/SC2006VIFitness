@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import App from "./routes/Calendar/App.jsx";
+import "./routes/Calendar/index.css";
+import ContextWrapper from "./routes/Calendar/context/ContextWrapper";
 
 //View imports
 import LandingPage from "./routes/landingPage";
@@ -25,7 +28,8 @@ import Line from "./routes/ProfilePage/line";
 import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
-import Calendar from "./routes/ProfilePage/calendar";
+// import Calendar from "./routes/ProfilePage/calendar";
+import Calendar from "./routes/Calendar/App"
 import TestPageOscar from "./routes/TestingPageOscar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode } from "./routes/theme";
@@ -80,7 +84,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        element: <ProtectedLayout />,
+        // element: <ProtectedLayout />,
         children: [
           {
             path: "user",
@@ -180,6 +184,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <ContextWrapper>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </ContextWrapper>
+    
   </React.StrictMode>
 );
