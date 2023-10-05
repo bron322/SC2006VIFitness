@@ -50,16 +50,12 @@ export default function SmallCalendar() {
             "MMMM YYYY"
           )}
         </p>
-        <div>
+        <div className = "flex">
           <button onClick={handlePrevMonth}>
-            <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-              chevron_left
-            </span>
+            <span className="fa fa-chevron-left cursor-pointer text-gray-600 mx-1"></span>
           </button>
           <button onClick={handleNextMonth}>
-            <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-              chevron_right
-            </span>
+            <span className="fa fa-chevron-right cursor-pointer text-gray-600 mx-1"></span>
           </button>
         </div>
       </header>
