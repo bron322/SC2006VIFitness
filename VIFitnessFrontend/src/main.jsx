@@ -189,6 +189,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <App />
       </RouterProvider>
     </ContextWrapper>
-    
   </React.StrictMode>
 );

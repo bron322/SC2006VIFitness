@@ -25,14 +25,10 @@ export default function CalendarHeader() {
         Today
       </button>
       <button onClick={handlePrevMonth}>
-        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          chevron_left
-        </span>
+        <span className="fa fa-chevron-left cursor-pointer text-gray-600 mx-2"></span>
       </button>
       <button onClick={handleNextMonth}>
-        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          chevron_right
-        </span>
+        <span className="fa fa-chevron-right cursor-pointer text-gray-600 mx-2"></span>
       </button>
       <h2 className="ml-4 text-xl text-gray-500 font-bold">
         {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
