@@ -16,34 +16,34 @@ function UpperBodyComponent(){
                 <img src={Upper} className="h-screen w-full object-cover"/>
             </div>
             <div className="flex-grow px-24 pt-10">
-                <div class="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
+                <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
                     {/* Card 1 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Biceps} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 2 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Chest} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 3 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Shoulders} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 4 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Triceps} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 5 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Lats} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 6 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src="https://www.sadanduseless.com/wp-content/uploads/2022/08/synthol-freaks.png" className="h-full w-full object-contain object-center"/>
                     </div>
                 </div>

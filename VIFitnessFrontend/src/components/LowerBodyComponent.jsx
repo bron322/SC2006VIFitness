@@ -15,34 +15,34 @@ function LowerBodyComponent() {
                 <img src={Lower} className="h-screen w-full object-cover"/>
             </div>
             <div className="flex-grow px-24 pt-10">
-                <div class="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
+                <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
                     {/* Card 1 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Quads} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 2 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Hamstring} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 3 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Calves} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 4 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src={Glutes} className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 5 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src="https://i2-prod.dailystar.co.uk/incoming/article27469447.ece/ALTERNATES/s615b/0_JS271931188.jpg" className="h-full w-full object-contain object-center"/>
                     </div>
 
                     {/* Card 6 */}
-                    <div class="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
                         <img src="https://www.greatestphysiques.com/wp-content/uploads/2016/09/Arnold-Schwarzenegger-1r4.jpg" className="h-full w-full object-contain object-center"/>
                     </div>
                 </div>
