@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../theme";
 
-export default function FAQ () {
+export default function FAQ() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -16,7 +16,7 @@ export default function FAQ () {
 
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography color={colors.greenAccent[500]} variant="h5">
+          <Typography color={colors.primary.default} variant="h5">
             An Important Question
           </Typography>
         </AccordionSummary>
@@ -29,7 +29,7 @@ export default function FAQ () {
       </Accordion>
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography color={colors.greenAccent[500]} variant="h5">
+          <Typography color={colors.primary.default} variant="h5">
             Another Important Question
           </Typography>
         </AccordionSummary>
@@ -42,7 +42,7 @@ export default function FAQ () {
       </Accordion>
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography color={colors.greenAccent[500]} variant="h5">
+          <Typography color={colors.primary.default} variant="h5">
             Your Favorite Question
           </Typography>
         </AccordionSummary>
@@ -55,7 +55,7 @@ export default function FAQ () {
       </Accordion>
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography color={colors.greenAccent[500]} variant="h5">
+          <Typography color={colors.primary.default} variant="h5">
             Some Random Question
           </Typography>
         </AccordionSummary>
@@ -68,7 +68,7 @@ export default function FAQ () {
       </Accordion>
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography color={colors.greenAccent[500]} variant="h5">
+          <Typography color={colors.primary.default} variant="h5">
             The Final Question
           </Typography>
         </AccordionSummary>

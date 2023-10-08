@@ -1,20 +1,12 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { mockTransactions } from "./data/mockData";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-// import EmailIcon from "@mui/icons-material/Email";
-// import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-// import PersonAddIcon from "@mui/icons-material/PersonAdd";
-// import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "./Chart/Header";
 import LineChart from "./Chart/Line";
-import GeographyChart from "./Chart/Geo";
-import Calendar from "./Chart/Calendar"
-import BarChart from "./Chart/BarChart";
-// import StatBox from "./Chart/StatBox";
-import ProgressCircle from "./Chart/Progress";
+import Calendar from "./Chart/Calendar";
+import { useState } from "react";
 
-export default function Dashboard () {
+export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -22,22 +14,7 @@ export default function Dashboard () {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to my dashboard" />
-
-        {/* <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box> */}
+        <Header title="Dashboard" subtitle="Welcome to my dashboard" />
       </Box>
 
       {/* GRID & CHARTS */}
@@ -48,89 +25,15 @@ export default function Dashboard () {
         gap="20px"
       >
         {/* ROW 1 */}
-        {/* <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box> */}
 
         {/* ROW 2 */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.background.default}
           p="30px"
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
         >
           <Typography variant="h5" fontWeight="600">
             User Profile
@@ -140,22 +43,14 @@ export default function Dashboard () {
             flexDirection="column"
             alignItems="center"
             mt="25px"
-          >
-            {/* <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography> */}
-          </Box>
+          ></Box>
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.background.default}
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
         >
           <Typography
             variant="h5"
@@ -164,15 +59,14 @@ export default function Dashboard () {
           >
             Workout Plan
           </Typography>
-          {/* <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
-          </Box> */}
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.background.default}
           padding="20px"
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
         >
           <Typography
             variant="h5"
@@ -181,9 +75,8 @@ export default function Dashboard () {
           >
             Calendar
           </Typography>
-          <Box height="210px">
-            <Calendar/>
-            {/* <GeographyChart isDashboard={true} /> */}
+          <Box height="250px">
+            <Calendar />
           </Box>
         </Box>
 
@@ -191,7 +84,9 @@ export default function Dashboard () {
         <Box
           gridColumn="span 8"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.background.default}
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
         >
           <Box
             mt="25px"
@@ -204,25 +99,19 @@ export default function Dashboard () {
               <Typography
                 variant="h5"
                 fontWeight="600"
-                color={colors.grey[100]}
+                color={colors.accent.foreground}
               >
                 Macros Tracker
               </Typography>
               <Typography
                 variant="h3"
                 fontWeight="bold"
-                color={colors.greenAccent[500]}
+                color={colors.muted.foreground}
               >
                 $59,342.32
               </Typography>
             </Box>
-            <Box>
-              {/* <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton> */}
-            </Box>
+            <Box></Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
@@ -231,18 +120,24 @@ export default function Dashboard () {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
           overflow="auto"
+          backgroundColor={colors.background.default}
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
         >
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
+            borderBottom={`4px solid ${colors.primary.default}`}
+            colors={colors.secondary.foreground}
             p="15px"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+            <Typography
+              color={colors.accent.foreground}
+              variant="h5"
+              fontWeight="600"
+            >
               Recent Transactions
             </Typography>
           </Box>
@@ -252,24 +147,24 @@ export default function Dashboard () {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`1px solid ${colors.muted.foreground}`}
               p="15px"
             >
               <Box>
                 <Typography
-                  color={colors.greenAccent[500]}
+                  color={colors.accent.foreground}
                   variant="h5"
                   fontWeight="600"
                 >
                   {transaction.txId}
                 </Typography>
-                <Typography color={colors.grey[100]}>
+                <Typography color={colors.muted.foreground}>
                   {transaction.user}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.muted.foreground}>{transaction.date}</Box>
               <Box
-                backgroundColor={colors.greenAccent[500]}
+                backgroundColor={colors.secondary.default}
                 p="5px 10px"
                 borderRadius="4px"
               >
@@ -278,7 +173,6 @@ export default function Dashboard () {
             </Box>
           ))}
         </Box>
-        
       </Box>
     </Box>
   );

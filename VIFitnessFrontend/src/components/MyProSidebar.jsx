@@ -35,7 +35,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
     <MenuItem
       active={selected === title}
-      style={{ color: colors.grey[100] }}
+      style={{ color: colors.secondary.foreground }}
       onClick={() => setSelected(title)}
       icon={icon}
       component={<Link to={to} />}
@@ -75,11 +75,11 @@ const MyProSidebar = () => {
           backgroundColor: "transparent !important",
         },
         "& .menu-item:hover": {
-          color: `${colors.blueAccent[500]} !important`,
+          color: `${colors.muted.foreground} !important`,
           backgroundColor: "transparent !important",
         },
         "& .menu-item.active": {
-          color: `${colors.greenAccent[500]} !important`,
+          color: `${colors.accent.foreground} !important`,
           backgroundColor: "transparent !important",
         },
       }}
@@ -87,7 +87,7 @@ const MyProSidebar = () => {
       <Sidebar
         breakPoint="md"
         rtl={sidebarRTL}
-        backgroundColor={colors.primary[400]}
+        backgroundColor={colors.background.default}
         image={sidebarImage}
       >
         <Menu iconshape="square">
@@ -107,7 +107,7 @@ const MyProSidebar = () => {
             }
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              color: colors.primary.default,
             }}
           >
             {!collapsed && (
@@ -147,7 +147,7 @@ const MyProSidebar = () => {
                 alignItems="center"
                 sx={{
                   "& .avater-image": {
-                    backgroundColor: colors.primary[500],
+                    backgroundColor: colors.background.default,
                   },
                 }}
               >
@@ -163,7 +163,7 @@ const MyProSidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h3"
-                  color={colors.grey[100]}
+                  color={colors.accent.foreground}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
@@ -183,7 +183,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Data
@@ -212,7 +212,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Pages
@@ -241,7 +241,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Charts
