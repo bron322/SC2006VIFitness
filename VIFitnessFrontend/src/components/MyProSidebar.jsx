@@ -23,6 +23,9 @@ import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
 import User from "../components/styles/photos/user.png";
 import Logo from "../components/styles/photos/LOGO.png";
+import { Separator } from "@/components/ui/separator";
+import LogoutButton from "./LogoutButton";
+import { useAuth } from "../hooks/AuthProvider";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -75,6 +78,11 @@ const MyProSidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Box // this is content wrapper for the sidebar
@@ -84,10 +92,10 @@ const MyProSidebar = () => {
         height: "100vh",
         top: 0,
         bottom: 0,
-        zIndex: 10000,
+        zIndex: 1,
       }}
       className={`border-${sidebarRTL ? "l" : "r"}-2 p-2 justify-center`}
-      borderColor={colors.muted.default}
+      borderColor={colors.secondary.default}
       backgroundColor={colors.background.default}
     >
       <Sidebar // main sidebar object
@@ -267,7 +275,7 @@ const MyProSidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
@@ -301,8 +309,16 @@ const MyProSidebar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
+          <div className="flex-col w-full absolute bottom-0 justify-center align-middle">
+            <Separator
+              style={{
+                backgroundColor: colors.muted.foreground,
+              }}
+            />
+            <LogoutButton onClick={handleLogout} />
+          </div>
         </Menu>
       </Sidebar>
     </Box>

@@ -14,7 +14,7 @@ export const themeColor = () => ({
     100: "#020817", //black-blue
     200: "#2563eb", //light-blue
     300: "#0f172a", //dark-blue
-    400: "#64748b", //grey-blue
+    400: "#657387", //grey-blue
     500: "#3b82f6", //light-blue2
     600: "#1e293b", //dark-blue2
     700: "#94a3b8", //light-blue3
@@ -51,7 +51,7 @@ export const tokens = (mode) => {
             foreground: colors.white[200],
           },
           secondary: {
-            default: colors.white[300],
+            default: colors.blue[400],
             foreground: colors.blue[300],
           },
           muted: {
