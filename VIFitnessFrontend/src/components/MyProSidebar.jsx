@@ -2,10 +2,8 @@
 import { useState } from "react";
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { useProSidebar } from "react-pro-sidebar";
-
 import { useSidebarContext } from "./sidebarContext";
-
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { tokens } from "../routes/theme";
 import { useTheme, Box, Typography, IconButton } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -17,30 +15,54 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
-
 import User from "../components/styles/photos/user.png";
 import Logo from "../components/styles/photos/LOGO.png";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [hover, setHover] = useState(false);
 
   return (
     <MenuItem
       active={selected === title}
-      style={{ color: colors.grey[100] }}
+      style={{
+        color: colors.secondary.foreground,
+        backgroundColor: hover
+          ? colors.muted.hover
+          : selected === title
+          ? colors.muted.hover
+          : colors.background.default,
+      }}
       onClick={() => setSelected(title)}
       icon={icon}
-      component={<Link to={to} />}
+      component={<NavLink to={to} />}
+      className="pb-2 flex justify-center "
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
     >
-      <Typography>{title}</Typography>
+      <Typography
+        color={
+          hover
+            ? colors.accent.foreground
+            : selected === title
+            ? colors.accent.foreground
+            : colors.muted.foreground
+        }
+        fontWeight="medium"
+      >
+        {title}
+      </Typography>
     </MenuItem>
   );
 };
@@ -60,37 +82,47 @@ const MyProSidebar = () => {
         top: 0,
         bottom: 0,
         zIndex: 10000,
-        "& .sidebar": {
-          border: "none",
-        },
-        "& .menu-icon": {
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-item": {
-          // padding: "5px 35px 5px 20px !important",
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-anchor": {
-          color: "inherit !important",
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-item:hover": {
-          color: `${colors.blueAccent[500]} !important`,
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-item.active": {
-          color: `${colors.greenAccent[500]} !important`,
-          backgroundColor: "transparent !important",
-        },
+        // "& .sidebar": {
+        //   border: "none",
+        // },
+        // "& .menu-icon": {
+        //   backgroundColor: "transparent !important",
+        // },
+        // "& .menu-item": {
+        //   backgroundColor: "transparent !important",
+        // },
+        // "& .menu-anchor": {
+        //   color: "inherit !important",
+        //   backgroundColor: "transparent !important",
+        // },
+        // "&.menu-item:hover": {
+        //   color: `${colors.muted.foreground} !important`,
+        //   backgroundColor: "transparent !important",
+        // },
+        // "&.menu-item.active": {
+        //   color: `${colors.muted.foreground} !important`,
+        //   backgroundColor: "transparent !important",
+        // },
       }}
+      className="overflow-hidden border-r-2 mx-2 p-2 justify-center"
+      borderColor={colors.muted.default}
     >
       <Sidebar
         breakPoint="md"
         rtl={sidebarRTL}
-        backgroundColor={colors.primary[400]}
+        backgroundColor={colors.background.default}
         image={sidebarImage}
       >
-        <Menu iconshape="square">
+        <Menu
+          iconshape="square"
+          menuItemStyles={{
+            button: {
+              borderRadius: "0.5rem",
+              height: "2.3rem",
+              width: "90%",
+            },
+          }}
+        >
           <MenuItem
             icon={
               collapsed ? (
@@ -107,15 +139,17 @@ const MyProSidebar = () => {
             }
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              color: colors.accent.foreground,
+              backgroundColor: colors.background.default,
             }}
+            className="flex justify-center"
           >
             {!collapsed && (
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
+                ml="5px"
               >
                 <img
                   alt="logo"
@@ -147,7 +181,7 @@ const MyProSidebar = () => {
                 alignItems="center"
                 sx={{
                   "& .avater-image": {
-                    backgroundColor: colors.primary[500],
+                    backgroundColor: colors.background.default,
                   },
                 }}
               >
@@ -163,7 +197,7 @@ const MyProSidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h3"
-                  color={colors.grey[100]}
+                  color={colors.accent.foreground}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
@@ -172,7 +206,7 @@ const MyProSidebar = () => {
               </Box>
             </Box>
           )}
-          <Box paddingLeft={collapsed ? undefined : "10%"}>
+          <Box className="flex-verticle justify-items-center align-center">
             <Item
               title="Dashboard"
               to="/"
@@ -183,7 +217,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Data
@@ -212,7 +246,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Pages
@@ -241,7 +275,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Charts

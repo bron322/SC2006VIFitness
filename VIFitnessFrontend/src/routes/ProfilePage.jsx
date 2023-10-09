@@ -4,7 +4,6 @@ import Topbar from "../components/topbar";
 // import Sidebar from "../components/sidebars";
 import { MyProSidebarProvider } from "../components/sidebarContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
 import "./styles/profilePage.css";
 
 function ProfilePage() {

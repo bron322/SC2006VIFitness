@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockLineData as data } from "../data/mockData";
 
-function LineChart ({ isCustomLineColors = false, isDashboard = false }) {
+function LineChart({ isCustomLineColors = false, isDashboard = false }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -14,32 +14,32 @@ function LineChart ({ isCustomLineColors = false, isDashboard = false }) {
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: colors.primary.default,
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: colors.accent.foreground,
             },
           },
           ticks: {
             line: {
-              stroke: colors.grey[100],
+              stroke: colors.primary.default,
               strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+              fill: colors.accent.foreground,
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill: colors.accent.foreground,
           },
         },
         tooltip: {
           container: {
-            color: colors.primary[500],
+            color: colors.primary.default,
           },
         },
       }}
@@ -112,6 +112,6 @@ function LineChart ({ isCustomLineColors = false, isDashboard = false }) {
       ]}
     />
   );
-};
+}
 
 export default LineChart;

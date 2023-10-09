@@ -5,7 +5,7 @@ import { mockDataContacts } from "./data/mockData";
 import Header from "./Chart/Header";
 import { useTheme } from "@mui/material";
 
-export default function Contacts () {
+export default function Contacts() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -69,24 +69,24 @@ export default function Contacts () {
             borderBottom: "none",
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.primary.default,
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary.default,
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.primary.foreground,
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary.default,
           },
           "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
+            color: `${colors.primary.default} !important`,
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
+            color: `${colors.secondary.default} !important`,
           },
         }}
       >
