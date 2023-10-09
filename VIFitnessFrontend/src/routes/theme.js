@@ -19,6 +19,7 @@ export const themeColor = () => ({
     600: "#1e293b", //dark-blue2
     700: "#94a3b8", //light-blue3
     800: "#1d4ed8", //blue
+    900: "#3e4652", //muted-blue
   },
   red: {
     100: "#ef4444", //bright-red
@@ -56,6 +57,7 @@ export const tokens = (mode) => {
           muted: {
             default: colors.white[300],
             foreground: colors.blue[400],
+            hover: colors.blue[400],
           },
           accent: {
             default: colors.white[300],
@@ -100,6 +102,7 @@ export const tokens = (mode) => {
           muted: {
             default: colors.blue[600],
             foreground: colors.blue[700],
+            hover: colors.blue[900],
           },
           accent: {
             default: colors.blue[600],

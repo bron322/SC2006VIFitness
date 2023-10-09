@@ -2,6 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/AuthProvider";
 import StravaAPIService from "../services/StravaAPIService";
 import { useEffect, useState } from "react";
+import { MyProSidebarProvider } from "@/components/sidebarContext";
 
 export default function ProtectedLayout() {
   const { user, logout } = useAuth();
