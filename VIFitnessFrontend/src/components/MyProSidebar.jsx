@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { useProSidebar } from "react-pro-sidebar";
 import { useSidebarContext } from "./sidebarContext";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { tokens } from "../routes/theme";
 import { useTheme, Box, Typography, IconButton } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -35,15 +35,16 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       style={{
         color: colors.secondary.foreground,
         backgroundColor: hover
-          ? colors.muted.hover
+          ? colors.muted.hover // button color when hover
           : selected === title
-          ? colors.muted.hover
-          : colors.background.default,
+          ? colors.muted.hover // button color when active
+          : colors.background.default, // button color for default
       }}
       onClick={() => setSelected(title)}
       icon={icon}
       component={<NavLink to={to} />}
       className="pb-2 flex justify-center "
+      // Set hover state for the button
       onMouseEnter={() => {
         setHover(true);
       }}
@@ -51,13 +52,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         setHover(false);
       }}
     >
+      {/* Text for Menu Items */}
       <Typography
         color={
           hover
-            ? colors.accent.foreground
+            ? colors.accent.foreground // text color for hover
             : selected === title
-            ? colors.accent.foreground
-            : colors.muted.foreground
+            ? colors.accent.foreground // text color for active
+            : colors.muted.foreground // text color for default
         }
         fontWeight="medium"
       >
@@ -73,8 +75,9 @@ const MyProSidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
+
   return (
-    <Box
+    <Box // this is content wrapper for the sidebar
       sx={{
         position: "sticky",
         display: "flex",
@@ -82,36 +85,24 @@ const MyProSidebar = () => {
         top: 0,
         bottom: 0,
         zIndex: 10000,
-        // "& .sidebar": {
-        //   border: "none",
-        // },
-        // "& .menu-icon": {
-        //   backgroundColor: "transparent !important",
-        // },
-        // "& .menu-item": {
-        //   backgroundColor: "transparent !important",
-        // },
-        // "& .menu-anchor": {
-        //   color: "inherit !important",
-        //   backgroundColor: "transparent !important",
-        // },
-        // "&.menu-item:hover": {
-        //   color: `${colors.muted.foreground} !important`,
-        //   backgroundColor: "transparent !important",
-        // },
-        // "&.menu-item.active": {
-        //   color: `${colors.muted.foreground} !important`,
-        //   backgroundColor: "transparent !important",
-        // },
       }}
-      className="overflow-hidden border-r-2 mx-2 p-2 justify-center"
+      className={`border-${sidebarRTL ? "l" : "r"}-2 p-2 justify-center`}
       borderColor={colors.muted.default}
+      backgroundColor={colors.background.default}
     >
-      <Sidebar
+      <Sidebar // main sidebar object
         breakPoint="md"
         rtl={sidebarRTL}
         backgroundColor={colors.background.default}
         image={sidebarImage}
+        style={{
+          height: "100%",
+          top: "auto",
+          position: "sticky",
+          padding: "0rem",
+          margin: "0rem",
+          border: "0rem", // this get rids of the white line around the sidebar container
+        }}
       >
         <Menu
           iconshape="square"
@@ -144,6 +135,7 @@ const MyProSidebar = () => {
             }}
             className="flex justify-center"
           >
+            {/* the top layer: switch button, collapse button and logo */}
             {!collapsed && (
               <Box
                 display="flex"
@@ -173,6 +165,8 @@ const MyProSidebar = () => {
               </Box>
             )}
           </MenuItem>
+
+          {/* Avatar + username */}
           {!collapsed && (
             <Box mb="25px">
               <Box

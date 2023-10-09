@@ -43,7 +43,7 @@ export default function ProtectedLayout() {
 
   return (
     <>
-      <h1>This is Protected Layout</h1>
+      {/* <h1>This is Protected Layout</h1>
       {user.name ? <h1>Hi! {user.name}</h1> : null}
       {user.strava_data ? (
         <h1>Hi! {user.strava_data.athlete.username}</h1>
@@ -57,7 +57,7 @@ export default function ProtectedLayout() {
           {athleteData.all_run_totals.distance}m
         </p>
       ) : null}
-      {showError ? <p>Login to Strava to retrieve athlete data</p> : null}
+      {showError ? <p>Login to Strava to retrieve athlete data</p> : null} */}
 
       <Outlet />
     </>
