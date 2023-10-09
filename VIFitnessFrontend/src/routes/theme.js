@@ -49,6 +49,7 @@ export const tokens = (mode) => {
           primary: {
             default: colors.white[300],
             foreground: colors.white[200],
+            active: colors.blue[100],
           },
           secondary: {
             default: colors.blue[400],
@@ -94,6 +95,7 @@ export const tokens = (mode) => {
           primary: {
             default: colors.blue[500],
             foreground: colors.blue[300],
+            active: colors.blue[900],
           },
           secondary: {
             default: colors.blue[600],

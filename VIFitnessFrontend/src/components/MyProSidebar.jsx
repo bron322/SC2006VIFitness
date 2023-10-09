@@ -40,8 +40,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         backgroundColor: hover
           ? colors.muted.hover // button color when hover
           : selected === title
-          ? colors.muted.hover // button color when active
+          ? colors.primary.active // button color when active
           : colors.background.default, // button color for default
+        transitionDuration: "0.3s",
       }}
       onClick={() => setSelected(title)}
       icon={icon}
@@ -54,6 +55,15 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       onMouseLeave={() => {
         setHover(false);
       }}
+      rootStyles={{
+        [".ps-menu-icon"]: {
+          color: hover
+            ? colors.accent.foreground // button color when hover
+            : selected === title
+            ? colors.destructive.foreground // button color when active
+            : colors.muted.foreground, // button color for default
+        },
+      }}
     >
       {/* Text for Menu Items */}
       <Typography
@@ -61,7 +71,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           hover
             ? colors.accent.foreground // text color for hover
             : selected === title
-            ? colors.accent.foreground // text color for active
+            ? colors.destructive.foreground // text color for active
             : colors.muted.foreground // text color for default
         }
         fontWeight="medium"
@@ -116,7 +126,7 @@ const MyProSidebar = () => {
           iconshape="square"
           menuItemStyles={{
             button: {
-              borderRadius: "0.5rem",
+              borderRadius: "1rem",
               height: "2.3rem",
               width: "90%",
             },
