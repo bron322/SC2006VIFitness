@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import { tokens } from "@/routes/theme";
 import { useTheme } from "@mui/material";
-import { LogOut } from "lucide-react";
 
 export default function LogoutButton(props) {
   const theme = useTheme();
@@ -20,15 +19,10 @@ export default function LogoutButton(props) {
       <DialogTrigger asChild>
         <Button
           variant="secondary"
-          size={props.collapsed ? "collapsed" : "logout"}
+          size="logout"
           styles={{ backgroundColor: colors.destructive.default }}
-          className="flex justify-items-start"
         >
-          <LogOut
-            color={colors.secondary.default}
-            className="justify-items-start"
-          />
-          {!props.collapsed && "Log out"}
+          Log out
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

@@ -31,7 +31,6 @@ const buttonVariants = cva(
         register: "h-10 px-4 py-2 rounded",
         login: "h-10 w-[90%] px-4 py-2 rounded",
         logout: "h-10 w-[90%] mx-3 mt-4 mb-2 px-4 py-2 rounded",
-        collapsed: "h-10 w-[70%] mx-3 mt-4 mb-2 px-4 py-2 rounded",
       },
     },
     defaultVariants: {
