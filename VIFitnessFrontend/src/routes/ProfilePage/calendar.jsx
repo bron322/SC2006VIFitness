@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import Header from "./Chart/Header";
 import { tokens } from "../theme";
-import Calendar from "../components/calendar/Calendar.js"
 
 export default function Calendar() {
   const theme = useTheme();
