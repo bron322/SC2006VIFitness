@@ -1,13 +1,18 @@
 import Header from "../components/headerlanding";
-import React, { useEffect } from "react";
-import './styles/landingPage.css'
-import BG from './styles/photos/background.jpg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight, faBurger, faCalendar, faCapsules, faChartLine, faMessage } from '@fortawesome/free-solid-svg-icons'
-
+import React, { useEffect, useState, useRef } from "react";
+import "./styles/landingPage.css";
+import BG from "./styles/photos/background.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDown,
+  faBurger,
+  faCalendar,
+  faCapsules,
+  faChartLine,
+  faMessage,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function LandingPage() {
-
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -19,6 +24,75 @@ export default function LandingPage() {
       });
     });
   }, []);
+
+
+  function FadeInLeft(props) {
+    const [isVisible, setVisible] = useState(false);
+    const domRef = useRef(null);
+
+    useEffect(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+          }
+        });
+      });
+
+      if (domRef.current) {
+        observer.observe(domRef.current);
+      }
+
+      return () => {
+        if (domRef.current) {
+          observer.unobserve(domRef.current);
+        }
+      };
+    }, []); // Empty dependency array to run this effect only once, like componentDidMount and componentWillUnmount
+
+    return (
+      <div
+        className={`fade-in-left ${isVisible ? "is-visible" : ""}`}
+        ref={domRef}
+      >
+        {props.children}
+      </div>
+    );
+  }
+
+  function FadeInRight(props) {
+    const [isVisible, setVisible] = useState(false);
+    const domRef = useRef(null);
+
+    useEffect(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+          }
+        });
+      });
+
+      if (domRef.current) {
+        observer.observe(domRef.current);
+      }
+
+      return () => {
+        if (domRef.current) {
+          observer.unobserve(domRef.current);
+        }
+      };
+    }, []);
+
+    return (
+      <div
+        className={`fade-in-right ${isVisible ? "is-visible" : ""}`}
+        ref={domRef}
+      >
+        {props.children}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -94,11 +168,8 @@ export default function LandingPage() {
             <div className="content-header">
               <FontAwesomeIcon icon={faChartLine} size="xl"/> Progression Tracking
             </div>
-            <div className="content-info">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            </div>
-          </div>
-          <div className="content-image"/>
+          </FadeInLeft>
+          <div className="content-image" />
         </div>
 
       </div>
