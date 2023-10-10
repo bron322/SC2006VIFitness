@@ -31,6 +31,7 @@ import Geography from "./routes/ProfilePage/Geography";
 // import Calendar from "./routes/ProfilePage/calendar";
 import Calendar from "./routes/Calendar/App";
 import TestPageOscar from "./routes/TestingPageOscar";
+import Calendar from "./components/calendar/Calendar"
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMode } from "./routes/theme";
 import "./routes/theme";
