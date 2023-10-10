@@ -32,4 +32,15 @@ const StravaAPIhttp = axios.create({
   baseURL: "https://www.strava.com/api/v3/",
 });
 
-export { Nutrionixhttp, ExerciseAPIhttp, StravaAPIhttp };
+const brevoKey = import.meta.env.VITE_BREVO_KEY;
+
+const BrevoAPIhttp = axios.create({
+  baseURL: "https://api.brevo.com/v3/",
+  headers: {
+    accept: "application/json",
+    "api-key": brevoKey,
+    "content-type": "application/json",
+  },
+});
+
+export { Nutrionixhttp, ExerciseAPIhttp, StravaAPIhttp, BrevoAPIhttp };

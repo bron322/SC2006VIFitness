@@ -3,7 +3,7 @@ import GeographyChart from "./Chart/Geo";
 import Header from "./Chart/Header";
 import { tokens } from "../theme";
 
-export default function Geography () {
+export default function Geography() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -12,7 +12,7 @@ export default function Geography () {
 
       <Box
         height="75vh"
-        border={`1px solid ${colors.grey[100]}`}
+        border={`1px solid ${colors.primary.default}`}
         borderRadius="4px"
       >
         <GeographyChart />

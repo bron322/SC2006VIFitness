@@ -4,7 +4,7 @@ import { tokens } from "../theme";
 import { mockDataInvoices } from "./data/mockData";
 import Header from "./Chart/Header";
 
-export default function Invoices () {
+export default function Invoices() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -30,7 +30,7 @@ export default function Invoices () {
       headerName: "Cost",
       flex: 1,
       renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>
+        <Typography color={colors.primary.default}>
           ${params.row.cost}
         </Typography>
       ),
@@ -56,21 +56,21 @@ export default function Invoices () {
             borderBottom: "none",
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.primary.default,
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary.default,
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.primary.foreground,
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary.default,
           },
           "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
+            color: `${colors.primary.default} !important`,
           },
         }}
       >

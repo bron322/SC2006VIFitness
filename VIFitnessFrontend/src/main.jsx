@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import App from "./routes/Calendar/App.jsx";
+import "./routes/Calendar/index.css";
+import ContextWrapper from "./routes/Calendar/context/ContextWrapper";
 
 //View imports
 import LandingPage from "./routes/landingPage";
@@ -10,6 +13,9 @@ import LoginPage from "./routes/LoginPage";
 import RegisterPage from "./routes/RegisterPage";
 import MacrosPage from "./routes/MacrosPage";
 import WorkoutPlannerPage from "./routes/WorkoutPlannerPage";
+import WorkoutCorePage from "./routes/WorkoutCorePage";
+import WorkoutUpperPage from "./routes/WorkoutUpperPage";
+import WorkoutLowerPage from "./routes/WorkoutLowerPage";
 import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
 import Dashboard from "./routes/ProfilePage/Dashboard";
@@ -23,6 +29,7 @@ import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
 import Geography from "./routes/ProfilePage/Geography";
 // import Calendar from "./routes/ProfilePage/calendar";
+import Calendar from "./routes/Calendar/App";
 import TestPageOscar from "./routes/TestingPageOscar";
 import Calendar from "./components/calendar/Calendar"
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -38,6 +45,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import TestRoute1 from "./routes/TestRoute1";
 import GenerateWorkout from "./routes/GetWorkoutPage";
+import LebronPage from "./routes/LebronPage";
 import StravaRedirect, {
   loader as stravaLoader,
 } from "./routes/StravaRedirect";
@@ -135,16 +143,25 @@ const router = createBrowserRouter([
                 path: "workout-planner",
                 element: <WorkoutPlannerPage />,
               },
+              {
+                path: "workout-lower",
+                element: <WorkoutLowerPage />,
+              },
+              {
+                path: "workout-upper",
+                element: <WorkoutUpperPage />,
+              },
+              {
+                path: "workout-core",
+                element: <WorkoutCorePage />,
+              },
+              {
+                path: "getworkout",
+                errorElement: <ErrorPage />,
+                element: <GenerateWorkout />,
+              },
             ],
           },
-          // {
-          //   path: "macros-tracker",
-          //   element: <MacrosPage />,
-          // },
-          // {
-          //   path: "workout-planner",
-          //   element: <WorkoutPlannerPage />,
-          // },
         ],
       },
     ],
@@ -159,16 +176,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     element: <TestSignUpLebron />,
   },
-
   {
-    path: "/getworkout",
+    path: "/macros",
     errorElement: <ErrorPage />,
-    element: <GenerateWorkout />,
+    element: <LebronPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <ContextWrapper>
+      <RouterProvider router={router}>
+        <App />
+      </RouterProvider>
+    </ContextWrapper>
   </React.StrictMode>
 );
