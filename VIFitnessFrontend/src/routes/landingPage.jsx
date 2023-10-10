@@ -1,5 +1,5 @@
 import Header from "../components/headerlanding";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./styles/landingPage.css";
 import BG from "./styles/photos/background.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,18 +13,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function LandingPage() {
-  function initializePage() {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-          behavior: "smooth",
-        });
-      });
-    });
-  }
-
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
@@ -38,15 +26,29 @@ export default function LandingPage() {
   }, []);
 
   function FadeInLeft(props) {
-    const [isVisible, setVisible] = React.useState(true);
-    const domRef = React.useRef();
-    React.useEffect(() => {
+    const [isVisible, setVisible] = useState(false);
+    const domRef = useRef(null);
+
+    useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => setVisible(entry.isIntersecting));
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+          }
+        });
       });
-      observer.observe(domRef.current);
-      return () => observer.unobserve(domRef.current);
-    }, []);
+
+      if (domRef.current) {
+        observer.observe(domRef.current);
+      }
+
+      return () => {
+        if (domRef.current) {
+          observer.unobserve(domRef.current);
+        }
+      };
+    }, []); // Empty dependency array to run this effect only once, like componentDidMount and componentWillUnmount
+
     return (
       <div
         className={`fade-in-left ${isVisible ? "is-visible" : ""}`}
@@ -58,15 +60,29 @@ export default function LandingPage() {
   }
 
   function FadeInRight(props) {
-    const [isVisible, setVisible] = React.useState(true);
-    const domRef = React.useRef();
-    React.useEffect(() => {
+    const [isVisible, setVisible] = useState(false);
+    const domRef = useRef(null);
+
+    useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => setVisible(entry.isIntersecting));
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+          }
+        });
       });
-      observer.observe(domRef.current);
-      return () => observer.unobserve(domRef.current);
+
+      if (domRef.current) {
+        observer.observe(domRef.current);
+      }
+
+      return () => {
+        if (domRef.current) {
+          observer.unobserve(domRef.current);
+        }
+      };
     }, []);
+
     return (
       <div
         className={`fade-in-right ${isVisible ? "is-visible" : ""}`}
@@ -76,32 +92,6 @@ export default function LandingPage() {
       </div>
     );
   }
-
-  useEffect(() => {
-    initializePage();
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Element is now visible
-          // Add your logic here
-        } else {
-          // Element is no longer visible
-          // Add your cleanup logic here
-        }
-      });
-    });
-
-    // Observe the elements you want to track
-
-    return () => {
-      // Cleanup code for unmounting or when the component is no longer needed
-      // Remove the observers and any other cleanup
-      observer.disconnect();
-    };
-  }, []);
 
   return (
     <>
