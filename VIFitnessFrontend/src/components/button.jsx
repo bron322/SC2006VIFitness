@@ -68,4 +68,4 @@ const button = (props) => {
   )
 }
 
-export default button
+export default button;

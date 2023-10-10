@@ -25,7 +25,6 @@ export default function LandingPage() {
     });
   }
 
-
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
@@ -103,7 +102,6 @@ export default function LandingPage() {
       observer.disconnect();
     };
   }, []);
-
 
   return (
     <>
@@ -217,7 +215,6 @@ export default function LandingPage() {
             </div>
           </FadeInLeft>
           <div className="content-image" />
-
         </div>
       </div>
     </>
