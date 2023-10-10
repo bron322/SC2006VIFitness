@@ -327,7 +327,7 @@ const MyProSidebar = () => {
                 backgroundColor: colors.muted.foreground,
               }}
             />
-            <LogoutButton onClick={handleLogout} />
+            <LogoutButton onClick={handleLogout} collapsed={collapsed} />
           </div>
         </Menu>
       </Sidebar>

@@ -48,10 +48,3 @@
     --ring: #1d4ed8;
   }
 }
-
-.profile-page-wrapper {
-  ::-webkit-scrollbar {
-    width: 0; /* Remove scrollbar space */
-    background: transparent; /* Optional: just make scrollbar invisible */
-  }
-}
