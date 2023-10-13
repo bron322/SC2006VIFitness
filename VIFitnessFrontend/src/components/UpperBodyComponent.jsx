@@ -6,7 +6,7 @@ import Lats from "./styles/photos/Lats.png";
 import Shoulders from "./styles/photos/Shoulders.png";
 import Triceps from "./styles/photos/Triceps.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 function UpperBodyComponent(){
     return(
