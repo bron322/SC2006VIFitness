@@ -63,6 +63,32 @@ export default function Form() {
                 helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
               />
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Weight (kg)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.weight}
+                name="weight"
+                error={!!touched.weight && !!errors.weight}
+                helperText={touched.weight && errors.weight}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Height (cm)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.height}
+                name="height"
+                error={!!touched.height && !!errors.height}
+                helperText={touched.height && errors.height}
+                sx={{ gridColumn: "span 2" }}
+              />
               <TextField
                 fullWidth
                 variant="filled"
@@ -76,7 +102,7 @@ export default function Form() {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="text"
@@ -114,11 +140,11 @@ export default function Form() {
                 error={!!touched.address2 && !!errors.address2}
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: "span 4" }}
-              />
+              /> */}
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Edit Profile
               </Button>
             </Box>
           </form>
@@ -128,25 +154,26 @@ export default function Form() {
   );
 };
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+// const phoneRegExp =
+//   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
+  weight: yup.string().required("required"),
+  height: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
-  contact: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+  // contact: yup
+  //   .string()
+  //   .matches(phoneRegExp, "Phone number is not valid")
+  //   .required("required"),
+  // address1: yup.string().required("required"),
+  // address2: yup.string().required("required"),
 });
 const initialValues = {
   firstName: "",
   lastName: "",
+  weight: "",
+  height: "",
   email: "",
-  contact: "",
-  address1: "",
-  address2: "",
 }
