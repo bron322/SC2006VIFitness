@@ -1,47 +1,81 @@
 import React from 'react';
 import Upper from "./styles/photos/UpperBody.jpg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import Biceps from "./styles/photos/Biceps.png";
+import Chest from "./styles/photos/Chest.png";
+import Lats from "./styles/photos/Lats.png";
+import Shoulders from "./styles/photos/Shoulders.png";
+import Triceps from "./styles/photos/Triceps.png";
+import MuscleCard from './MuscleCard';
 
-const images = [Upper, Upper, Upper, Upper];
-const descriptions = ["Bench Press", "Lat Pulldown", "Pull Up", "Dumbbell Curl"];
-
-function LeftComponent() {
-    return (
-        <div className="flex w-1/3 h-screen relative">
-            <img src={Upper} className="h-full w-full object-cover" />
-
-            <div className="absolute top-1/3 left-0 right-0 text-center font-bold text-xl">LOWER BODY EXERCISES</div>
-
-            <div className="absolute top-4 left-4">
-                <FontAwesomeIcon icon={faArrowLeft} />
+function UpperBodyComponent(){
+    return(
+        <>
+        <div className="flex">
+            <div className="sticky top-0 flex-none w-1/3 h-screen">
+                <img src={Upper} className="h-screen w-full object-cover"/>
             </div>
+            <div className="flex-grow px-24 pt-10 pb-10">
+                <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
+                    
+                    {/* Card 1 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Biceps}
+                        title="Biceps"
+                        description="nice"
+                        />
+                    </div>
 
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black"></div>
-        </div>        
-    );
-  };
+                    {/* Card 2 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Chest}
+                        title="Chest"
+                        description="nice"
+                        />
+                    </div>
 
-function RightComponent() {
-    return (
-        <div className="w-2/3 h-screen flex flex-wrap">
-            {images.map((image, index) => (
-                <div key={index} className="w-1/2 h-1/2 flex flex-col justify-center items-center relative">
-                    <img src={image} className="object-cover w-full h-3/4" alt={`Image ${index + 1}`} />
-                    <div className="absolute bottom-4 text-center w-full font-bold text-xl">{descriptions[index]}</div>
+                    {/* Card 3 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Shoulders}
+                        title="Shoulders"
+                        description="nice"
+                        />
+                    </div>
+
+                    {/* Card 4 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Triceps}
+                        title="Triceps"
+                        description="nice"
+                        />
+                    </div>
+
+                    {/* Card 5 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Lats}
+                        title="Lats"
+                        description="nice"
+                        />
+                    </div>
+
+                    {/* Card 6 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img="https://www.sadanduseless.com/wp-content/uploads/2022/08/synthol-freaks.png"
+                        title="Synthol mfs"
+                        description="nice"
+                        />
+                    </div>
+                    
                 </div>
-            ))}
+            </div>
         </div>
-    );
-}
-
-function UpperBodyComponent() {
-    return (
-        <div className="flex h-screen">
-            <LeftComponent />
-            <RightComponent />
-        </div>
-    );
+        </>
+    )
 }
 
 export default UpperBodyComponent;
