@@ -38,7 +38,6 @@ const buttons = [<LowerButton/>,<UpperButton/>,<CoreButton/>]
             <Link to= {paths[index]} className="z-10 text-4xl bg-transparent h-1/2">
                 {texts[index]}
             </Link>
-            {/* <div className="z-10 text-4xl bg-transparent h-1/2">{texts[index]}</div>   */}
             <div className="z-10 text-center items-center">{buttons[index]} </div>
             <div className="z-10 text-xl text-center bg-transparent">{part1[index]}</div>  
             <div className="z-10 text-xl text-center bg-transparent">{part2[index]}</div>  

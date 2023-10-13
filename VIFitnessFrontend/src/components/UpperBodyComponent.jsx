@@ -5,8 +5,7 @@ import Chest from "./styles/photos/Chest.png";
 import Lats from "./styles/photos/Lats.png";
 import Shoulders from "./styles/photos/Shoulders.png";
 import Triceps from "./styles/photos/Triceps.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import MuscleCard from './MuscleCard';
 
 function UpperBodyComponent(){
     return(
@@ -15,37 +14,63 @@ function UpperBodyComponent(){
             <div className="sticky top-0 flex-none w-1/3 h-screen">
                 <img src={Upper} className="h-screen w-full object-cover"/>
             </div>
-            <div className="flex-grow px-24 pt-10">
+            <div className="flex-grow px-24 pt-10 pb-10">
                 <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
+                    
                     {/* Card 1 */}
-                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
-                        <img src={Biceps} className="h-full w-full object-contain object-center"/>
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Biceps}
+                        title="Biceps"
+                        description="nice"
+                        />
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
-                        <img src={Chest} className="h-full w-full object-contain object-center"/>
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Chest}
+                        title="Chest"
+                        description="nice"
+                        />
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
-                        <img src={Shoulders} className="h-full w-full object-contain object-center"/>
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Shoulders}
+                        title="Shoulders"
+                        description="nice"
+                        />
                     </div>
 
                     {/* Card 4 */}
-                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
-                        <img src={Triceps} className="h-full w-full object-contain object-center"/>
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Triceps}
+                        title="Triceps"
+                        description="nice"
+                        />
                     </div>
 
                     {/* Card 5 */}
-                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
-                        <img src={Lats} className="h-full w-full object-contain object-center"/>
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Lats}
+                        title="Lats"
+                        description="nice"
+                        />
                     </div>
 
                     {/* Card 6 */}
-                    <div className="bg-white p-4 rounded-lg shadow-md flex justify-center items-center">
-                        <img src="https://www.sadanduseless.com/wp-content/uploads/2022/08/synthol-freaks.png" className="h-full w-full object-contain object-center"/>
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img="https://www.sadanduseless.com/wp-content/uploads/2022/08/synthol-freaks.png"
+                        title="Synthol mfs"
+                        description="nice"
+                        />
                     </div>
+                    
                 </div>
             </div>
         </div>
