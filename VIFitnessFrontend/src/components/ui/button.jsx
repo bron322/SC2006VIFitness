@@ -16,7 +16,7 @@ const buttonVariants = cva(
         outline:
           "border border-slate-200 bg-transparent shadow-sm hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         secondary:
-          "bg-slate-100 text-slate-900 shadow-sm hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
+          "bg-slate-300 text-slate-900 shadow-sm hover:bg-slate-300/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
         ghost:
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
@@ -30,6 +30,8 @@ const buttonVariants = cva(
         icon: "h-9 w-9",
         register: "h-10 px-4 py-2 rounded",
         login: "h-10 w-[90%] px-4 py-2 rounded",
+        logout: "h-10 w-[90%] mx-3 mt-4 mb-2 px-4 py-2 rounded",
+        collapsed: "h-10 w-[70%] mx-3 mt-4 mb-2 px-4 py-2 rounded",
       },
     },
     defaultVariants: {

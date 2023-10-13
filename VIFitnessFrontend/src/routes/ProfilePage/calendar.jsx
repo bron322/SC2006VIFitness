@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import Header from "./Chart/Header";
 import { tokens } from "../theme";
+import Calendar from "../components/calendar/Calendar.js"
 
 export default function Calendar() {
   const theme = useTheme();
@@ -55,7 +56,7 @@ export default function Calendar() {
         {/* CALENDAR SIDEBAR */}
         <Box
           flex="1 1 20%"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.primary.default}
           p="15px"
           borderRadius="4px"
         >
@@ -65,7 +66,7 @@ export default function Calendar() {
               <ListItem
                 key={event.id}
                 sx={{
-                  backgroundColor: colors.greenAccent[500],
+                  backgroundColor: colors.secondary.default,
                   margin: "10px 0",
                   borderRadius: "2px",
                 }}
@@ -102,7 +103,6 @@ export default function Calendar() {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
-            
             initialView="dayGridMonth"
             editable={true}
             selectable={true}

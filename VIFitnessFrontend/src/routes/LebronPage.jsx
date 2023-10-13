@@ -1,18 +1,14 @@
 import { useState } from "react";
-
-import "./styles/LebronPage.css";
 import { Table } from "../components/MacroTable";
 import { Modal } from "../components/Modal";
 import PieChartLebron from "../components/piechart";
-import Semircirclebar from "../components/semircirclebar"
-
+import Semircirclebar from "../components/semircirclebar";
 import Topbar from "../components/topbar";
-import { MyProSidebarProvider } from "../components/sidebarContext"
+import { MyProSidebarProvider } from "../components/sidebarContext";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import './styles/profilePage.css'
-
-//This is Lebron test micro page
+import "./styles/profilePage.css";
+import "./styles/LebronPage.css";
 
 export default function LebronPage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -49,12 +45,12 @@ export default function LebronPage() {
     rowToEdit === null
       ? setRows([...rows, newRow])
       : setRows(
-        rows.map((currRow, idx) => {
-          if (idx !== rowToEdit) return currRow;
+          rows.map((currRow, idx) => {
+            if (idx !== rowToEdit) return currRow;
 
-          return newRow;
-        })
-      );
+            return newRow;
+          })
+        );
   };
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -68,7 +64,6 @@ export default function LebronPage() {
             <main className="content">
               <Topbar setIsSidebar={setIsSidebar} />
 
-
               <div className="App">
                 <div className="piechart-container flex w-5/6 h-1/3 justify-center items-center pt-10">
                   <Semircirclebar />
@@ -77,9 +72,15 @@ export default function LebronPage() {
                   <PieChartLebron />
                 </div>
 
-
-                <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} />
-                <button onClick={() => setModalOpen(true)} className="btn flex justify-self-center">
+                <Table
+                  rows={rows}
+                  deleteRow={handleDeleteRow}
+                  editRow={handleEditRow}
+                />
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="btn flex justify-self-center"
+                >
                   Add
                 </button>
                 {modalOpen && (
@@ -94,10 +95,15 @@ export default function LebronPage() {
                 )}
                 <div className="relative flex h-[50px] w-full" />
 
-
-
-                <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} />
-                <button onClick={() => setModalOpen(true)} className="btn flex justify-self-center">
+                <Table
+                  rows={rows}
+                  deleteRow={handleDeleteRow}
+                  editRow={handleEditRow}
+                />
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="btn flex justify-self-center"
+                >
                   Add
                 </button>
                 {modalOpen && (
@@ -112,8 +118,15 @@ export default function LebronPage() {
                 )}
                 <div className="relative flex h-[50px] w-full" />
 
-                <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} />
-                <button onClick={() => setModalOpen(true)} className="btn flex justify-self-center">
+                <Table
+                  rows={rows}
+                  deleteRow={handleDeleteRow}
+                  editRow={handleEditRow}
+                />
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="btn flex justify-self-center"
+                >
                   Add
                 </button>
                 {modalOpen && (

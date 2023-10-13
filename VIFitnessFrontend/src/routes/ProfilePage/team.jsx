@@ -7,7 +7,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "./Chart/Header";
 
-export default function Team () {
+export default function Team() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -49,17 +49,17 @@ export default function Team () {
             justifyContent="center"
             backgroundColor={
               access === "admin"
-                ? colors.greenAccent[600]
+                ? colors.primary.default
                 : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
+                ? colors.primary.default
+                : colors.primary.default
             }
             borderRadius="4px"
           >
             {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
             {access === "manager" && <SecurityOutlinedIcon />}
             {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+            <Typography color={colors.secondary.default} sx={{ ml: "5px" }}>
               {access}
             </Typography>
           </Box>
@@ -82,21 +82,21 @@ export default function Team () {
             borderBottom: "none",
           },
           "& .name-column--cell": {
-            color: colors.greenAccent[300],
+            color: colors.primary.default,
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary.default,
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.primary.default,
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary.default,
           },
           "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
+            color: `${colors.primary.default} !important`,
           },
         }}
       >

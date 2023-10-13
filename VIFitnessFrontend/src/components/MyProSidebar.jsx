@@ -2,10 +2,8 @@
 import { useState } from "react";
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { useProSidebar } from "react-pro-sidebar";
-
 import { useSidebarContext } from "./sidebarContext";
-
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { tokens } from "../routes/theme";
 import { useTheme, Box, Typography, IconButton } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -17,30 +15,69 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
-
 import User from "../components/styles/photos/user.png";
 import Logo from "../components/styles/photos/LOGO.png";
+import { Separator } from "@/components/ui/separator";
+import LogoutButton from "./LogoutButton";
+import { useAuth } from "../hooks/AuthProvider";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [hover, setHover] = useState(false);
 
   return (
     <MenuItem
       active={selected === title}
-      style={{ color: colors.grey[100] }}
+      style={{
+        color: colors.secondary.foreground,
+        backgroundColor: hover
+          ? colors.muted.hover // button color when hover
+          : selected === title
+          ? colors.primary.active // button color when active
+          : colors.background.default, // button color for default
+        transitionDuration: "0.3s",
+      }}
       onClick={() => setSelected(title)}
       icon={icon}
-      component={<Link to={to} />}
+      component={<NavLink to={to} />}
+      className="pb-2 flex justify-center "
+      // Set hover state for the button
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
+      rootStyles={{
+        [".ps-menu-icon"]: {
+          color: hover
+            ? colors.accent.foreground // button color when hover
+            : selected === title
+            ? colors.destructive.foreground // button color when active
+            : colors.muted.foreground, // button color for default
+        },
+      }}
     >
-      <Typography>{title}</Typography>
+      {/* Text for Menu Items */}
+      <Typography
+        color={
+          hover
+            ? colors.accent.foreground // text color for hover
+            : selected === title
+            ? colors.destructive.foreground // text color for active
+            : colors.muted.foreground // text color for default
+        }
+        fontWeight="medium"
+      >
+        {title}
+      </Typography>
     </MenuItem>
   );
 };
@@ -51,46 +88,50 @@ const MyProSidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <Box
+    <Box // this is content wrapper for the sidebar
       sx={{
         position: "sticky",
         display: "flex",
         height: "100vh",
         top: 0,
         bottom: 0,
-        zIndex: 10000,
-        "& .sidebar": {
-          border: "none",
-        },
-        "& .menu-icon": {
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-item": {
-          // padding: "5px 35px 5px 20px !important",
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-anchor": {
-          color: "inherit !important",
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-item:hover": {
-          color: `${colors.blueAccent[500]} !important`,
-          backgroundColor: "transparent !important",
-        },
-        "& .menu-item.active": {
-          color: `${colors.greenAccent[500]} !important`,
-          backgroundColor: "transparent !important",
-        },
+        zIndex: 1,
       }}
+      className={`border-${sidebarRTL ? "l" : "r"}-2 p-2 justify-center`}
+      borderColor={colors.secondary.default}
+      backgroundColor={colors.background.default}
     >
-      <Sidebar
+      <Sidebar // main sidebar object
         breakPoint="md"
         rtl={sidebarRTL}
-        backgroundColor={colors.primary[400]}
+        backgroundColor={colors.background.default}
         image={sidebarImage}
+        style={{
+          height: "100%",
+          top: "auto",
+          position: "sticky",
+          padding: "0rem",
+          margin: "0rem",
+          border: "0rem", // this get rids of the white line around the sidebar container
+        }}
       >
-        <Menu iconshape="square">
+        <Menu
+          iconshape="square"
+          menuItemStyles={{
+            button: {
+              borderRadius: "1rem",
+              height: "2.3rem",
+              width: "90%",
+            },
+          }}
+        >
           <MenuItem
             icon={
               collapsed ? (
@@ -107,15 +148,18 @@ const MyProSidebar = () => {
             }
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
+              color: colors.accent.foreground,
+              backgroundColor: colors.background.default,
             }}
+            className="flex justify-center"
           >
+            {/* the top layer: switch button, collapse button and logo */}
             {!collapsed && (
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
+                ml="5px"
               >
                 <img
                   alt="logo"
@@ -139,6 +183,8 @@ const MyProSidebar = () => {
               </Box>
             )}
           </MenuItem>
+
+          {/* Avatar + username */}
           {!collapsed && (
             <Box mb="25px">
               <Box
@@ -147,7 +193,7 @@ const MyProSidebar = () => {
                 alignItems="center"
                 sx={{
                   "& .avater-image": {
-                    backgroundColor: colors.primary[500],
+                    backgroundColor: colors.background.default,
                   },
                 }}
               >
@@ -163,7 +209,7 @@ const MyProSidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h3"
-                  color={colors.grey[100]}
+                  color={colors.accent.foreground}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
@@ -172,7 +218,7 @@ const MyProSidebar = () => {
               </Box>
             </Box>
           )}
-          <Box paddingLeft={collapsed ? undefined : "10%"}>
+          <Box className="flex-verticle justify-items-center align-center">
             <Item
               title="Dashboard"
               to="/"
@@ -183,7 +229,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Data
@@ -212,7 +258,7 @@ const MyProSidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Pages
@@ -239,9 +285,9 @@ const MyProSidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h6"
-              color={colors.grey[300]}
+              color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
               Charts
@@ -273,8 +319,16 @@ const MyProSidebar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
+          <div className="flex-col w-full absolute bottom-0 justify-center align-middle">
+            <Separator
+              style={{
+                backgroundColor: colors.muted.foreground,
+              }}
+            />
+            <LogoutButton onClick={handleLogout} collapsed={collapsed} />
+          </div>
         </Menu>
       </Sidebar>
     </Box>
