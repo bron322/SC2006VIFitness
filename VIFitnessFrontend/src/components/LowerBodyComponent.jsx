@@ -5,7 +5,6 @@ import Glutes from "./styles/photos/Glutes.png";
 import Hamstring from "./styles/photos/Hamstring.jpg";
 import Quads from "./styles/photos/Quads.png";
 import MuscleCard from './MuscleCard';
-import ExerciseModal from './ExerciseModal';
 
 function LowerBodyComponent() {
     return (
@@ -63,15 +62,12 @@ function LowerBodyComponent() {
                     </div>
 
                     {/* Card 6 */}
-                    {/* <div className="flex justify-center">
+                    <div className="flex justify-center">
                         <MuscleCard
                         img="https://www.greatestphysiques.com/wp-content/uploads/2016/09/Arnold-Schwarzenegger-1r4.jpg"
                         title="Nice"
                         description="123"
                         />
-                    </div> */}
-                    <div className="flex justify-center">
-                        <ExerciseModal/>
                     </div>
 
                 </div>
