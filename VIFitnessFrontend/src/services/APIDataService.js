@@ -43,7 +43,12 @@ const createByStrava = async (data) => {
 //POST user by ticking the exercises
 const addingExercise = async (data) => {
   return http.post(`/addExercise/${data.username}`, data);
-}
+};
+
+//PATCH limits settings
+const updateLimits = async (data) => {
+  return http.patch(`/updateLimits/${data.email}`, data);
+};
 
 const APIDataService = {
   getAll,
@@ -55,6 +60,7 @@ const APIDataService = {
   createByGoogle,
   createByStrava,
   addingExercise,
+  updateLimits,
 };
 
 export default APIDataService;

@@ -21,6 +21,12 @@ const dataSchema = new mongoose.Schema({
   strava_data: { type: Object, default: {} },
   meals: { type: Array, default: [] },
   workouts: { type: Array, default: [] },
+  macros_setting: {
+    calorie: { type: Number, default: 2300 },
+    protein: { type: Number, default: 50 },
+    fat: { type: Number, default: 44 },
+    carbohydrate: { type: Number, default: 250 },
+  },
 });
 
 const User = mongoose.model("User", dataSchema);

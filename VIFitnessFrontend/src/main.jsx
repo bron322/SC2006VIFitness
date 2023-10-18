@@ -159,6 +159,11 @@ const router = createBrowserRouter([
                 errorElement: <ErrorPage />,
                 element: <GenerateWorkout />,
               },
+              {
+                path: "macros",
+                errorElement: <ErrorPage />,
+                element: <LebronPage />,
+              },
             ],
           },
         ],
