@@ -1,5 +1,10 @@
 import React, { useContext, useState } from "react";
 import GlobalContext from "../context/GlobalContext";
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import SegmentIcon from '@mui/icons-material/Segment';
+import CheckIcon from '@mui/icons-material/Check';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BackgroundImages from "@/components/PlannerComponent";
 
 const labelsClasses = [
   "indigo",
@@ -62,9 +67,9 @@ export default function EventModal() {
                   });
                   setShowEventModal(false);
                 }}
-                className="fa fa-trash text-gray-400 cursor-pointer"
+                className="fa fa-trash text-gray-400 cursor-pointer pr-1"
               >
-                delete
+              
               </span>
             )}
             <button onClick={() => setShowEventModal(false)}>
@@ -73,7 +78,7 @@ export default function EventModal() {
             </button>
           </div>
         </header>
-        <div className="p-3">
+        <div className="p-3 text-black">
           <div className="grid grid-cols-1/5 items-end gap-y-7">
             <div></div>
             <input
@@ -85,12 +90,12 @@ export default function EventModal() {
               className="pt-3 border-0 text-gray-600 text-xl font-semibold pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <span className="material-icons-outlined text-gray-400">
-              schedule
+            <span className="text-gray-400">
+              <ScheduleIcon/>
             </span>
             <p>{daySelected.format("dddd, MMMM DD")}</p>
-            <span className="material-icons-outlined text-gray-400">
-              segment
+            <span className="text-gray-400">
+              <SegmentIcon/>
             </span>
             <input
               type="text"
@@ -101,19 +106,20 @@ export default function EventModal() {
               className="pt-3 border-0 text-gray-600 pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
               onChange={(e) => setDescription(e.target.value)}
             />
-            <span className="material-icons-outlined text-gray-400">
-              bookmark_border
+            <span className="text-gray-400">
+              <BookmarkBorderIcon/>
             </span>
             <div className="flex gap-x-2">
               {labelsClasses.map((lblClass, i) => (
                 <span
                   key={i}
                   onClick={() => setSelectedLabel(lblClass)}
-                  className={`bg-${lblClass}-500 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer`}
+                  className={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer`}
+                  style={{backgroundColor: lblClass}}
                 >
                   {selectedLabel === lblClass && (
-                    <span className="material-icons-outlined text-white text-sm">
-                      check
+                    <span className="text-white text-sm">
+                      <CheckIcon/>
                     </span>
                   )}
                 </span>
