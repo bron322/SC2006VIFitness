@@ -47,7 +47,7 @@ export default function TestPage(props) {
     try {
       const response = await NutritionixService.getNutrients(data);
       setNutritionData(response.data.foods);
-      // console.log(nutritionData);
+      console.log(nutritionData);
     } catch (err) {
       console.log(err);
     }

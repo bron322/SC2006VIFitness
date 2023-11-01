@@ -170,14 +170,35 @@ APIrouter.delete("/delete/:username", (req, res) => {
     });
 });
 
+//Update macros-limit method
+APIrouter.patch("/updateLimits/:email", (req, res) => {
+  const limitsData = req.body.newLimits;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        macros_setting: limitsData,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //Add meal method
-APIrouter.post("/addMeal/:username", (req, res) => { });
+APIrouter.post("/addMeal/:username", (req, res) => {});
 
 //Update meal method
-APIrouter.patch("/updateMeal/:username", (req, res) => { });
+APIrouter.patch("/updateMeal/:username", (req, res) => {});
 
 //Delete meal method
-APIrouter.delete("/deleteMeal/:username", (req, res) => { });
+APIrouter.delete("/deleteMeal/:username", (req, res) => {});
 
 //Add exercise method
 APIrouter.post("/addExercise/:username", (req, res) => {
@@ -187,7 +208,7 @@ APIrouter.post("/addExercise/:username", (req, res) => {
     { username: req.params.username },
     {
       $push: {
-        workouts: {$each: exerciseData}
+        workouts: { $each: exerciseData },
       },
     },
     {
@@ -199,11 +220,11 @@ APIrouter.post("/addExercise/:username", (req, res) => {
     })
     .catch((err) => {
       res.send(err);
-    })
-}); 
+    });
+});
 
 //Update exercise method
-APIrouter.patch("/updateExercise/:username", (req, res) => { });
+APIrouter.patch("/updateExercise/:username", (req, res) => {});
 
 //Delete exercise method
 APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
