@@ -1,31 +1,18 @@
 import React, { useContext, useState } from "react";
 import GlobalContext from "../context/GlobalContext";
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import SegmentIcon from '@mui/icons-material/Segment';
-import CheckIcon from '@mui/icons-material/Check';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import SegmentIcon from "@mui/icons-material/Segment";
+import CheckIcon from "@mui/icons-material/Check";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BackgroundImages from "@/components/PlannerComponent";
 
-const labelsClasses = [
-  "indigo",
-  "gray",
-  "green",
-  "blue",
-  "red",
-  "purple",
-];
+const labelsClasses = ["white", "gray", "green", "blue", "red", "purple"];
 
 export default function EventModal() {
-  const {
-    setShowEventModal,
-    daySelected,
-    dispatchCalEvent,
-    selectedEvent,
-  } = useContext(GlobalContext);
+  const { setShowEventModal, daySelected, dispatchCalEvent, selectedEvent } =
+    useContext(GlobalContext);
 
-  const [title, setTitle] = useState(
-    selectedEvent ? selectedEvent.title : ""
-  );
+  const [title, setTitle] = useState(selectedEvent ? selectedEvent.title : "");
   const [description, setDescription] = useState(
     selectedEvent ? selectedEvent.description : ""
   );
@@ -68,13 +55,10 @@ export default function EventModal() {
                   setShowEventModal(false);
                 }}
                 className="fa fa-trash text-gray-400 cursor-pointer pr-1"
-              >
-              
-              </span>
+              ></span>
             )}
             <button onClick={() => setShowEventModal(false)}>
-              <span className="fa fa-times text-gray-400">
-              </span>
+              <span className="fa fa-times text-gray-400"></span>
             </button>
           </div>
         </header>
@@ -91,11 +75,11 @@ export default function EventModal() {
               onChange={(e) => setTitle(e.target.value)}
             />
             <span className="text-gray-400">
-              <ScheduleIcon/>
+              <ScheduleIcon />
             </span>
             <p>{daySelected.format("dddd, MMMM DD")}</p>
             <span className="text-gray-400">
-              <SegmentIcon/>
+              <SegmentIcon />
             </span>
             <input
               type="text"
@@ -107,7 +91,7 @@ export default function EventModal() {
               onChange={(e) => setDescription(e.target.value)}
             />
             <span className="text-gray-400">
-              <BookmarkBorderIcon/>
+              <BookmarkBorderIcon />
             </span>
             <div className="flex gap-x-2">
               {labelsClasses.map((lblClass, i) => (
@@ -115,11 +99,11 @@ export default function EventModal() {
                   key={i}
                   onClick={() => setSelectedLabel(lblClass)}
                   className={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer`}
-                  style={{backgroundColor: lblClass}}
+                  style={{ backgroundColor: lblClass }}
                 >
                   {selectedLabel === lblClass && (
                     <span className="text-white text-sm">
-                      <CheckIcon/>
+                      <CheckIcon />
                     </span>
                   )}
                 </span>
