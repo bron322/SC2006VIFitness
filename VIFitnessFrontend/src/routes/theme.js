@@ -20,6 +20,7 @@ export const themeColor = () => ({
     700: "#94a3b8", //light-blue3
     800: "#1d4ed8", //blue
     900: "#3e4652", //muted-blue
+    1000: "#030e29", //abit ligther blue
   },
   red: {
     100: "#ef4444", //bright-red
@@ -37,6 +38,7 @@ export const tokens = (mode) => {
           background: {
             default: colors.white[100],
             foreground: colors.blue[100],
+            children: colors.white[100],
           },
           card: {
             default: colors.white[100],
@@ -50,6 +52,7 @@ export const tokens = (mode) => {
             default: colors.white[300],
             foreground: colors.white[200],
             active: colors.blue[100],
+            text: colors.blue[100],
           },
           secondary: {
             default: colors.blue[400],
@@ -77,12 +80,17 @@ export const tokens = (mode) => {
           ring: {
             default: colors.white[300],
           },
+          progress: {
+            default: colors.blue[500],
+            foreground: colors.white[400],
+          },
         }
       : {
           // palette values for light mode
           background: {
             default: colors.blue[100],
             foreground: colors.white[200],
+            children: colors.blue[1000],
           },
           card: {
             default: colors.blue[100],
@@ -96,6 +104,7 @@ export const tokens = (mode) => {
             default: colors.blue[500],
             foreground: colors.blue[300],
             active: colors.blue[900],
+            text: colors.blue[500],
           },
           secondary: {
             default: colors.blue[600],
@@ -122,6 +131,10 @@ export const tokens = (mode) => {
           },
           ring: {
             default: colors.blue[800],
+          },
+          progress: {
+            default: colors.blue[500],
+            foreground: colors.blue[100],
           },
         }),
   };
