@@ -6,7 +6,7 @@ import Hamstring from "./styles/photos/Hamstring.jpg";
 import Quads from "./styles/photos/Quads.png";
 import MuscleCard from './MuscleCard';
 
-function LowerBodyComponent() {
+function LowerBodyComponent() { 
     return (
         <>
         <div className="flex">

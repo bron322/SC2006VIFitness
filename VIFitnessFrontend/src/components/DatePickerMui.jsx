@@ -15,7 +15,6 @@ const DatePickerMui = () => {
         value={value}
         onChange={(newValue)=> setValue(newValue)}
         renderInput={(props)=> <TextField{...props} />}
-
         />
       </LocalizationProvider>
     </Box>

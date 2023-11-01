@@ -25,3 +25,4 @@ export default function ExerciseCard({img, title, description}) {
       </Card>
   );
 }
+
