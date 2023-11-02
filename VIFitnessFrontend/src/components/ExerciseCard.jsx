@@ -59,7 +59,7 @@ function ChildModal2() {
 export default function ExerciseCard({img, title, description}) {
   
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
+  const exercisecardhandleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
@@ -68,7 +68,7 @@ export default function ExerciseCard({img, title, description}) {
 
   return (
     <div>
-      <Card sx={{ width: 150, height: 200 }} onClick={handleOpen}>
+      <Card sx={{ width: 150, height: 200 }} onClick={exercisecardhandleOpen}>
         <CardActionArea>
           <CardMedia sx={{ maxWidth: 150, height: 120 }}
             component="img"
