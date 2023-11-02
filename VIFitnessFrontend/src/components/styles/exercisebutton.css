@@ -1,0 +1,14 @@
+.addToCalendarButton {
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    padding: 8px 16px; /* Padding */
+    margin-top: 10px; /* Spacing from the exercise entry */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .addToCalendarButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
