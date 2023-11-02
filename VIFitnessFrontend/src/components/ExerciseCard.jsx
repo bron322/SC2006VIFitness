@@ -27,7 +27,7 @@ const style = {
   pb: 3,
 };
 
-function ChildModal2() {
+function ChildModalAddtoCalendar() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -56,10 +56,10 @@ function ChildModal2() {
   );
 }
 
-export default function ExerciseCard({img, title, description}) {
-  
+export default function ExerciseCard({ img, title, description, instruction, equipment }) {
+
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
+  const exercisecardhandleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
@@ -68,7 +68,7 @@ export default function ExerciseCard({img, title, description}) {
 
   return (
     <div>
-      <Card sx={{ width: 150, height: 200 }} onClick={handleOpen}>
+      <Card sx={{ width: 150, height: 250 }} onClick={exercisecardhandleOpen}>
         <CardActionArea>
           <CardMedia sx={{ maxWidth: 150, height: 120 }}
             component="img"
@@ -90,15 +90,45 @@ export default function ExerciseCard({img, title, description}) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 1000, height: 800 }}>
-          <Typography variant="h1" className="text-center">
+          {/* <Typography variant="h1" className="text-center">
+            {'Incline dumbbell curl'}
             {/* Name of exercise */}
-          </Typography>
+          {/* </Typography> */}
           {/* <h2 id="parent-modal-title">Exercises</h2> */}
-          <div className="flex-grow pb-8">
+          {/* <div className="flex-grow pb-8">
+            {'Instructions'}
             {/* Exercise details */}
-          </div> 
-          <ChildModal2 />
+          {/* </div> */}
+          {/* <ChildModalAddtoCalendar /> {/*the function is above the page*/}
+        <Box sx={{ ...style, width: 1000, height: 800, display: 'flex' }}>
+          {/* Left side for the exercise image */}
+          <div style={{ flex: 1 }}>
+            <img src={Calves} alt="Exercise" />
+          </div>
+
+          {/* Right side for the title, instructions, and ChildModalAddtoCalendar */}
+          <div style={{ flex: 2, display: 'flex', flexDirection: 'column' }}>
+            <Typography variant="h1" className="text-center">
+              {title}
+            </Typography>
+
+            <div className="flex-grow pb-8">
+              {'Difficulty: '}<br></br>
+              {description}
+            </div>
+
+            <div className="flex-grow pb-8">
+              {'Instructions: '}<br></br>
+              {instruction}
+            </div>
+
+            <div className="flex-grow pb-8">
+              {'Equipment: '}<br></br>
+              {equipment}
+            </div>
+
+            <ChildModalAddtoCalendar /> {/* The function is above the page */}
+          </div>
         </Box>
       </Modal>
     </div>

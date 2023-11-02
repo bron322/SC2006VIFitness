@@ -7,7 +7,7 @@ import ExerciseList from "../components/ExerciseList";
 import './styles/exercisebutton.css'
 import userDataGenerator from "../utils/userDataGenerator.js";
 
-//this is Lebron chatgpt page
+//this is Lebron Get Workout page
 
 export default function GenerateWorkout() {
   const [workoutData, setWorkoutData] = useState([]);
@@ -84,10 +84,6 @@ export default function GenerateWorkout() {
       // Handle errors here
     }
   };
-
-  const test = (event) => {
-    console.log(event)
-  }
 
   return (
     <div className="container">

@@ -39,7 +39,7 @@ function UpperBodyComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Shoulders}
-                        title="Shoulders"
+                        title="Forearms"
                         description="nice"
                         />
                     </div>
@@ -48,7 +48,7 @@ function UpperBodyComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Triceps}
-                        title="Triceps"
+                        title="Lats"
                         description="nice"
                         />
                     </div>
@@ -57,7 +57,7 @@ function UpperBodyComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Lats}
-                        title="Lats"
+                        title="Middle Back"
                         description="nice"
                         />
                     </div>
@@ -66,7 +66,7 @@ function UpperBodyComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img="https://www.sadanduseless.com/wp-content/uploads/2022/08/synthol-freaks.png"
-                        title="Synthol mfs"
+                        title="Triceps"
                         description="nice"
                         />
                     </div>
