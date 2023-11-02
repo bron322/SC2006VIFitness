@@ -22,6 +22,8 @@ import NutritionixService from "@/services/NutritionixService";
 import FoodCard from "@/components/macrosPageUI/foodCard";
 import SummaryCard from "@/components/macrosPageUI/summaryCard";
 import toast, { Toaster } from "react-hot-toast";
+import DataTable from "@/components/macrosPageUI/MealsTable/data-table";
+import TableColumns from "@/components/macrosPageUI/MealsTable/columns";
 
 export default function MacrosPage() {
   const theme = useTheme();
@@ -242,6 +244,12 @@ export default function MacrosPage() {
                               >
                                 Meals
                               </h2>
+                              <div className="container mx-auto py-10">
+                                <DataTable
+                                  columns={TableColumns.columns}
+                                  data={TableColumns.testData}
+                                />
+                              </div>
                             </div>
                           </div>
                         </TabsContent>
