@@ -2,8 +2,9 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { mockTransactions } from "./data/mockData";
 import Header from "./Chart/Header";
-import LineChart from "./Chart/Line";
-import Calendar from "./Chart/Calendar";
+import Macros from "./Chart/macros";
+// import Calendar from "./Chart/Calendar";
+import Calendar from "../Calendar/components/SmallCalendar"
 import { useState } from "react";
 
 export default function Dashboard() {
@@ -62,7 +63,7 @@ export default function Dashboard() {
         </Box>
         <Box
           gridColumn="span 4"
-          gridRow="span 2"
+          gridRow="span 4"
           backgroundColor={colors.background.default}
           padding="20px"
           className="rounded-lg border"
@@ -76,6 +77,7 @@ export default function Dashboard() {
             Calendar
           </Typography>
           <Box height="250px">
+            {/* <Calendar /> */}
             <Calendar />
           </Box>
         </Box>
@@ -103,21 +105,22 @@ export default function Dashboard() {
               >
                 Macros Tracker
               </Typography>
-              <Typography
+              {/* <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.muted.foreground}
               >
                 $59,342.32
-              </Typography>
+              </Typography> */}
             </Box>
             <Box></Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+          <Box height="250px" m="-20px 0 10 0">
+            {/* <LineChart isDashboard={true} /> */}
+            <Macros/>
           </Box>
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           overflow="auto"
@@ -172,7 +175,7 @@ export default function Dashboard() {
               </Box>
             </Box>
           ))}
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
