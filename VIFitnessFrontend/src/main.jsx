@@ -18,6 +18,7 @@ import WorkoutUpperPage from "./routes/WorkoutUpperPage";
 import WorkoutLowerPage from "./routes/WorkoutLowerPage";
 import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
+import TestPageNg from "./routes/TestPageNg";
 import Dashboard from "./routes/ProfilePage/Dashboard";
 import Contacts from "./routes/ProfilePage/Contacts";
 import Team from "./routes/ProfilePage/team";
@@ -158,6 +159,16 @@ const router = createBrowserRouter([
                 path: "getworkout",
                 errorElement: <ErrorPage />,
                 element: <GenerateWorkout />,
+              },
+              {
+                path: "macros",
+                errorElement: <ErrorPage />,
+                element: <LebronPage />,
+              },
+              {
+                path: "testaddworkout",
+                errorElement: <ErrorPage />,
+                element: <TestPageNg />,
               },
             ],
           },

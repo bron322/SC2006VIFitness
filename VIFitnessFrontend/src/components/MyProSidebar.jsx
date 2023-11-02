@@ -18,6 +18,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
@@ -249,9 +250,9 @@ const MyProSidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="invoices"
-              icon={<ReceiptOutlinedIcon />}
+              title="Macros Tracker"
+              to="macros-tracker"
+              icon={<RestaurantIcon />}
               selected={selected}
               setSelected={setSelected}
             />

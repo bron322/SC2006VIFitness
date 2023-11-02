@@ -1,12 +1,14 @@
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
+// import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "./Chart/Header";
+import GoogleButton from "../../components/socialsButton/GoogleButton";
+import StravaButton from "../../components/socialsButton/StravaButton";
 
 export default function Form() {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
+  // const isNonMobile = useMediaQuery("(min-width:600px)");
+  
   const handleFormSubmit = (values) => {
     console.log(values);
   };
@@ -33,9 +35,9 @@ export default function Form() {
               display="grid"
               gap="30px"
               gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}
+              // sx={{
+              //   "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              // }}
             >
               <TextField
                 fullWidth
@@ -102,6 +104,7 @@ export default function Form() {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
+              
               {/* <TextField
                 fullWidth
                 variant="filled"
@@ -142,6 +145,19 @@ export default function Form() {
                 sx={{ gridColumn: "span 4" }}
               /> */}
             </Box>
+             {/* Socials button */}
+             <div className="flex items-center justify-center pt-2">
+              {/* Google button */}
+              <GoogleButton>
+                Connect with Google
+              </GoogleButton>
+              <div id="google-button"></div>
+
+              {/* Strava button */}
+              <StravaButton >
+                Connect with Strava
+              </StravaButton>
+            </div>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
                 Edit Profile
