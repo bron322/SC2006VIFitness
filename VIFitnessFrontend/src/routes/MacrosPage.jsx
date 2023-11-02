@@ -299,7 +299,7 @@ export default function MacrosPage() {
                               </div>
 
                               {/* ////////////////// Food Card ////////////////// */}
-                              <div className="foodcard-wrapper grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 ">
+                              <div className="foodcard-wrapper grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 ">
                                 {nutritionData.map((item) => {
                                   return (
                                     <FoodCard key={item.ndb_no} data={item} />

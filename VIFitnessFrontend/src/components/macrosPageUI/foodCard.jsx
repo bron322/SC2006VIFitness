@@ -6,12 +6,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { tokens } from "@/routes/theme";
 import { useTheme } from "@mui/material";
 import { Separator } from "../ui/separator";
 import { useEffect, useState } from "react";
+import { Check, ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const mealTypes = [
+  {
+    value: "breakfast",
+    label: "Breakfast",
+  },
+  {
+    value: "lunch",
+    label: "Lunch",
+  },
+  {
+    value: "dinner",
+    label: "Dinner",
+  },
+];
 
 export default function FoodCard(props) {
   const theme = useTheme();
@@ -22,6 +62,8 @@ export default function FoodCard(props) {
     n_carb: 0,
     n_fat: 0,
   });
+  const [open, setOpen] = useState(false); // open state of combobox for meal type
+  const [mealType, setMealType] = useState(""); // track value of meal type selected in combo box
 
   useEffect(() => {
     let dataArray = [
@@ -41,9 +83,12 @@ export default function FoodCard(props) {
     });
   }, []);
 
+  //onClick handler for Add a Meal
+  const handleAddMeal = () => {};
+
   return (
     <Card
-      className="w-100% min-w-[25vw] col-span-1 "
+      className="w-100% min-w-[25vw] col-span-1 mb-4"
       style={{
         backgroundColor: colors.background.children,
         borderColor: colors.background.default,
@@ -171,6 +216,85 @@ export default function FoodCard(props) {
           </div>
         </div>
       </CardContent>
+      <CardFooter>
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className="w-full flex justify-center">
+              <Button
+                variant="pagination"
+                className=""
+                style={{ color: colors.accent.foreground }}
+              >
+                Add to Meal
+              </Button>
+            </div>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle className="pb-1 text-slate-700">
+                Add to Today's Meal
+              </DialogTitle>
+              <DialogDescription>
+                Please choose the type of meal.
+              </DialogDescription>
+            </DialogHeader>
+            <div>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline2"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-[200px] justify-between"
+                    style={{ color: colors.accent.default }}
+                  >
+                    {mealType
+                      ? mealTypes.find((type) => type.value === mealType)?.label
+                      : "Select meal type..."}
+                    <ChevronDown />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command>
+                    <CommandInput
+                      placeholder="Search type..."
+                      className="h-9"
+                    />
+                    <CommandEmpty>No meal type found.</CommandEmpty>
+                    <CommandGroup>
+                      {mealTypes.map((type) => (
+                        <CommandItem
+                          key={type.value}
+                          value={type.value}
+                          onSelect={(currentValue) => {
+                            setMealType(currentValue);
+                            setOpen(false);
+                          }}
+                        >
+                          {type.label}
+                          <Check
+                            className={cn(
+                              "ml-auto h-4 w-4",
+                              mealType === type.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button onClick={handleAddMeal}>Confirm</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </CardFooter>
     </Card>
   );
 }
