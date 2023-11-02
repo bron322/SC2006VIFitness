@@ -20,7 +20,7 @@ function LowerBodyComponent() {
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Quads}
-                        title="Quads"
+                        title="Abductors"
                         description="nice"
                         />
                     </div>
@@ -29,7 +29,7 @@ function LowerBodyComponent() {
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Hamstring}
-                        title="Hamstrings"
+                        title="Adductors"
                         description="123"
                         />
                     </div>
@@ -56,7 +56,7 @@ function LowerBodyComponent() {
                     <div className="flex justify-center">
                         <MuscleCard
                         img="https://i2-prod.dailystar.co.uk/incoming/article27469447.ece/ALTERNATES/s615b/0_JS271931188.jpg"
-                        title="Hell Yeah"
+                        title="Hamstrings"
                         description="123"
                         />
                     </div>
@@ -65,7 +65,7 @@ function LowerBodyComponent() {
                     <div className="flex justify-center">
                         <MuscleCard
                         img="https://www.greatestphysiques.com/wp-content/uploads/2016/09/Arnold-Schwarzenegger-1r4.jpg"
-                        title="Nice"
+                        title="Quadriceps"
                         description="123"
                         />
                     </div>

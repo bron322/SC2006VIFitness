@@ -33,17 +33,15 @@ export default function MuscleCard({ img, title, description }) {
   const [workoutData, setWorkoutData] = useState([]);
   const [open, setOpen] = React.useState(false);
 
-  const musclecardhandleOpen = async (e) => {
-    const bodypart = e.target.title; //this doesn't work
+  const musclecardhandleOpen = async () => {
     try {
-      const response = await ExerciseService.queryWorkout(bodypart);
+      const response = await ExerciseService.queryWorkout(title);
       console.log(response.data);
       setWorkoutData(response.data);
 
     } catch (error) {
       console.log(error);
     }
-    console.log("hello")
     setOpen(true);
   };
 
@@ -53,7 +51,7 @@ export default function MuscleCard({ img, title, description }) {
 
   return (
     <div>
-      <Card sx={{ width: 200, height: 430 }} onClick={musclecardhandleOpen}>
+      <Card sx={{ width: 200, height: 400 }} onClick={musclecardhandleOpen}>
         <CardActionArea>
           <CardMedia sx={{ maxWidth: 350, height: 350 }}
             component="img"
@@ -75,7 +73,7 @@ export default function MuscleCard({ img, title, description }) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 800, height: 600 }}>
+        <Box sx={{ ...style, width: 800, height: 650 }}>
           <Typography variant="h1" className="text-center">
             Exercises
           </Typography>
@@ -84,59 +82,29 @@ export default function MuscleCard({ img, title, description }) {
             <div className="grid grid-cols-3 grid-rows-2 gap-x-0 gap-y-8 overflow-y-auto">
 
               {/* Card 1 */}
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <ExerciseCard
                   img={Quads}
                   title="Nigga"
                   description="nice"
                 />
-              </div>
+              </div> */}
 
-              {/* Card 2 */}
-              <div className="flex justify-center">
-                <ExerciseCard
-                  img={Hamstring}
-                  title="Sohai"
-                  description="123"
-                />
-              </div>
-
-              {/* Card 3 */}
-              <div className="flex justify-center">
-                <ExerciseCard
-                  img={Calves}
-                  title="Bro"
-                  description="123"
-                />
-              </div>
-
-              {/* Card 4 */}
-              <div className="flex justify-center">
-                <ExerciseCard
-                  img={Glutes}
-                  title="Pooh"
-                  description="123"
-                />
-              </div>
-
-              {/* Card 5 */}
-              <div className="flex justify-center">
-                <ExerciseCard
-                  img="https://i2-prod.dailystar.co.uk/incoming/article27469447.ece/ALTERNATES/s615b/0_JS271931188.jpg"
-                  title="Ng"
-                  description="123"
-                />
-              </div>
-
-              {/* Card 6 */}
-              <div className="flex justify-center">
-                <ExerciseCard
-                  img="https://www.greatestphysiques.com/wp-content/uploads/2016/09/Arnold-Schwarzenegger-1r4.jpg"
-                  title="Bron"
-                  description="123"
-                />
-              </div>
-
+              {workoutData.slice(0,6).map((item, index) => {
+                return (
+                  <div key={item.instructions}>
+                    <div className="flex justify-center">
+                      <ExerciseCard
+                        img={Quads} // Assuming Quads is your image for all items
+                        title={item.name} // Use the item name as the title
+                        description={item.difficulty} // Use the item difficulty
+                        instruction={item.instructions} //passing in the instruction
+                        equipment={item.equipment}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Box>
