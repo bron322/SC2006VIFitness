@@ -34,7 +34,7 @@ export default function Day({ day, rowIdx }) {
         </p>
       </header>
       <div
-        className="flex-1 cursor-pointer"
+        className="flex-1 cursor-pointer self-center justify-self-center w-11/12"
         onClick={() => {
           setDaySelected(day);
           setShowEventModal(true);
@@ -44,7 +44,7 @@ export default function Day({ day, rowIdx }) {
           <div
             key={idx}
             onClick={() => setSelectedEvent(evt)}
-            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate`}
+            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate self-center justify-self-center text-center`}
             style={{ backgroundColor: evt.label }}
           >
             {evt.title}
