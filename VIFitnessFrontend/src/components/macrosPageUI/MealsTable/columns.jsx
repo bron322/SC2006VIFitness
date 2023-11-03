@@ -2,93 +2,91 @@
 
 import { Button } from "@/components/ui/button";
 import { createColumnHelper } from "@tanstack/react-table";
-
-const testData = [
-  {
-    name: "chicken",
-    calorie: 12,
-    protein: 23,
-    fat: 34,
-    carbohydrate: 45,
-    created_at: "date",
-    type: "lunch",
-  },
-  {
-    name: "milk",
-    calorie: 23,
-    protein: 23,
-    fat: 54,
-    carbohydrate: 45,
-    created_at: "date",
-    type: "lunch",
-  },
-  {
-    name: "milk",
-    calorie: 23,
-    protein: 23,
-    fat: 54,
-    carbohydrate: 45,
-    created_at: "date",
-    type: "lunch",
-  },
-  {
-    name: "milk",
-    calorie: 23,
-    protein: 23,
-    fat: 54,
-    carbohydrate: 45,
-    created_at: "date",
-    type: "lunch",
-  },
-  {
-    name: "milk",
-    calorie: 23,
-    protein: 23,
-    fat: 54,
-    carbohydrate: 45,
-    created_at: "date",
-    type: "lunch",
-  },
-  {
-    name: "milk",
-    calorie: 23,
-    protein: 23,
-    fat: 54,
-    carbohydrate: 45,
-    created_at: "date",
-    type: "lunch",
-  },
-];
+import { format } from "date-fns";
+import { ArrowUpDown } from "lucide-react";
+import DeleteMealButton from "../deleteMealButton";
 
 const columnHelper = createColumnHelper();
 
 const columns = [
-  columnHelper.accessor("name", {
+  columnHelper.accessor("foodName", {
     header: () => <span>Food Name</span>,
     cell: (info) => info.getValue(),
     footer: (props) => props.column.id,
   }),
   columnHelper.accessor("calorie", {
-    header: () => <span>Calories (Cal)</span>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghostHeader"
+          style={{
+            fontWeight: 700,
+          }}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Calories (Cal)
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: (info) => info.getValue(),
     footer: (props) => props.column.id,
   }),
   columnHelper.accessor("protein", {
-    header: () => <span>Proteins (g)</span>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghostHeader"
+          style={{
+            fontWeight: 700,
+          }}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Proteins (g)
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: (info) => info.getValue(),
     footer: (props) => props.column.id,
   }),
   columnHelper.accessor("fat", {
-    header: () => <span>Fats (g)</span>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghostHeader"
+          style={{
+            fontWeight: 700,
+          }}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Fats (g)
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: (info) => info.getValue(),
     footer: (props) => props.column.id,
   }),
   columnHelper.accessor("carbohydrate", {
-    header: () => <span>Carbohydrates (g)</span>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghostHeader"
+          style={{
+            fontWeight: 700,
+          }}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Carbohydrates (g)
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: (info) => info.getValue(),
     footer: (props) => props.column.id,
   }),
-  columnHelper.accessor("type", {
+  columnHelper.accessor("mealType", {
     header: () => <span>Meal</span>,
     cell: (info) => info.getValue(),
     footer: (props) => props.column.id,
@@ -96,22 +94,23 @@ const columns = [
   columnHelper.display({
     id: "actions",
     cell: (props) => {
-      return (
-        <Button
-          onClick={() => {
-            console.log(props.row.original);
-          }}
-        >
-          Test
-        </Button>
-      );
+      return <DeleteMealButton data={props.row.original} />;
     },
+  }),
+  columnHelper.accessor("createdAt", {
+    header: () => <span>Date</span>,
+    cell: (props) => {
+      return <span>{format(new Date(props.getValue()), "PPP")}</span>;
+    },
+    footer: (props) => props.column.id,
+  }),
+  columnHelper.accessor((row) => `${format(new Date(row.createdAt), "PPP")}`, {
+    id: "LocalDate",
   }),
 ];
 
 const TableColumns = {
   columns,
-  testData,
 };
 
 export default TableColumns;

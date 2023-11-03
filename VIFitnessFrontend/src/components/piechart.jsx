@@ -1,15 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { useDrawingArea } from "@mui/x-charts/hooks";
 import { styled } from "@mui/material/styles";
 
 function PieChartMacros(props) {
+  const [pieChartData, setPieChartData] = useState([]);
   const data = [
-    { label: "Calories", value: 400 },
+    {
+      label: "Calories",
+      value: props.data.reduce((acc, cur) => acc + cur.calories, 0),
+    },
     { label: "Protein", value: 300 },
     { label: "Fats", value: 300 },
-    { label: "Carbohydrates", value: 200 },
+    { label: "Carbs", value: 200 },
   ];
+
+  useEffect(() => {
+    setPieChartData([
+      {
+        label: "Calories",
+        value: props.data.reduce(
+          (acc, cur) => acc + parseFloat(cur.calorie),
+          0
+        ),
+      },
+      {
+        label: "Protein",
+        value: props.data.reduce(
+          (acc, cur) => acc + parseFloat(cur.protein),
+          0
+        ),
+      },
+      {
+        label: "Fats",
+        value: props.data.reduce((acc, cur) => acc + parseFloat(cur.fat), 0),
+      },
+      {
+        label: "Carbs",
+        value: props.data.reduce(
+          (acc, cur) => acc + parseFloat(cur.carbohydrate),
+          0
+        ),
+      },
+    ]);
+  }, [props]);
 
   const StyledText = styled("text")(({ theme }) => ({
     fill: theme.palette.text.primary,
@@ -36,7 +70,7 @@ function PieChartMacros(props) {
           innerRadius: 60,
           outerRadius: 80,
           cornerRadius: 5,
-          data: data,
+          data: pieChartData,
         },
       ]}
       // margin={{ right: 5 }}

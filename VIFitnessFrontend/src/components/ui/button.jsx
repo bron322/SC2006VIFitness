@@ -25,7 +25,9 @@ const buttonVariants = cva(
         pagination:
           "border border-slate-200 bg-transparent shadow-sm hover:bg-slate-700 hover:text-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         outline2:
-          "border border-slate-200 bg-transparent shadow-sm hover:bg-slate-200 ",
+          "border border-slate-200 bg-transparent shadow-sm hover:bg-sky-950 ",
+        ghostHeader:
+          "hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
       },
       size: {
         default: "h-9 px-4 py-2",
