@@ -4,7 +4,6 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import SegmentIcon from "@mui/icons-material/Segment";
 import CheckIcon from "@mui/icons-material/Check";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BackgroundImages from "@/components/PlannerComponent";
 
 const labelsClasses = ["white", "gray", "green", "blue", "red", "purple"];
 
@@ -39,6 +38,20 @@ export default function EventModal() {
 
     setShowEventModal(false);
   }
+
+  function handleColourChange (e){
+    e.preventDefault();
+    const calendarEvent = {
+      title,
+      description,
+      label: "green",
+      day: daySelected.valueOf(),
+      id: selectedEvent ? selectedEvent.id : Date.now(), 
+    };
+    dispatchCalEvent({type: "update", payload: calendarEvent});
+    setShowEventModal(false);
+  }
+
   return (
     <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
       <form className="bg-gray-300 rounded-lg shadow-2xl w-1/4">
@@ -117,6 +130,7 @@ export default function EventModal() {
             <button
             type="submit"
             // onClick={handleSubmit}
+            onClick={handleColourChange}
             className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
           >
             Mark As Completed

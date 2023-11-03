@@ -132,7 +132,7 @@ export default function ExerciseCard({
             {/* Exercise details */}
         {/* </div> */}
         {/* <ChildModalAddtoCalendar /> {/*the function is above the page*/}
-        <Box sx={{ ...style, width: 1000, height: 800, display: "flex" }}>
+        <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
           <div className="flex">
             {/* <img className='absolute w-full h-full top-0 left-0' src={Calves} alt="Exercise" /> */}
             <img
@@ -156,12 +156,12 @@ export default function ExerciseCard({
             <image filter="url(#blur)" xlink:href="http://lorempixel.com/450/300/sports" x="0" y="0" height="300px" width="450px" />
           </svg> */}
 
-            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0">
-              <div className="text-center text-6xl font-bold z-10 pb-8">
+            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
+              <div className="text-center text-5xl font-bold z-10 pb-5">
                 {title}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-5 z-20">
                 <div className="font-semibold text-2xl">{"Difficulty: "}</div>
                 <br></br>
                 <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
@@ -178,22 +178,23 @@ export default function ExerciseCard({
                 </div>
               </div>
 
-              <div className="flex-grow pb-8 z-20 ">
+              <div className="flex-grow pb-5 z-20 ">
                 <div className="font-semibold text-2xl">{"Instructions: "}</div>
                 <br></br>
                 {instruction}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-5 z-20">
                 <div className="font-semibold text-2xl">{"Equipment: "}</div>
                 <br></br>
                 {equipment}
               </div>
 
-              <div className="flex-grow pb-8 z-20 text-center">
+              <div className="flex-grow pb-5 z-20 text-center">
                 <ChildModalAddtoCalendar exerciseName={title}/>{" "}
                 {/* The function is above the page */}
               </div>
+              
             </div>
           </div>
         </Box>

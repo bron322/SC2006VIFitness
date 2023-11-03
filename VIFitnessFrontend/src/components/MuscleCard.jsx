@@ -11,10 +11,12 @@ import Calves from "./styles/photos/Calves.png";
 import Glutes from "./styles/photos/Glutes.png";
 import Hamstring from "./styles/photos/Hamstring.jpg";
 import Quads from "./styles/photos/Quads.png";
-import DatePickerMui from './DatePickerMui';
+import Clam from "./styles/photos/Clam.png";
+import HipCircle from "./styles/photos/HipCircles.png"
 import APIDataService from "../services/APIDataService";
 import { useState } from "react";
 import ExerciseService from "../services/ExerciseService";
+import { IndeterminateCheckBoxRounded } from '@mui/icons-material';
 
 const style = {
   position: 'absolute',
@@ -28,6 +30,12 @@ const style = {
   px: 3,
   pb: 3,
 };
+
+const pics=[
+  Clam,
+  HipCircle,
+]
+
 
 export default function MuscleCard({ img, title, description }) {
   const [workoutData, setWorkoutData] = useState([]);
@@ -95,7 +103,7 @@ export default function MuscleCard({ img, title, description }) {
                   <div key={item.instructions}>
                     <div className="flex justify-center">
                       <ExerciseCard
-                        img={Quads} // Assuming Quads is your image for all items
+                        img={pics[index]} // Assuming Quads is your image for all items
                         title={item.name} // Use the item name as the title
                         description={item.difficulty} // Use the item difficulty
                         instruction={item.instructions} //passing in the instruction
