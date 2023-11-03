@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import http from "../http-common.js";
 
 // GET all users
@@ -50,6 +51,16 @@ const updateLimits = async (data) => {
   return http.patch(`/updateLimits/${data.email}`, data);
 };
 
+//POST add meal by user email
+const addMeal = async (data) => {
+  return http.post(`/addMeal/${data.email}`, data);
+};
+
+//POST delete meal by user email
+const deleteMeal = async (data) => {
+  return http.post(`/deleteMeal/${data.email}`, data);
+};
+
 const APIDataService = {
   getAll,
   get,
@@ -61,6 +72,8 @@ const APIDataService = {
   createByStrava,
   addingExercise,
   updateLimits,
+  addMeal,
+  deleteMeal,
 };
 
 export default APIDataService;

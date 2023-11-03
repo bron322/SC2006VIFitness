@@ -22,6 +22,12 @@ const buttonVariants = cva(
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
         register:
           "bg-black text-slate-50 shadow hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90",
+        pagination:
+          "border border-slate-200 bg-transparent shadow-sm hover:bg-slate-700 hover:text-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-50",
+        outline2:
+          "border border-slate-200 bg-transparent shadow-sm hover:bg-sky-950 ",
+        ghostHeader:
+          "hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
       },
       size: {
         default: "h-9 px-4 py-2",

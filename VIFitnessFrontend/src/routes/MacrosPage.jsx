@@ -7,6 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -22,6 +28,17 @@ import NutritionixService from "@/services/NutritionixService";
 import FoodCard from "@/components/macrosPageUI/foodCard";
 import SummaryCard from "@/components/macrosPageUI/summaryCard";
 import toast, { Toaster } from "react-hot-toast";
+import DataTable from "@/components/macrosPageUI/MealsTable/data-table";
+import TableColumns from "@/components/macrosPageUI/MealsTable/columns";
+import {
+  endOfMonth,
+  endOfWeek,
+  format,
+  getDaysInMonth,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
+import StatisticsSection from "@/components/macrosPageUI/statisticsSection";
 
 export default function MacrosPage() {
   const theme = useTheme();
@@ -33,18 +50,33 @@ export default function MacrosPage() {
   const [queryButton, setQueryButton] = useState(true);
   const [nutritionData, setNutritionData] = useState([]);
 
-  // Query NutritionixAPI on button click
-  const queryNutrition = async () => {
-    let data = {
-      query: foodQuery,
-    };
-    try {
-      const response = await NutritionixService.getNutrients(data);
-      setNutritionData(response.data.foods);
-      console.log(nutritionData);
-    } catch (err) {
-      console.log(err);
-    }
+  // filter by today for Statistics
+  const filterMealsByToday = (item) => {
+    let now = format(new Date(), "PPP");
+    const createdDate = format(new Date(item.createdAt), "PPP");
+    // console.log(createdDate);
+    console.log(now);
+    return createdDate === now;
+  };
+
+  // filter by this week for Statistics
+  const filterMealsByWeek = (item) => {
+    const cur = new Date();
+    const first = startOfWeek(cur);
+    const last = endOfWeek(cur);
+    const createdDate = new Date(item.createdAt);
+
+    return createdDate >= first && createdDate <= last;
+  };
+
+  // filter by this month for Statistics
+  const filterMealsByMonth = (item) => {
+    const cur = new Date();
+    const first = startOfMonth(cur);
+    const last = endOfMonth(cur);
+    const createdDate = new Date(item.createdAt);
+
+    return createdDate >= first && createdDate <= last;
   };
 
   // tracks state of query input
@@ -123,92 +155,67 @@ export default function MacrosPage() {
                     className="my-4"
                     style={{ backgroundColor: colors.muted.foreground }}
                   />
-                  <div className="flex items-center justify-center w-full">
-                    <div className="space-y-1 w-full">
-                      <h2
-                        className=" text-2xl font-semibold tracking-tight w-full"
-                        style={{ color: colors.card.foreground }}
+                  <Tabs defaultValue="today">
+                    <div className="space-between flex items-center justify-center mr-12">
+                      <TabsList
+                        style={{ backgroundColor: colors.background.default }}
                       >
-                        Today's Statistics
-                      </h2>
-
-                      <div className="stats-content-wrapper flex justify-center">
-                        <div className="pie-wrapper mr-[10vw]">
-                          <PieChartMacros />
-                        </div>
-
-                        <div className="right-stats-wrapper flex flex-col justify-evenly">
-                          <div className="bar-wrapper flex items-center">
-                            <Progress
-                              id="calorie-bar"
-                              innercolor={colors.progress.default}
-                              outercolor={colors.progress.foreground}
-                              value={33}
-                              className="w-[30vh]"
-                            />
-                            <Label
-                              htmlFor="calorie-bar"
-                              style={{ color: colors.accent.foreground }}
-                              className="ml-2"
-                            >
-                              Calorie
-                            </Label>
-                          </div>
-
-                          <div className="bar-wrapper flex items-center">
-                            <Progress
-                              id="protein-bar"
-                              innercolor={colors.progress.default}
-                              outercolor={colors.progress.foreground}
-                              value={33}
-                              className="w-[30vh]"
-                            />
-                            <Label
-                              htmlFor="protein-bar"
-                              style={{ color: colors.accent.foreground }}
-                              className="ml-2"
-                            >
-                              Protein
-                            </Label>
-                          </div>
-
-                          <div className="bar-wrapper flex items-center">
-                            <Progress
-                              id="carbs-bar"
-                              innercolor={colors.progress.default}
-                              outercolor={colors.progress.foreground}
-                              value={33}
-                              className="w-[30vh]"
-                            />
-                            <Label
-                              htmlFor="carbs-bar"
-                              style={{ color: colors.accent.foreground }}
-                              className="ml-2"
-                            >
-                              Carbohydrates
-                            </Label>
-                          </div>
-
-                          <div className="bar-wrapper flex items-center">
-                            <Progress
-                              id="fats-bar"
-                              innercolor={colors.progress.default}
-                              outercolor={colors.progress.foreground}
-                              value={33}
-                              className="w-[30vh]"
-                            />
-                            <Label
-                              htmlFor="fats-bar"
-                              style={{ color: colors.accent.foreground }}
-                              className="ml-2"
-                            >
-                              Fats
-                            </Label>
-                          </div>
-                        </div>
-                      </div>
+                        <TabsTrigger value="today" className="relative">
+                          Today
+                        </TabsTrigger>
+                        <TabsTrigger value="week">This Week</TabsTrigger>
+                        <TabsTrigger value="month">This Month</TabsTrigger>
+                      </TabsList>
                     </div>
-                  </div>
+                    <TabsContent
+                      value="today"
+                      className="border-none p-0 outline-none"
+                    >
+                      <StatisticsSection
+                        meals={user.meals.filter(filterMealsByToday)}
+                        limits={user.macros_setting}
+                        title={"Today's"}
+                      />
+                    </TabsContent>
+                    <TabsContent
+                      value="week"
+                      className="border-none p-0 outline-none"
+                    >
+                      <StatisticsSection
+                        meals={user.meals.filter(filterMealsByWeek)}
+                        limits={{
+                          calorie: user.macros_setting.calorie * 7,
+                          protein: user.macros_setting.protein * 7,
+                          carbohydrate: user.macros_setting.carbohydrate * 7,
+                          fat: user.macros_setting.fat * 7,
+                        }}
+                        title={"This Week's"}
+                      />
+                    </TabsContent>
+                    <TabsContent
+                      value="month"
+                      className="border-none p-0 outline-none"
+                    >
+                      <StatisticsSection
+                        meals={user.meals.filter(filterMealsByMonth)}
+                        limits={{
+                          calorie:
+                            user.macros_setting.calorie *
+                            getDaysInMonth(new Date()),
+                          protein:
+                            user.macros_setting.protein *
+                            getDaysInMonth(new Date()),
+                          carbohydrate:
+                            user.macros_setting.carbohydrate *
+                            getDaysInMonth(new Date()),
+                          fat:
+                            user.macros_setting.fat *
+                            getDaysInMonth(new Date()),
+                        }}
+                        title={"This Month's"}
+                      />
+                    </TabsContent>
+                  </Tabs>
 
                   {/* ////////////////// Statistics Children ////////////////// */}
                   <Separator
@@ -236,12 +243,18 @@ export default function MacrosPage() {
                         <TabsContent value="myMeals" className="">
                           <div className="flex items-center justify-center w-full">
                             <div className="space-y-1 w-full">
-                              <h2
+                              {/* <h2
                                 className=" text-2xl font-semibold tracking-tight w-full"
                                 style={{ color: colors.card.foreground }}
                               >
                                 Meals
-                              </h2>
+                              </h2> */}
+                              <div className="container mx-auto py-5">
+                                <DataTable
+                                  columns={TableColumns.columns}
+                                  data={user.meals}
+                                />
+                              </div>
                             </div>
                           </div>
                         </TabsContent>
@@ -291,7 +304,7 @@ export default function MacrosPage() {
                               </div>
 
                               {/* ////////////////// Food Card ////////////////// */}
-                              <div className="foodcard-wrapper grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 ">
+                              <div className="foodcard-wrapper grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 ">
                                 {nutritionData.map((item) => {
                                   return (
                                     <FoodCard key={item.ndb_no} data={item} />
@@ -310,7 +323,9 @@ export default function MacrosPage() {
                               <div className="summary-wrapper">
                                 {nutritionData.length >= 1 ? (
                                   <SummaryCard data={nutritionData} />
-                                ) : null}
+                                ) : (
+                                  <div className="min-h-[500px]"></div>
+                                )}
                               </div>
                             </div>
                           </div>

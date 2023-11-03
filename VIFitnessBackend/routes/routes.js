@@ -192,13 +192,61 @@ APIrouter.patch("/updateLimits/:email", (req, res) => {
 });
 
 //Add meal method
-APIrouter.post("/addMeal/:username", (req, res) => {});
+APIrouter.post("/addMeal/:email", (req, res) => {
+  const mealData = {
+    foodName: req.body.foodName,
+    calorie: req.body.calorie,
+    protein: req.body.protein,
+    carbohydrate: req.body.carbohydrate,
+    fat: req.body.fat,
+    mealType: req.body.mealType,
+    createdAt: new Date(),
+  };
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $push: {
+        meals: mealData,
+      },
+    },
+    {
+      returnOriginal: false,
+    }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 //Update meal method
 APIrouter.patch("/updateMeal/:username", (req, res) => {});
 
 //Delete meal method
-APIrouter.delete("/deleteMeal/:username", (req, res) => {});
+APIrouter.post("/deleteMeal/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $pull: {
+        meals: {
+          createdAt: new Date(req.body.createdAt),
+        },
+      },
+    },
+    {
+      returnOriginal: false,
+    }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 //Add exercise method
 APIrouter.post("/addExercise/:username", (req, res) => {
