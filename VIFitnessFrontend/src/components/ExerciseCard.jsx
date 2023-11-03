@@ -30,7 +30,7 @@ const style = {
   pb: 3,
 };
 
-function ChildModalAddtoCalendar() {
+function ChildModalAddtoCalendar(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -52,7 +52,7 @@ function ChildModalAddtoCalendar() {
           <div className="w-52">
             <SmallCalendar />
           </div>
-          <AddWorkoutButton />
+          <AddWorkoutButton exerciseName={props.exerciseName}/>
         </Box>
       </Modal>
     </React.Fragment>
@@ -191,7 +191,7 @@ export default function ExerciseCard({
               </div>
 
               <div className="flex-grow pb-8 z-20 text-center">
-                <ChildModalAddtoCalendar />{" "}
+                <ChildModalAddtoCalendar exerciseName={title}/>{" "}
                 {/* The function is above the page */}
               </div>
             </div>

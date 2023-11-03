@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import GlobalContext from "../context/GlobalContext";
+import { Toaster, toast } from "react-hot-toast";
 
 
 const labelsClasses = ["white", "gray", "green", "blue", "red", "purple"];
 
-export default function AddWorkoutButton() {
+export default function AddWorkoutButton(props) {
   const { daySelected, dispatchCalEvent, selectedEvent } =
     useContext(GlobalContext);
 
@@ -20,7 +21,7 @@ export default function AddWorkoutButton() {
   function handleSubmit(e) {
     e.preventDefault();
     const calendarEvent = {
-      title: "Workout Name",
+      title: props.exerciseName,
       description,
       label: selectedLabel,
       day: daySelected.valueOf(),
@@ -28,13 +29,18 @@ export default function AddWorkoutButton() {
     };
     if (selectedEvent) {
       dispatchCalEvent({ type: "update", payload: calendarEvent });
+      toast.success("Added to Calendar!");
     } else {
       dispatchCalEvent({ type: "push", payload: calendarEvent });
+      toast.success("Added to Calendar!");
     }
   }
 
   return (
+    <>
+    <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
     <button onClick={handleSubmit}>Add Workout to Calendar</button>
+    </>  
   );
 }
 
