@@ -18,7 +18,7 @@ function CoreComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Oblique}
-                        title="Obliques"
+                        title="Abdominals"
                         description="nice"
                         />
                     </div>
@@ -27,7 +27,7 @@ function CoreComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Abs}
-                        title="Abs"
+                        title="Lower_Back"
                         description="nice"
                         />
                     </div>

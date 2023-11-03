@@ -13,8 +13,7 @@ export default function Day({ day, rowIdx }) {
 
   useEffect(() => {
     const events = filteredEvents.filter(
-      (evt) =>
-        dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")
+      (evt) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")
     );
     setDayEvents(events);
   }, [filteredEvents, day]);
@@ -28,18 +27,14 @@ export default function Day({ day, rowIdx }) {
     <div className="border border-gray-200 flex flex-col">
       <header className="flex flex-col items-center">
         {rowIdx === 0 && (
-          <p className="text-sm mt-1">
-            {day.format("ddd").toUpperCase()}
-          </p>
+          <p className="text-sm mt-1">{day.format("ddd").toUpperCase()}</p>
         )}
-        <p
-          className={`text-sm p-1 my-1 text-center  ${getCurrentDayClass()}`}
-        >
+        <p className={`text-sm p-1 my-1 text-center  ${getCurrentDayClass()}`}>
           {day.format("DD")}
         </p>
       </header>
       <div
-        className="flex-1 cursor-pointer"
+        className="flex-1 cursor-pointer self-center justify-self-center w-11/12"
         onClick={() => {
           setDaySelected(day);
           setShowEventModal(true);
@@ -49,7 +44,8 @@ export default function Day({ day, rowIdx }) {
           <div
             key={idx}
             onClick={() => setSelectedEvent(evt)}
-            className={`bg-${evt.label}-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate`}
+            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate self-center justify-self-center text-center`}
+            style={{ backgroundColor: evt.label }}
           >
             {evt.title}
           </div>

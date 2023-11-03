@@ -1,5 +1,4 @@
-// docs https://github.com/azouaoui-med/react-pro-sidebar
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { useProSidebar } from "react-pro-sidebar";
 import { useSidebarContext } from "./sidebarContext";
@@ -18,6 +17,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
@@ -26,6 +27,7 @@ import Logo from "../components/styles/photos/LOGO.png";
 import { Separator } from "@/components/ui/separator";
 import LogoutButton from "./LogoutButton";
 import { useAuth } from "../hooks/AuthProvider";
+import APIDataService from "../services/APIDataService";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -88,12 +90,13 @@ const MyProSidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const { sidebarRTL, setSidebarRTL, sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleLogout = () => {
     logout();
   };
 
+    
   return (
     <Box // this is content wrapper for the sidebar
       sx={{
@@ -213,7 +216,7 @@ const MyProSidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Harun Jeylan
+                  {user.username}
                 </Typography>
               </Box>
             </Box>
@@ -242,16 +245,16 @@ const MyProSidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
-              to="contact"
-              icon={<ContactsOutlinedIcon />}
+              title="Workout Plan"
+              to="workout-planner"
+              icon={<FitnessCenterIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
-              to="invoices"
-              icon={<ReceiptOutlinedIcon />}
+              title="Macros Tracker"
+              to="macros-tracker"
+              icon={<RestaurantIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -285,41 +288,6 @@ const MyProSidebar = () => {
               setSelected={setSelected}
             />
 
-            {/* <Typography
-              variant="h6"
-              color={colors.secondary.foreground}
-              sx={{ m: "15px 20px 5px 20px" }}
-            >
-              Charts
-            </Typography>
-            <Item
-              title="Bar Chart"
-              to="bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
           </Box>
           <div className="flex-col w-full absolute bottom-0 justify-center align-middle">
             <Separator
