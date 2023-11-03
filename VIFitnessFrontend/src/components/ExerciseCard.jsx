@@ -45,11 +45,13 @@ function ChildModalAddtoCalendar() {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 400, height: 150 }}>
-          <div className="w-52">
+        <Box sx={{ ...style, width: 380, height: 380 }}>
+          <div className="flex justify-center pb-10">
             <SmallCalendar />
           </div>
-          <AddWorkoutButton />
+          <div className='flex justify-center'>
+            <AddWorkoutButton />
+          </div>
         </Box>
       </Modal>
     </React.Fragment>
@@ -99,35 +101,43 @@ export default function ExerciseCard({ img, title, description, instruction, equ
             {'Instructions'}
             {/* Exercise details */}
           {/* </div> */}
+
           {/* <ChildModalAddtoCalendar /> {/*the function is above the page*/}
-        <Box sx={{ ...style, width: 1000, height: 800, display: 'flex' }}>
+        <Box sx={{ ...style, width: 800, height: 650, display: 'flex' }}>
           {/* Left side for the exercise image */}
-          <div style={{ flex: 1 }}>
-            <img src={Calves} alt="Exercise" />
-          </div>
-
-          {/* Right side for the title, instructions, and ChildModalAddtoCalendar */}
-          <div style={{ flex: 2, display: 'flex', flexDirection: 'column' }}>
-            <Typography variant="h1" className="text-center">
-              {title}
-            </Typography>
-
-            <div className="flex-grow pb-8">
-              {'Difficulty: '}<br></br>
-              {description}
+          <div className='flex'>
+            <div className='top-0 flex-none w-1/3 pr-5'>{/* style={{ flex: 1, padding_right: 5}} */}
+              <img src={Calves} alt="Exercise" />
             </div>
+            
 
-            <div className="flex-grow pb-8">
-              {'Instructions: '}<br></br>
-              {instruction}
+            {/* Right side for the title, instructions, and ChildModalAddtoCalendar */}
+            <div className='flex flex-col'>{/* style={{ flex: 2, display: 'flex', flexDirection: 'column' }} */}
+              <Typography variant="h1" className="text-center">
+                {title}
+              </Typography>
+              
+              <div className="flex-grow pt-10">
+                {'Difficulty: '}<br></br>
+                {description}
+              </div>
+
+              <div className="flex-grow">
+                {'Instructions: '}<br></br>
+                {instruction}
+              </div>
+
+              <div className="flex-grow">
+                {'Equipment: '}<br></br>
+                {equipment}
+              </div>
+
+              <ChildModalAddtoCalendar />
+              
             </div>
+          
 
-            <div className="flex-grow pb-8">
-              {'Equipment: '}<br></br>
-              {equipment}
-            </div>
-
-            <ChildModalAddtoCalendar /> {/* The function is above the page */}
+            {/* <ChildModalAddtoCalendar /> The function is above the page */}
           </div>
         </Box>
       </Modal>
