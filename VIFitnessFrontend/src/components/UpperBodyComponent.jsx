@@ -57,7 +57,7 @@ function UpperBodyComponent(){
                     <div className="flex justify-center">
                         <MuscleCard
                         img={Lats}
-                        title="Middle Back"
+                        title="Middle_Back"
                         description="nice"
                         />
                     </div>
