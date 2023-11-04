@@ -12,10 +12,15 @@ export default function ProfileSettings() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onProfileSubmit = (data) => {
+    console.log("Profile Data:", data);
+    // to handle profile update
   };
 
+  const onPasswordSubmit = (data) => {
+    console.log("Password Data:", data);
+    // to handle password change
+  };
 
   return (
     <Box 
@@ -38,35 +43,40 @@ export default function ProfileSettings() {
       </Typography>
       <Divider sx={{ my: 2, width: '100%' }} />
 
-      {/* Form for Profile Settings */}
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+        {/* Form for Profile Settings */}
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onProfileSubmit)}
+          noValidate
+          sx={{ mt: 1, width: '100%' }}
+        >
 
-      {/* Username Field */}
-      <Typography variant="subtitle1" sx={{ fontSize: '1.1rem' }}>Username</Typography>
-      <TextField
-        size="small"
-        fullWidth
-        variant="outlined"
-        margin="normal"
-        {...register("username")}
-        error={!!errors.username}
-        helperText={errors.username?.message}
-        sx={{ width: '200%', marginTop: 1, marginBottom: 2}} 
-      />
+        {/* Username Field */}
+        <Typography variant="subtitle1" sx={{ fontSize: '1.1rem' }}>Username</Typography>
+        <TextField
+          size="small"
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          {...register("username")}
+          error={!!errors.username}
+          helperText={errors.username?.message}
+          sx={{ width: '90%', marginTop: 1, marginBottom: 2}} 
+        />
 
-      {/* Age Field */}
-      <Typography variant="subtitle1" sx={{ fontSize: '1.1rem' }}>Age</Typography>
-      <TextField
-        size="small" 
-        fullWidth
-        variant="outlined"
-        margin="normal"
-        type="number"
-        {...register("age")}
-        error={!!errors.age}
-        helperText={errors.age?.message}
-        sx={{ width: '200%', marginTop: 1, marginBottom: 2}} 
-      />
+        {/* Age Field */}
+        <Typography variant="subtitle1" sx={{ fontSize: '1.1rem' }}>Age</Typography>
+        <TextField
+          size="small" 
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          type="number"
+          {...register("age")}
+          error={!!errors.age}
+          helperText={errors.age?.message}
+          sx={{ width: '90%', marginTop: 1, marginBottom: 2}} 
+        />
 
         {/* Weight Field */}
         <Typography variant="subtitle1" sx={{ fontSize: '1.1rem' }}>Weight (kg)</Typography>
@@ -79,7 +89,7 @@ export default function ProfileSettings() {
           {...register("weight")}
           error={!!errors.weight}
           helperText={errors.weight?.message}
-          sx={{ width: '200%', marginTop: 1, marginBottom: 2}} 
+          sx={{ width: '90%', marginTop: 1, marginBottom: 2}} 
         />
 
         {/* Height Field */}
@@ -93,7 +103,7 @@ export default function ProfileSettings() {
           {...register("height")}
           error={!!errors.height}
           helperText={errors.height?.message}
-          sx={{ width: '200%', marginTop: 1 }} 
+          sx={{ width: '90%', marginTop: 1 }} 
         />
 
         {/* Update Profile Button */}
@@ -120,8 +130,15 @@ export default function ProfileSettings() {
       <Typography variant="h3" component="h1" gutterBottom sx={{ textAlign: 'left', fontSize: '2.0rem' }}>
         Change Password
       </Typography>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ width: '100%' }}>
-
+      
+      {/* Form for Change Password */}
+      <Box 
+        component="form" 
+        onSubmit={handleSubmit(onPasswordSubmit)} 
+        noValidate 
+        sx={{ width: '100%' }}
+      >
+      
         {/* Current Password Field */}
         <Typography variant="subtitle1" sx={{ fontSize: '1.1rem' }}>Current Password</Typography>
         <TextField
@@ -132,7 +149,7 @@ export default function ProfileSettings() {
           {...register("currentPassword")}
           error={!!errors.currentPassword}
           helperText={errors.currentPassword?.message}
-          sx={{ width: '62.5%', marginTop: 1, marginBottom: 2}}
+          sx={{ width: '90%', marginTop: 1, marginBottom: 2}}
         />
 
         {/* New Password Field */}
@@ -145,7 +162,7 @@ export default function ProfileSettings() {
           {...register("newPassword")}
           error={!!errors.newPassword}
           helperText={errors.newPassword?.message}
-          sx={{ width: '62.5%', marginTop: 1, marginBottom: 2}}
+          sx={{ width: '90%', marginTop: 1, marginBottom: 2}}
         />
 
         {/* Confirm New Password Field */}
@@ -158,24 +175,24 @@ export default function ProfileSettings() {
           {...register("confirmNewPassword")}
           error={!!errors.confirmNewPassword}
           helperText={errors.confirmNewPassword?.message}
-          sx={{ width: '62.5%', marginTop: 1, marginBottom: 2}}
+          sx={{ width: '90%', marginTop: 1, marginBottom: 2}}
         />
 
         {/* Update Password Button */}
-        <Box sx={{ display: 'block', width: '100%', marginTop: 1 }}>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ 
-              width: '202px', 
-              backgroundColor: 'rgb(205, 213, 224)',
-              color: 'rgb(32, 41, 58)', 
-            }}
-          >
-            Update Password
-          </Button>
-        </Box>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ 
+            mt: 2, 
+            width: '202px', 
+            backgroundColor: 'rgb(205, 213, 224)',
+            color: 'rgb(32, 41, 58)', 
+          }}
+        >
+          Update Password
+        </Button>
       </Box>
+
 
 
       <Divider sx={{ my: 2, width: '100%' }} />
