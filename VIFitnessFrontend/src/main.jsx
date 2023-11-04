@@ -20,19 +20,19 @@ import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
 import TestPageNg from "./routes/TestPageNg";
 import Dashboard from "./routes/ProfilePage/Dashboard";
-// import Contacts from "./routes/ProfilePage/Contacts";
-// import Team from "./routes/ProfilePage/team";
-// import Invoices from "./routes/ProfilePage/invoices";
+//import Contacts from "./routes/ProfilePage/Contacts";
+//import Team from "./routes/ProfilePage/team";
+//import Invoices from "./routes/ProfilePage/invoices";
 import Form from "./routes/ProfilePage/form";
-// import Line from "./routes/ProfilePage/line";
-// import Pie from "./routes/ProfilePage/pie";
+//import Line from "./routes/ProfilePage/line";
+//import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
-// import Geography from "./routes/ProfilePage/Geography";
-// import Calendar from "./routes/ProfilePage/calendar";
+//import Geography from "./routes/ProfilePage/Geography";
+//import Calendar from "./routes/ProfilePage/calendar";
 import Calendar from "./routes/Calendar/App";
 import TestPageOscar from "./routes/TestingPageOscar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useMode } from "./routes/theme";
+//import { useMode } from "./routes/theme";
 import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
@@ -106,10 +106,10 @@ const router = createBrowserRouter([
               //   path: "invoices",
               //   element: <Invoices />,
               // },
-              // {
-              //   path: "form",
-              //   element: <Form />,
-              // },
+              {
+                path: "form",
+                element: <Form />,
+              },
               // {
               //   path: "bar",
               //   element: <Bar />,
