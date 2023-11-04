@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Box, Typography, Divider, TextField, Button} from "@mui/material";
 import GoogleButton from "../../components/socialsButton/GoogleButton";
 import StravaButton from "../../components/socialsButton/StravaButton";
+import { useAuth } from "@/hooks/AuthProvider";
+import { Toaster, toast } from "react-hot-toast";
 
 
 export default function ProfileSettings() {
@@ -21,6 +23,7 @@ export default function ProfileSettings() {
     console.log("Password Data:", data);
     // to handle password change
   };
+  const { user } = useAuth();
 
   return (
     <Box 
@@ -39,7 +42,7 @@ export default function ProfileSettings() {
         Profile Setting
       </Typography>
       <Typography variant="subtitle1" gutterBottom sx={{ textAlign: 'left', fontSize: '1.25rem' }}>
-        Edit your setting here
+        Edit your profile here
       </Typography>
       <Divider sx={{ my: 2, width: '100%' }} />
 
@@ -59,6 +62,7 @@ export default function ProfileSettings() {
           variant="outlined"
           margin="normal"
           {...register("username")}
+          label={user.username}
           error={!!errors.username}
           helperText={errors.username?.message}
           sx={{ width: '90%', marginTop: 1, marginBottom: 2}} 
@@ -73,6 +77,7 @@ export default function ProfileSettings() {
           margin="normal"
           type="number"
           {...register("age")}
+          defaultValue={user.age}
           error={!!errors.age}
           helperText={errors.age?.message}
           sx={{ width: '90%', marginTop: 1, marginBottom: 2}} 
@@ -87,6 +92,7 @@ export default function ProfileSettings() {
           margin="normal"
           type="number"
           {...register("weight")}
+          defaultValue={user.weight}
           error={!!errors.weight}
           helperText={errors.weight?.message}
           sx={{ width: '90%', marginTop: 1, marginBottom: 2}} 
@@ -101,6 +107,7 @@ export default function ProfileSettings() {
           margin="normal"
           type="number"
           {...register("height")}
+          defaultValue={user.height}
           error={!!errors.height}
           helperText={errors.height?.message}
           sx={{ width: '90%', marginTop: 1 }} 
