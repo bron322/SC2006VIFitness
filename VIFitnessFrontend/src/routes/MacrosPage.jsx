@@ -55,7 +55,7 @@ export default function MacrosPage() {
     let now = format(new Date(), "PPP");
     const createdDate = format(new Date(item.createdAt), "PPP");
     // console.log(createdDate);
-    console.log(now);
+    // console.log(now);
     return createdDate === now;
   };
 
