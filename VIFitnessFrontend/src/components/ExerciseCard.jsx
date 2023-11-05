@@ -221,7 +221,7 @@ export default function ExerciseCard({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 1000, height: 800, display: "flex" }}>
+        <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
           <div className="flex">
             {/* <img className='absolute w-full h-full top-0 left-0' src={Calves} alt="Exercise" /> */}
             <img
@@ -235,8 +235,8 @@ export default function ExerciseCard({
               className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0 bg-black opacity-50"
               style={{ backdropFilter: "grayscale(100%) blur(100px)" }}
             />
-            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0">
-              <div className="text-center text-6xl font-bold z-10 pb-8">
+            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
+              <div className="text-center text-5xl font-bold z-10 pb-5">
                 {title}
               </div>
 
