@@ -29,12 +29,6 @@ const style = {
   pb: 3,
 };
 
-const pics=[
-  Clam,
-  HipCircle,
-]
-
-
 export default function MuscleCard({ img, title, description }) {
   const [workoutData, setWorkoutData] = useState([]);
   const [open, setOpen] = React.useState(false);
