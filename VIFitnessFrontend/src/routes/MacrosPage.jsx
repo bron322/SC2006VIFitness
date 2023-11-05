@@ -7,21 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { useTheme } from "@mui/material";
 import { tokens } from "./theme";
-import PieChartMacros from "@/components/piechart";
 import { useAuth } from "@/hooks/AuthProvider";
 import { SettingsButton } from "@/components/macrosPageUI/settingsButton";
 import NutritionixService from "@/services/NutritionixService";
@@ -39,6 +31,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import StatisticsSection from "@/components/macrosPageUI/statisticsSection";
+import { bouncy } from "ldrs";
 
 export default function MacrosPage() {
   const theme = useTheme();
@@ -49,6 +42,9 @@ export default function MacrosPage() {
   const [query, setQuery] = useState("");
   const [queryButton, setQueryButton] = useState(true);
   const [nutritionData, setNutritionData] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false); // for loader in query nutrition
+  bouncy.register();
 
   // filter by today for Statistics
   const filterMealsByToday = (item) => {
@@ -90,8 +86,10 @@ export default function MacrosPage() {
       query: query,
     };
     try {
+      setIsLoading(true);
       const response = await NutritionixService.getNutrients(data);
       setNutritionData(response.data.foods);
+      setTimeout(setIsLoading, 2000, false);
     } catch (err) {
       toast.error("Oops, something went wrong. Please try again later!");
       console.log(err);
@@ -304,29 +302,48 @@ export default function MacrosPage() {
                               </div>
 
                               {/* ////////////////// Food Card ////////////////// */}
-                              <div className="foodcard-wrapper grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 ">
-                                {nutritionData.map((item) => {
-                                  return (
-                                    <FoodCard key={item.ndb_no} data={item} />
-                                  );
-                                })}
-                              </div>
+                              {isLoading ? null : (
+                                <div>
+                                  <div className="foodcard-wrapper grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 ">
+                                    {nutritionData.map((item) => {
+                                      return (
+                                        <FoodCard
+                                          key={item.ndb_no}
+                                          data={item}
+                                        />
+                                      );
+                                    })}
+                                  </div>
 
-                              <Separator
-                                className="my-4"
-                                style={{
-                                  backgroundColor: colors.muted.foreground,
-                                }}
-                              />
+                                  <Separator
+                                    className="my-4"
+                                    style={{
+                                      backgroundColor: colors.muted.foreground,
+                                    }}
+                                  />
+                                </div>
+                              )}
+
+                              {isLoading ? (
+                                <div className="loading-wrapper min-h-[50vh] flex justify-center items-center">
+                                  <l-bouncy
+                                    size="45"
+                                    speed="1.75"
+                                    color="#3b82f6"
+                                  ></l-bouncy>
+                                </div>
+                              ) : null}
 
                               {/* ////////////////// Query Summary ////////////////// */}
-                              <div className="summary-wrapper">
-                                {nutritionData.length >= 1 ? (
-                                  <SummaryCard data={nutritionData} />
-                                ) : (
-                                  <div className="min-h-[500px]"></div>
-                                )}
-                              </div>
+                              {isLoading ? null : (
+                                <div className="summary-wrapper">
+                                  {nutritionData.length >= 1 ? (
+                                    <SummaryCard data={nutritionData} />
+                                  ) : (
+                                    <div className="min-h-[500px]"></div>
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </TabsContent>
