@@ -362,4 +362,23 @@ APIrouter.patch("/updateUserSettings/:email", (req, res) => {
     });
 });
 
+//PATCH update user settings by email
+APIrouter.patch("/updateUserPassword/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        password: req.body.newPassword,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 export { APIrouter };

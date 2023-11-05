@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/dialog";
 import { tokens } from "../theme";
 import { Button as ShadcnButton } from "@/components/ui/button";
+import { CheckCircle2, XCircle } from "lucide-react";
+import CryptoJS from "crypto-js";
 
 export default function ProfileSettings() {
   const theme = useTheme();
@@ -45,6 +47,13 @@ export default function ProfileSettings() {
     age: user.age,
     weight: user.weight,
     height: user.height,
+  });
+
+  //state for password settins form
+  const [newPassword, setNewPassword] = useState({
+    currentPassword: "",
+    newPassword: "",
+    repeatPassword: "",
   });
 
   //confirmation in update settigns dialog
@@ -68,8 +77,27 @@ export default function ProfileSettings() {
     }
   };
 
-  const onPasswordSubmit = (data) => {
-    console.log("Password Data:", data);
+  //confirmation in update password
+  const handleUpdatePassword = async () => {
+    const data = {
+      email: user.email,
+      newPassword: CryptoJS.SHA256(newPassword.newPassword).toString(
+        CryptoJS.enc.Base64
+      ),
+    };
+
+    try {
+      const response = await APIDataService.updateUserPassword(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Password updated!");
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error("Something went wrong. Try again later!");
+    }
   };
 
   //Strava OAuth flow
@@ -100,6 +128,10 @@ export default function ProfileSettings() {
         toast.error("Something went wrong. Try again later!");
       }
     },
+  });
+
+  useEffect(() => {
+    console.log(newPassword);
   });
 
   return (
@@ -274,12 +306,7 @@ export default function ProfileSettings() {
         </Typography>
 
         {/* Form for Change Password */}
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onPasswordSubmit)}
-          noValidate
-          sx={{ width: "100%" }}
-        >
+        <Box component="form" noValidate sx={{ width: "100%" }}>
           {/* Current Password Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
             Current Password
@@ -293,6 +320,12 @@ export default function ProfileSettings() {
             error={!!errors.currentPassword}
             helperText={errors.currentPassword?.message}
             sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
+            onChange={(event) =>
+              setNewPassword({
+                ...newPassword,
+                currentPassword: event.target.value,
+              })
+            }
           />
 
           {/* New Password Field */}
@@ -308,7 +341,38 @@ export default function ProfileSettings() {
             error={!!errors.newPassword}
             helperText={errors.newPassword?.message}
             sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
+            onChange={(event) =>
+              setNewPassword({
+                ...newPassword,
+                newPassword: event.target.value,
+              })
+            }
           />
+          {newPassword.newPassword.length === 0 ? null : newPassword.newPassword
+              .length > 6 ? (
+            <div className="flex align-center mb-3">
+              <Typography
+                level="body-sm"
+                sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
+                color={"#0e8a37"}
+              >
+                Length of password must be more than 6 characters
+              </Typography>
+              <CheckCircle2 className="ml-5 w-4" style={{ color: "#0e8a37" }} />
+            </div>
+          ) : (
+            <div className="flex align-center mb-3">
+              <Typography
+                level="body-sm"
+                sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
+                color={"#750e0e"}
+              >
+                Length of password must be more than 6 characters
+              </Typography>
+
+              <XCircle className="ml-5 w-4" style={{ color: "#750e0e" }} />
+            </div>
+          )}
 
           {/* Confirm New Password Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
@@ -323,21 +387,108 @@ export default function ProfileSettings() {
             error={!!errors.confirmNewPassword}
             helperText={errors.confirmNewPassword?.message}
             sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
+            onChange={(event) =>
+              setNewPassword({
+                ...newPassword,
+                repeatPassword: event.target.value,
+              })
+            }
           />
 
+          {newPassword.repeatPassword.length ===
+          0 ? null : newPassword.newPassword === newPassword.repeatPassword ? (
+            <div className="flex align-center mb-3">
+              <Typography
+                level="body-sm"
+                sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
+                color={"#0e8a37"}
+              >
+                Password matches
+              </Typography>
+              <CheckCircle2 className="ml-5 w-4" style={{ color: "#0e8a37" }} />
+            </div>
+          ) : (
+            <div className="flex align-center mb-3">
+              <Typography
+                level="body-sm"
+                sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
+                color={"#750e0e"}
+              >
+                Password does not match
+              </Typography>
+
+              <XCircle className="ml-5 w-4" style={{ color: "#750e0e" }} />
+            </div>
+          )}
+
           {/* Update Password Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              mt: 2,
-              width: "202px",
-              backgroundColor: "rgb(205, 213, 224)",
-              color: "rgb(32, 41, 58)",
-            }}
-          >
-            Update Password
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="contained"
+                sx={{
+                  mt: 1,
+                  mb: 1,
+                  width: "202px",
+                  backgroundColor: "rgb(205, 213, 224)",
+                  color: "rgb(32, 41, 58)",
+                }}
+                disabled={
+                  newPassword.repeatPassword.length === 0 ||
+                  newPassword.currentPassword.length === 0 ||
+                  newPassword.newPassword.length <= 6 ||
+                  newPassword.newPassword !== newPassword.repeatPassword
+                    ? true
+                    : false
+                }
+              >
+                Update Password
+              </Button>
+            </DialogTrigger>
+            {user.password ===
+            CryptoJS.SHA256(newPassword.currentPassword).toString(
+              CryptoJS.enc.Base64
+            ) ? (
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle
+                    className="pb-1"
+                    style={{ color: colors.secondary.default }}
+                  >
+                    Are you sure?
+                  </DialogTitle>
+                  <DialogDescription>
+                    Please confirm to update your password.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <ShadcnButton
+                      onClick={handleUpdatePassword}
+                      variant="default"
+                    >
+                      Update
+                    </ShadcnButton>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            ) : (
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle
+                    className="pb-1"
+                    style={{ color: colors.secondary.default }}
+                  >
+                    Invalid Password!
+                  </DialogTitle>
+                  <DialogDescription>
+                    The password you have entered does not match this account's
+                    current password!
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            )}
+          </Dialog>
         </Box>
 
         <Divider sx={{ my: 2, width: "100%" }} />

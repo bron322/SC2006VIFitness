@@ -76,6 +76,11 @@ const updateUserSetting = async (data) => {
   return http.patch(`/updateUserSettings/${data.email}`, data);
 };
 
+//PATCH update user settings by user email
+const updateUserPassword = async (data) => {
+  return http.patch(`/updateUserPassword/${data.email}`, data);
+};
+
 const APIDataService = {
   getAll,
   get,
@@ -92,6 +97,7 @@ const APIDataService = {
   addMeal,
   deleteMeal,
   updateUserSetting,
+  updateUserPassword,
 };
 
 export default APIDataService;
