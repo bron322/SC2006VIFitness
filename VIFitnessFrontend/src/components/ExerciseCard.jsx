@@ -43,39 +43,39 @@ const style = {
   pb: 3,
 };
 
-function ChildModalAddtoCalendar(props) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+// function ChildModalAddtoCalendar(props) {
+//   const [open, setOpen] = React.useState(false);
+//   const handleOpen = () => {
+//     setOpen(true);
+//   };
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
 
-  return (
-    <React.Fragment>
-      <Button onClick={handleOpen}>Add to calendar</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box sx={{ ...style, width: 380, height: 380 }}>
-          <div className="flex justify-center pb-10">
-            <SmallCalendar />
-          </div>
-          <AddWorkoutButton exerciseName={props.exerciseName} />
-        </Box>
-      </Modal>
-    </React.Fragment>
-  );
-}
+//   return (
+//     <React.Fragment>
+//       <Button onClick={handleOpen}>Add to calendar</Button>
+//       <Modal
+//         open={open}
+//         onClose={handleClose}
+//         aria-labelledby="child-modal-title"
+//         aria-describedby="child-modal-description"
+//       >
+//         <Box sx={{ ...style, width: 400, height: 150 }}>
+//           <div className="w-52">
+//             <SmallCalendar />
+//           </div>
+//           <AddWorkoutButton exerciseName={props.exerciseName} />
+//         </Box>
+//       </Modal>
+//     </React.Fragment>
+//   );
+// }
 
 function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
-  const { setUser } = useAuth();
+  const { user,setUser } = useAuth();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -85,19 +85,20 @@ function AddtoCalendarButton(props) {
 
   const handleSubmit = async () => {
     const data = {
-      username: "bron322",
+      username: user.username,
       exerciseData: [
         {
-          exercise: {
-            name: props.exerciseName,
-            isCompleted: false,
-            date: date,
-            month: date.getMonth(),
-          },
+          name: props.exerciseName,
+          isCompleted: false,
+          date: date,
+          month: date.getMonth() + 1,
+          day: date.getDate(),
         },
       ],
     };
-    // console.log(data);
+    console.log(date);
+    console.log("Day:", date.getDate());
+    console.log("Month:", date.getMonth() + 1);
     try {
       const response = await APIDataService.addingExercise(data);
       if (Object.keys(response.data).length !== 0) {
@@ -294,9 +295,10 @@ export default function ExerciseCard({
               </div>
 
               <div className="flex-grow pb-8 z-20 text-center">
-                <ChildModalAddtoCalendar exerciseName={title} />{" "}
+                {/*<ChildModalAddtoCalendar exerciseName={title} />{" "}
                 {/* The function is above the page */}
                 <AddtoCalendarButton exerciseName={title} />
+                {/* Oscar add to calendar button */}
               </div>
               
             </div>

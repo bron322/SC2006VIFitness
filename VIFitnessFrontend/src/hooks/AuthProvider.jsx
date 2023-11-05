@@ -55,6 +55,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //Connect with Google
+  const googleConnect = async (data) => {
+    const newData = {
+      email: user.email,
+      googleData: data,
+    };
+    const response = await APIDataService.connectToGoogle(newData);
+    setUser(response.data);
+  };
+
   //Login with Strava
   const stravaAuthLogin = async (token) => {
     //check if user exist
@@ -81,6 +91,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //Connect with Strava
+  const stravaConnect = async (token) => {
+    const data = {
+      email: user.email,
+      token: token,
+    };
+
+    const response = await APIDataService.connectToStrava(data);
+    setUser(response.data);
+    navigation("/user");
+  };
+
   //useMemo to improve performance
   const value = useMemo(
     () => ({
@@ -89,7 +111,9 @@ export const AuthProvider = ({ children }) => {
       login,
       logout,
       googleAuthLogin,
+      googleConnect,
       stravaAuthLogin,
+      stravaConnect,
     }),
     [user]
   );

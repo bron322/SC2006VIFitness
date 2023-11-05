@@ -2,7 +2,7 @@ export default function GoogleButton({ children, ...attributes }) {
   return (
     <button
       type="button"
-      className="text-white bg-[#EA4335] hover:bg-[#e34e42]/90 focus:ring-2 focus:outline-none focus:ring-[#ffffff]/50 font-medium rounded-lg text-sm px-7 py-2 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+      className="text-white min-w-[202px] bg-[#EA4335] hover:bg-[#e34e42]/90 focus:ring-2 focus:outline-none focus:ring-[#ffffff]/50 font-medium rounded-lg text-sm px-7 py-2 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
       {...attributes}
     >
       <svg

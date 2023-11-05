@@ -33,7 +33,9 @@ export default function LogoutButton(props) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Logout Confirmation</DialogTitle>
+          <DialogTitle className="text-slate-700">
+            Logout Confirmation
+          </DialogTitle>
           <DialogDescription>
             Are you sure you want to log out?
           </DialogDescription>

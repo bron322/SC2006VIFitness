@@ -60,6 +60,7 @@
     "dayjs": "^1.11.10",
     "formik": "^2.4.4",
     "jwt-decode": "^3.1.2",
+    "ldrs": "^1.0.1",
     "lucide-react": "^0.284.0",
     "react": "^18.2.0",
     "react-chrome-dino": "^0.1.3",

@@ -48,6 +48,27 @@ APIrouter.post("/post/byGoogle", (req, res) => {
     });
 });
 
+//Add Google data to user by email
+APIrouter.post("/connectGoogle/:email", (req, res) => {
+  const googleData = req.body.googleData;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        google_data: googleData,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //create user with Strava login
 APIrouter.post("/post/byStrava", (req, res) => {
   const newUser = new User({
@@ -64,6 +85,27 @@ APIrouter.post("/post/byStrava", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.send(err.message);
+    });
+});
+
+//Add Strava data to user by email
+APIrouter.post("/connectStrava/:email", (req, res) => {
+  const stravaData = req.body.token;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        strava_data: stravaData,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
       res.send(err.message);
     });
 });
@@ -294,6 +336,49 @@ APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
   } catch (error) {
     console.error(error);
   }
+});
+
+//PATCH update user settings by email
+APIrouter.patch("/updateUserSettings/:email", (req, res) => {
+  const data = req.body.newSettings;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        username: data.username,
+        age: data.age,
+        weight: data.weight,
+        height: data.height,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
+//PATCH update user settings by email
+APIrouter.patch("/updateUserPassword/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        password: req.body.newPassword,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
 });
 
 export { APIrouter };
