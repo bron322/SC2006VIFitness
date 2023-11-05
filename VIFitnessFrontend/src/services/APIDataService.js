@@ -36,9 +36,19 @@ const createByGoogle = async (data) => {
   return http.post("/post/byGoogle", data);
 };
 
+//POST connect to google with existing
+const connectToGoogle = async (data) => {
+  return http.post(`connectGoogle/${data.email}`, data);
+};
+
 //POST user by register with Strava
 const createByStrava = async (data) => {
   return http.post("/post/byStrava", data);
+};
+
+//POST connect to strava with existing
+const connectToStrava = async (data) => {
+  return http.post(`connectStrava/${data.email}`, data);
 };
 
 //POST user by ticking the exercises
@@ -61,6 +71,11 @@ const deleteMeal = async (data) => {
   return http.post(`/deleteMeal/${data.email}`, data);
 };
 
+//PATCH update user settings by user email
+const updateUserSetting = async (data) => {
+  return http.patch(`/updateUserSettings/${data.email}`, data);
+};
+
 const APIDataService = {
   getAll,
   get,
@@ -69,11 +84,14 @@ const APIDataService = {
   getByStravaID,
   create,
   createByGoogle,
+  connectToGoogle,
   createByStrava,
+  connectToStrava,
   addingExercise,
   updateLimits,
   addMeal,
   deleteMeal,
+  updateUserSetting,
 };
 
 export default APIDataService;

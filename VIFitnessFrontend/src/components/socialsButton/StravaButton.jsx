@@ -2,7 +2,7 @@ export default function StravaButton({ children, ...attributes }) {
   return (
     <button
       type="button"
-      className="text-white bg-[#FC4C02] hover:bg-[#ff6524]/90 focus:ring-2 focus:outline-none focus:ring-[#ffffff]/50 font-medium rounded-lg text-sm px-8 py-2 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+      className="min-w-[202px] text-white bg-[#FC4C02] hover:bg-[#ff6524]/90 focus:ring-2 focus:outline-none focus:ring-[#ffffff]/50 font-medium rounded-lg text-sm px-7 py-2 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
       {...attributes}
     >
       <svg

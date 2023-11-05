@@ -48,6 +48,7 @@ import LebronPage from "./routes/LebronPage";
 import StravaRedirect, {
   loader as stravaLoader,
 } from "./routes/StravaRedirect";
+import StravaConnectRedirect from "./routes/StravaConnectRedirect";
 
 const router = createBrowserRouter([
   {
@@ -168,6 +169,12 @@ const router = createBrowserRouter([
                 path: "testaddworkout",
                 errorElement: <ErrorPage />,
                 element: <TestPageNg />,
+              },
+              {
+                path: "stravaconnectredirect/exchange_token",
+                errorElement: <ErrorPage />,
+                element: <StravaConnectRedirect />,
+                loader: stravaLoader,
               },
             ],
           },
