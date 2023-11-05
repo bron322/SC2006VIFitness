@@ -91,7 +91,7 @@ export default function MuscleCard({ img, title, description }) {
                   <div key={item.instructions}>
                     <div className="flex justify-center">
                       <ExerciseCard
-                        img= {`/exerciseImage/${item.name}.png`} // Match name of image with title
+                        img= {`/exerciseImage/${item.name}.jpg`} // Match name of image with title
                         title={item.name} // Use the item name as the title
                         description={item.difficulty} // Use the item difficulty
                         instruction={item.instructions} // Passing in the instruction
