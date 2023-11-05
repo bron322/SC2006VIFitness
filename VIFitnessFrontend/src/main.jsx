@@ -106,10 +106,10 @@ const router = createBrowserRouter([
               //   path: "invoices",
               //   element: <Invoices />,
               // },
-              // {
-              //   path: "form",
-              //   element: <Form />,
-              // },
+              {
+                path: "form",
+                element: <Form />,
+              },
               // {
               //   path: "bar",
               //   element: <Bar />,
