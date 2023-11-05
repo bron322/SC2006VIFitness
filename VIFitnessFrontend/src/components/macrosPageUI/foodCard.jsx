@@ -119,7 +119,7 @@ export default function FoodCard(props) {
     <>
       <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       <Card
-        className="w-100% min-w-[25vw] col-span-1 mb-4"
+        className="w-100% min-w-[24vw] col-span-1 my-4"
         style={{
           backgroundColor: colors.background.children,
           borderColor: colors.background.default,

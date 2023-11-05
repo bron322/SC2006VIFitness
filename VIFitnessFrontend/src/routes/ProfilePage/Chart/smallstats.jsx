@@ -90,7 +90,7 @@ export default function SmallStats(props) {
                       <Progress
                         id="calorie-bar"
                         innercolor={colors.progress.default}
-                        outercolor={colors.progress.foreground}
+                        outercolor={colors.secondary.default}
                         value={
                           (statisticsData.calorie / props.limits.calorie) *
                             100 >
@@ -135,7 +135,7 @@ export default function SmallStats(props) {
                       <Progress
                         id="protein-bar"
                         innercolor={colors.progress.default}
-                        outercolor={colors.progress.foreground}
+                        outercolor={colors.secondary.default}
                         value={
                           (statisticsData.protein / props.limits.protein) * 100
                         }
@@ -175,7 +175,7 @@ export default function SmallStats(props) {
                       <Progress
                         id="carbs-bar"
                         innercolor={colors.progress.default}
-                        outercolor={colors.progress.foreground}
+                        outercolor={colors.secondary.default}
                         value={
                           (statisticsData.carbohydrate /
                             props.limits.carbohydrate) *
@@ -218,7 +218,7 @@ export default function SmallStats(props) {
                       <Progress
                         id="fats-bar"
                         innercolor={colors.progress.default}
-                        outercolor={colors.progress.foreground}
+                        outercolor={colors.secondary.default}
                         value={(statisticsData.fat / props.limits.fat) * 100}
                         className="w-[30vh]"
                       />
