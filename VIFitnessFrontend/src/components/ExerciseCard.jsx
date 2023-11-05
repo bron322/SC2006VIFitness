@@ -198,7 +198,7 @@ export default function ExerciseCard({
           <CardMedia
             sx={{ maxWidth: 150, height: 120 }}
             component="img"
-            image={img}
+            image= {img}
           />
           <CardContent>
             <Typography
