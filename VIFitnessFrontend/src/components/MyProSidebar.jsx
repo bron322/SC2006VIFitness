@@ -267,7 +267,7 @@ const MyProSidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Profile Form"
+              title="Profile Settings"
               to="form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
