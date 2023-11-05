@@ -10,7 +10,7 @@ const labelsClasses = ["white", "gray", "green", "blue", "red", "purple"];
 export default function AddWorkoutButton(props) {
   const [isCompleted, setIsCompleted] = useState(false);
   const [exercisesToAddToCalendar, setExercisesToAddToCalendar] = useState([]);
-  const { daySelected, dispatchCalEvent, selectedEvent , smallCalendarMonth} =
+  const { daySelected, dispatchCalEvent, selectedEvent, smallCalendarMonth } =
     useContext(GlobalContext);
 
   const [description, setDescription] = useState(
@@ -22,7 +22,12 @@ export default function AddWorkoutButton(props) {
       : labelsClasses[0]
   );
 
-  const addExerciseToCalendar = (exerciseName, isCompleted = false, date, month) => {
+  const addExerciseToCalendar = async (
+    exerciseName,
+    isCompleted = false,
+    date,
+    month
+  ) => {
     setExercisesToAddToCalendar((prevExercises) => [
       ...prevExercises,
       {
@@ -31,8 +36,8 @@ export default function AddWorkoutButton(props) {
           isCompleted,
           date,
           month,
-        }
-      }
+        },
+      },
     ]);
   };
 
@@ -40,21 +45,21 @@ export default function AddWorkoutButton(props) {
     try {
       // Check if there are exercises to add
       if (exercisesToAddToCalendar.length === 0) {
-        alert('No exercises selected to add to calendar.');
+        alert("No exercises selected to add to calendar.");
         return;
       }
       const exerciseDataToAdd = {
-        username: 'bron322', // Replace with the actual username
-        exerciseData:
-          exercisesToAddToCalendar // Pass the list of exercise names to the server
-        ,
+        username: "bron322", // Replace with the actual username
+        exerciseData: exercisesToAddToCalendar, // Pass the list of exercise names to the server
       };
       // Call the addingExercise function to add the exercise
-      const updatedUserData = await APIDataService.addingExercise(exerciseDataToAdd);
+      const updatedUserData = await APIDataService.addingExercise(
+        exerciseDataToAdd
+      );
       // You can also update your component's state or perform any other actions based on the response data
-      console.log('Updated user data:', updatedUserData);
+      console.log("Updated user data:", updatedUserData);
     } catch (error) {
-      console.error('Error adding exercise:', error);
+      console.error("Error adding exercise:", error);
       // Handle errors here
     }
   };
@@ -70,22 +75,30 @@ export default function AddWorkoutButton(props) {
     };
     if (selectedEvent) {
       dispatchCalEvent({ type: "update", payload: calendarEvent });
-      addExerciseToCalendar(props.exerciseName, false, daySelected.format("D") , smallCalendarMonth + 1);
+      addExerciseToCalendar(
+        props.exerciseName,
+        false,
+        daySelected.format("D"),
+        smallCalendarMonth + 1
+      ).then(() => {});
       console.log("Day:", daySelected.format("D"));
       console.log("Month:", smallCalendarMonth + 1);
       toast.success("Added to Calendar!");
     } else {
       dispatchCalEvent({ type: "push", payload: calendarEvent });
-      addExerciseToCalendar(props.exerciseName, false, daySelected.format("D"), smallCalendarMonth + 1);
+      addExerciseToCalendar(
+        props.exerciseName,
+        false,
+        daySelected.format("D"),
+        smallCalendarMonth + 1
+      ).then(() => {
+        handleAddToCalendar();
+      });
       console.log("Day:", daySelected.format("D"));
       console.log("Month:", smallCalendarMonth + 1);
       toast.success("Added to Calendar!");
     }
-
-    handleAddToCalendar();
   }
-
-
 
   return (
     <>
@@ -94,4 +107,3 @@ export default function AddWorkoutButton(props) {
     </>
   );
 }
-

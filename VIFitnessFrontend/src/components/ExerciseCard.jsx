@@ -15,7 +15,20 @@ import Quads from "./styles/photos/Quads.png";
 import AddWorkoutButton from "../routes/Calendar/components/AddWorkoutButton";
 import SmallCalendar from "../routes/Calendar/components/SmallCalendar";
 import { CircularProgress } from "@mui/material";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import "./styles/exercisecard.css";
+import { CalendarIcon } from "lucide-react";
+import { Button as ShadcnButton } from "@/components/ui/button";
+import APIDataService from "@/services/APIDataService";
+import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "@/hooks/AuthProvider";
 
 const style = {
   position: "absolute",
@@ -52,7 +65,97 @@ function ChildModalAddtoCalendar(props) {
           <div className="flex justify-center pb-10">
             <SmallCalendar />
           </div>
-          <AddWorkoutButton exerciseName={props.exerciseName}/>
+          <AddWorkoutButton exerciseName={props.exerciseName} />
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
+function AddtoCalendarButton(props) {
+  const [open, setOpen] = React.useState(false);
+  const [date, setDate] = React.useState(new Date());
+  const { setUser } = useAuth();
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    const data = {
+      username: "bron322",
+      exerciseData: [
+        {
+          exercise: {
+            name: props.exerciseName,
+            isCompleted: false,
+            date: date,
+            month: date.getMonth(),
+          },
+        },
+      ],
+    };
+    // console.log(data);
+    try {
+      const response = await APIDataService.addingExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Workout added!");
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log(err);
+      if (err instanceof AxiosError) {
+        toast.error("Something went wrong. Try again later!");
+      }
+    }
+  };
+
+  return (
+    <React.Fragment>
+      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      <Button onClick={handleOpen}>Add to calendar</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style, width: 400, height: 150 }}>
+          <h1>Add to Calendar</h1>
+          <div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <ShadcnButton
+                  variant={"outline"}
+                  className={cn(
+                    "w-[240px] justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </ShadcnButton>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0 z-[1400]" align="start">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <div className="flex mt-5 justify-end">
+            <ShadcnButton onClick={handleSubmit} variant="secondary" size="sm">
+              Add
+            </ShadcnButton>
+          </div>
         </Box>
       </Modal>
     </React.Fragment>
@@ -190,9 +293,10 @@ export default function ExerciseCard({
                 {equipment}
               </div>
 
-              <div className="flex-grow pb-5 z-20 text-center">
-                <ChildModalAddtoCalendar exerciseName={title}/>{" "}
+              <div className="flex-grow pb-8 z-20 text-center">
+                <ChildModalAddtoCalendar exerciseName={title} />{" "}
                 {/* The function is above the page */}
+                <AddtoCalendarButton exerciseName={title} />
               </div>
               
             </div>

@@ -1,15 +1,16 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { mockTransactions } from "./data/mockData";
 import Header from "./Chart/Header";
 import Macros from "./Chart/macros";
+import StatBox from "./Chart/StatBox";
+import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
-import { useState } from "react";
 
 export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { user } = useAuth();
 
   return (
     <Box m="20px">
@@ -39,12 +40,20 @@ export default function Dashboard() {
           <Typography variant="h5" fontWeight="600">
             User Profile
           </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          ></Box>
+          {/* sx={{ flexDirection: 'row' }} */}
+          <Box height="250px" className='flex flex-col items-center justify-evenly'>
+              <StatBox 
+              subtitle= {user.age} 
+              title= "Age"/>
+              <StatBox 
+             subtitle= {user.height + " cm"}
+             title= "Height"/>
+             <StatBox 
+             subtitle= {user.weight + " kg"}
+             title= "Weight"/>
+
+          </Box>
+  
         </Box>
         <Box
           gridColumn="span 4"
@@ -52,6 +61,7 @@ export default function Dashboard() {
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
+          overflow = "auto"
         >
           <Typography
             variant="h5"
@@ -63,7 +73,7 @@ export default function Dashboard() {
         </Box>
         <Box
           gridColumn="span 4"
-          gridRow="span 4"
+          gridRow="span 5"
           backgroundColor={colors.background.default}
           padding="20px"
           className="rounded-lg border"
@@ -85,7 +95,7 @@ export default function Dashboard() {
         {/* ROW 3 */}
         <Box
           gridColumn="span 8"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
@@ -93,7 +103,7 @@ export default function Dashboard() {
           <Box
             mt="25px"
             p="0 30px"
-            display="flex "
+            display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
@@ -105,17 +115,14 @@ export default function Dashboard() {
               >
                 Macros Tracker
               </Typography>
-              {/* <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.muted.foreground}
-              >
-                $59,342.32
-              </Typography> */}
             </Box>
-            <Box></Box>
           </Box>
-          <Box height="250px" m="-20px 0 10 0">
+          <Box 
+            height="350px"
+            alignItems= "center" 
+            justifyContent= "center" 
+            display = "flex" 
+            m = "0 30px">
             {/* <LineChart isDashboard={true} /> */}
             <Macros/>
           </Box>
