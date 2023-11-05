@@ -107,7 +107,10 @@ export default function LandingPage() {
 
         <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
           <h2 className="cssanimation sequence fadeInBottom font-sans font-bold justify-self-center">
-            Welcome to
+            Welcome
+          </h2>
+          <h2 className="cssanimation sequence fadeInBottom font-sans font-bold justify-self-center">
+            to
           </h2>
           <h2 className="cssanimation sequence fadeInBottom font-sans font-bold pb-20">
             VIFitness
