@@ -29,6 +29,8 @@ import { Button as ShadcnButton } from "@/components/ui/button";
 import APIDataService from "@/services/APIDataService";
 import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "@/hooks/AuthProvider";
+import { useEffect } from "react";
+import NutritionixService from "@/services/NutritionixService";
 
 const style = {
   position: "absolute",
@@ -47,6 +49,7 @@ function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
   const { user,setUser } = useAuth();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -142,6 +145,7 @@ export default function ExerciseCard({
   equipment,
 }) {
   const [open, setOpen] = React.useState(false);
+  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null); 
   const exercisecardhandleOpen = () => {
     setOpen(true);
   };
@@ -162,6 +166,26 @@ export default function ExerciseCard({
 
   const intValue = descriptionToValue[description];
   const colorValue = descriptionToColor[description];
+
+  useEffect(() => {
+    // Define the exercise name you want to look up
+    const exerciseName = title; // Replace with the actual exercise name
+
+    // Call the getExercise function with the exercise name as input
+    NutritionixService.getExercise({
+      query: exerciseName,
+    })
+      .then((response) => {
+        // Handle the response from the API here
+        const caloriesBurnt = response.data.exercises[0].nf_calories;
+        setCaloriesBurnt(caloriesBurnt);
+        console.log("Exercise Data:", response.data.exercises[0].nf_calories);
+      })
+      .catch((error) => {
+        // Handle any errors that may occur
+        console.error("Error:", error);
+      });
+  }, []);
 
   return (
     <div>
@@ -197,7 +221,6 @@ export default function ExerciseCard({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-
         <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
           <div className="flex">
             <img
@@ -211,7 +234,6 @@ export default function ExerciseCard({
               className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0 bg-black opacity-50"
               style={{ backdropFilter: "grayscale(100%) blur(100px)" }}
             />
-
             <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
               <div className="text-center text-5xl font-bold z-10 pb-5">
                 {title}
@@ -246,9 +268,14 @@ export default function ExerciseCard({
                 {equipment}
               </div>
 
+              <div className="flex-grow pb-8 z-20">
+                <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
+                <br></br>
+                {caloriesBurnt}
+              </div>
+              {/* This is for calories burnt for the exercise */}
+
               <div className="flex-grow pb-8 z-20 text-center">
-                {/*<ChildModalAddtoCalendar exerciseName={title} />{" "}
-                {/* The function is above the page */}
                 <AddtoCalendarButton exerciseName={title} />
               </div>
               
