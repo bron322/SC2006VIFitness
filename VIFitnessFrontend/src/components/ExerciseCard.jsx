@@ -146,12 +146,15 @@ export default function ExerciseCard({
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null); 
+
   const exercisecardhandleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+  
   const descriptionToValue = {
     beginner: 33,
     intermediate: 66,
@@ -225,7 +228,7 @@ export default function ExerciseCard({
           <div className="flex">
             <img
               className="absolute w-full h-full top-0 left-0"
-              src={Test}
+              src= {`/exerciseImage/${title}.jpg`}
               alt="Exercise"
             />
 
