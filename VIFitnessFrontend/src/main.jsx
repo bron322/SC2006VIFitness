@@ -37,6 +37,7 @@ import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
 import ChatGPTTest from "./routes/GetWorkoutPage";
+import BarChart from "./components/calorieChartTest/barchart"
 
 //Authorisation related imports
 import ProtectedLayout from "./layouts/ProtectedLayout";
@@ -176,6 +177,11 @@ const router = createBrowserRouter([
                 errorElement: <ErrorPage />,
                 element: <StravaConnectRedirect />,
                 loader: stravaLoader,
+              },
+              {
+                path: "testchart",
+                errorElement: <ErrorPage />,
+                element: <BarChart/>,
               },
             ],
           },

@@ -6,6 +6,7 @@ import StatBox from "./Chart/StatBox";
 import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
+// import BarChart from "./Chart/BarChart";
 
 export default function Dashboard() {
   const theme = useTheme();
@@ -61,15 +62,19 @@ export default function Dashboard() {
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
-          overflow = "auto"
+          // overflow = "auto"
         >
           <Typography
             variant="h5"
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Workout Plan
+            Calories
           </Typography>
+        
+          {/* <Box height="250px" m="-20px 0 0 0">
+            <BarChart isDashboard={true} />
+          </Box> */}
         </Box>
         <Box
           gridColumn="span 4"

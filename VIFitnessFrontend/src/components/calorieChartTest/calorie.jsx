@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Box, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
+import { tokens } from "../../routes/theme";
 import { useAuth } from "@/hooks/AuthProvider";
 
 import {
@@ -11,9 +11,9 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns";
-import SmallStats from "./smallstats";
+import CalorieStats from "./calorieStats.jsx";
 
-function macros(){
+function calorie(){
 const theme = useTheme();
 const colors = tokens(theme.palette.mode);
 const { user } = useAuth();
@@ -65,9 +65,8 @@ const { user } = useAuth();
         className="border-none p-0 outline-none"
       >
           <Box >
-        <SmallStats
+        <CalorieStats
           meals={user.meals.filter(filterMealsByToday)}
-          limits={user.macros_setting}
           title={"Today's"}
         />
         </Box>
@@ -76,14 +75,14 @@ const { user } = useAuth();
         value="week"
         className="border-none p-0 outline-none " m = "20px 0 10px -10px"
       >
-        <SmallStats
+        <CalorieStats
           meals={user.meals.filter(filterMealsByWeek)}
-          limits={{
-            calorie: user.macros_setting.calorie * 7,
-            protein: user.macros_setting.protein * 7,
-            carbohydrate: user.macros_setting.carbohydrate * 7,
-            fat: user.macros_setting.fat * 7,
-          }}
+        //   limits={{
+        //     calorie: user.macros_setting.calorie * 7,
+        //     protein: user.macros_setting.protein * 7,
+        //     carbohydrate: user.macros_setting.carbohydrate * 7,
+        //     fat: user.macros_setting.fat * 7,
+        //   }}
           title={"This Week's"}
         />
       </TabsContent>
@@ -91,26 +90,26 @@ const { user } = useAuth();
         value="month"
         className="border-none p-0 outline-none"
       >
-        <SmallStats
+        <CalorieStats
           meals={user.meals.filter(filterMealsByMonth)}
-          limits={{
-            calorie:
-              user.macros_setting.calorie *
-              getDaysInMonth(new Date()),
-            protein:
-              user.macros_setting.protein *
-              getDaysInMonth(new Date()),
-            carbohydrate:
-              user.macros_setting.carbohydrate *
-              getDaysInMonth(new Date()),
-            fat:
-              user.macros_setting.fat *
-              getDaysInMonth(new Date()),
-          }}
+        //   limits={{
+        //     calorie:
+        //       user.macros_setting.calorie *
+        //       getDaysInMonth(new Date()),
+        //     protein:
+        //       user.macros_setting.protein *
+        //       getDaysInMonth(new Date()),
+        //     carbohydrate:
+        //       user.macros_setting.carbohydrate *
+        //       getDaysInMonth(new Date()),
+        //     fat:
+        //       user.macros_setting.fat *
+        //       getDaysInMonth(new Date()),
+        //   }}
           title={"This Month's"}
         />
       </TabsContent>
     </Tabs>
     )
 }
-export default macros;
+export default calorie;
