@@ -242,7 +242,7 @@ export default function ExerciseCard({
                 {title}
               </div>
 
-              <div className="flex-grow pb-5 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Difficulty: "}</div>
                 <br></br>
                 <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
@@ -259,19 +259,19 @@ export default function ExerciseCard({
                 </div>
               </div>
 
-              <div className="flex-grow pb-5 z-20 ">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Instructions: "}</div>
                 <br></br>
                 {instruction}
               </div>
 
-              <div className="flex-grow pb-5 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Equipment: "}</div>
                 <br></br>
                 {equipment}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-8 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
                 <br></br>
                 {caloriesBurnt}
