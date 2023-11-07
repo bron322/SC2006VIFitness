@@ -48,7 +48,7 @@ const style = {
 function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
-  const { user,setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const handleOpen = () => {
     setOpen(true);
@@ -67,12 +67,14 @@ function AddtoCalendarButton(props) {
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
+          calories: props.caloriesBurnt,
         },
       ],
     };
     console.log(date);
     console.log("Day:", date.getDate());
     console.log("Month:", date.getMonth() + 1);
+    console.log("Calories Burnt:", props.caloriesBurnt);
     try {
       const response = await APIDataService.addingExercise(data);
       if (Object.keys(response.data).length !== 0) {
@@ -145,12 +147,34 @@ export default function ExerciseCard({
   equipment,
 }) {
   const [open, setOpen] = React.useState(false);
-  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null); 
+  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
 
   const exercisecardhandleOpen = () => {
     setOpen(true);
-  };
+  // Define the exercise name you want to look up
+const exerciseName = title; // Replace with the actual exercise name
 
+  // Call the getExercise function with the exercise name as input
+  NutritionixService.getExercise({
+    query: exerciseName,
+  })
+    .then((response) => {
+      // Check if the response is an empty array
+      if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
+        // Set a default value for nf_calories (e.g., 170)
+        setCaloriesBurnt(170);
+      } else {
+        // Handle the response from the API
+        const caloriesBurnt = response.data.exercises[0].nf_calories;
+        setCaloriesBurnt(caloriesBurnt);
+        console.log("Exercise Data:", caloriesBurnt);
+      }
+    })
+    .catch((error) => {
+      // Handle any errors that may occur
+      console.error("Error:", error);
+    });
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -170,26 +194,6 @@ export default function ExerciseCard({
   const intValue = descriptionToValue[description];
   const colorValue = descriptionToColor[description];
 
-  useEffect(() => {
-    // Define the exercise name you want to look up
-    const exerciseName = title; // Replace with the actual exercise name
-
-    // Call the getExercise function with the exercise name as input
-    NutritionixService.getExercise({
-      query: exerciseName,
-    })
-      .then((response) => {
-        // Handle the response from the API here
-        const caloriesBurnt = response.data.exercises[0].nf_calories;
-        setCaloriesBurnt(caloriesBurnt);
-        console.log("Exercise Data:", response.data.exercises[0].nf_calories);
-      })
-      .catch((error) => {
-        // Handle any errors that may occur
-        console.error("Error:", error);
-      });
-  }, []);
-
   return (
     <div>
       <Card sx={{ width: 150, height: 250 }} onClick={exercisecardhandleOpen}>
@@ -197,7 +201,7 @@ export default function ExerciseCard({
           <CardMedia
             sx={{ maxWidth: 150, height: 120 }}
             component="img"
-            image= {img}
+            image={img}
           />
           <CardContent>
             <Typography
@@ -279,9 +283,10 @@ export default function ExerciseCard({
               {/* This is for calories burnt for the exercise */}
 
               <div className="flex-grow pb-8 z-20 text-center">
-                <AddtoCalendarButton exerciseName={title} />
+                <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} />
+                {/* add to calendar button */}
               </div>
-              
+
             </div>
           </div>
         </Box>
