@@ -28,22 +28,37 @@ var corsOptions = {
 
 //////////////////////////////////////////////////  mongoDB ///////////////////////////////////////////////////
 const mongoURLString = process.env.DATABASE_URL;
-mongoose.connect(mongoURLString);
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(mongoURLString);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+//Connect to the database before listening
+connectDB().then(() => {
+  app.listen(port, () => {
+    console.log("listening for requests");
+  });
+});
+
 const database = mongoose.connection;
 
 database.on("error", (error) => {
   console.log(error);
 });
 
-database.once("connected", () => {
-  console.log("Database Connected");
-});
-
 ///////////////////////////////////////////////  port /////////////////////////////////////////////////////////
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
-app.listen(port, function () {
-  console.log(`Server is running on ${port}`);
-});
+
+// app.listen(port, function () {
+//   console.log(`Server is running on ${port}`);
+// });

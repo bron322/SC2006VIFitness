@@ -2,6 +2,7 @@ import axios from "axios";
 
 export default axios.create({
   baseURL: "http://localhost:3000/api",
+  // baseURL: "https://expensive-eel-wrap.cyclic.app/api",
   credentials: true,
   headers: {
     "Content-type": "application/json",

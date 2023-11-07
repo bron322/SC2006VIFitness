@@ -81,6 +81,11 @@ const updateUserPassword = async (data) => {
   return http.patch(`/updateUserPassword/${data.email}`, data);
 };
 
+//POST update strava activities to database by user email
+const updateStravaActivities = async (data) => {
+  return http.post(`/updateStravaActivities/${data.email}`, data);
+};
+
 const APIDataService = {
   getAll,
   get,
@@ -98,6 +103,7 @@ const APIDataService = {
   deleteMeal,
   updateUserSetting,
   updateUserPassword,
+  updateStravaActivities,
 };
 
 export default APIDataService;

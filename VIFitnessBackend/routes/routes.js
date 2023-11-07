@@ -110,6 +110,27 @@ APIrouter.post("/connectStrava/:email", (req, res) => {
     });
 });
 
+//update Strava activities by email
+APIrouter.post("/updateStravaActivities/:email", (req, res) => {
+  const data = req.body.activities;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $addToSet: {
+        strava_activities: { $each: data },
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //Get all Method
 APIrouter.get("/users", (req, res) => {
   User.find()
