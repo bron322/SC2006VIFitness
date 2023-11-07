@@ -5,6 +5,7 @@ import { tokens } from "@/routes/theme";
 import { useTheme } from "@mui/material";
 import chroma from "chroma-js";
 import { useAuth } from "@/hooks/AuthProvider";
+import { useRef } from "react";
 
 function Semircirclebar(props) {
   const theme = useTheme();
@@ -16,6 +17,7 @@ function Semircirclebar(props) {
     t_fat: 0,
   });
   const { user } = useAuth();
+  const initialised = useRef(false);
 
   // round to 2 dp
   const RoundTo2dp = (num) => {
@@ -26,9 +28,11 @@ function Semircirclebar(props) {
   const animateBar = (selector, t_nutrition, dataTotal) => {
     const progressBar = document.querySelector(selector);
     const bar = progressBar.querySelector(".bar");
-    const val = progressBar.querySelector("span");
 
-    const perc = Math.floor((parseFloat(val.textContent) / dataTotal) * 100);
+    const perc =
+      Math.floor((parseFloat(t_nutrition) / dataTotal) * 100) < 1
+        ? 1
+        : Math.floor((parseFloat(t_nutrition) / dataTotal) * 100);
     let f = chroma.scale(["E95793", "610C9F"]);
 
     let currentPercent = 0;
@@ -62,25 +66,25 @@ function Semircirclebar(props) {
   };
 
   useEffect(() => {
-    setData().then(() => {
-      animateBar(
-        ".cal-progress",
-        formattedData.t_calorie,
-        user.macros_setting.calorie
-      );
+    if (!initialised.current) {
+      initialised.current = true;
+      console.log(props);
+
+      setData();
+      animateBar(".cal-progress", props.t_calorie, user.macros_setting.calorie);
       animateBar(
         ".protein-progress",
-        formattedData.t_protein,
+        props.t_protein,
         user.macros_setting.protein
       );
       animateBar(
         ".carb-progress",
-        formattedData.t_carb,
+        props.t_carb,
         user.macros_setting.carbohydrate
       );
-      animateBar(".fat-progress", formattedData.t_fat, user.macros_setting.fat);
-    });
-  }, [props]);
+      animateBar(".fat-progress", props.t_fat, user.macros_setting.fat);
+    }
+  }, []);
 
   return (
     <>

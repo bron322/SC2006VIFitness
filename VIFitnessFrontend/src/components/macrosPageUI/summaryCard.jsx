@@ -41,7 +41,16 @@ export default function SummaryCard(props) {
       </CardHeader>
       <CardContent>
         <div className="semi-bar-wrapper flex justify-center">
-          <Semircirclebar data={props.data} />
+          <Semircirclebar
+            data={props.data}
+            t_calorie={props.data.reduce((a, cur) => a + cur.nf_calories, 0)}
+            t_protein={props.data.reduce((a, cur) => a + cur.nf_protein, 0)}
+            t_carb={props.data.reduce(
+              (a, cur) => a + cur.nf_total_carbohydrate,
+              0
+            )}
+            t_fat={props.data.reduce((a, cur) => a + cur.nf_total_fat, 0)}
+          />
         </div>
       </CardContent>
     </Card>

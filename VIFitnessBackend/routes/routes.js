@@ -48,6 +48,27 @@ APIrouter.post("/post/byGoogle", (req, res) => {
     });
 });
 
+//Add Google data to user by email
+APIrouter.post("/connectGoogle/:email", (req, res) => {
+  const googleData = req.body.googleData;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        google_data: googleData,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //create user with Strava login
 APIrouter.post("/post/byStrava", (req, res) => {
   const newUser = new User({
@@ -64,6 +85,48 @@ APIrouter.post("/post/byStrava", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.send(err.message);
+    });
+});
+
+//Add Strava data to user by email
+APIrouter.post("/connectStrava/:email", (req, res) => {
+  const stravaData = req.body.token;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        strava_data: stravaData,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
+//update Strava activities by email
+APIrouter.post("/updateStravaActivities/:email", (req, res) => {
+  const data = req.body.activities;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $addToSet: {
+        strava_activities: { $each: data },
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
       res.send(err.message);
     });
 });
@@ -192,13 +255,61 @@ APIrouter.patch("/updateLimits/:email", (req, res) => {
 });
 
 //Add meal method
-APIrouter.post("/addMeal/:username", (req, res) => {});
+APIrouter.post("/addMeal/:email", (req, res) => {
+  const mealData = {
+    foodName: req.body.foodName,
+    calorie: req.body.calorie,
+    protein: req.body.protein,
+    carbohydrate: req.body.carbohydrate,
+    fat: req.body.fat,
+    mealType: req.body.mealType,
+    createdAt: new Date(),
+  };
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $push: {
+        meals: mealData,
+      },
+    },
+    {
+      returnOriginal: false,
+    }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 //Update meal method
 APIrouter.patch("/updateMeal/:username", (req, res) => {});
 
 //Delete meal method
-APIrouter.delete("/deleteMeal/:username", (req, res) => {});
+APIrouter.post("/deleteMeal/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $pull: {
+        meals: {
+          createdAt: new Date(req.body.createdAt),
+        },
+      },
+    },
+    {
+      returnOriginal: false,
+    }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 //Add exercise method
 APIrouter.post("/addExercise/:username", (req, res) => {
@@ -227,25 +338,69 @@ APIrouter.post("/addExercise/:username", (req, res) => {
 APIrouter.patch("/updateExercise/:username", (req, res) => {});
 
 //Delete exercise method
-APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
-  try {
-    const { username, exerciseId } = req.params;
-
-    // Find the user by username and pull the exercise by exerciseId from their exercise array
-    const updatedUser = await UserModel.findOneAndUpdate(
-      { username },
-      { $pull: { exercises: { _id: exerciseId } } },
-      { new: true } // Return the updated document
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User or exercise not found" });
+APIrouter.post("/deleteExercise/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $pull: {
+        workouts: {
+          name: req.body.name,
+        },
+      },
+    },
+    {
+      returnOriginal: false,
     }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    console.error(error);
-  }
+//PATCH update user settings by email
+APIrouter.patch("/updateUserSettings/:email", (req, res) => {
+  const data = req.body.newSettings;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        username: data.username,
+        age: data.age,
+        weight: data.weight,
+        height: data.height,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
+//PATCH update user settings by email
+APIrouter.patch("/updateUserPassword/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        password: req.body.newPassword,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
 });
 
 export { APIrouter };

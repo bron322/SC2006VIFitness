@@ -20,15 +20,14 @@ import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
 import TestPageNg from "./routes/TestPageNg";
 import Dashboard from "./routes/ProfilePage/Dashboard";
-import Contacts from "./routes/ProfilePage/Contacts";
-import Team from "./routes/ProfilePage/team";
-import Invoices from "./routes/ProfilePage/invoices";
-import Bar from "./routes/ProfilePage/Bar";
+// import Contacts from "./routes/ProfilePage/Contacts";
+// import Team from "./routes/ProfilePage/team";
+// import Invoices from "./routes/ProfilePage/invoices";
 import Form from "./routes/ProfilePage/form";
-import Line from "./routes/ProfilePage/line";
-import Pie from "./routes/ProfilePage/pie";
+// import Line from "./routes/ProfilePage/line";
+// import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
-import Geography from "./routes/ProfilePage/Geography";
+// import Geography from "./routes/ProfilePage/Geography";
 // import Calendar from "./routes/ProfilePage/calendar";
 import Calendar from "./routes/Calendar/App";
 import TestPageOscar from "./routes/TestingPageOscar";
@@ -49,6 +48,8 @@ import LebronPage from "./routes/LebronPage";
 import StravaRedirect, {
   loader as stravaLoader,
 } from "./routes/StravaRedirect";
+import StravaConnectRedirect from "./routes/StravaConnectRedirect";
+import StravaPage from "./routes/StravaPage";
 
 const router = createBrowserRouter([
   {
@@ -95,34 +96,34 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Dashboard />,
               },
-              {
-                path: "contact",
-                element: <Contacts />,
-              },
-              {
-                path: "team",
-                element: <Team />,
-              },
-              {
-                path: "invoices",
-                element: <Invoices />,
-              },
+              // {
+              //   path: "contact",
+              //   element: <Contacts />,
+              // },
+              // {
+              //   path: "team",
+              //   element: <Team />,
+              // },
+              // {
+              //   path: "invoices",
+              //   element: <Invoices />,
+              // },
               {
                 path: "form",
                 element: <Form />,
               },
-              {
-                path: "bar",
-                element: <Bar />,
-              },
-              {
-                path: "pie",
-                element: <Pie />,
-              },
-              {
-                path: "line",
-                element: <Line />,
-              },
+              // {
+              //   path: "bar",
+              //   element: <Bar />,
+              // },
+              // {
+              //   path: "pie",
+              //   element: <Pie />,
+              // },
+              // {
+              //   path: "line",
+              //   element: <Line />,
+              // },
               {
                 path: "faq",
                 element: <FAQ />,
@@ -131,10 +132,10 @@ const router = createBrowserRouter([
                 path: "calendar",
                 element: <Calendar />,
               },
-              {
-                path: "geography",
-                element: <Geography />,
-              },
+              // {
+              //   path: "geography",
+              //   element: <Geography />,
+              // },
               {
                 path: "macros-tracker",
                 element: <MacrosPage />,
@@ -161,14 +162,20 @@ const router = createBrowserRouter([
                 element: <GenerateWorkout />,
               },
               {
-                path: "macros",
+                path: "strava",
                 errorElement: <ErrorPage />,
-                element: <LebronPage />,
+                element: <StravaPage />,
               },
               {
                 path: "testaddworkout",
                 errorElement: <ErrorPage />,
                 element: <TestPageNg />,
+              },
+              {
+                path: "stravaconnectredirect/exchange_token",
+                errorElement: <ErrorPage />,
+                element: <StravaConnectRedirect />,
+                loader: stravaLoader,
               },
             ],
           },

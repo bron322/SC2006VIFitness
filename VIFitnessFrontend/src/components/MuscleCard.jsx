@@ -11,10 +11,10 @@ import Calves from "./styles/photos/Calves.png";
 import Glutes from "./styles/photos/Glutes.png";
 import Hamstring from "./styles/photos/Hamstring.jpg";
 import Quads from "./styles/photos/Quads.png";
-import DatePickerMui from './DatePickerMui';
 import APIDataService from "../services/APIDataService";
 import { useState } from "react";
 import ExerciseService from "../services/ExerciseService";
+import { IndeterminateCheckBoxRounded } from '@mui/icons-material';
 
 const style = {
   position: 'absolute',
@@ -77,29 +77,20 @@ export default function MuscleCard({ img, title, description }) {
           <Typography variant="h1" className="text-center">
             Exercises
           </Typography>
-          {/* <h2 id="parent-modal-title">Exercises</h2> */}
           <div className="flex-grow pb-8">
             <div className="grid grid-cols-3 grid-rows-2 gap-x-0 gap-y-8 overflow-y-auto">
 
-              {/* Card 1 */}
-              {/* <div className="flex justify-center">
-                <ExerciseCard
-                  img={Quads}
-                  title="Nigga"
-                  description="nice"
-                />
-              </div> */}
-
               {workoutData.slice(0,6).map((item, index) => {
+                const correctedName = item.name === "Rocky Pull-Ups/Pulldowns" ? "Shotgun row" : item.name;
                 return (
                   <div key={item.instructions}>
                     <div className="flex justify-center">
                       <ExerciseCard
-                        img={Quads} // Assuming Quads is your image for all items
-                        title={item.name} // Use the item name as the title
+                        img= {`/exerciseImage/${correctedName}.jpg`} // Match name of image with title
+                        title={correctedName} // Use the corrected name as the title
                         description={item.difficulty} // Use the item difficulty
-                        instruction={item.instructions} //passing in the instruction
-                        equipment={item.equipment}
+                        instruction={item.instructions} // Passing in the instruction
+                        equipment={item.equipment} 
                       />
                     </div>
                   </div>

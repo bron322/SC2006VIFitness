@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import http from "../http-common.js";
 
 // GET all users
@@ -35,9 +36,19 @@ const createByGoogle = async (data) => {
   return http.post("/post/byGoogle", data);
 };
 
+//POST connect to google with existing
+const connectToGoogle = async (data) => {
+  return http.post(`connectGoogle/${data.email}`, data);
+};
+
 //POST user by register with Strava
 const createByStrava = async (data) => {
   return http.post("/post/byStrava", data);
+};
+
+//POST connect to strava with existing
+const connectToStrava = async (data) => {
+  return http.post(`connectStrava/${data.email}`, data);
 };
 
 //POST user by ticking the exercises
@@ -45,9 +56,39 @@ const addingExercise = async (data) => {
   return http.post(`/addExercise/${data.username}`, data);
 };
 
+//POST delete exercise by user email
+const deleteExercise = async (data) => {
+  return http.post(`/deleteExercise/${data.email}`, data);
+};
+
 //PATCH limits settings
 const updateLimits = async (data) => {
   return http.patch(`/updateLimits/${data.email}`, data);
+};
+
+//POST add meal by user email
+const addMeal = async (data) => {
+  return http.post(`/addMeal/${data.email}`, data);
+};
+
+//POST delete meal by user email
+const deleteMeal = async (data) => {
+  return http.post(`/deleteMeal/${data.email}`, data);
+};
+
+//PATCH update user settings by user email
+const updateUserSetting = async (data) => {
+  return http.patch(`/updateUserSettings/${data.email}`, data);
+};
+
+//PATCH update user settings by user email
+const updateUserPassword = async (data) => {
+  return http.patch(`/updateUserPassword/${data.email}`, data);
+};
+
+//POST update strava activities to database by user email
+const updateStravaActivities = async (data) => {
+  return http.post(`/updateStravaActivities/${data.email}`, data);
 };
 
 const APIDataService = {
@@ -58,9 +99,17 @@ const APIDataService = {
   getByStravaID,
   create,
   createByGoogle,
+  connectToGoogle,
   createByStrava,
+  connectToStrava,
   addingExercise,
+  deleteExercise,
   updateLimits,
+  addMeal,
+  deleteMeal,
+  updateUserSetting,
+  updateUserPassword,
+  updateStravaActivities,
 };
 
 export default APIDataService;

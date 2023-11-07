@@ -1,9 +1,15 @@
 import dayjs from "dayjs";
 import React, { useContext, useState, useEffect } from "react";
 import GlobalContext from "../context/GlobalContext";
+import { useAuth } from "@/hooks/AuthProvider"; 
+import { useTheme } from "@mui/material"; 
+import { tokens } from "@/routes/theme"; 
 
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const {user} = useAuth();
   const {
     setDaySelected,
     setShowEventModal,
@@ -11,12 +17,13 @@ export default function Day({ day, rowIdx }) {
     setSelectedEvent,
   } = useContext(GlobalContext);
 
-  useEffect(() => {
-    const events = filteredEvents.filter(
-      (evt) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")
-    );
-    setDayEvents(events);
-  }, [filteredEvents, day]);
+  useEffect(() => { 
+    const events = user.workouts.filter( 
+      (evt) => 
+        dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY") 
+    ); 
+    setDayEvents(events);  
+  },[filteredEvents,day]);
 
   function getCurrentDayClass() {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
@@ -34,7 +41,7 @@ export default function Day({ day, rowIdx }) {
         </p>
       </header>
       <div
-        className="flex-1 cursor-pointer"
+        className="flex-1 cursor-pointer self-center justify-self-center w-11/12"
         onClick={() => {
           setDaySelected(day);
           setShowEventModal(true);
@@ -44,10 +51,10 @@ export default function Day({ day, rowIdx }) {
           <div
             key={idx}
             onClick={() => setSelectedEvent(evt)}
-            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate`}
-            style={{ backgroundColor: evt.label }}
+            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate self-center justify-self-center text-center`}
+            style={{ backgroundColor: colors.accent.foreground }}
           >
-            {evt.title}
+            {evt.name}
           </div>
         ))}
       </div>

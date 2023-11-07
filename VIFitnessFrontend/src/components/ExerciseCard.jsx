@@ -15,7 +15,22 @@ import Quads from "./styles/photos/Quads.png";
 import AddWorkoutButton from "../routes/Calendar/components/AddWorkoutButton";
 import SmallCalendar from "../routes/Calendar/components/SmallCalendar";
 import { CircularProgress } from "@mui/material";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import "./styles/exercisecard.css";
+import { CalendarIcon } from "lucide-react";
+import { Button as ShadcnButton } from "@/components/ui/button";
+import APIDataService from "@/services/APIDataService";
+import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "@/hooks/AuthProvider";
+import { useEffect } from "react";
+import NutritionixService from "@/services/NutritionixService";
 
 const style = {
   position: "absolute",
@@ -30,8 +45,11 @@ const style = {
   pb: 3,
 };
 
-function ChildModalAddtoCalendar() {
+function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
+  const [date, setDate] = React.useState(new Date());
+  const { user, setUser } = useAuth();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -39,8 +57,43 @@ function ChildModalAddtoCalendar() {
     setOpen(false);
   };
 
+  const handleSubmit = async () => {
+    const data = {
+      username: user.username,
+      exerciseData: [
+        {
+          name: props.exerciseName,
+          isCompleted: false,
+          date: date,
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+          calories: props.caloriesBurnt,
+        },
+      ],
+    };
+    console.log(date);
+    console.log("Day:", date.getDate());
+    console.log("Month:", date.getMonth() + 1);
+    console.log("Calories Burnt:", props.caloriesBurnt);
+    try {
+      const response = await APIDataService.addingExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Workout added!");
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log(err);
+      if (err instanceof AxiosError) {
+        toast.error("Something went wrong. Try again later!");
+      }
+    }
+  };
+
   return (
     <React.Fragment>
+      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
       <Button onClick={handleOpen}>Add to calendar</Button>
       <Modal
         open={open}
@@ -49,10 +102,37 @@ function ChildModalAddtoCalendar() {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 400, height: 150 }}>
-          <div className="w-52">
-            <SmallCalendar />
+          <h1>Add to Calendar</h1>
+          <div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <ShadcnButton
+                  variant={"outline"}
+                  className={cn(
+                    "w-[240px] justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </ShadcnButton>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0 z-[1400]" align="start">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
           </div>
-          <AddWorkoutButton />
+
+          <div className="flex mt-5 justify-end">
+            <ShadcnButton onClick={handleSubmit} variant="secondary" size="sm">
+              Add
+            </ShadcnButton>
+          </div>
         </Box>
       </Modal>
     </React.Fragment>
@@ -67,12 +147,38 @@ export default function ExerciseCard({
   equipment,
 }) {
   const [open, setOpen] = React.useState(false);
+  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
+
   const exercisecardhandleOpen = () => {
     setOpen(true);
+    // Define the exercise name you want to look up
+    const exerciseName = title; // Replace with the actual exercise name
+
+    // Call the getExercise function with the exercise name as input
+    NutritionixService.getExercise({
+      query: exerciseName,
+    })
+      .then((response) => {
+        // Check if the response is an empty array
+        if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
+          // Set a default value for nf_calories (e.g., 170)
+          setCaloriesBurnt(170);
+        } else {
+          // Handle the response from the API
+          const caloriesBurnt = response.data.exercises[0].nf_calories;
+          setCaloriesBurnt(caloriesBurnt);
+          console.log("Exercise Data:", caloriesBurnt);
+        }
+      })
+      .catch((error) => {
+        // Handle any errors that may occur
+        console.error("Error:", error);
+      });
   };
   const handleClose = () => {
     setOpen(false);
   };
+
   const descriptionToValue = {
     beginner: 33,
     intermediate: 66,
@@ -122,22 +228,11 @@ export default function ExerciseCard({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        {/* <Typography variant="h1" className="text-center">
-            {'Incline dumbbell curl'}
-            {/* Name of exercise */}
-        {/* </Typography> */}
-        {/* <h2 id="parent-modal-title">Exercises</h2> */}
-        {/* <div className="flex-grow pb-8">
-            {'Instructions'}
-            {/* Exercise details */}
-        {/* </div> */}
-        {/* <ChildModalAddtoCalendar /> {/*the function is above the page*/}
-        <Box sx={{ ...style, width: 1000, height: 800, display: "flex" }}>
+        <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
           <div className="flex">
-            {/* <img className='absolute w-full h-full top-0 left-0' src={Calves} alt="Exercise" /> */}
             <img
               className="absolute w-full h-full top-0 left-0"
-              src={Test}
+              src={`/exerciseImage/${title}.jpg`}
               alt="Exercise"
             />
 
@@ -146,22 +241,12 @@ export default function ExerciseCard({
               className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0 bg-black opacity-50"
               style={{ backdropFilter: "grayscale(100%) blur(100px)" }}
             />
-
-            {/* <svg className='absolute w-6/12 h-full z-10 top-0 left-0'>
-            <defs>
-              <filter id="blur">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
-              </filter>
-            </defs>
-            <image filter="url(#blur)" xlink:href="http://lorempixel.com/450/300/sports" x="0" y="0" height="300px" width="450px" />
-          </svg> */}
-
-            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0">
-              <div className="text-center text-6xl font-bold z-10 pb-8">
+            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
+              <div className="text-center text-5xl font-bold z-10 pb-5">
                 {title}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Difficulty: "}</div>
                 <br></br>
                 <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
@@ -178,22 +263,30 @@ export default function ExerciseCard({
                 </div>
               </div>
 
-              <div className="flex-grow pb-8 z-20 ">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Instructions: "}</div>
                 <br></br>
                 {instruction}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Equipment: "}</div>
                 <br></br>
                 {equipment}
               </div>
 
-              <div className="flex-grow pb-8 z-20 text-center">
-                <ChildModalAddtoCalendar />{" "}
-                {/* The function is above the page */}
+              <div className="flex-grow pb-8 z-20 pl-3">
+                <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
+                <br></br>
+                {caloriesBurnt}
               </div>
+              {/* This is for calories burnt for the exercise */}
+
+              <div className="flex-grow pb-8 z-20 text-center">
+                <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} />
+                {/* add to calendar button */}
+              </div>
+
             </div>
           </div>
         </Box>
