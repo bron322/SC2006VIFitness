@@ -67,12 +67,14 @@ function AddtoCalendarButton(props) {
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
+          calories: props.caloriesBurnt,
         },
       ],
     };
     console.log(date);
     console.log("Day:", date.getDate());
     console.log("Month:", date.getMonth() + 1);
+    console.log("Calories Burnt:", props.caloriesBurnt);
     try {
       const response = await APIDataService.addingExercise(data);
       if (Object.keys(response.data).length !== 0) {
@@ -146,28 +148,9 @@ export default function ExerciseCard({
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
+
   const exercisecardhandleOpen = () => {
     setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const descriptionToValue = {
-    beginner: 33,
-    intermediate: 66,
-    advanced: 100,
-  };
-
-  const descriptionToColor = {
-    beginner: "success",
-    intermediate: "warning",
-    advanced: "error",
-  };
-
-  const intValue = descriptionToValue[description];
-  const colorValue = descriptionToColor[description];
-
-  useEffect(() => {
     // Define the exercise name you want to look up
     const exerciseName = title; // Replace with the actual exercise name
 
@@ -191,7 +174,24 @@ export default function ExerciseCard({
         // Handle any errors that may occur
         console.error("Error:", error);
       });
-  }, []);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const descriptionToValue = {
+    beginner: 33,
+    intermediate: 66,
+    advanced: 100,
+  };
+
+  const descriptionToColor = {
+    beginner: "success",
+    intermediate: "warning",
+    advanced: "error",
+  };
+
+  const intValue = descriptionToValue[description];
+  const colorValue = descriptionToColor[description];
 
   return (
     <div>
@@ -283,7 +283,7 @@ export default function ExerciseCard({
               {/* This is for calories burnt for the exercise */}
 
               <div className="flex-grow pb-8 z-20 text-center">
-                <AddtoCalendarButton exerciseName={title} />
+                <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} />
                 {/* add to calendar button */}
               </div>
 

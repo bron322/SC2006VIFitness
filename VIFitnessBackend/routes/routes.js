@@ -338,25 +338,26 @@ APIrouter.post("/addExercise/:username", (req, res) => {
 APIrouter.patch("/updateExercise/:username", (req, res) => {});
 
 //Delete exercise method
-APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
-  try {
-    const { username, exerciseId } = req.params;
-
-    // Find the user by username and pull the exercise by exerciseId from their exercise array
-    const updatedUser = await UserModel.findOneAndUpdate(
-      { username },
-      { $pull: { exercises: { _id: exerciseId } } },
-      { new: true } // Return the updated document
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User or exercise not found" });
+APIrouter.post("/deleteExercise/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $pull: {
+        workouts: {
+          name: req.body.name,
+        },
+      },
+    },
+    {
+      returnOriginal: false,
     }
-
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    console.error(error);
-  }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 //PATCH update user settings by email
