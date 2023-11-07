@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { useProSidebar } from "react-pro-sidebar";
 import { useSidebarContext } from "./sidebarContext";
@@ -17,8 +17,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
@@ -27,7 +27,7 @@ import Logo from "../components/styles/photos/LOGO.png";
 import { Separator } from "@/components/ui/separator";
 import LogoutButton from "./LogoutButton";
 import { useAuth } from "../hooks/AuthProvider";
-import APIDataService from "../services/APIDataService";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -96,7 +96,6 @@ const MyProSidebar = () => {
     logout();
   };
 
-    
   return (
     <Box // this is content wrapper for the sidebar
       sx={{
@@ -258,6 +257,13 @@ const MyProSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Strava"
+              to="strava"
+              icon={<DirectionsRunIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography
               variant="h6"
@@ -287,7 +293,6 @@ const MyProSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
           </Box>
           <div className="flex-col w-full absolute bottom-0 justify-center align-middle">
             <Separator

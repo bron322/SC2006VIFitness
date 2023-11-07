@@ -86,7 +86,12 @@ export const AuthProvider = ({ children }) => {
       navigation("/user");
     } else {
       //If user exist, just log in
-      setUser(response.data);
+      const updateData = {
+        email: response.data.email,
+        token: token,
+      };
+      const anotherResponse = await APIDataService.connectToStrava(updateData);
+      setUser(anotherResponse.data);
       navigation("/user");
     }
   };
