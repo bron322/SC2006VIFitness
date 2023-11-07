@@ -19,6 +19,7 @@ const dataSchema = new mongoose.Schema({
   height: { required: true, type: Number, default: 0 },
   google_data: { type: Object, default: {} },
   strava_data: { type: Object, default: {} },
+  strava_activities: { type: Object, default: {} },
   meals: { type: Array, default: [] },
   workouts: { type: Array, default: [] },
   macros_setting: {

@@ -49,6 +49,7 @@ import StravaRedirect, {
   loader as stravaLoader,
 } from "./routes/StravaRedirect";
 import StravaConnectRedirect from "./routes/StravaConnectRedirect";
+import StravaPage from "./routes/StravaPage";
 
 const router = createBrowserRouter([
   {
@@ -161,9 +162,9 @@ const router = createBrowserRouter([
                 element: <GenerateWorkout />,
               },
               {
-                path: "macros",
+                path: "strava",
                 errorElement: <ErrorPage />,
-                element: <LebronPage />,
+                element: <StravaPage />,
               },
               {
                 path: "testaddworkout",
