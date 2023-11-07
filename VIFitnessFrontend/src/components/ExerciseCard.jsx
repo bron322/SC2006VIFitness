@@ -151,34 +151,34 @@ export default function ExerciseCard({
 
   const exercisecardhandleOpen = () => {
     setOpen(true);
-  // Define the exercise name you want to look up
-const exerciseName = title; // Replace with the actual exercise name
+    // Define the exercise name you want to look up
+    const exerciseName = title; // Replace with the actual exercise name
 
-  // Call the getExercise function with the exercise name as input
-  NutritionixService.getExercise({
-    query: exerciseName,
-  })
-    .then((response) => {
-      // Check if the response is an empty array
-      if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
-        // Set a default value for nf_calories (e.g., 170)
-        setCaloriesBurnt(170);
-      } else {
-        // Handle the response from the API
-        const caloriesBurnt = response.data.exercises[0].nf_calories;
-        setCaloriesBurnt(caloriesBurnt);
-        console.log("Exercise Data:", caloriesBurnt);
-      }
+    // Call the getExercise function with the exercise name as input
+    NutritionixService.getExercise({
+      query: exerciseName,
     })
-    .catch((error) => {
-      // Handle any errors that may occur
-      console.error("Error:", error);
-    });
+      .then((response) => {
+        // Check if the response is an empty array
+        if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
+          // Set a default value for nf_calories (e.g., 170)
+          setCaloriesBurnt(170);
+        } else {
+          // Handle the response from the API
+          const caloriesBurnt = response.data.exercises[0].nf_calories;
+          setCaloriesBurnt(caloriesBurnt);
+          console.log("Exercise Data:", caloriesBurnt);
+        }
+      })
+      .catch((error) => {
+        // Handle any errors that may occur
+        console.error("Error:", error);
+      });
   };
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const descriptionToValue = {
     beginner: 33,
     intermediate: 66,
@@ -232,7 +232,7 @@ const exerciseName = title; // Replace with the actual exercise name
           <div className="flex">
             <img
               className="absolute w-full h-full top-0 left-0"
-              src= {`/exerciseImage/${title}.jpg`}
+              src={`/exerciseImage/${title}.jpg`}
               alt="Exercise"
             />
 
