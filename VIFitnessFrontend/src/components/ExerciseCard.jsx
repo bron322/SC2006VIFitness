@@ -178,6 +178,7 @@ export default function ExerciseCard({
   const handleClose = () => {
     setOpen(false);
   };
+
   const descriptionToValue = {
     beginner: 33,
     intermediate: 66,
@@ -229,10 +230,9 @@ export default function ExerciseCard({
       >
         <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
           <div className="flex">
-            {/* <img className='absolute w-full h-full top-0 left-0' src={Calves} alt="Exercise" /> */}
             <img
               className="absolute w-full h-full top-0 left-0"
-              src={Test}
+              src={`/exerciseImage/${title}.jpg`}
               alt="Exercise"
             />
 
@@ -246,7 +246,7 @@ export default function ExerciseCard({
                 {title}
               </div>
 
-              <div className="flex-grow pb-5 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Difficulty: "}</div>
                 <br></br>
                 <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
@@ -263,19 +263,19 @@ export default function ExerciseCard({
                 </div>
               </div>
 
-              <div className="flex-grow pb-5 z-20 ">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Instructions: "}</div>
                 <br></br>
                 {instruction}
               </div>
 
-              <div className="flex-grow pb-5 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Equipment: "}</div>
                 <br></br>
                 {equipment}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-8 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
                 <br></br>
                 {caloriesBurnt}
