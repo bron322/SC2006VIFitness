@@ -48,7 +48,7 @@ const style = {
 function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
-  const { user,setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const handleOpen = () => {
     setOpen(true);
@@ -145,7 +145,7 @@ export default function ExerciseCard({
   equipment,
 }) {
   const [open, setOpen] = React.useState(false);
-  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null); 
+  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
   const exercisecardhandleOpen = () => {
     setOpen(true);
   };
@@ -176,10 +176,16 @@ export default function ExerciseCard({
       query: exerciseName,
     })
       .then((response) => {
-        // Handle the response from the API here
-        const caloriesBurnt = response.data.exercises[0].nf_calories;
-        setCaloriesBurnt(caloriesBurnt);
-        console.log("Exercise Data:", response.data.exercises[0].nf_calories);
+        // Check if the response is an empty array
+        if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
+          // Set a default value for nf_calories (e.g., 170)
+          setCaloriesBurnt(170);
+        } else {
+          // Handle the response from the API
+          const caloriesBurnt = response.data.exercises[0].nf_calories;
+          setCaloriesBurnt(caloriesBurnt);
+          console.log("Exercise Data:", caloriesBurnt);
+        }
       })
       .catch((error) => {
         // Handle any errors that may occur
@@ -194,7 +200,7 @@ export default function ExerciseCard({
           <CardMedia
             sx={{ maxWidth: 150, height: 120 }}
             component="img"
-            image= {img}
+            image={img}
           />
           <CardContent>
             <Typography
@@ -280,7 +286,7 @@ export default function ExerciseCard({
                 <AddtoCalendarButton exerciseName={title} />
                 {/* add to calendar button */}
               </div>
-              
+
             </div>
           </div>
         </Box>
