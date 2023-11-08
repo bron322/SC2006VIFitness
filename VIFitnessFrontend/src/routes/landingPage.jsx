@@ -11,6 +11,7 @@ import {
   faChartLine,
   faMessage,
 } from "@fortawesome/free-solid-svg-icons";
+import Footer from "@/components/landingPageUI/footer";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -209,6 +210,8 @@ export default function LandingPage() {
           </FadeInLeft>
           <div className="content-image" />
         </div>
+
+        <Footer />
       </div>
     </>
   );
