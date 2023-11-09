@@ -124,7 +124,7 @@ export default function Dashboard() {
         {/* </Box> */}
         <Box
           gridColumn="span 4"
-          gridRow="span 5"
+          gridRow="span 6"
           backgroundColor={colors.background.default}
           padding="20px"
           className="rounded-lg border"
