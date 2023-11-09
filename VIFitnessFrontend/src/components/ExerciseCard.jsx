@@ -67,13 +67,16 @@ function AddtoCalendarButton(props) {
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
+          year: date.getFullYear(),
           calories: props.caloriesBurnt,
+          createdAt: new Date(),
         },
       ],
     };
     console.log(date);
     console.log("Day:", date.getDate());
     console.log("Month:", date.getMonth() + 1);
+    console.log("Year:", date.getFullYear());
     console.log("Calories Burnt:", props.caloriesBurnt);
     try {
       const response = await APIDataService.addingExercise(data);
@@ -93,7 +96,7 @@ function AddtoCalendarButton(props) {
 
   return (
     <React.Fragment>
-      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      {/* <Toaster position="bottom-center" toastOptions={{ duration: 2000 }} /> */}
       <Button onClick={handleOpen}>Add to calendar</Button>
       <Modal
         open={open}
@@ -102,6 +105,7 @@ function AddtoCalendarButton(props) {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 400, height: 150 }}>
+        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <h1>Add to Calendar</h1>
           <div>
             <Popover>

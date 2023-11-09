@@ -3,14 +3,18 @@ import { tokens } from "../theme";
 import Header from "./Chart/Header";
 import Macros from "./Chart/macros";
 import StatBox from "./Chart/StatBox";
+import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
+import { Link } from 'react-router-dom';
+// import BarChart from "./Chart/BarChart";
 
 export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
+  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
 
   return (
     <Box m="20px">
@@ -27,8 +31,6 @@ export default function Dashboard() {
         gap="20px"
       >
         {/* ROW 1 */}
-
-        {/* ROW 2 */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -42,20 +44,74 @@ export default function Dashboard() {
           </Typography>
           {/* sx={{ flexDirection: 'row' }} */}
           <Box height="250px" className='flex flex-col items-center justify-evenly'>
-              <StatBox 
-              subtitle= {user.age} 
-              title= "Age"/>
-              <StatBox 
-             subtitle= {user.height + " cm"}
-             title= "Height"/>
-             <StatBox 
-             subtitle= {user.weight + " kg"}
-             title= "Weight"/>
+            <StatBox
+              subtitle={user.age}
+              title="Age" />
+            <StatBox
+              subtitle={user.height + " cm"}
+              title="Height" />
+            <StatBox
+              subtitle={user.weight + " kg"}
+              title="Weight" />
 
           </Box>
-  
+
         </Box>
         <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          overflow="auto"
+          backgroundColor={colors.background.default}
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            // borderBottom={`4px solid ${colors.primary.default}`}
+            colors={colors.secondary.default}
+            p="15px"
+          >
+            <Typography
+              variant="h5"
+              fontWeight="600"
+            >
+              Completed Workout
+            </Typography>
+          </Box>
+          {completedWorkouts.length > 0 ? (
+            completedWorkouts.map((workout, i) => (
+              <Box
+                key={`${i}-${workout.name}`}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                p="15px"
+              >
+                <Box>
+                  <Typography variant="h5" fontWeight="600">
+                    {workout.name}
+                  </Typography>
+                </Box>
+              </Box>
+            ))
+          ) : (
+            <Box 
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              p="15px"
+              component = {Link} to="workout-planner"
+            >
+              <Typography variant="h5" fontWeight="600">
+                Start doing your workout now !!!
+              </Typography>
+            </Box>
+          )}
+
+        </Box>
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.background.default}
@@ -68,9 +124,13 @@ export default function Dashboard() {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Workout Plan
-          </Typography>
-        </Box>
+            Completed Workout 
+          </Typography> */}
+
+        {/* <Box height="250px" m="-20px 0 0 0">
+            <BarChart isDashboard={true} />
+          </Box> */}
+        {/* </Box> */}
         <Box
           gridColumn="span 4"
           gridRow="span 5"
@@ -90,9 +150,33 @@ export default function Dashboard() {
             {/* <Calendar /> */}
             <Calendar />
           </Box>
+
+          <Typography> Upcoming Event </Typography>
+          {user.workouts.map((workout, i) => {
+            if (workout.isCompleted === false) {
+              return (
+                <Box
+                  key={`${i}-${workout.name}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  p="15px"
+                >
+                  <Box>
+                    <ExerciseBox
+                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                      title={workout.name} />
+                  </Box>
+                </Box>
+              );
+            }
+            return null; // Don't render the workout if it's not completed
+          })}
+
         </Box>
 
-        {/* ROW 3 */}
+        {/* ROW 2 */}
         <Box
           gridColumn="span 8"
           gridRow="span 3"
@@ -117,16 +201,52 @@ export default function Dashboard() {
               </Typography>
             </Box>
           </Box>
+          <Box
+            height="350px"
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            m="0 30px">
+            {/* <LineChart isDashboard={true} /> */}
+            <Macros />
+          </Box>
+        </Box>
+        
+        {/* ROW 3 */}
+        <Box
+          gridColumn="span 8"
+          gridRow="span 3"
+          backgroundColor={colors.background.default}
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
+        >
+          <Box
+            mt="25px"
+            p="0 30px"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                variant="h5"
+                fontWeight="600"
+                color={colors.accent.foreground}
+              >
+                Calories Taken vs Calories Burn
+              </Typography>
+            </Box>
+          </Box>
           <Box 
             height="350px"
             alignItems= "center" 
             justifyContent= "center" 
             display = "flex" 
             m = "0 30px">
-            {/* <LineChart isDashboard={true} /> */}
-            <Macros/>
+            
           </Box>
         </Box>
+
         {/* <Box
           gridColumn="span 4"
           gridRow="span 2"

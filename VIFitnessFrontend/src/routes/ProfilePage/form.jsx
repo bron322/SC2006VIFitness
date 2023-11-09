@@ -30,6 +30,7 @@ import { tokens } from "../theme";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { CheckCircle2, XCircle } from "lucide-react";
 import CryptoJS from "crypto-js";
+import { Link } from 'react-router-dom';
 
 export default function ProfileSettings() {
   const theme = useTheme();
@@ -39,7 +40,7 @@ export default function ProfileSettings() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { user, googleConnect, setUser } = useAuth();
+  const { logout, user, googleConnect, setUser } = useAuth();
 
   //state for settings form
   const [newSettings, setNewSettings] = useState({
@@ -90,6 +91,7 @@ export default function ProfileSettings() {
       const response = await APIDataService.updateUserPassword(data);
       if (Object.keys(response.data).length !== 0) {
         setUser(response.data);
+        logout();
         toast.success("Password updated!");
       } else {
         toast.error("Something went wrong. Try again later!");
@@ -133,6 +135,10 @@ export default function ProfileSettings() {
   useEffect(() => {
     console.log(newPassword);
   });
+  
+  // const handleLogout = () => {
+  //   logout();
+  // };
 
   return (
     <>
@@ -177,7 +183,7 @@ export default function ProfileSettings() {
             variant="outlined"
             margin="normal"
             {...register("username")}
-            label={user.username}
+            defaultValue={user.username}
             error={!!errors.username}
             helperText={errors.username?.message}
             sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
@@ -463,8 +469,7 @@ export default function ProfileSettings() {
                 </DialogHeader>
                 <DialogFooter>
                   <DialogClose asChild>
-                    <ShadcnButton
-                      onClick={handleUpdatePassword}
+                    <ShadcnButton onClick={handleUpdatePassword}
                       variant="default"
                     >
                       Update
