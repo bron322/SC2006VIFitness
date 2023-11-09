@@ -73,17 +73,27 @@ export default function EventModal() {
     setShowEventModal(false);
   }
 
-  function handleColourChange(e) {
-    e.preventDefault();
-    const calendarEvent = {
-      title,
-      description,
-      label: "green",
-      day: daySelected.valueOf(),
-      id: selectedEvent ? selectedEvent.id : Date.now(),
+  const handleMarkAsCompleted = async () => {
+    const data = {
+      username: user.username,
+      name: selectedEvent.name,
     };
-    dispatchCalEvent({ type: "update", payload: calendarEvent });
-    setShowEventModal(false);
+
+    try {
+      const response = await APIDataService.updateExercise(data);
+      setUser(response.data);
+      toast.success("Exercise successfully marked as completed");
+      setTimeout(() => {
+        setShowEventModal(false);
+
+        // Reload the page after 0.1 seconds
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
+      }, 500);
+    } catch (e) {
+      toast.error("Something went wrong");
+    }
   }
 
   return (
@@ -160,7 +170,7 @@ export default function EventModal() {
               <button
                 type="submit"
                 // onClick={handleSubmit}
-                onClick={handleColourChange}
+                onClick={handleMarkAsCompleted}
                 className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
               >
                 Mark As Completed
