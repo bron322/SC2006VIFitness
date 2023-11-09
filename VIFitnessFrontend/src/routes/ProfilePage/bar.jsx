@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Header from "./Chart/Header";
-import BarChart from "./Chart/BarChart";
+import BarChart from "../../components/calorieChartTest/barChartTest";
 
 export default function Bar () {
   return (

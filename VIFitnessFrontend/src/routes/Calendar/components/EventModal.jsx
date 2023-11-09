@@ -7,6 +7,8 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useAuth } from "@/hooks/AuthProvider";
 import APIDataService from "@/services/APIDataService";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const labelsClasses = ["white", "gray", "green", "blue", "red", "purple"];
 
@@ -24,6 +26,12 @@ export default function EventModal() {
       ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
       : labelsClasses[0]
   );
+
+  const [reload, setReload] = useState(0);
+
+  useEffect(()=>{
+    console.log("reload");
+  }, [reload])
 
   const handleDeleteExercise = async () => {
     // console.log(user.username);
@@ -73,7 +81,8 @@ export default function EventModal() {
     setShowEventModal(false);
   }
 
-  const handleMarkAsCompleted = async () => {
+  const handleMarkAsCompleted = async (e) => {
+    e.preventDefault();
     const data = {
       username: user.username,
       date: selectedEvent.createdAt,
@@ -84,21 +93,16 @@ export default function EventModal() {
       if (Object.keys(response.data).length !== 0) {
         setUser(response.data);
         toast.success("Exercise mark as completed!");
+        console.log("Test");
+        window.location.reload(true)
 
         // Set setShowEventModal to false after a 0.5-second delay
-        setTimeout(() => {
-          setShowEventModal(false);
-
-          // Reload the page after 0.1 seconds
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }, 5000);
+        
       } else {
         toast.error("Something went wrong. Try again later!");
       }
     } catch (err) {
-      console.log(err);
+      console.log("test");
     }
   }
 
@@ -173,7 +177,7 @@ export default function EventModal() {
 
             <div className="flex justify-end w-2/3 ">
               <button
-                type="submit"
+                
                 // onClick={handleSubmit}
                 onClick={handleMarkAsCompleted}
                 className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
@@ -182,7 +186,7 @@ export default function EventModal() {
               </button>
 
               <button
-                type="submit"
+                
                 onClick={handleSubmit}
                 className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900 ml-2"
               >

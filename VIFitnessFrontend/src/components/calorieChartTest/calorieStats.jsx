@@ -1,16 +1,14 @@
   import BarChartCalorie from "./barchart";
-//   import { Label } from "@/components/ui/label";
-//   import { Progress } from "@/components/ui/progress";
   import { useTheme } from "@mui/material";
   import { tokens } from "@/routes/theme";
   import { useEffect, useState } from "react";
   import chroma from "chroma-js";
+  import BarChart from "./barChartTest"
   
   export default function SmallStats(props) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [statisticsData, setStatisticsData] = useState({});
-    // const [barColor, setBarColor] = useState({});
   
     useEffect(() => {
       // let f = chroma.scale(["E95793", "610C9F"]);
@@ -34,10 +32,9 @@
           >
              Statistics
           </h2>
-  
           <div className="stats-content-wrapper flex justify-center">
             <div className="pie-wrapper mr-[15vw]">
-              <BarChartCalorie data={[props.meals]} />
+              <BarChart data={[props.meals, props.workouts]} />
             </div>
           </div>
         </div>
