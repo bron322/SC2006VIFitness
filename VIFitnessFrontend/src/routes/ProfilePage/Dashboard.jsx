@@ -79,36 +79,28 @@ export default function Dashboard() {
               Completed Workout
             </Typography>
           </Box>
-          {/* {user.workouts.map((isCompleted, i) => ( */}
-            <Box
-              // key={`${isCompleted}-${i}`}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`1px solid ${colors.secondary.default}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  variant="h5"
-                  fontWeight="600"
+          {user.workouts.map((workout, i) => {
+            if (workout.isCompleted) {
+              return (
+                <Box
+                  key={`${i}-${workout.name}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  p="15px"
                 >
-                  {user.workouts.isCompleted}
-                </Typography>
-                {/* // <Typography color={colors.muted.foreground}>
-                //   {transaction.user}
-                // </Typography> */}
-              </Box>
-              {/* <Box color={colors.muted.foreground}>{user.workouts.isCompleted.date}</Box> */}
-              {/* <Box
-              //   backgroundColor={colors.secondary.default}
-              //   p="5px 10px"
-              //   borderRadius="4px"
-              // >
-              //   ${transaction.cost}
-              // </Box> */}
-            </Box>
-          {/* ))} */}
+                  <Box>
+                    <Typography variant="h5" fontWeight="600">
+                      {workout.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            }
+            return null; // Don't render the workout if it's not completed
+          })}
+
         </Box>
         {/* <Box
           gridColumn="span 4"
@@ -149,6 +141,9 @@ export default function Dashboard() {
             {/* <Calendar /> */}
             <Calendar />
           </Box>
+          
+          <Typography> Upcoming Event </Typography>
+
         </Box>
 
         {/* ROW 3 */}
