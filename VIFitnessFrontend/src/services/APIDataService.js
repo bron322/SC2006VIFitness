@@ -61,6 +61,11 @@ const deleteExercise = async (data) => {
   return http.post(`/deleteExercise/${data.email}`, data);
 };
 
+//PATCH exercise isCompleted
+const updateExercise = async (data) => {
+  return http.patch(`/updateExercise/${data.username}`, data);
+};
+
 //PATCH limits settings
 const updateLimits = async (data) => {
   return http.patch(`/updateLimits/${data.email}`, data);
@@ -104,6 +109,7 @@ const APIDataService = {
   connectToStrava,
   addingExercise,
   deleteExercise,
+  updateExercise,
   updateLimits,
   addMeal,
   deleteMeal,
