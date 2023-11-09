@@ -4,6 +4,8 @@ import Calves from "./styles/photos/Calves.png";
 import Glutes from "./styles/photos/Glutes.png";
 import Hamstring from "./styles/photos/Hamstring.jpg";
 import Quads from "./styles/photos/Quads.png";
+import Adductors from "./styles/photos/Adductors.jpeg";
+import Abductors from "./styles/photos/Abductors.jpeg";
 import MuscleCard from './MuscleCard';
 
 function LowerBodyComponent() {
@@ -19,18 +21,18 @@ function LowerBodyComponent() {
                     {/* Card 1 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Quads}
+                        img={Abductors}
                         title="Abductors"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
                     {/* Card 2 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Hamstring}
+                        img={Adductors}
                         title="Adductors"
-                        description="123"
+                        description=""
                         />
                     </div>
 
@@ -39,7 +41,7 @@ function LowerBodyComponent() {
                         <MuscleCard
                         img={Calves}
                         title="Calves"
-                        description="123"
+                        description=""
                         />
                     </div>
 
@@ -48,25 +50,25 @@ function LowerBodyComponent() {
                         <MuscleCard
                         img={Glutes}
                         title="Glutes"
-                        description="123"
+                        description=""
                         />
                     </div>
 
                     {/* Card 5 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img="https://i2-prod.dailystar.co.uk/incoming/article27469447.ece/ALTERNATES/s615b/0_JS271931188.jpg"
+                        img={Hamstring}
                         title="Hamstrings"
-                        description="123"
+                        description=""
                         />
                     </div>
 
                     {/* Card 6 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img="https://www.greatestphysiques.com/wp-content/uploads/2016/09/Arnold-Schwarzenegger-1r4.jpg"
+                        img={Quads}
                         title="Quadriceps"
-                        description="123"
+                        description=""
                         />
                     </div>
 

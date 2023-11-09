@@ -1,6 +1,7 @@
 import React from 'react';
 import Core from "./styles/photos/Core.jpg";
 import Abs from "./styles/photos/Abs.png";
+import LowerBack from "./styles/photos/Lower Back.jpeg";
 import Oblique from "./styles/photos/Obliques.png";
 import MuscleCard from './MuscleCard';
 
@@ -17,18 +18,18 @@ function CoreComponent(){
                     {/* Card 1 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Oblique}
+                        img={Abs}
                         title="Abdominals"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
                     {/* Card 2 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Abs}
+                        img={LowerBack}
                         title="Lower_Back"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
