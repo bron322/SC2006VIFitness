@@ -335,7 +335,27 @@ APIrouter.post("/addExercise/:username", (req, res) => {
 });
 
 //Update exercise method
-APIrouter.patch("/updateExercise/:username", (req, res) => {});
+APIrouter.patch("/updateExercise/:username", (req, res) => {
+  const exerciseName = req.body.name;
+  User.findOneAndUpdate(
+    { 
+      username: req.params.username,
+      "workouts.name": exerciseName,
+    },
+    {
+      $set: {
+        "workouts.$.isCompleted": true,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
 
 //Delete exercise method
 APIrouter.post("/deleteExercise/:email", (req, res) => {

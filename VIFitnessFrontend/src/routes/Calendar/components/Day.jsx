@@ -52,7 +52,9 @@ export default function Day({ day, rowIdx }) {
             key={idx}
             onClick={() => setSelectedEvent(evt)}
             className={`p-1 text-gray-400 text-sm rounded mb-1 truncate self-center justify-self-center text-center`}
-            style={{ backgroundColor: colors.accent.foreground }}
+            style={{
+              backgroundColor: evt.isCompleted ? "green" : colors.accent.foreground,
+            }}
           >
             {evt.name}
           </div>
