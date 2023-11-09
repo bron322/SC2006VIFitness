@@ -7,7 +7,6 @@ import {
   endOfMonth,
   endOfWeek,
   format,
-  getDaysInMonth,
   startOfMonth,
   startOfWeek,
 } from "date-fns";
@@ -67,6 +66,7 @@ const { user } = useAuth();
           <Box >
         <CalorieStats
           meals={user.meals.filter(filterMealsByToday)}
+        //   workouts = {user.workouts.filter(filterMealsByToday)}
           title={"Today's"}
         />
         </Box>
@@ -77,6 +77,7 @@ const { user } = useAuth();
       >
         <CalorieStats
           meals={user.meals.filter(filterMealsByWeek)}
+        //   workouts = {user.workouts.filter(filterMealsByWeek)}
         //   limits={{
         //     calorie: user.macros_setting.calorie * 7,
         //     protein: user.macros_setting.protein * 7,
@@ -92,6 +93,7 @@ const { user } = useAuth();
       >
         <CalorieStats
           meals={user.meals.filter(filterMealsByMonth)}
+        //   workouts = {user.workouts.filter(filterMealsByMonth)}
         //   limits={{
         //     calorie:
         //       user.macros_setting.calorie *

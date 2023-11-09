@@ -59,23 +59,77 @@ export default function Dashboard() {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
+          overflow="auto"
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
-          // overflow = "auto"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary.default}`}
+            colors={colors.secondary.default}
+            p="15px"
+          >
+            <Typography
+              variant="h5"
+              fontWeight="600"
+            >
+              Completed Workout
+            </Typography>
+          </Box>
+          {/* {user.workouts.map((isCompleted, i) => ( */}
+            <Box
+              // key={`${isCompleted}-${i}`}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`1px solid ${colors.secondary.default}`}
+              p="15px"
+            >
+              <Box>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                >
+                  {user.workouts.isCompleted}
+                </Typography>
+                {/* // <Typography color={colors.muted.foreground}>
+                //   {transaction.user}
+                // </Typography> */}
+              </Box>
+              {/* <Box color={colors.muted.foreground}>{user.workouts.isCompleted.date}</Box> */}
+              {/* <Box
+              //   backgroundColor={colors.secondary.default}
+              //   p="5px 10px"
+              //   borderRadius="4px"
+              // >
+              //   ${transaction.cost}
+              // </Box> */}
+            </Box>
+          {/* ))} */}
+        </Box>
+        {/* <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.background.default}
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
+          overflow = "auto"
         >
           <Typography
             variant="h5"
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Calories
-          </Typography>
+            Completed Workout 
+          </Typography> */}
         
           {/* <Box height="250px" m="-20px 0 0 0">
             <BarChart isDashboard={true} />
           </Box> */}
-        </Box>
+        {/* </Box> */}
         <Box
           gridColumn="span 4"
           gridRow="span 5"

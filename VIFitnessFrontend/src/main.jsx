@@ -37,7 +37,7 @@ import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
 import ChatGPTTest from "./routes/GetWorkoutPage";
-import BarChart from "./components/calorieChartTest/barchart"
+import BarChart from "./components/calorieChartTest/calorie"
 
 //Authorisation related imports
 import ProtectedLayout from "./layouts/ProtectedLayout";

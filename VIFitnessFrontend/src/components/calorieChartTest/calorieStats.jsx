@@ -9,27 +9,21 @@
   export default function SmallStats(props) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    // const [statisticsData, setStatisticsData] = useState({});
+    const [statisticsData, setStatisticsData] = useState({});
     // const [barColor, setBarColor] = useState({});
   
-    // useEffect(() => {
-    //   // let f = chroma.scale(["E95793", "610C9F"]);
-    //   setStatisticsData({
-    //     calorie: Math.floor(
-    //       props.meals.calorie
-    //     ),
-    //     protein: Math.floor(
-    //       props.meals.protein
-    //     ),
-    //     carbohydrate: Math.floor(
-    //       props.meals.carb
-    //     ),
-    //     fat: Math.floor(
-    //       props.meals.fat
-    //     ),
-    //   });
+    useEffect(() => {
+      // let f = chroma.scale(["E95793", "610C9F"]);
+      setStatisticsData({
+        calorietaken: Math.floor(
+            props.meals.reduce((acc, cur) => acc + parseFloat(cur.calorie), 0)
+          ),
+        calorieburn : Math.floor(
+            props.workouts.reduce((acc, cur) => acc + parseFloat(cur.calories), 0)
+          ),
+      });
 
-    // }, [props]);
+    }, [props]);
   
     return (
       <div className="flex items-center justify-center w-full">
@@ -38,12 +32,12 @@
             className=" text-lg font-semibold tracking-tight w-full"
             style={{ color: colors.card.foreground }}
           >
-            {props.title} Statistics
+             Statistics
           </h2>
   
           <div className="stats-content-wrapper flex justify-center">
             <div className="pie-wrapper mr-[15vw]">
-              <BarChartCalorie data={props.meals} />
+              <BarChartCalorie data={[props.meals]} />
             </div>
           </div>
         </div>
