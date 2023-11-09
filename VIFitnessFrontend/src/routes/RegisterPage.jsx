@@ -148,10 +148,10 @@ export default function RegisterPage() {
                 objectFit: "cover",
               }}
             ></img>
-            <div className="absolute bottom-5 right-48 w-1/2 h-[770px] pointer-events-none">
+            <div className="absolute bottom-5 right-48 w-1/2 h-8/12 pointer-events-none">
               {theme.palette.mode === "dark" ? (
                 <img
-                  className="img h-[780px] w-[700px]"
+                  className="img h-full w-11/12"
                   src={lebronwannabe}
                   alt="lebronwannabe"
                   style={{
@@ -164,7 +164,7 @@ export default function RegisterPage() {
                 />
               ) : (
                 <img
-                  className="img h-[780px] w-[700px]"
+                  className="img h-[800px] w-full"
                   src={theking}
                   alt="theking"
                   style={{
