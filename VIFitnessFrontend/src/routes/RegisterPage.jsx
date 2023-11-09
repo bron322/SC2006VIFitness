@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
-import { AlertDialogButton } from "@/components/EmailVerificationButton";
+import { EmailVerificationButton } from "@/components/EmailVerificationButton";
 
 export default function RegisterPage() {
   const [errorMessages, setErrorMessages] = useState({});
@@ -81,7 +81,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <div className="button-container pt-5">
-          <AlertDialogButton data={data} />
+          <EmailVerificationButton data={data} />
         </div>
       </Form>
     </div>
