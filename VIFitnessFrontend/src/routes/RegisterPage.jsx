@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./styles/loginpage.css";
 import BG from "./styles/photos/loginbackground.jpg";
 import theking from "./styles/photos/theking.png";
+import lebronwannabe from "./styles/photos/lebronwannabe.png";
 import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { AlertDialogButton } from "@/components/EmailVerificationButton";
+import { useTheme } from "@mui/material";
+import { ColorModeContext, tokens } from "../routes/theme";
 
 export default function RegisterPage() {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
 
   const [data, setData] = useState({
     username: "",
@@ -38,6 +44,9 @@ export default function RegisterPage() {
             variant="standard"
             margin="dense"
             onChange={(e) => setData({ ...data, username: e.target.value })}
+            InputLabelProps={{
+              style: { color: "black" },
+            }}
           />
           {renderErrorMessage("uname")}
           <TextField
@@ -46,6 +55,9 @@ export default function RegisterPage() {
             variant="standard"
             margin="dense"
             onChange={(e) => setData({ ...data, email: e.target.value })}
+            InputLabelProps={{
+              style: { color: "black" },
+            }}
           />
           {renderErrorMessage("email")}
           <TextField
@@ -54,6 +66,9 @@ export default function RegisterPage() {
             variant="standard"
             margin="dense"
             onChange={(e) => setData({ ...data, password: e.target.value })}
+            InputLabelProps={{
+              style: { color: "black" },
+            }}
           />
           {renderErrorMessage("pass")}
           <div className="gap-[20px] font-semibold flex ">
@@ -63,6 +78,9 @@ export default function RegisterPage() {
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, age: e.target.value })}
+              InputLabelProps={{
+                style: { color: "black" },
+              }}
             />
             <TextField
               id="standard-basic"
@@ -70,6 +88,9 @@ export default function RegisterPage() {
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, weight: e.target.value })}
+              InputLabelProps={{
+                style: { color: "black" },
+              }}
             />
             <TextField
               id="standard-basic"
@@ -77,6 +98,9 @@ export default function RegisterPage() {
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, height: e.target.value })}
+              InputLabelProps={{
+                style: { color: "black" },
+              }}
             />
           </div>
         </div>
@@ -124,19 +148,34 @@ export default function RegisterPage() {
                 objectFit: "cover",
               }}
             ></img>
-            <div className="absolute bottom-5 right-10 w-1/2 h-[770px] pointer-events-none">
-              <img
-                className="img h-[700px] w-[700px]"
-                src={theking}
-                alt="the_king"
-                style={{
-                  display: "absolute",
-                  overflow: "hidden",
-                  objectFit: "cover",
-                  zIndex: "3",
-                  pointerEvents: "none",
-                }}
-              ></img>
+            <div className="absolute bottom-5 right-48 w-1/2 h-8/12 pointer-events-none">
+              {theme.palette.mode === "dark" ? (
+                <img
+                  className="img h-full w-11/12"
+                  src={lebronwannabe}
+                  alt="lebronwannabe"
+                  style={{
+                    display: "absolute",
+                    overflow: "hidden",
+                    objectFit: "cover",
+                    zIndex: "3",
+                    pointerEvents: "none",
+                  }}
+                />
+              ) : (
+                <img
+                  className="img h-[800px] w-full"
+                  src={theking}
+                  alt="theking"
+                  style={{
+                    display: "absolute",
+                    overflow: "hidden",
+                    objectFit: "cover",
+                    zIndex: "3",
+                    pointerEvents: "none",
+                  }}
+                />
+              )}
             </div>
           </div>
 
