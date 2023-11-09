@@ -335,7 +335,27 @@ APIrouter.post("/addExercise/:username", (req, res) => {
 });
 
 //Update exercise method
-APIrouter.patch("/updateExercise/:username", (req, res) => {});
+APIrouter.patch("/updateExercise/:username", (req, res) => {
+  const exerciseDate = req.body.date;
+  User.findOneAndUpdate(
+    { 
+      username: req.params.username,
+      "workouts.createdAt": exerciseDate,
+    },
+    {
+      $set: {
+        "workouts.$.isCompleted": true,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
 
 //Delete exercise method
 APIrouter.post("/deleteExercise/:email", (req, res) => {
@@ -344,7 +364,7 @@ APIrouter.post("/deleteExercise/:email", (req, res) => {
     {
       $pull: {
         workouts: {
-          name: req.body.name,
+          createdAt: req.body.date,
         },
       },
     },

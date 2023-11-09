@@ -5,6 +5,8 @@ import Chest from "./styles/photos/Chest.png";
 import Lats from "./styles/photos/Lats.png";
 import Shoulders from "./styles/photos/Shoulders.png";
 import Triceps from "./styles/photos/Triceps.png";
+import Forearms from "./styles/photos/Forearms.jpeg";
+import MiddleBack from "./styles/photos/Middle Back.jpeg";
 import MuscleCard from './MuscleCard';
 
 function UpperBodyComponent(){
@@ -22,7 +24,7 @@ function UpperBodyComponent(){
                         <MuscleCard
                         img={Biceps}
                         title="Biceps"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
@@ -31,43 +33,43 @@ function UpperBodyComponent(){
                         <MuscleCard
                         img={Chest}
                         title="Chest"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
                     {/* Card 3 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Shoulders}
+                        img={Forearms}
                         title="Forearms"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
                     {/* Card 4 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Triceps}
+                        img={Lats}
                         title="Lats"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
                     {/* Card 5 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img={Lats}
+                        img={MiddleBack}
                         title="Middle_Back"
-                        description="nice"
+                        description=""
                         />
                     </div>
 
                     {/* Card 6 */}
                     <div className="flex justify-center">
                         <MuscleCard
-                        img="https://www.sadanduseless.com/wp-content/uploads/2022/08/synthol-freaks.png"
+                        img={Triceps}
                         title="Triceps"
-                        description="nice"
+                        description=""
                         />
                     </div>
                     

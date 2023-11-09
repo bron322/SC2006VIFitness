@@ -27,10 +27,10 @@ export default function EventModal() {
 
   const handleDeleteExercise = async () => {
     // console.log(user.username);
-    console.log(selectedEvent.day);
+    // console.log(selectedEvent.day);
     const data = {
       email: user.email,
-      name: selectedEvent.name,
+      date: selectedEvent.createdAt,
     };
     try {
       const response = await APIDataService.deleteExercise(data);
@@ -73,22 +73,38 @@ export default function EventModal() {
     setShowEventModal(false);
   }
 
-  function handleColourChange(e) {
-    e.preventDefault();
-    const calendarEvent = {
-      title,
-      description,
-      label: "green",
-      day: daySelected.valueOf(),
-      id: selectedEvent ? selectedEvent.id : Date.now(),
+  const handleMarkAsCompleted = async () => {
+    const data = {
+      username: user.username,
+      date: selectedEvent.createdAt,
     };
-    dispatchCalEvent({ type: "update", payload: calendarEvent });
-    setShowEventModal(false);
+
+    try {
+      const response = await APIDataService.updateExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Exercise mark as completed!");
+
+        // Set setShowEventModal to false after a 0.5-second delay
+        setTimeout(() => {
+          setShowEventModal(false);
+
+          // Reload the page after 0.1 seconds
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }, 5000);
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
     <>
-      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       <div className="h-screen w-full fixed left-0 top-0 flex justify-center items-center">
         <form className="bg-gray-300 rounded-lg shadow-2xl w-1/4">
           <header className="bg-gray-400 px-4 py-2 flex justify-between items-center">
@@ -129,7 +145,6 @@ export default function EventModal() {
                 name="description"
                 placeholder="Add a description"
                 value={description}
-                required
                 className="pt-3 border-0 text-gray-600 pb-2 w-full border-b-2 bg-gray-300 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -160,7 +175,7 @@ export default function EventModal() {
               <button
                 type="submit"
                 // onClick={handleSubmit}
-                onClick={handleColourChange}
+                onClick={handleMarkAsCompleted}
                 className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
               >
                 Mark As Completed

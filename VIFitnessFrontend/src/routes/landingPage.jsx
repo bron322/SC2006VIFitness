@@ -10,7 +10,13 @@ import {
   faCapsules,
   faChartLine,
   faMessage,
+  faPerson,
 } from "@fortawesome/free-solid-svg-icons";
+import calendar from "./styles/photos/calendar.png";
+import personalizedworkoutplan from "./styles/photos/personalized-workout-plan.png";
+import macrostracker from "./styles/photos/macros-tracker.png";
+import exerciseinstructions from "./styles/photos/exercise-instruction.png";
+import stravadata from "./styles/photos/stravadata.png";
 import Footer from "@/components/landingPageUI/footer";
 
 export default function LandingPage() {
@@ -141,15 +147,39 @@ export default function LandingPage() {
               </div>
             </div>
           </FadeInLeft>
-          <div className="content-image" />
+          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+            <img
+              src={macrostracker}
+              alt="macros-tracker"
+              style={{
+                display: "absolute",
+                overflow: "hidden",
+                objectFit: "cover",
+                zIndex: "3",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
         </div>
 
         <div className="content-container">
-          <div className="content-image" />
+          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+            <img
+              src={personalizedworkoutplan}
+              alt="personalized-workout-plan"
+              style={{
+                display: "absolute",
+                overflow: "hidden",
+                objectFit: "cover",
+                zIndex: "3",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
           <FadeInRight>
             <div className="content-text">
               <div className="content-header">
-                <FontAwesomeIcon icon={faCalendar} size="xl" /> Personalized
+                <FontAwesomeIcon icon={faPerson} size="xl" /> Personalized
                 Workout Plan
               </div>
               <div className="content-info">
@@ -165,7 +195,8 @@ export default function LandingPage() {
           <FadeInLeft>
             <div className="content-text">
               <div className="content-header">
-                <FontAwesomeIcon icon={faMessage} size="xl" /> Community
+                <FontAwesomeIcon icon={faMessage} size="xl" /> Tailored
+                Exercises
               </div>
               <div className="content-info">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -174,16 +205,40 @@ export default function LandingPage() {
               </div>
             </div>
           </FadeInLeft>
-          <div className="content-image" />
+          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+            <img
+              src={exerciseinstructions}
+              alt="exercise-instructions"
+              style={{
+                display: "absolute",
+                overflow: "hidden",
+                objectFit: "cover",
+                zIndex: "3",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
         </div>
 
         <div className="content-container">
-          <div className="content-image" />
+          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+            <img
+              src={calendar}
+              alt="calendar"
+              style={{
+                display: "absolute",
+                overflow: "hidden",
+                objectFit: "cover",
+                zIndex: "3",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
           <FadeInRight>
             <div className="content-text">
               <div className="content-header">
-                <FontAwesomeIcon icon={faCapsules} size="xl" /> Supplementary
-                Recommendations
+                <FontAwesomeIcon icon={faCalendar} size="xl" /> Individual
+                Calendar
               </div>
               <div className="content-info">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -208,7 +263,19 @@ export default function LandingPage() {
               </div>
             </div>
           </FadeInLeft>
-          <div className="content-image" />
+          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+            <img
+              src={stravadata}
+              alt="progression-tracking"
+              style={{
+                display: "absolute",
+                overflow: "hidden",
+                objectFit: "cover",
+                zIndex: "3",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
         </div>
 
         <Footer />

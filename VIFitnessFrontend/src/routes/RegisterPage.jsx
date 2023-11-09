@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles/loginpage.css";
 import BG from "./styles/photos/loginbackground.jpg";
 import theking from "./styles/photos/theking.png";
+import lebronwannabe from "./styles/photos/lebronwannabe.png";
 import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
@@ -124,11 +125,11 @@ export default function RegisterPage() {
                 objectFit: "cover",
               }}
             ></img>
-            <div className="absolute bottom-5 right-10 w-1/2 h-[770px] pointer-events-none">
+            <div className="absolute bottom-5 right-48 w-1/2 h-[770px] pointer-events-none">
               <img
-                className="img h-[700px] w-[700px]"
-                src={theking}
-                alt="the_king"
+                className="img h-[780px] w-[700px]"
+                src={lebronwannabe}
+                alt="lebronwannabe"
                 style={{
                   display: "absolute",
                   overflow: "hidden",
