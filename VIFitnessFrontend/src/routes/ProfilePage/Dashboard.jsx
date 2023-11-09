@@ -3,6 +3,7 @@ import { tokens } from "../theme";
 import Header from "./Chart/Header";
 import Macros from "./Chart/macros";
 import StatBox from "./Chart/StatBox";
+import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
@@ -43,18 +44,18 @@ export default function Dashboard() {
           </Typography>
           {/* sx={{ flexDirection: 'row' }} */}
           <Box height="250px" className='flex flex-col items-center justify-evenly'>
-              <StatBox 
-              subtitle= {user.age} 
-              title= "Age"/>
-              <StatBox 
-             subtitle= {user.height + " cm"}
-             title= "Height"/>
-             <StatBox 
-             subtitle= {user.weight + " kg"}
-             title= "Weight"/>
+            <StatBox
+              subtitle={user.age}
+              title="Age" />
+            <StatBox
+              subtitle={user.height + " cm"}
+              title="Height" />
+            <StatBox
+              subtitle={user.weight + " kg"}
+              title="Weight" />
 
           </Box>
-  
+
         </Box>
         <Box
           gridColumn="span 4"
@@ -117,8 +118,8 @@ export default function Dashboard() {
           >
             Completed Workout 
           </Typography> */}
-        
-          {/* <Box height="250px" m="-20px 0 0 0">
+
+        {/* <Box height="250px" m="-20px 0 0 0">
             <BarChart isDashboard={true} />
           </Box> */}
         {/* </Box> */}
@@ -141,8 +142,29 @@ export default function Dashboard() {
             {/* <Calendar /> */}
             <Calendar />
           </Box>
-          
+
           <Typography> Upcoming Event </Typography>
+          {user.workouts.map((workout, i) => {
+            if (workout.isCompleted === false) {
+              return (
+                <Box
+                  key={`${i}-${workout.name}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  p="15px"
+                >
+                  <Box>
+                    <ExerciseBox
+                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                      title={workout.name} />
+                  </Box>
+                </Box>
+              );
+            }
+            return null; // Don't render the workout if it's not completed
+          })}
 
         </Box>
 
@@ -171,14 +193,14 @@ export default function Dashboard() {
               </Typography>
             </Box>
           </Box>
-          <Box 
+          <Box
             height="350px"
-            alignItems= "center" 
-            justifyContent= "center" 
-            display = "flex" 
-            m = "0 30px">
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            m="0 30px">
             {/* <LineChart isDashboard={true} /> */}
-            <Macros/>
+            <Macros />
           </Box>
         </Box>
         {/* <Box
