@@ -232,10 +232,10 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div className="absolute w-1/2 h-[770px] top-20 left-1/3 right-0 bottom-0 pl-24 flex justify-center items-center pointer-events-none">
+      <div className="absolute w-1/2 h-8/12 top-20 left-1/3 right-0 bottom-0 pl-24 flex justify-center items-center pointer-events-none">
         {theme.palette.mode === "dark" ? (
                 <img
-                  className="img h-[750px] w-[550px]"
+                  className="img h-full w-9/12"
                   src={therock}
                   alt="therock"
                   style={{
@@ -248,7 +248,7 @@ export default function LoginPage() {
                 />
               ) : (
                 <img
-                  className="img h-[750px] w-[550px]"
+                  className="img h-full w-9/12"
                   src={ggez}
                   alt="therock"
                   style={{
