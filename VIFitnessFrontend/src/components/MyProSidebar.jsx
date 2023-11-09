@@ -24,6 +24,7 @@ import SwitchRightOutlinedIcon from "@mui/icons-material/SwitchRightOutlined";
 import SwitchLeftOutlinedIcon from "@mui/icons-material/SwitchLeftOutlined";
 import User from "../components/styles/photos/user.png";
 import Logo from "../components/styles/photos/LOGO.png";
+import Profile from "../components/styles/photos/profilepic.jpg";
 import { Separator } from "@/components/ui/separator";
 import LogoutButton from "./LogoutButton";
 import { useAuth } from "../hooks/AuthProvider";
@@ -202,9 +203,9 @@ const MyProSidebar = () => {
                 <img
                   className="avater-image"
                   alt="profile user"
-                  width="100px"
-                  height="100px"
-                  src={User}
+                  width="200px"
+                  height="200px"
+                  src={Profile}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -234,15 +235,8 @@ const MyProSidebar = () => {
               color={colors.secondary.foreground}
               sx={{ m: "15px 20px 5px 20px" }}
             >
-              Data
+              Pages
             </Typography>
-            <Item
-              title="Manage Team"
-              to="team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Item
               title="Workout Plan"
               to="workout-planner"
@@ -264,25 +258,17 @@ const MyProSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Typography
-              variant="h6"
-              color={colors.secondary.foreground}
-              sx={{ m: "15px 20px 5px 20px" }}
-            >
-              Pages
-            </Typography>
-            <Item
-              title="Profile Settings"
-              to="form"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Item
               title="Calendar"
               to="calendar"
               icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Profile Settings"
+              to="form"
+              icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
