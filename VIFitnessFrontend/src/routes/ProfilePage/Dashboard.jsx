@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
 import { Link } from 'react-router-dom';
-// import BarChart from "./Chart/BarChart";
+import BarChart from "../../components/calorieChartTest/barChartTest";
 
 export default function Dashboard() {
   const theme = useTheme();
@@ -60,7 +60,7 @@ export default function Dashboard() {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          overflow="auto"
+          // overflow="auto"
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
@@ -80,6 +80,8 @@ export default function Dashboard() {
               Completed Workout
             </Typography>
           </Box>
+          <Box 
+          overflow="auto">
           {completedWorkouts.length > 0 ? (
             completedWorkouts.map((workout, i) => (
               <Box
@@ -87,6 +89,7 @@ export default function Dashboard() {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
+                borderBottom={`1px solid ${colors.secondary.default}`}
                 p="15px"
               >
                 <Box>
@@ -109,6 +112,7 @@ export default function Dashboard() {
               </Typography>
             </Box>
           )}
+          </Box>
 
         </Box>
         {/* <Box
@@ -238,13 +242,14 @@ export default function Dashboard() {
             </Box>
           </Box>
           <Box 
-            height="350px"
+            height="500px"
             alignItems= "center" 
             justifyContent= "center" 
             display = "flex" 
             m = "0 30px">
-            
+            <BarChart/>
           </Box>
+          
         </Box>
 
         {/* <Box
