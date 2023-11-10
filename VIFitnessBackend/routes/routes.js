@@ -110,6 +110,27 @@ APIrouter.post("/connectStrava/:email", (req, res) => {
     });
 });
 
+//update Strava activities by email
+APIrouter.post("/updateStravaActivities/:email", (req, res) => {
+  const data = req.body.activities;
+
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $addToSet: {
+        strava_activities: { $each: data },
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //Get all Method
 APIrouter.get("/users", (req, res) => {
   User.find()
@@ -314,28 +335,49 @@ APIrouter.post("/addExercise/:username", (req, res) => {
 });
 
 //Update exercise method
-APIrouter.patch("/updateExercise/:username", (req, res) => {});
+APIrouter.patch("/updateExercise/:username", (req, res) => {
+  const exerciseDate = req.body.date;
+  User.findOneAndUpdate(
+    { 
+      username: req.params.username,
+      "workouts.createdAt": exerciseDate,
+    },
+    {
+      $set: {
+        "workouts.$.isCompleted": true,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
 
 //Delete exercise method
-APIrouter.delete("/deleteExercise/:username/:exerciseId", async (req, res) => {
-  try {
-    const { username, exerciseId } = req.params;
-
-    // Find the user by username and pull the exercise by exerciseId from their exercise array
-    const updatedUser = await UserModel.findOneAndUpdate(
-      { username },
-      { $pull: { exercises: { _id: exerciseId } } },
-      { new: true } // Return the updated document
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User or exercise not found" });
+APIrouter.post("/deleteExercise/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $pull: {
+        workouts: {
+          createdAt: req.body.date,
+        },
+      },
+    },
+    {
+      returnOriginal: false,
     }
-
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    console.error(error);
-  }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 //PATCH update user settings by email

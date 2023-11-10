@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useContext} from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import "./styles/header.css";
 import VILOGO from "./styles/photos/VILOGO.jpg";
 import Button from "../components/button";
@@ -47,21 +47,22 @@ function Header() {
                 height: "30%",
                 display: "block",
                 overflow: "hidden",
-                filter: "invert(100%)"
+                filter: "invert(100%)",
               }}
             ></img>
           </a>
         </div>
         <div className="login-register-container">
           <Button name="login" />
-          <Button theme="blue" name="register" />
-          <IconButton onClick={colorMode.toggleColorMode}>
+          <Button name="register" />
+          {/* <IconButton onClick={colorMode.toggleColorMode}>
+          
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlinedIcon />
             ) : (
               <LightModeOutlinedIcon />
             )}
-          </IconButton>
+          </IconButton> */}
         </div>
       </div>
     </>

@@ -48,7 +48,7 @@ const style = {
 function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
-  const { user,setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const handleOpen = () => {
     setOpen(true);
@@ -67,12 +67,17 @@ function AddtoCalendarButton(props) {
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
+          year: date.getFullYear(),
+          calories: props.caloriesBurnt,
+          createdAt: new Date(),
         },
       ],
     };
     console.log(date);
     console.log("Day:", date.getDate());
     console.log("Month:", date.getMonth() + 1);
+    console.log("Year:", date.getFullYear());
+    console.log("Calories Burnt:", props.caloriesBurnt);
     try {
       const response = await APIDataService.addingExercise(data);
       if (Object.keys(response.data).length !== 0) {
@@ -91,7 +96,7 @@ function AddtoCalendarButton(props) {
 
   return (
     <React.Fragment>
-      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      {/* <Toaster position="bottom-center" toastOptions={{ duration: 2000 }} /> */}
       <Button onClick={handleOpen}>Add to calendar</Button>
       <Modal
         open={open}
@@ -100,6 +105,7 @@ function AddtoCalendarButton(props) {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 400, height: 150 }}>
+        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <h1>Add to Calendar</h1>
           <div>
             <Popover>
@@ -145,13 +151,38 @@ export default function ExerciseCard({
   equipment,
 }) {
   const [open, setOpen] = React.useState(false);
-  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null); 
+  const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
+
   const exercisecardhandleOpen = () => {
     setOpen(true);
+    // Define the exercise name you want to look up
+    const exerciseName = title; // Replace with the actual exercise name
+
+    // Call the getExercise function with the exercise name as input
+    NutritionixService.getExercise({
+      query: exerciseName,
+    })
+      .then((response) => {
+        // Check if the response is an empty array
+        if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
+          // Set a default value for nf_calories (e.g., 170)
+          setCaloriesBurnt(170);
+        } else {
+          // Handle the response from the API
+          const caloriesBurnt = response.data.exercises[0].nf_calories;
+          setCaloriesBurnt(caloriesBurnt);
+          console.log("Exercise Data:", caloriesBurnt);
+        }
+      })
+      .catch((error) => {
+        // Handle any errors that may occur
+        console.error("Error:", error);
+      });
   };
   const handleClose = () => {
     setOpen(false);
   };
+
   const descriptionToValue = {
     beginner: 33,
     intermediate: 66,
@@ -167,26 +198,6 @@ export default function ExerciseCard({
   const intValue = descriptionToValue[description];
   const colorValue = descriptionToColor[description];
 
-  useEffect(() => {
-    // Define the exercise name you want to look up
-    const exerciseName = title; // Replace with the actual exercise name
-
-    // Call the getExercise function with the exercise name as input
-    NutritionixService.getExercise({
-      query: exerciseName,
-    })
-      .then((response) => {
-        // Handle the response from the API here
-        const caloriesBurnt = response.data.exercises[0].nf_calories;
-        setCaloriesBurnt(caloriesBurnt);
-        console.log("Exercise Data:", response.data.exercises[0].nf_calories);
-      })
-      .catch((error) => {
-        // Handle any errors that may occur
-        console.error("Error:", error);
-      });
-  }, []);
-
   return (
     <div>
       <Card sx={{ width: 150, height: 250 }} onClick={exercisecardhandleOpen}>
@@ -194,7 +205,7 @@ export default function ExerciseCard({
           <CardMedia
             sx={{ maxWidth: 150, height: 120 }}
             component="img"
-            image= {img}
+            image={img}
           />
           <CardContent>
             <Typography
@@ -223,10 +234,9 @@ export default function ExerciseCard({
       >
         <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
           <div className="flex">
-            {/* <img className='absolute w-full h-full top-0 left-0' src={Calves} alt="Exercise" /> */}
             <img
               className="absolute w-full h-full top-0 left-0"
-              src={Test}
+              src={`/exerciseImage/${title}.jpg`}
               alt="Exercise"
             />
 
@@ -240,7 +250,7 @@ export default function ExerciseCard({
                 {title}
               </div>
 
-              <div className="flex-grow pb-5 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Difficulty: "}</div>
                 <br></br>
                 <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
@@ -257,19 +267,19 @@ export default function ExerciseCard({
                 </div>
               </div>
 
-              <div className="flex-grow pb-5 z-20 ">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Instructions: "}</div>
                 <br></br>
                 {instruction}
               </div>
 
-              <div className="flex-grow pb-5 z-20">
+              <div className="flex-grow pb-5 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Equipment: "}</div>
                 <br></br>
                 {equipment}
               </div>
 
-              <div className="flex-grow pb-8 z-20">
+              <div className="flex-grow pb-8 z-20 pl-3">
                 <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
                 <br></br>
                 {caloriesBurnt}
@@ -277,10 +287,10 @@ export default function ExerciseCard({
               {/* This is for calories burnt for the exercise */}
 
               <div className="flex-grow pb-8 z-20 text-center">
-                <AddtoCalendarButton exerciseName={title} />
+                <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} />
                 {/* add to calendar button */}
               </div>
-              
+
             </div>
           </div>
         </Box>

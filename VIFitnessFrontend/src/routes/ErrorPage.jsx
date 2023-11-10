@@ -35,9 +35,9 @@ export default function ErrorPage() {
 
   return (
     <div>
-      <div className="Topbar">
+      {/* <div className="Topbar">
         <Topbar />
-      </div>
+      </div> */}
       <div style={styles.page} id="error-page">
         <h1 style={styles.heading}>404 Page Not Found</h1>
         <p style={styles.bodyText}>We couldn't find the page you are looking for.</p>

@@ -86,24 +86,10 @@ export default function AddWorkoutButton(props) {
       toast.success("Added to Calendar!");
     } else {
       dispatchCalEvent({ type: "push", payload: calendarEvent });
-      addExerciseToCalendar(
-        props.exerciseName,
-        false,
-        daySelected.format("D"),
-        smallCalendarMonth + 1
-      ).then(() => {
-        handleAddToCalendar();
-      });
-      console.log("Day:", daySelected.format("D"));
-      console.log("Month:", smallCalendarMonth + 1);
-      toast.success("Added to Calendar!");
     }
   }
 
   return (
-    <>
-      <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
-      <button onClick={handleSubmit}>Add Workout to Calendar</button>
-    </>
+    <button onClick={handleSubmit}>Add Workout to Calendar</button>
   );
 }

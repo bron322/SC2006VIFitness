@@ -56,6 +56,16 @@ const addingExercise = async (data) => {
   return http.post(`/addExercise/${data.username}`, data);
 };
 
+//POST delete exercise by user email
+const deleteExercise = async (data) => {
+  return http.post(`/deleteExercise/${data.email}`, data);
+};
+
+//PATCH exercise isCompleted
+const updateExercise = async (data) => {
+  return http.patch(`/updateExercise/${data.username}`, data);
+};
+
 //PATCH limits settings
 const updateLimits = async (data) => {
   return http.patch(`/updateLimits/${data.email}`, data);
@@ -81,6 +91,11 @@ const updateUserPassword = async (data) => {
   return http.patch(`/updateUserPassword/${data.email}`, data);
 };
 
+//POST update strava activities to database by user email
+const updateStravaActivities = async (data) => {
+  return http.post(`/updateStravaActivities/${data.email}`, data);
+};
+
 const APIDataService = {
   getAll,
   get,
@@ -93,11 +108,14 @@ const APIDataService = {
   createByStrava,
   connectToStrava,
   addingExercise,
+  deleteExercise,
+  updateExercise,
   updateLimits,
   addMeal,
   deleteMeal,
   updateUserSetting,
   updateUserPassword,
+  updateStravaActivities,
 };
 
 export default APIDataService;
