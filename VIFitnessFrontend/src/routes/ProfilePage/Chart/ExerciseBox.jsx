@@ -7,8 +7,9 @@ function ExerciseBox ({ title, subtitle}) {
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box width="100%" flex-direction = "row" >
-      <Box sx={{ flexDirection:"row" }} justifyContent="space-between">
+    <Box width="100%"  flexDirection='row'>
+      <div className="flex justify-between">
+        <Box sx={{ flexDirection:"row" }} justifyContent="space-between" className="w-2/3"> 
           <Typography
             variant="h5"
             fontWeight="bold"
@@ -18,7 +19,7 @@ function ExerciseBox ({ title, subtitle}) {
             {title}
           </Typography>
       </Box>
-      <Box sx={{ display: 'inline-flex' , flexDirection: 'row-reverse'}} justifyContent="space-between">
+      <Box sx={{ display: 'inline-flex', ml: 'auto' }} justifyContent="space-between" >
       <Typography 
             variant="h5" 
             fontWeight = "bold"
@@ -26,6 +27,8 @@ function ExerciseBox ({ title, subtitle}) {
           {subtitle}
         </Typography>
       </Box>
+      </div>
+      
     </Box>
   );
 };

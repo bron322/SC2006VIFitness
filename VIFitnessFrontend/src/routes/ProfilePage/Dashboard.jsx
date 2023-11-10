@@ -150,7 +150,7 @@ export default function Dashboard() {
           >
             Calendar
           </Typography>
-          <Box height="250px">
+          <Box height="250px" mt="-15px">
             {/* <Calendar /> */}
             <Calendar />
           </Box> 
@@ -216,33 +216,34 @@ export default function Dashboard() {
           >
             <Typography
               variant="h5"
-              fontWeight="600"> 
-              Upcoming Event 
+              fontWeight="600"
+            >
+              Upcoming Event
             </Typography>
           </Box>
           {user.workouts.map((workout, i) => {
             if (workout.isCompleted === false) {
               return (
-                <Box
-                  key={`${i}-${workout.name}`}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`1px solid ${colors.secondary.default}`}
-                  p="15px"
-                >
-                  <Box>
-                    <ExerciseBox
+              <Box
+                key={`${i}-${workout.name}`}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={`1px solid ${colors.secondary.default}`}
+                className='flex flex-col justify-evenly'
+                p="15px"
+              >
+                <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name} />
-                  </Box>
-                </Box>
+              </Box>
               );
             }
             return null; // Don't render the workout if it's not completed
           })}
 
         </Box>
+
         
         {/* ROW 3 */}
         <Box

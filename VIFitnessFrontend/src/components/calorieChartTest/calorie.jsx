@@ -29,9 +29,9 @@ const { user } = useAuth();
 
   const filterWorkoutsByToday = (workout) => {
     let now = format(new Date(), "PPP");
-    
+    const completedDate = format(new Date(workout.date), "PPP")
     // Check if the workout is completed and has a completion date equal to the current date
-    return workout.isCompleted && format(new Date(workout.date), "PPP") === now;
+    return workout.isCompleted && completedDate === now;
 };
 
   // filter by this week for Statistics
@@ -44,6 +44,15 @@ const { user } = useAuth();
     return createdDate >= first && createdDate <= last;
   };
 
+  const filterWorkoutsByWeek = (workout) =>{
+    const cur = new Date();
+    const first = startOfWeek(cur);
+    const last = endOfWeek(cur);
+    const completedDate = new Date(workout.date);
+
+    return workout.isCompleted && completedDate >= first && completedDate <= last;
+  }
+
   // filter by this month for Statistics
   const filterMealsByMonth = (item) => {
     const cur = new Date();
@@ -53,6 +62,15 @@ const { user } = useAuth();
 
     return createdDate >= first && createdDate <= last;
   };
+
+  const filterWorkoutsByMonth = (workout) =>{
+    const cur = new Date();
+    const first = startOfMonth(cur);
+    const last = endOfMonth(cur);
+    const completedDate = new Date(workout.date);
+
+    return workout.isCompleted && completedDate >= first && completedDate <= last;
+  }
 
   return(
     <Tabs defaultValue="today">
@@ -103,7 +121,7 @@ const { user } = useAuth();
         /> */}
         <BarChart
         meals={user.meals.filter(filterMealsByWeek)}
-        workouts = {user.workouts.filter(filterMealsByWeek)}
+        workouts = {user.workouts.filter(filterWorkoutsByWeek)}
         xLabel = {filterMealsByWeek}
       />
       </TabsContent>
@@ -132,7 +150,7 @@ const { user } = useAuth();
         /> */}
         <BarChart
         meals={user.meals.filter(filterMealsByMonth)}
-        workouts = {user.workouts.filter(filterMealsByMonth)}
+        workouts = {user.workouts.filter(filterWorkoutsByMonth)}
         xLabel = {filterMealsByMonth}
       />
       </TabsContent>
