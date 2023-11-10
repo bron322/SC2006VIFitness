@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const dataSchema = new mongoose.Schema({
   username: {
@@ -31,4 +31,23 @@ const dataSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", dataSchema);
 
-export { User };
+const tokenSchema = new mongoose.Schema({
+  userID: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+  token: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: 3600,
+  },
+});
+
+const Token = mongoose.model("Token", tokenSchema);
+
+export { User, Token };
