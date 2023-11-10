@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
 import { Link } from 'react-router-dom';
-import BarChart from "../../components/calorieChartTest/calorie";
+import BarChart from "../../components/calorieChart/calorie";
 
 export default function Dashboard() {
   const theme = useTheme();
