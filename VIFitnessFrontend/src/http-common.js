@@ -11,7 +11,6 @@ export default axios.create({
 
 const appID = import.meta.env.VITE_NUTRITIONIX_ID;
 const appKey = import.meta.env.VITE_NUTRITIONIX_KEY;
-const exerciseKey = import.meta.env.VITE_EXERCISE_KEY;
 
 const Nutrionixhttp = axios.create({
   baseURL: "https://trackapi.nutritionix.com/",
@@ -21,6 +20,8 @@ const Nutrionixhttp = axios.create({
     "x-remote-user-id": 0,
   },
 });
+
+const exerciseKey = import.meta.env.VITE_EXERCISE_KEY;
 
 const ExerciseAPIhttp = axios.create({
   url: "https://api.api-ninjas.com/v1/",

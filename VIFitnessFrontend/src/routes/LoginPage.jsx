@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import BG from "./styles/photos/loginbackground.jpg";
 import therock from "./styles/photos/therock.png";
-import ggez from"./styles/photos/ggez.png";
+import ggez from "./styles/photos/ggez.png";
 import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
@@ -35,7 +35,6 @@ export default function LoginPage() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
 
   //tracks value of login form
   const [data, setData] = useState({
@@ -115,7 +114,7 @@ export default function LoginPage() {
             margin="dense"
             onChange={(e) => setData({ ...data, email: e.target.value })}
             InputLabelProps={{
-              style: { color: 'black' }
+              style: { color: "black" },
             }}
           />
         </div>
@@ -142,17 +141,16 @@ export default function LoginPage() {
               ),
             }}
             InputLabelProps={{
-              style: { color: 'black'}
+              style: { color: "black" },
             }}
           />
-          {/* <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-          </InputAdornment> */}
+        </div>
+        <div className="forgotten-wrapper flex justify-end">
+          <Link to={"/forgot-password"}>
+            <span className="text-sm text-cyan-800 hover:text-cyan-600">
+              Forget Password?
+            </span>
+          </Link>
         </div>
         <div className="button-container pt-4">
           <Button
@@ -234,32 +232,32 @@ export default function LoginPage() {
 
       <div className="absolute w-1/2 h-8/12 top-20 left-1/3 right-0 bottom-0 pl-24 flex justify-center items-center pointer-events-none">
         {theme.palette.mode === "dark" ? (
-                <img
-                  className="img h-full w-9/12"
-                  src={therock}
-                  alt="therock"
-                  style={{
-                    display: "absolute",
-                    overflow: "hidden",
-                    objectFit: "cover",
-                    zIndex: "3",
-                    pointerEvents: "none",
-                  }}
-                />
-              ) : (
-                <img
-                  className="img h-full w-9/12"
-                  src={ggez}
-                  alt="therock"
-                  style={{
-                    display: "absolute",
-                    overflow: "hidden",
-                    objectFit: "cover",
-                    zIndex: "3",
-                    pointerEvents: "none",
-                  }}
-                />
-              )}
+          <img
+            className="img h-full w-9/12"
+            src={therock}
+            alt="therock"
+            style={{
+              display: "absolute",
+              overflow: "hidden",
+              objectFit: "cover",
+              zIndex: "3",
+              pointerEvents: "none",
+            }}
+          />
+        ) : (
+          <img
+            className="img h-full w-9/12"
+            src={ggez}
+            alt="therock"
+            style={{
+              display: "absolute",
+              overflow: "hidden",
+              objectFit: "cover",
+              zIndex: "3",
+              pointerEvents: "none",
+            }}
+          />
+        )}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import express from "express";
-import { User } from "../model/model.js";
+import { Token, User } from "../model/model.js";
+import crypto from "crypto";
 
 const APIrouter = express.Router();
 
@@ -338,7 +339,7 @@ APIrouter.post("/addExercise/:username", (req, res) => {
 APIrouter.patch("/updateExercise/:username", (req, res) => {
   const exerciseDate = req.body.date;
   User.findOneAndUpdate(
-    { 
+    {
       username: req.params.username,
       "workouts.createdAt": exerciseDate,
     },
@@ -417,6 +418,78 @@ APIrouter.patch("/updateUserPassword/:email", (req, res) => {
   )
     .then((result) => {
       res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
+//GET to get reset password
+APIrouter.get("/resetUserPassword/:email", async (req, res) => {
+  const user = await User.findOne({ email: req.params.email });
+  if (!user) {
+    res.send("Null");
+  } else {
+    let token = await Token.findOne({ userID: user._id });
+    if (token) {
+      await token.deleteOne();
+    }
+    let resetToken = crypto.randomBytes(32).toString("hex");
+
+    await new Token({
+      userID: user._id,
+      token: resetToken,
+      createdAt: Date.now(),
+    }).save();
+
+    res.send({
+      token: resetToken,
+      id: user._id,
+    });
+  }
+});
+
+//GET to get token
+APIrouter.get("/getToken/:token", (req, res) => {
+  Token.findOne({ token: req.params.token })
+    .then((found) => {
+      if (found === null) {
+        res.send("Null");
+      } else {
+        res.send(found);
+      }
+    })
+    .catch((err) => {
+      res.send("User not found");
+    });
+});
+
+//GET to get token
+APIrouter.get("/getUserByOId/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then((found) => {
+      if (found === null) {
+        res.send("Null");
+      } else {
+        res.send(found);
+      }
+    })
+    .catch((err) => {
+      res.send("User not found");
+    });
+});
+
+//POST reset password
+APIrouter.post("/resetPassword/:id", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, { password: req.body.newPassword })
+    .then((result) => {
+      Token.findOneAndDelete({ token: req.body.token })
+        .then((result) => {
+          res.send(result);
+        })
+        .catch((err) => {
+          res.send(err.message);
+        });
     })
     .catch((err) => {
       res.send(err.message);

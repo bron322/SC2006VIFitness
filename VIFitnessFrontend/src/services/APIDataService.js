@@ -96,6 +96,21 @@ const updateStravaActivities = async (data) => {
   return http.post(`/updateStravaActivities/${data.email}`, data);
 };
 
+//GET token
+const getToken = async (data) => {
+  return http.get(`getToken/${data}`);
+};
+
+//POST reset password
+const resetPassword = async (data) => {
+  return http.post(`resetPassword/${data.id}`, data);
+};
+
+//GET reset password start
+const resetPasswordStart = async (data) => {
+  return http.get(`resetUserPassword/${data}`);
+};
+
 const APIDataService = {
   getAll,
   get,
@@ -116,6 +131,9 @@ const APIDataService = {
   updateUserSetting,
   updateUserPassword,
   updateStravaActivities,
+  getToken,
+  resetPassword,
+  resetPasswordStart,
 };
 
 export default APIDataService;

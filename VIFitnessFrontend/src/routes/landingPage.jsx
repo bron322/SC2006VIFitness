@@ -17,6 +17,7 @@ import personalizedworkoutplan from "./styles/photos/personalized-workout-plan.p
 import macrostracker from "./styles/photos/macros-tracker.png";
 import exerciseinstructions from "./styles/photos/exercise-instruction.png";
 import stravadata from "./styles/photos/stravadata.png";
+import Footer from "@/components/landingPageUI/footer";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -276,6 +277,8 @@ export default function LandingPage() {
             />
           </div>
         </div>
+
+        <Footer />
       </div>
     </>
   );

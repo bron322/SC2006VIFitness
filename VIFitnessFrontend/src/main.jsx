@@ -37,7 +37,7 @@ import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
 import ChatGPTTest from "./routes/GetWorkoutPage";
-import BarChart from "./components/calorieChartTest/calorie"
+import BarChart from "./components/calorieChartTest/calorie";
 
 //Authorisation related imports
 import ProtectedLayout from "./layouts/ProtectedLayout";
@@ -51,6 +51,8 @@ import StravaRedirect, {
 } from "./routes/StravaRedirect";
 import StravaConnectRedirect from "./routes/StravaConnectRedirect";
 import StravaPage from "./routes/StravaPage";
+import ForgotPasswordPage from "./routes/ForgottenPasswordPage";
+import ResetPasswordPage from "./routes/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -74,9 +76,12 @@ const router = createBrowserRouter([
             element: <RegisterPage />,
           },
           {
-            path: "testoscar",
-            errorElement: <ErrorPage />,
-            element: <TestPageOscar />,
+            path: "forgot-password",
+            element: <ForgotPasswordPage />,
+          },
+          {
+            path: "resetpassword",
+            element: <ResetPasswordPage />,
           },
           {
             path: "stravaredirect/exchange_token",
@@ -181,7 +186,7 @@ const router = createBrowserRouter([
               {
                 path: "testchart",
                 errorElement: <ErrorPage />,
-                element: <BarChart/>,
+                element: <BarChart />,
               },
             ],
           },
