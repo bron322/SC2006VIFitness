@@ -1,87 +1,103 @@
-import React, { useEffect, useState } from "react";
+import * as React from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { axisClasses } from '@mui/x-charts';
 import { useAuth } from "@/hooks/AuthProvider";
+import { format } from 'date-fns';
+import { Typography, useTheme } from "@mui/material";
+import { tokens } from "@/routes/theme";
 
-function BarChartCalorie(props) {
-  const [barChartData, setBarChartData] = useState([]);
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
 
-  const [caloriesTakenData, setCaloriesTakenData] = useState([]); // State to store calorie data
-  const [calorieBurnData, setCalorieBurnData] = useState([]);
-
+function BarChartTest(props) {
+  const { user } = useAuth();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  // const todayLabel = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  const now = format(new Date(), "PPP");
+  const chartSetting = {
+    yAxis: [
+      {
+        label: 'Total Calories',
+      },
+    ],
+    width: 600,  // Increase the width
+    height: 400, // Increase the height
+    // viewBox: '0 0 300 200',
+    slotProps: {
+      legend: {
+        direction: 'column',
+        position: { vertical: 'middle', horizontal: 'right' },
+        padding: -15,
+      },
+    },
+    // sx: {
+    //   [`.${axisClasses.left} .${axisClasses.label}`]: {
+    //     transform: 'translate(-20px, 0)',
+    //   },
+    // },
+  };
+  const legendPlacement = {
+    
+    slotProps: {
+      legend: {
+          direction: 'row',
+          itemMarkWidth: 20,
+          itemMarkHeight: 11,
+          markGap: 14,
+          itemGap: 15,
+      },
+    },
+    // margin: {
+    //   top: 20,
+    //   right: 150,
+    //   left: 20,
+    // },
+  };
   const data = [
     {
-      label: "Calories Taken",
-      value: props.data.reduce((acc, cur) => acc + cur.calorie, 0),
+      dayOfWeek: props.xLabel,
+      "Calories Taken": props.meals.reduce((acc, cur) => acc + (parseFloat(cur.calorie) || 0), 0),
+      "Calories Burnt": props.workouts.reduce((acc, cur) => acc + (parseFloat(cur.calories) || 0), 0),
     },
-    // { 
-    //   label: "Calories Burn", 
-    //   value: props.data.reduce((acc, cur) => acc + cur.calories, 0), 
-    // },
   ];
-  
-  // Log the 'value' for each object in the 'data' array
-  
-  useEffect(() => {
-    setBarChartData([
-      {
-        label: "Calorie Taken",
-        data: props.data.reduce(
-          (acc, cur) => {
-            acc + parseFloat(cur.calorie);}
-            ,
-          0
-        ),
-      },
-      // {
-      //   label: "Calorie Burn",
-      //   data: props.data.reduce(
-      //     (acc, cur) => acc + parseFloat(cur.calories),
-      //     0
-      //   ),
-      // },
-    ]);
-  }, [props]);
 
-  // const seriesData = [
-  //   {
-  //     label: "Calories Taken",
-  //     data: caloriesTakenData,
-  //     id: 'pvId'
-  //   },
-  //   {
-  //     label: "Calorie Burn",
-  //     data: calorieBurnData,
-  //     id: 'uvId'
-  //   }
-  // ];
+  // const xLabel = [now]
+
+  const valueFormatter = (value) => `${value}cal`;
+
 
   return (
-    // data.forEach(item => {
-    //   console.log(`${item.label}: ${item.value}`);
-    //   // console.log(props.data);
-    // })
-  
-    <BarChart
-      width={500}
-      height={300}
-      // series={[
-      //   // { data: barChartData, label: 'Calorie Taken', id: 'pvId' },
-      //   // { data: barChartData, label: 'Calorie Burn', id: 'uvId' },
-      // ]}
-      series={[{data: barChartData,}]}
-      xAxis={[
-        {
-          data: months, // Use the array of month names as xLabels
-          scaleType: 'band'
-        }
-      ]}
-      // xAxis={[{ data: xLabels, scaleType: 'band' }]}
-    />
+      // <Typography
+      //   className=" text-lg font-semibold tracking-tight w-full mb-[-100]"
+      //   style={{ color: colors.card.foreground }}
+      // >
+      //     {props.title} Statistics
+      // </Typography>
+      <BarChart
+        margin={{
+          left: 150,
+          right: 200,
+          top: 50,
+          bottom: 40,
+        }}
+        
+        dataset={data}
+        xAxis={[{ scaleType: 'band', dataKey: 'dayOfWeek', tickValues: props.xLabel}]}
+        series={[
+          { dataKey: 'Calories Taken', label: 'Calories Taken', valueFormatter },
+          { dataKey: 'Calories Burnt', label: 'Calories Burnt', valueFormatter },
+        ]}
+        // slotProps={{
+        //   legend: {
+        //     direction: 'row',
+        //     itemMarkWidth: 20,
+        //     itemMarkHeight: 11,
+        //     markGap: 14,
+        //     itemGap: 15,
+        //   }
+        // }}
+        {...chartSetting}
+        // {...legendPlacement}
+      />
   );
 }
-
-export default BarChartCalorie;
+export default BarChartTest;
