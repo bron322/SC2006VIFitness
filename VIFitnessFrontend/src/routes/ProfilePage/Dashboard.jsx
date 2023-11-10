@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar"
 import { Link } from 'react-router-dom';
-import BarChart from "../../components/calorieChartTest/barChartTest";
+import BarChart from "../../components/calorieChartTest/calorie";
 
 export default function Dashboard() {
   const theme = useTheme();
@@ -39,7 +39,7 @@ export default function Dashboard() {
           className="rounded-lg border"
           borderColor={colors.secondary.default}
         >
-          <Typography variant="h5" fontWeight="600">
+          <Typography variant="h5" fontWeight="600" style={{ marginTop: '-10px' }}>
             User Profile
           </Typography>
           {/* sx={{ flexDirection: 'row' }} */}
@@ -137,7 +137,7 @@ export default function Dashboard() {
         {/* </Box> */}
         <Box
           gridColumn="span 4"
-          gridRow="span 5"
+          gridRow="span 2"
           backgroundColor={colors.background.default}
           padding="20px"
           className="rounded-lg border"
@@ -153,32 +153,10 @@ export default function Dashboard() {
           <Box height="250px">
             {/* <Calendar /> */}
             <Calendar />
-          </Box>
-
-          <Typography> Upcoming Event </Typography>
-          {user.workouts.map((workout, i) => {
-            if (workout.isCompleted === false) {
-              return (
-                <Box
-                  key={`${i}-${workout.name}`}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`1px solid ${colors.secondary.default}`}
-                  p="15px"
-                >
-                  <Box>
-                    <ExerciseBox
-                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                      title={workout.name} />
-                  </Box>
-                </Box>
-              );
-            }
-            return null; // Don't render the workout if it's not completed
-          })}
-
+          </Box> 
         </Box>
+
+        
 
         {/* ROW 2 */}
         <Box
@@ -214,6 +192,56 @@ export default function Dashboard() {
             {/* <LineChart isDashboard={true} /> */}
             <Macros />
           </Box>
+        </Box>
+
+        <Box
+          gridColumn="span 4"
+          gridRow="span 3"
+          backgroundColor={colors.background.default}
+          overflow= 'auto'
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary.default}`}
+            colors={colors.secondary.default}
+            p="15px"
+            position="sticky"
+            top="0"
+            zIndex="10"
+            style = {{opacity:1, backgroundColor: colors.background.default}}
+          >
+            <Typography
+              variant="h5"
+              fontWeight="600"> 
+              Upcoming Event 
+            </Typography>
+          </Box>
+          {user.workouts.map((workout, i) => {
+            if (workout.isCompleted === false) {
+              return (
+                <Box
+                  key={`${i}-${workout.name}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  p="15px"
+                >
+                  <Box>
+                    <ExerciseBox
+                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                      title={workout.name} />
+                  </Box>
+                </Box>
+              );
+            }
+            return null; // Don't render the workout if it's not completed
+          })}
+
         </Box>
         
         {/* ROW 3 */}

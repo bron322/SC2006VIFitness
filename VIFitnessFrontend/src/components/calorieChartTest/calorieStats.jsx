@@ -13,10 +13,10 @@
     useEffect(() => {
       // let f = chroma.scale(["E95793", "610C9F"]);
       setStatisticsData({
-        calorietaken: Math.floor(
+        taken: Math.floor(
             props.meals.reduce((acc, cur) => acc + parseFloat(cur.calorie), 0)
           ),
-        calorieburn : Math.floor(
+        burnt : Math.floor(
             props.workouts.reduce((acc, cur) => acc + parseFloat(cur.calories), 0)
           ),
       });
@@ -30,11 +30,11 @@
             className=" text-lg font-semibold tracking-tight w-full"
             style={{ color: colors.card.foreground }}
           >
-             Statistics
+             {props.title}Statistics
           </h2>
           <div className="stats-content-wrapper flex justify-center">
-            <div className="pie-wrapper mr-[15vw]">
-              <BarChart data={[props.meals, props.workouts]} />
+            <div className="bar-wrapper mr-[15vw]">
+              <BarChart dataset={statisticsData} xLabel={props.xLabel} />
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 // import ProgressCircle from "./Progress";
 
-function ExerciseBox ({ title, subtitle, icon, progress, increase }) {
+function ExerciseBox ({ title, subtitle}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 

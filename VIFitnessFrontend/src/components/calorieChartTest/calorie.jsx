@@ -11,6 +11,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import CalorieStats from "./calorieStats.jsx";
+import BarChart from "./barChartTest"
 
 function calorie(){
 const theme = useTheme();
@@ -25,6 +26,13 @@ const { user } = useAuth();
     console.log(now);
     return createdDate === now;
   };
+
+  const filterWorkoutsByToday = (workout) => {
+    let now = format(new Date(), "PPP");
+    
+    // Check if the workout is completed and has a completion date equal to the current date
+    return workout.isCompleted && format(new Date(workout.date), "PPP") === now;
+};
 
   // filter by this week for Statistics
   const filterMealsByWeek = (item) => {
@@ -64,20 +72,27 @@ const { user } = useAuth();
         className="border-none p-0 outline-none"
       >
           <Box >
-        <CalorieStats
+        {/* <CalorieStats
           meals={user.meals.filter(filterMealsByToday)}
-        //   workouts = {user.workouts.filter(filterMealsByToday)}
+          workouts = {user.workouts.filter(filterMealsByToday)}
           title={"Today's"}
-        />
+          xLabel = {filterMealsByToday}
+        /> */}
+        <BarChart
+        meals={user.meals.filter(filterMealsByToday)}
+        workouts = {user.workouts.filter(filterWorkoutsByToday)}
+        xLabel = {filterMealsByToday}
+      />
+        
         </Box>
       </TabsContent>
       <TabsContent
         value="week"
         className="border-none p-0 outline-none " m = "20px 0 10px -10px"
       >
-        <CalorieStats
+        {/* <CalorieStats
           meals={user.meals.filter(filterMealsByWeek)}
-        //   workouts = {user.workouts.filter(filterMealsByWeek)}
+          workouts = {user.workouts.filter(filterMealsByWeek)}
         //   limits={{
         //     calorie: user.macros_setting.calorie * 7,
         //     protein: user.macros_setting.protein * 7,
@@ -85,15 +100,20 @@ const { user } = useAuth();
         //     fat: user.macros_setting.fat * 7,
         //   }}
           title={"This Week's"}
-        />
+        /> */}
+        <BarChart
+        meals={user.meals.filter(filterMealsByWeek)}
+        workouts = {user.workouts.filter(filterMealsByWeek)}
+        xLabel = {filterMealsByWeek}
+      />
       </TabsContent>
       <TabsContent
         value="month"
         className="border-none p-0 outline-none"
       >
-        <CalorieStats
+        {/* <CalorieStats
           meals={user.meals.filter(filterMealsByMonth)}
-        //   workouts = {user.workouts.filter(filterMealsByMonth)}
+          workouts = {user.workouts.filter(filterMealsByMonth)}
         //   limits={{
         //     calorie:
         //       user.macros_setting.calorie *
@@ -109,7 +129,12 @@ const { user } = useAuth();
         //       getDaysInMonth(new Date()),
         //   }}
           title={"This Month's"}
-        />
+        /> */}
+        <BarChart
+        meals={user.meals.filter(filterMealsByMonth)}
+        workouts = {user.workouts.filter(filterMealsByMonth)}
+        xLabel = {filterMealsByMonth}
+      />
       </TabsContent>
     </Tabs>
     )
