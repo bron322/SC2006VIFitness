@@ -162,7 +162,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="content-container">
+        <div className="content-container" id="workout-planner">
           <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={personalizedworkoutplan}
@@ -219,7 +219,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="content-container">
+        <div className="content-container" id="strava-integration">
           <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={calendar}
