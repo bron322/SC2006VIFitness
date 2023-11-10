@@ -17,10 +17,10 @@ import { Button } from "@/components/ui/button";
 import CryptoJS from "crypto-js";
 import "./styles/loginpage.css";
 
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function LoginPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -115,7 +115,7 @@ export default function LoginPage() {
             label="PASSWORD"
             variant="standard"
             margin="dense"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             onChange={(e) => setData({ ...data, password: e.target.value })}
             InputProps={{
               endAdornment: (
@@ -130,15 +130,14 @@ export default function LoginPage() {
               ),
             }}
           />
-          {/* <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-          </InputAdornment> */}
-        </div> 
+        </div>
+        <div className="forgotten-wrapper flex justify-end">
+          <Link to={"/forgot-password"}>
+            <span className="text-sm text-cyan-800 hover:text-cyan-600">
+              Forget Password?
+            </span>
+          </Link>
+        </div>
         <div className="button-container pt-4">
           <Button
             variant="register"
