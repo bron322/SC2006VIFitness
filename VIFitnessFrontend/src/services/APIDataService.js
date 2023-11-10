@@ -66,6 +66,11 @@ const updateExercise = async (data) => {
   return http.patch(`/updateExercise/${data.username}`, data);
 };
 
+//PATCH exercise description
+const editExercise = async (data) => {
+  return http.patch(`/editExercise/${data.username}`, data);
+};
+
 //PATCH limits settings
 const updateLimits = async (data) => {
   return http.patch(`/updateLimits/${data.email}`, data);
@@ -125,6 +130,7 @@ const APIDataService = {
   addingExercise,
   deleteExercise,
   updateExercise,
+  editExercise,
   updateLimits,
   addMeal,
   deleteMeal,
