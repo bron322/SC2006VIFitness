@@ -8,17 +8,19 @@ function ExerciseBox ({ title, subtitle, icon, progress, increase }) {
 
   return (
     <Box width="100%" flex-direction = "row" >
-      <Box display="flex" justifyContent="space-between">
+      <Box sx={{ flexDirection:"row" }} justifyContent="space-between">
           <Typography
-            variant="h4"
+            variant="h5"
             fontWeight="bold"
             mr = "55px"          
             sx={{ color: colors.accent.foreground }}
           >
             {title}
           </Typography>
-          <Typography 
-            variant="h4" 
+      </Box>
+      <Box sx={{ display: 'inline-flex' , flexDirection: 'row-reverse'}} justifyContent="space-between">
+      <Typography 
+            variant="h5" 
             fontWeight = "bold"
             sx={{ color: colors.accent.foreground }}>
           {subtitle}

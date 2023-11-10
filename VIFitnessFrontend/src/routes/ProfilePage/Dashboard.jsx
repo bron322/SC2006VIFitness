@@ -55,13 +55,12 @@ export default function Dashboard() {
               title="Weight" />
 
           </Box>
-
         </Box>
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          // overflow="auto"
           backgroundColor={colors.background.default}
+          overflow= 'auto'
           className="rounded-lg border"
           borderColor={colors.secondary.default}
         >
@@ -69,9 +68,13 @@ export default function Dashboard() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            // borderBottom={`4px solid ${colors.primary.default}`}
+            borderBottom={`4px solid ${colors.primary.default}`}
             colors={colors.secondary.default}
             p="15px"
+            position="sticky"
+            top="0"
+            zIndex="10"
+            style = {{opacity:1, backgroundColor: colors.background.default}}
           >
             <Typography
               variant="h5"
@@ -80,8 +83,7 @@ export default function Dashboard() {
               Completed Workout
             </Typography>
           </Box>
-          <Box 
-          overflow="auto">
+          
           {completedWorkouts.length > 0 ? (
             completedWorkouts.map((workout, i) => (
               <Box
@@ -90,13 +92,12 @@ export default function Dashboard() {
                 justifyContent="space-between"
                 alignItems="center"
                 borderBottom={`1px solid ${colors.secondary.default}`}
+                className='flex flex-col justify-evenly'
                 p="15px"
               >
-                <Box>
-                  <Typography variant="h5" fontWeight="600">
-                    {workout.name}
-                  </Typography>
-                </Box>
+                <ExerciseBox
+                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                      title={workout.name} />
               </Box>
             ))
           ) : (
@@ -112,7 +113,6 @@ export default function Dashboard() {
               </Typography>
             </Box>
           )}
-          </Box>
 
         </Box>
         {/* <Box
