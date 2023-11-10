@@ -22,30 +22,27 @@ function BarChartTest() {
   };
   const data = [
     {
-      label: "Calories Taken",
-      value: user.meals.calories,
-    },
-    {
-      label: "Calories Burn",
-      value: user.workouts.reduce((acc, cur) => acc + parseFloat(cur.calorie), 0),
+      dayOfWeek: todayLabel,
+      "Calories Taken": user.meals.reduce((acc, cur) => acc + (parseFloat(cur.calorie) || 0), 0),
+      "Calories Burnt": user.workouts.reduce((acc, cur) => acc + (parseFloat(cur.calories) || 0), 0),
     },
   ];
 
   const xLabel = [todayLabel]
 
   const valueFormatter = (value) => `${value}mm`;
-  
+
 
   return (
     <BarChart
-    dataset={data}
-    xAxis={[{ scaleType: 'band', dataKey: 'dayOfWeek', tickValues: xLabel }]}
-    series={[
-      { dataKey: 'value', label: 'Calories Taken', valueFormatter },
-      { dataKey: 'value', label: 'Calories Burn', valueFormatter },
-    ]}
-    {...chartSetting}
-  />
+      dataset={data}
+      xAxis={[{ scaleType: 'band', dataKey: 'dayOfWeek', tickValues: xLabel }]}
+      series={[
+        { dataKey: 'Calories Taken', label: 'Calories Taken', valueFormatter },
+        { dataKey: 'Calories Burnt', label: 'Calories Burnt', valueFormatter },
+      ]}
+      {...chartSetting}
+    />
   );
 }
 export default BarChartTest;
