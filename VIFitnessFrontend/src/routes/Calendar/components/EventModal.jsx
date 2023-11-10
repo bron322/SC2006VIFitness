@@ -21,21 +21,20 @@ export default function EventModal() {
   const [description, setDescription] = useState(
     selectedEvent ? selectedEvent.description : ""
   );
-  const [selectedLabel, setSelectedLabel] = useState(
-    selectedEvent
-      ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
-      : labelsClasses[0]
-  );
+  // const [selectedLabel, setSelectedLabel] = useState(
+  //   selectedEvent
+  //     ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
+  //     : labelsClasses[0]
+  // );
 
   const [reload, setReload] = useState(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("reload");
   }, [reload])
 
   const handleDeleteExercise = async () => {
-    // console.log(user.username);
-    // console.log(selectedEvent.day);
+    e.preventDefault();
     const data = {
       email: user.email,
       date: selectedEvent.createdAt,
@@ -63,22 +62,25 @@ export default function EventModal() {
     }
   };
 
-  function handleSubmit(e) {
+  const handleEditWorkout = async (e) => {
     e.preventDefault();
-    const calendarEvent = {
-      title,
-      description,
-      label: selectedLabel,
-      day: daySelected.valueOf(),
-      id: selectedEvent ? selectedEvent.id : Date.now(),
+    const data = {
+      username: user.username,
+      date: selectedEvent.createdAt,
+      description: description,
     };
-    if (selectedEvent) {
-      dispatchCalEvent({ type: "update", payload: calendarEvent });
-    } else {
-      dispatchCalEvent({ type: "push", payload: calendarEvent });
+    try {
+      const response = await APIDataService.editExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Exercise updated!");
+        window.location.reload(true)
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log(err);
     }
-
-    setShowEventModal(false);
   }
 
   const handleMarkAsCompleted = async (e) => {
@@ -97,7 +99,7 @@ export default function EventModal() {
         window.location.reload(true)
 
         // Set setShowEventModal to false after a 0.5-second delay
-        
+
       } else {
         toast.error("Something went wrong. Try again later!");
       }
@@ -127,6 +129,7 @@ export default function EventModal() {
           </header>
           <div className="p-3 text-gray-900">
             <div className="grid grid-cols-1/5 items-end gap-y-7">
+              {/* ////////////////// Title ////////////////// */}
               <div></div>
               <input
                 type="text"
@@ -137,22 +140,28 @@ export default function EventModal() {
                 className="pt-3 border-0 text-gray-900 text-xl font-semibold pb-2 w-full border-b-2 bg-gray-300 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
                 onChange={(e) => setTitle(e.target.value)}
               />
+
+              {/* ////////////////// Showing Date ////////////////// */}
               <span className="text-gray-900">
                 <ScheduleIcon />
               </span>
               <p>{daySelected.format("dddd, MMMM DD")}</p>
+
+              {/* ////////////////// Description ////////////////// */}
               <span className="text-gray-900">
                 <SegmentIcon />
               </span>
               <input
                 type="text"
                 name="description"
-                placeholder="Add a description"
+                placeholder="E.g: 4 sets of 12 reps"
                 value={description}
                 className="pt-3 border-0 text-gray-600 pb-2 w-full border-b-2 bg-gray-300 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <span className="text-gray-900">
+
+              {/* ////////////////// Color Label ////////////////// */}
+              {/* <span className="text-gray-900">
                 <BookmarkBorderIcon />
               </span>
               <div className="flex gap-x-2">
@@ -170,24 +179,31 @@ export default function EventModal() {
                     )}
                   </span>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
           <footer className="flex justify-end border-t p-3 mt-5 border-gray-400">
 
             <div className="flex justify-end w-2/3 ">
-              <button
-                
-                // onClick={handleSubmit}
-                onClick={handleMarkAsCompleted}
-                className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
-              >
-                Mark As Completed
-              </button>
+              {selectedEvent.isCompleted ? (
+                <button
+                  className="bg-gray-300 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
+                  disabled
+                >
+                  Already marked as completed
+                </button>
+              ) : (
+                <button
+                  onClick={handleMarkAsCompleted}
+                  className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
+                >
+                  Mark As Completed
+                </button>
+              )}
 
               <button
-                
-                onClick={handleSubmit}
+
+                onClick={handleEditWorkout}
                 className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900 ml-2"
               >
                 Save
