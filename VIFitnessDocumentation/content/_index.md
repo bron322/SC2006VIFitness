@@ -1,7 +1,7 @@
 ---
 title: "Welcome to VI Fitness Documentation"
 description: ""
-lead: "Get started by pressing the Exmaple Guide below!"
+lead: "This is the documentation for VI Fitness web application."
 date: 2023-09-07T16:33:54+02:00
 lastmod: 2023-09-07T16:33:54+02:00
 draft: false
