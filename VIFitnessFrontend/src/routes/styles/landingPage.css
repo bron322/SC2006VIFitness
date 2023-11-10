@@ -1,22 +1,36 @@
 body {
-    margin: 0;
+  margin: 0;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 @keyframes fadeInBottom {
   from {
-      opacity: 0;
-      transform: translateY(50%);
+    opacity: 0;
+    transform: translateY(50%);
   }
-  to { opacity: 1 }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-.cssanimation, .cssanimation span {
+.cssanimation,
+.cssanimation span {
   animation-duration: 5s;
   animation-fill-mode: both;
 }
-.fadeInBottom { animation-name: fadeInBottom }
+.fadeInBottom {
+  animation-name: fadeInBottom;
+}
 
 .fade-in-left {
   opacity: 0;
@@ -46,93 +60,92 @@ body {
 
 .line-container {
   position: absolute;
-    top: 100%;
-    left: 50%;
-    height: 2px; 
-    background-color: #ffffff; 
-    z-index: 50; 
-    transition: height 0.3s;
+  top: 100%;
+  left: 50%;
+  height: 2px;
+  background-color: #ffffff;
+  z-index: 50;
+  transition: height 0.3s;
 }
 .line {
   height: 100%;
   width: 5px;
 }
 .image-container {
-    width: 100%;
-    height: 1000px;
-    margin: 0;
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    animation: fadeIn 1s;
+  width: 100%;
+  height: 1000px;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1s;
 }
 .image-container img {
-    width: 100%; 
-    height: auto; 
-    position: relative;
-    top: -250px;
-    z-index: 1;
-    object-position: center top;
-  }
-  h2 {
-    font-size: 140px;
-    color: white;
-    text-align: justify;
-    line-height: 0.5;
-    padding-bottom: 50px;
-    font-weight: 600;
-  }
-  .text {
-    display: inline;
-    font-size: 45px;
-    border-radius: 30px;
-    font-weight: 500;
-  }
-  .content-container {
-    background-color: #000000;
-    display: flex;
-    width: 100%;
-    height: 900px;
-    justify-content: space-around;
-    align-items: center;
-    overflow-x: hidden;
-  }
-  .content-text{
-    display: flex;
-    z-index: 2;
-    color: white;
-    flex-direction: column;
-    height: 400px;
-    width: 600px;
-    padding-top: 50px;
-    text-align: center;
-  }    
-  .content-image{
-    background-image: url(photos/background.jpg);
-    width: 400px;
-    height: 400px;
-    z-index: 2;
-    background-size: cover;
-  }
-  .content-header{
-    font-size: 65px;
-    padding-bottom: 50px;
-  }
-  .content-info {
-    font-size: 30px;
-  }
- #browse {
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: -250px;
+  z-index: 1;
+  object-position: center top;
+}
+h2 {
+  font-size: 140px;
+  color: white;
+  text-align: justify;
+  line-height: 0.5;
+  padding-bottom: 50px;
+  font-weight: 600;
+}
+.text {
+  display: inline;
+  font-size: 45px;
+  border-radius: 30px;
+  font-weight: 500;
+}
+.content-container {
+  background-color: #000000;
+  display: flex;
+  width: 100%;
+  height: 900px;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: hidden;
+}
+.content-text {
+  display: flex;
+  z-index: 2;
+  color: white;
+  flex-direction: column;
+  height: 400px;
+  width: 600px;
+  padding-top: 50px;
+  text-align: center;
+}
+.content-image {
+  background-image: url(photos/background.jpg);
+  width: 400px;
+  height: 400px;
+  z-index: 2;
+  background-size: cover;
+}
+.content-header {
+  font-size: 65px;
+  padding-bottom: 50px;
+}
+.content-info {
+  font-size: 30px;
+}
+#browse {
   text-transform: uppercase;
   letter-spacing: 4px;
   color: #03e9f4;
-  transition: .5s;
+  transition: 0.5s;
   font-weight: 600;
   border-radius: 50px;
- }
- #browse:hover {
+}
+#browse:hover {
   background-color: #03e9f4;
   color: #000000;
-  box-shadow: 0 0 5px #03e9f4,
-              0 0 25px #03e9f4;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4;
   -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
- }
+}
