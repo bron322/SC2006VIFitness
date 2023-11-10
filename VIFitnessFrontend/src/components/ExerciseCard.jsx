@@ -64,6 +64,7 @@ function AddtoCalendarButton(props) {
         {
           name: props.exerciseName,
           isCompleted: false,
+          description:'',
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
@@ -83,6 +84,11 @@ function AddtoCalendarButton(props) {
       if (Object.keys(response.data).length !== 0) {
         setUser(response.data);
         toast.success("Workout added!");
+
+        // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
+        setTimeout(() => {
+          window.location.reload(true)
+        }, 400);
       } else {
         toast.error("Something went wrong. Try again later!");
       }
@@ -105,7 +111,7 @@ function AddtoCalendarButton(props) {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 400, height: 150 }}>
-        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+          <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <h1>Add to Calendar</h1>
           <div>
             <Popover>

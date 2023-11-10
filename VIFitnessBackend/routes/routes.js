@@ -358,6 +358,29 @@ APIrouter.patch("/updateExercise/:username", (req, res) => {
     });
 });
 
+//Edit exercise description method
+APIrouter.patch("/editExercise/:username", (req, res) => {
+  const exerciseDate = req.body.date;
+  User.findOneAndUpdate(
+    {
+      username: req.params.username,
+      "workouts.createdAt": exerciseDate,
+    },
+    {
+      $set: {
+        "workouts.$.description": req.body.description,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //Delete exercise method
 APIrouter.post("/deleteExercise/:email", (req, res) => {
   User.findOneAndUpdate(
