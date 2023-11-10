@@ -47,6 +47,24 @@ input[type="submit"]:hover {
   flex-direction: column;
   gap: 8px;
   margin: 10px;
+  color: black; 
+  font-weight: 500;
+}
+
+.input-container .MuiInput-underline:before {
+  border-bottom-color: black; 
+}
+
+.input-container .MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom-color: black; 
+}
+
+.input-container .MuiInput-underline:after {
+  border-bottom-color: black; 
+}
+
+.input-container input {
+  color: black;
 }
 
 .divider {

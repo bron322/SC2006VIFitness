@@ -141,13 +141,13 @@ export default function LandingPage() {
                 <FontAwesomeIcon icon={faBurger} size="xl" /> Track Your Macros
               </div>
               <div className="content-info">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Experience the convenience of our Macro Tracker, a user-friendly
+                nutrition tool with dynamic features, meal queries, and
+                intuitive calorie and macro visualizations.
               </div>
             </div>
           </FadeInLeft>
-          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+          <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={macrostracker}
               alt="macros-tracker"
@@ -163,7 +163,7 @@ export default function LandingPage() {
         </div>
 
         <div className="content-container">
-          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+          <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={personalizedworkoutplan}
               alt="personalized-workout-plan"
@@ -183,9 +183,9 @@ export default function LandingPage() {
                 Workout Plan
               </div>
               <div className="content-info">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Discover our innovative Workout Planner, which generates
+                personalized workouts with a comprehensive exercise library,
+                progress tracking, and expert guidance.
               </div>
             </div>
           </FadeInRight>
@@ -199,13 +199,12 @@ export default function LandingPage() {
                 Exercises
               </div>
               <div className="content-info">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Exercise at your own pace with our specially Tailored Exercises,
+                suitable for beginners to professionals
               </div>
             </div>
           </FadeInLeft>
-          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+          <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={exerciseinstructions}
               alt="exercise-instructions"
@@ -221,7 +220,7 @@ export default function LandingPage() {
         </div>
 
         <div className="content-container">
-          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+          <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={calendar}
               alt="calendar"
@@ -241,9 +240,10 @@ export default function LandingPage() {
                 Calendar
               </div>
               <div className="content-info">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Log your workouts and complete them, strategically planning your
+                daily exercise routines with our advanced Workout Calendar. Stay
+                motivated and in control as you schedule and customize your
+                exercises with ease
               </div>
             </div>
           </FadeInRight>
@@ -257,13 +257,13 @@ export default function LandingPage() {
                 Tracking
               </div>
               <div className="content-info">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Effortlessly track your fitness journey with our Data Tracking.
+                Stay motivated as you schedule and track your exercises with
+                ease, ensuring a successful path to your fitness goals.
               </div>
             </div>
           </FadeInLeft>
-          <div className="w-[800px] h-[500px] z-10 bg-cover mt-32 hover:scale-125 duration-100">
+          <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={stravadata}
               alt="progression-tracking"

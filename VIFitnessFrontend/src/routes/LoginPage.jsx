@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import BG from "./styles/photos/loginbackground.jpg";
 import therock from "./styles/photos/therock.png";
+import ggez from "./styles/photos/ggez.png";
 import TextField from "@mui/material/TextField";
 import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
@@ -16,6 +17,8 @@ import { AxiosError } from "axios";
 import { Button } from "@/components/ui/button";
 import CryptoJS from "crypto-js";
 import "./styles/loginpage.css";
+import { useTheme } from "@mui/material";
+import { ColorModeContext, tokens } from "../routes/theme";
 
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -29,6 +32,9 @@ export default function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
 
   //tracks value of login form
   const [data, setData] = useState({
@@ -107,14 +113,18 @@ export default function LoginPage() {
             variant="standard"
             margin="dense"
             onChange={(e) => setData({ ...data, email: e.target.value })}
+            InputLabelProps={{
+              style: { color: "black" },
+            }}
           />
         </div>
-        <div className="input-container font-semibold">
+        <div className="input-container">
           <TextField
             id="standard-basic"
             label="PASSWORD"
             variant="standard"
             margin="dense"
+            color="secondary"
             type={showPassword ? "text" : "password"}
             onChange={(e) => setData({ ...data, password: e.target.value })}
             InputProps={{
@@ -123,11 +133,15 @@ export default function LoginPage() {
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
+                    color="secondary"
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               ),
+            }}
+            InputLabelProps={{
+              style: { color: "black" },
             }}
           />
         </div>
@@ -216,19 +230,34 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div className="absolute w-1/2 h-[770px] top-20 left-1/3 right-0 bottom-0 pl-24 flex justify-center items-center pointer-events-none">
-        <img
-          className="img h-[750px] w-[550px]"
-          src={therock}
-          alt="the_king"
-          style={{
-            display: "absolute",
-            overflow: "hidden",
-            objectFit: "cover",
-            zIndex: "3",
-            pointerEvents: "none",
-          }}
-        ></img>
+      <div className="absolute w-1/2 h-8/12 top-20 left-1/3 right-0 bottom-0 pl-24 flex justify-center items-center pointer-events-none">
+        {theme.palette.mode === "dark" ? (
+          <img
+            className="img h-full w-9/12"
+            src={therock}
+            alt="therock"
+            style={{
+              display: "absolute",
+              overflow: "hidden",
+              objectFit: "cover",
+              zIndex: "3",
+              pointerEvents: "none",
+            }}
+          />
+        ) : (
+          <img
+            className="img h-full w-9/12"
+            src={ggez}
+            alt="therock"
+            style={{
+              display: "absolute",
+              overflow: "hidden",
+              objectFit: "cover",
+              zIndex: "3",
+              pointerEvents: "none",
+            }}
+          />
+        )}
       </div>
     </>
   );
