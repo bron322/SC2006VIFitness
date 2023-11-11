@@ -19,7 +19,7 @@ function App() {
     <>
       {showEventModal && <EventModal />}
 
-      <div className="h-screen flex flex-col">
+      <div className="h-50 flex flex-col">
         <CalendarHeader />
         <div className="flex flex-1">
           <Sidebar />
