@@ -235,8 +235,8 @@ APIrouter.delete("/delete/:username", (req, res) => {
 });
 
 //Delete by email Method
-APIrouter.delete("/delete/:email", (req, res) => {
-  User.deleteOne({ username: req.params.email })
+APIrouter.delete("/deleteByEmail/:email", (req, res) => {
+  User.deleteOne({ email: req.params.email })
     .then((result) => {
       res.send(result);
     })
