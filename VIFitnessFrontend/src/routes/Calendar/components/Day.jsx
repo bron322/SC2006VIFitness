@@ -11,6 +11,7 @@ export default function Day({ day, rowIdx }) {
   const colors = tokens(theme.palette.mode);
   const {user} = useAuth();
   const {
+    daySelected,
     setDaySelected,
     setShowEventModal,
     filteredEvents,
@@ -30,13 +31,33 @@ export default function Day({ day, rowIdx }) {
       ? "bg-blue-600 text-white rounded-full w-7"
       : "";
   }
+
+  const handleEventClick = (event) => {
+    setSelectedEvent(event)
+    setShowEventModal(true)
+  }
+
+  function getDayClass(day) {
+    const format = "DD-MM-YY";
+    const nowDay = dayjs().format(format);
+    const currDay = day.format(format);
+    const slcDay = daySelected && daySelected.format(format);
+    if (nowDay === currDay) {
+      return "bg-blue-500 rounded-full text-white";
+    } else if (currDay === slcDay) {
+      return "bg-blue-100 rounded-full text-blue-600 font-bold";
+    } else {
+      return "";
+    }
+  }
+
   return (
-    <div className="border border-gray-200 flex flex-col">
+    <div className="border border-gray-200 flex flex-col" style={{ height: "200px", overflow: "auto" }}>
       <header className="flex flex-col items-center">
         {rowIdx === 0 && (
           <p className="text-sm mt-1">{day.format("ddd").toUpperCase()}</p>
         )}
-        <p className={`text-sm p-1 my-1 text-center  ${getCurrentDayClass()}`}>
+        <p className={`text-sm p-1 my-1 text-center  ${getCurrentDayClass()} ${getDayClass(day)}`}>
           {day.format("DD")}
         </p>
       </header>
@@ -44,14 +65,14 @@ export default function Day({ day, rowIdx }) {
         className="flex-1 cursor-pointer self-center justify-self-center w-11/12"
         onClick={() => {
           setDaySelected(day);
-          setShowEventModal(true);
+          // setShowEventModal(true);
         }}
       >
         {dayEvents.map((evt, idx) => (
           <div
             key={idx}
-            onClick={() => setSelectedEvent(evt)}
-            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate self-center justify-self-center text-center`}
+            onClick={() => handleEventClick(evt)}
+            className={`p-1 text-gray-400 text-sm rounded mb-1 truncate self-center justify-self-center text-center overflow-auto`}
             style={{
               backgroundColor: evt.isCompleted ? "green" : colors.accent.foreground,
             }}

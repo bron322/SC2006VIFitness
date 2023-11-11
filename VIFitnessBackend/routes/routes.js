@@ -368,6 +368,7 @@ APIrouter.patch("/editExercise/:username", (req, res) => {
     },
     {
       $set: {
+        "workouts.$.name": req.body.title,
         "workouts.$.description": req.body.description,
       },
     },

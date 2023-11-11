@@ -67,6 +67,7 @@ export default function EventModal() {
     const data = {
       username: user.username,
       date: selectedEvent.createdAt,
+      title: title,
       description: description,
     };
     try {
@@ -129,6 +130,7 @@ export default function EventModal() {
           </header>
           <div className="p-3 text-gray-900">
             <div className="grid grid-cols-1/5 items-end gap-y-7">
+              
               {/* ////////////////// Title ////////////////// */}
               <div></div>
               <input
@@ -159,33 +161,12 @@ export default function EventModal() {
                 className="pt-3 border-0 text-gray-600 pb-2 w-full border-b-2 bg-gray-300 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500"
                 onChange={(e) => setDescription(e.target.value)}
               />
-
-              {/* ////////////////// Color Label ////////////////// */}
-              {/* <span className="text-gray-900">
-                <BookmarkBorderIcon />
-              </span>
-              <div className="flex gap-x-2">
-                {labelsClasses.map((lblClass, i) => (
-                  <span
-                    key={i}
-                    onClick={() => setSelectedLabel(lblClass)}
-                    className={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer`}
-                    style={{ backgroundColor: lblClass }}
-                  >
-                    {selectedLabel === lblClass && (
-                      <span className="text-white text-sm">
-                        <CheckIcon />
-                      </span>
-                    )}
-                  </span>
-                ))}
-              </div> */}
             </div>
           </div>
           <footer className="flex justify-end border-t p-3 mt-5 border-gray-400">
 
             <div className="flex justify-end w-2/3 ">
-              {selectedEvent.isCompleted ? (
+              {selectedEvent && selectedEvent.isCompleted ? (
                 <button
                   className="bg-gray-300 rounded-2xl px-6 py-2 text-black border-2 border-gray-900"
                   disabled
