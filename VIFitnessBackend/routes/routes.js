@@ -234,6 +234,17 @@ APIrouter.delete("/delete/:username", (req, res) => {
     });
 });
 
+//Delete by email Method
+APIrouter.delete("/delete/:email", (req, res) => {
+  User.deleteOne({ username: req.params.email })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 //Update macros-limit method
 APIrouter.patch("/updateLimits/:email", (req, res) => {
   const limitsData = req.body.newLimits;
