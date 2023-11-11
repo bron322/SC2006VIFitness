@@ -19,7 +19,7 @@ function BarChartTest(props) {
         label: 'Total Calories',
       },
     ],
-    width: 600,  // Increase the width
+    width: 700,  // Increase the width
     height: 400, // Increase the height
     // viewBox: '0 0 300 200',
     slotProps: {
