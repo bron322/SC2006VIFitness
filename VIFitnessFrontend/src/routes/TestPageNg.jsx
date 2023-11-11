@@ -1,17 +1,14 @@
-import { useContext, useState } from "react";
-import GlobalContext from "./Calendar/context/GlobalContext";
-import AddWorkoutButton from "./Calendar/components/AddWorkoutButton";
-import { Form, Link } from "react-router-dom";
-import SmallCalendar from "./Calendar/components/SmallCalendar";
+import Experience from "../components/Experience.jsx";
+import { Canvas } from "@react-three/fiber";
+import React from "react";
 
 const TestPageNg = () => {
   return (
-    <div>
-      <div className="w-52">
-        <SmallCalendar />
-      </div>
-      <AddWorkoutButton />
-    </div>
+    <Canvas style={{ position: "absolute", zIndex: "20", width: "80%", height: "90%"}} 
+    shadows camera={{ position: [3, 3, 3], fov: 30 }}>
+      <color attach="background" args={["#ececec"]} />
+      <Experience />
+    </Canvas>
   );
 };
 
