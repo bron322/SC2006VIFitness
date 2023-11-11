@@ -520,6 +520,10 @@ APIrouter.post("/resetPassword/:id", (req, res) => {
     });
 });
 
+APIrouter.get("/test", (req, res) => {
+  res.send(req.header);
+});
+
 //POST profile pic
 APIrouter.patch("/uploadProfilePic/:username", (req, res) => {
   const profilepic = req.body.profilepic;

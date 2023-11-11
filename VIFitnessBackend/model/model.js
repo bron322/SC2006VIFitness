@@ -32,6 +32,8 @@ const dataSchema = new mongoose.Schema({
     fat: { type: Number, default: 44 },
     carbohydrate: { type: Number, default: 250 },
   },
+  clientID: { type: String, default: "" },
+  clientSecret: { type: String, default: "" },
 });
 
 const User = mongoose.model("User", dataSchema);
