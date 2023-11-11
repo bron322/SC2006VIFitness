@@ -14,6 +14,10 @@ const dataSchema = new mongoose.Schema({
     type: String,
     default: "nil",
   },
+  profilePic: {
+    type: String,
+    default: "nil",
+  },
   age: { required: true, type: Number, default: 0 },
   weight: { required: true, type: Number, default: 0 },
   height: { required: true, type: Number, default: 0 },

@@ -519,4 +519,26 @@ APIrouter.post("/resetPassword/:id", (req, res) => {
     });
 });
 
+//POST profile pic
+APIrouter.patch("/uploadProfilePic/:username", (req, res) => {
+  const profilepic = req.body.profilepic;
+  User.findOneAndUpdate(
+    {
+      username: req.params.username,
+    },
+    {
+      $set: {
+        profilePic: profilepic,
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 export { APIrouter };
