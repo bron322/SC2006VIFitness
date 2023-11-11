@@ -43,8 +43,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         backgroundColor: hover
           ? colors.muted.hover // button color when hover
           : selected === title
-          ? colors.primary.active // button color when active
-          : colors.background.default, // button color for default
+            ? colors.primary.active // button color when active
+            : colors.background.default, // button color for default
         transitionDuration: "0.3s",
       }}
       onClick={() => setSelected(title)}
@@ -63,8 +63,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           color: hover
             ? colors.accent.foreground // button color when hover
             : selected === title
-            ? colors.destructive.foreground // button color when active
-            : colors.muted.foreground, // button color for default
+              ? colors.destructive.foreground // button color when active
+              : colors.muted.foreground, // button color for default
         },
       }}
     >
@@ -74,8 +74,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           hover
             ? colors.accent.foreground // text color for hover
             : selected === title
-            ? colors.destructive.foreground // text color for active
-            : colors.muted.foreground // text color for default
+              ? colors.destructive.foreground // text color for active
+              : colors.muted.foreground // text color for default
         }
         fontWeight="medium"
       >
@@ -200,13 +200,24 @@ const MyProSidebar = () => {
                   },
                 }}
               >
+                {/* ////////////////// Profile Picture ////////////////// */}
                 <img
                   className="avater-image"
                   alt="profile user"
                   width="200px"
                   height="200px"
-                  src={Profile}
+                  // src={Profile}
+                  src={postImage.myFile || avatar}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
+                />
+
+                <input
+                  type="file"
+                  lable="Image"
+                  name="myFile"
+                  id='file-upload'
+                  accept='.jpeg, .png, .jpg'
+                  onChange={(e) => handleFileUpload(e)}
                 />
               </Box>
               <Box textAlign="center">
