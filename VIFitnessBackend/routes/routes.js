@@ -519,4 +519,8 @@ APIrouter.post("/resetPassword/:id", (req, res) => {
     });
 });
 
+APIrouter.get("/test", (req, res) => {
+  res.send(req.header);
+});
+
 export { APIrouter };
