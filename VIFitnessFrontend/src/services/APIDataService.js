@@ -115,6 +115,11 @@ const resetPasswordStart = async (data) => {
   return http.get(`resetUserPassword/${data}`);
 };
 
+//Upload Profile pic
+const uploadProfilePic = async (data) => {
+  return http.patch(`uploadProfilePic/${data.username}`, data);
+}
+
 const APIDataService = {
   getAll,
   get,
@@ -139,6 +144,7 @@ const APIDataService = {
   getToken,
   resetPassword,
   resetPasswordStart,
+  uploadProfilePic,
 };
 
 export default APIDataService;
