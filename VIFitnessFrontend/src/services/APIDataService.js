@@ -66,6 +66,11 @@ const updateExercise = async (data) => {
   return http.patch(`/updateExercise/${data.username}`, data);
 };
 
+//PATCH exercise description
+const editExercise = async (data) => {
+  return http.patch(`/editExercise/${data.username}`, data);
+};
+
 //PATCH limits settings
 const updateLimits = async (data) => {
   return http.patch(`/updateLimits/${data.email}`, data);
@@ -96,6 +101,26 @@ const updateStravaActivities = async (data) => {
   return http.post(`/updateStravaActivities/${data.email}`, data);
 };
 
+//GET token
+const getToken = async (data) => {
+  return http.get(`getToken/${data}`);
+};
+
+//POST reset password
+const resetPassword = async (data) => {
+  return http.post(`resetPassword/${data.id}`, data);
+};
+
+//GET reset password start
+const resetPasswordStart = async (data) => {
+  return http.get(`resetUserPassword/${data}`);
+};
+
+//Upload Profile pic
+const uploadProfilePic = async (data) => {
+  return http.patch(`uploadProfilePic/${data.username}`, data);
+}
+
 const APIDataService = {
   getAll,
   get,
@@ -110,12 +135,17 @@ const APIDataService = {
   addingExercise,
   deleteExercise,
   updateExercise,
+  editExercise,
   updateLimits,
   addMeal,
   deleteMeal,
   updateUserSetting,
   updateUserPassword,
   updateStravaActivities,
+  getToken,
+  resetPassword,
+  resetPasswordStart,
+  uploadProfilePic,
 };
 
 export default APIDataService;

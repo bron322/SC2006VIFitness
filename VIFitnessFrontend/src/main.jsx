@@ -20,14 +20,8 @@ import ProfilePage from "./routes/ProfilePage";
 import TestPageLebron from "./routes/TestPageLebron";
 import TestPageNg from "./routes/TestPageNg";
 import Dashboard from "./routes/ProfilePage/Dashboard";
-// import Contacts from "./routes/ProfilePage/Contacts";
-// import Team from "./routes/ProfilePage/team";
-// import Invoices from "./routes/ProfilePage/invoices";
 import Form from "./routes/ProfilePage/form";
-// import Line from "./routes/ProfilePage/line";
-// import Pie from "./routes/ProfilePage/pie";
 import FAQ from "./routes/ProfilePage/faq";
-// import Geography from "./routes/ProfilePage/Geography";
 // import Calendar from "./routes/ProfilePage/calendar";
 import Calendar from "./routes/Calendar/App";
 import TestPageOscar from "./routes/TestingPageOscar";
@@ -37,7 +31,7 @@ import "./routes/theme";
 
 import TestSignUpLebron from "./routes/TestSignUpLebron";
 import ChatGPTTest from "./routes/GetWorkoutPage";
-import BarChart from "./components/calorieChartTest/calorie"
+import BarChart from "./components/calorieChart/calorie";
 
 //Authorisation related imports
 import ProtectedLayout from "./layouts/ProtectedLayout";
@@ -51,6 +45,8 @@ import StravaRedirect, {
 } from "./routes/StravaRedirect";
 import StravaConnectRedirect from "./routes/StravaConnectRedirect";
 import StravaPage from "./routes/StravaPage";
+import ForgotPasswordPage from "./routes/ForgottenPasswordPage";
+import ResetPasswordPage from "./routes/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -74,9 +70,12 @@ const router = createBrowserRouter([
             element: <RegisterPage />,
           },
           {
-            path: "testoscar",
-            errorElement: <ErrorPage />,
-            element: <TestPageOscar />,
+            path: "forgot-password",
+            element: <ForgotPasswordPage />,
+          },
+          {
+            path: "resetpassword",
+            element: <ResetPasswordPage />,
           },
           {
             path: "stravaredirect/exchange_token",
@@ -97,34 +96,10 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Dashboard />,
               },
-              // {
-              //   path: "contact",
-              //   element: <Contacts />,
-              // },
-              // {
-              //   path: "team",
-              //   element: <Team />,
-              // },
-              // {
-              //   path: "invoices",
-              //   element: <Invoices />,
-              // },
               {
                 path: "form",
                 element: <Form />,
               },
-              // {
-              //   path: "bar",
-              //   element: <Bar />,
-              // },
-              // {
-              //   path: "pie",
-              //   element: <Pie />,
-              // },
-              // {
-              //   path: "line",
-              //   element: <Line />,
-              // },
               {
                 path: "faq",
                 element: <FAQ />,
@@ -133,10 +108,6 @@ const router = createBrowserRouter([
                 path: "calendar",
                 element: <Calendar />,
               },
-              // {
-              //   path: "geography",
-              //   element: <Geography />,
-              // },
               {
                 path: "macros-tracker",
                 element: <MacrosPage />,
@@ -181,7 +152,7 @@ const router = createBrowserRouter([
               {
                 path: "testchart",
                 errorElement: <ErrorPage />,
-                element: <BarChart/>,
+                element: <BarChart />,
               },
             ],
           },

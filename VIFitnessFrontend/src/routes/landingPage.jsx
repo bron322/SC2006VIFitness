@@ -17,6 +17,7 @@ import personalizedworkoutplan from "./styles/photos/personalized-workout-plan.p
 import macrostracker from "./styles/photos/macros-tracker.png";
 import exerciseinstructions from "./styles/photos/exercise-instruction.png";
 import stravadata from "./styles/photos/stravadata.png";
+import Footer from "@/components/landingPageUI/footer";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -161,7 +162,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="content-container">
+        <div className="content-container" id="workout-planner">
           <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={personalizedworkoutplan}
@@ -218,7 +219,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="content-container">
+        <div className="content-container" id="strava-integration">
           <div className="w-5/12 h-4/12 z-10 bg-cover mt-32 hover:scale-125 duration-100">
             <img
               src={calendar}
@@ -276,6 +277,8 @@ export default function LandingPage() {
             />
           </div>
         </div>
+
+        <Footer />
       </div>
     </>
   );
