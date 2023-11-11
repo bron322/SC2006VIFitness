@@ -249,6 +249,7 @@ export default function Dashboard() {
         <Box
           gridColumn="span 8"
           gridRow="span 3"
+          height="115%"
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
