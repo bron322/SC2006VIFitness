@@ -7,13 +7,6 @@ import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import Calves from "./styles/photos/Calves.png";
-import Test from "./styles/photos/UpperBody.jpg";
-import Glutes from "./styles/photos/Glutes.png";
-import Hamstring from "./styles/photos/Hamstring.jpg";
-import Quads from "./styles/photos/Quads.png";
-import AddWorkoutButton from "../routes/Calendar/components/AddWorkoutButton";
-import SmallCalendar from "../routes/Calendar/components/SmallCalendar";
 import { CircularProgress } from "@mui/material";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -27,9 +20,8 @@ import "./styles/exercisecard.css";
 import { CalendarIcon } from "lucide-react";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import APIDataService from "@/services/APIDataService";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/AuthProvider";
-import { useEffect } from "react";
 import NutritionixService from "@/services/NutritionixService";
 
 const style = {
@@ -64,6 +56,7 @@ function AddtoCalendarButton(props) {
         {
           name: props.exerciseName,
           isCompleted: false,
+          description:'',
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
@@ -73,16 +66,16 @@ function AddtoCalendarButton(props) {
         },
       ],
     };
-    console.log(date);
-    console.log("Day:", date.getDate());
-    console.log("Month:", date.getMonth() + 1);
-    console.log("Year:", date.getFullYear());
-    console.log("Calories Burnt:", props.caloriesBurnt);
     try {
       const response = await APIDataService.addingExercise(data);
       if (Object.keys(response.data).length !== 0) {
         setUser(response.data);
         toast.success("Workout added!");
+
+        // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
+        setTimeout(() => {
+          window.location.reload(true)
+        }, 400);
       } else {
         toast.error("Something went wrong. Try again later!");
       }
@@ -96,7 +89,6 @@ function AddtoCalendarButton(props) {
 
   return (
     <React.Fragment>
-      {/* <Toaster position="bottom-center" toastOptions={{ duration: 2000 }} /> */}
       <Button onClick={handleOpen}>Add to calendar</Button>
       <Modal
         open={open}
@@ -105,7 +97,6 @@ function AddtoCalendarButton(props) {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 400, height: 150 }}>
-        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
           <h1>Add to Calendar</h1>
           <div>
             <Popover>

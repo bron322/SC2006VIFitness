@@ -21,7 +21,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
-export function AlertDialogButton(props) {
+export function EmailVerificationButton(props) {
   const [requested, setRequested] = useState(false); //tracks state of request code button
   const [code, setCode] = useState("12345");
   const [userInputCode, setUserInputCode] = useState("");

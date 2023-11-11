@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const dataSchema = new mongoose.Schema({
   username: {
@@ -11,6 +11,10 @@ const dataSchema = new mongoose.Schema({
   },
   email: {
     required: true,
+    type: String,
+    default: "nil",
+  },
+  profilePic: {
     type: String,
     default: "nil",
   },
@@ -28,8 +32,29 @@ const dataSchema = new mongoose.Schema({
     fat: { type: Number, default: 44 },
     carbohydrate: { type: Number, default: 250 },
   },
+  clientID: { type: String, default: "" },
+  clientSecret: { type: String, default: "" },
 });
 
 const User = mongoose.model("User", dataSchema);
 
-export { User };
+const tokenSchema = new mongoose.Schema({
+  userID: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+  token: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: 3600,
+  },
+});
+
+const Token = mongoose.model("Token", tokenSchema);
+
+export { User, Token };

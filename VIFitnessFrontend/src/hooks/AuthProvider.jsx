@@ -34,20 +34,27 @@ export const AuthProvider = ({ children }) => {
     //check if user exist
     const response = await APIDataService.getByGmail(data.email);
 
-    //If user does not exist, create new user
+    //If user does not exist, create new user, check for gmail first
     if (response.data === "Null") {
-      const userData = {
-        username: uniqueNamesGenerator({
-          dictionaries: [colors, adjectives, animals],
-          separator: "-",
-        }),
-        email: userDataGenerator.getRandomUID(),
-        password: userDataGenerator.getRandomPassword(),
-        google_data: data,
-      };
-      const createResponse = await APIDataService.createByGoogle(userData);
-      setUser(createResponse.data);
-      navigation("/user");
+      // then check for email
+      const secondResponse = await APIDataService.getByEmail(data.email);
+      if (secondResponse.data === "Null") {
+        const userData = {
+          username: uniqueNamesGenerator({
+            dictionaries: [colors, adjectives, animals],
+            separator: "-",
+          }),
+          email: data.email,
+          password: userDataGenerator.getRandomPassword(),
+          google_data: data,
+        };
+        const createResponse = await APIDataService.createByGoogle(userData);
+        setUser(createResponse.data);
+        navigation("/user");
+      } else {
+        setUser(secondResponse.data);
+        navigation("/user");
+      }
     } else {
       //If user exist, just log in
       setUser(response.data);
