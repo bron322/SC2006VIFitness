@@ -33,7 +33,7 @@ export default function EventModal() {
     console.log("reload");
   }, [reload])
 
-  const handleDeleteExercise = async () => {
+  const handleDeleteExercise = async (e) => {
     e.preventDefault();
     const data = {
       email: user.email,
