@@ -105,7 +105,7 @@ const MyProSidebar = () => {
     setIsHovered(false);
   };
 
-  const [postImage, setPostImage] = useState({ myFile: "" })
+  const [postImage, setPostImage] = useState({ myFile: '' })
 
   const createPost = async (newImage) => {
     const data = {
@@ -254,7 +254,7 @@ const MyProSidebar = () => {
                     alt="profile user"
                     width="200px"
                     height="200px"
-                    src={postImage.myFile || user.profilePic}
+                    src={postImage.myFile !== '' ? postImage.myFile : (user.profilePic !== "nil" ? user.profilePic : Profile)}
                     style={{ cursor: "pointer", borderRadius: "50%" }}
                   />
 
