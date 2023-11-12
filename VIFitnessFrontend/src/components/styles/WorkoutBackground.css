@@ -37,8 +37,3 @@
   transition: transform 0.3s ease; /* Add a smooth transition for the zoom effect */
   z-index: 1
 }
-
-/* Add this style for the hovered effect */
-.hovered-link:hover {
-  font-size: 200%; /* Adjust the percentage as needed */
-}

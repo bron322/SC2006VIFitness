@@ -19,7 +19,7 @@ function CoreComponent() {
                     <Link to="/user/workout-planner">
                         <img src={Core} className="h-screen w-full object-cover"
                             alt="Workout Planner" />
-                        {isHovered && <p className="text-white text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Return</p>}
+                        {isHovered && <p className="z-10 text-4xl bg-transparent h-1/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Return</p>}
                     </Link>
                 </div>
                 <div className="flex-grow px-24 pt-10 pb-10">

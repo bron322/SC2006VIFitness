@@ -39,7 +39,7 @@ const BackgroundImages = () => {
         >
           <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-black ${hoveredIndex === index ? 'hover-effect' : ''}`}></div>
           <div className="flex flex-col justify-center items-center">
-            <Link to={paths[index]} className={`z-10 text-4xl bg-transparent h-1/2 ${hoveredIndex === index ? 'hovered-link' : ''}`}>
+            <Link to={paths[index]} className="z-10 text-4xl bg-transparent h-1/2">
               {texts[index]}
             </Link>
             <div className="z-10 text-center items-center">{buttons[index]} </div>
