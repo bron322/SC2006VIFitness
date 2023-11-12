@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Core from "./styles/photos/Core.jpg";
 import Abs from "./styles/photos/Abs.png";
 import LowerBack from "./styles/photos/Lower Back.jpeg";
 import Oblique from "./styles/photos/Obliques.png";
 import MuscleCard from './MuscleCard';
-import { Link } from 'react-router-dom';
 
-function CoreComponent() {
-    const [isHovered, setIsHovered] = useState(false);
-
-    return (
+function CoreComponent(){
+    return(
         <>
             <div className="flex">
                 <div className={`sticky sticky-container top-0 flex-none w-1/3 h-screen ${isHovered ? 'hover-return' : ''}`}
@@ -33,19 +30,27 @@ function CoreComponent() {
                                 description=""
                             /> 
                         </div>
-
-                        {/* Card 2 */}
-                        <div className="flex justify-center">
-                            <MuscleCard
-                                img={LowerBack}
-                                title="Lower_Back"
-                                description=""
-                            />
-                        </div>
-
+                    {/* Card 1 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={Abs}
+                        title="Abdominals"
+                        description=""
+                        />
                     </div>
+
+                    {/* Card 2 */}
+                    <div className="flex justify-center">
+                        <MuscleCard
+                        img={LowerBack}
+                        title="Lower_Back"
+                        description=""
+                        />
+                    </div>
+
                 </div>
             </div>
+        </div>
         </>
     )
 }

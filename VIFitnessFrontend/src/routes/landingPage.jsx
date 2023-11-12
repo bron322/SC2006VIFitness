@@ -18,45 +18,8 @@ import macrostracker from "./styles/photos/macros-tracker.png";
 import exerciseinstructions from "./styles/photos/exercise-instruction.png";
 import stravadata from "./styles/photos/stravadata.png";
 import Footer from "@/components/landingPageUI/footer";
-import Splitting from "splitting";
-import gsap from "gsap";
 
 export default function LandingPage() {
-  const initialised = useRef(false);
-  const [rotation, setRotation] = useState(360);
-  const [radius, setRadius] = useState(70);
-
-  //for spining scroll down button
-  useEffect(() => {
-    if (!initialised.current) {
-      // initialised.current = true;
-      Splitting();
-      let cursor = document.querySelector(".cursor"),
-        cursorText = cursor.querySelectorAll(".char");
-
-      const rotate = (radius, rotation) => {
-        for (let i = 0; i < cursorText.length; i++) {
-          let rotation = i * (360 / cursorText.length);
-          gsap.set(cursorText[i], {
-            transformOrigin: `0px ${radius}px`,
-            x: radius,
-            rotate: rotation,
-          });
-          gsap.set(cursor, {
-            transformOrigin: "center center",
-            rotation: 0,
-            width: radius * 2,
-            height: radius * 2,
-          });
-        }
-        let rotate = gsap.timeline({ repeat: -1 });
-        rotate.to(cursor, { rotation: rotation, duration: 10, ease: "none" });
-      };
-
-      rotate(radius, rotation);
-    }
-  }, [rotation, radius]);
-
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
@@ -137,14 +100,6 @@ export default function LandingPage() {
     );
   }
 
-  const handleMouseEnter = () => {
-    setRotation(-360);
-  };
-
-  const handleMouseLeave = () => {
-    setRotation(360);
-  };
-
   return (
     <>
       <div className="landing-page-wrapper">
@@ -158,16 +113,16 @@ export default function LandingPage() {
         </div>
 
         <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
-          <h2 className="cssanimation sequence fadeInBottom justify-self-center hk-font text-transparent hollow">
+          <h2 className="cssanimation sequence fadeInBottom font-sans font-bold justify-self-center">
             Welcome
           </h2>
-          <h2 className="cssanimation sequence fadeInBottom justify-self-center hk-font text-transparent hollow">
+          <h2 className="cssanimation sequence fadeInBottom font-sans font-bold justify-self-center">
             to
           </h2>
-          <h2 className="cssanimation sequence fadeInBottom pb-20 hk-font text-neutral-100 ">
+          <h2 className="cssanimation sequence fadeInBottom font-sans font-bold pb-20">
             VIFitness
           </h2>
-          {/* <a
+          <a
             href="#macros"
             id="browse"
             className="cssanimation sequence fadeInBottom flex flex-col items-center bg-black rounded-3xl p-3 shadow-md"
@@ -176,35 +131,16 @@ export default function LandingPage() {
             <div className="text">
               <FontAwesomeIcon icon={faArrowDown} />
             </div>
-          </a> */}
-          <a href="#macros" className="hover:opacity-70 transition-opactity">
-            <div
-              className="flex justify-center items-center"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              {/* <div className="inner absolute cursor-pointer">
-                <div className="inner-text text-neutral-300" data-splitting="">
-                  Scroll • Down •
-                </div>
-              </div> */}
-              <div className="cursor cursor-pointer">
-                <div
-                  className="cursor-text text-neutral-300 cursor-pointer"
-                  data-splitting=""
-                >
-                  Explore • our • Features •
-                </div>
-              </div>
-            </div>
           </a>
         </div>
 
         <div className="content-container" id="macros">
           <FadeInLeft>
             <div className="content-text">
-              <div className="content-header hk-light">Track Your Macros</div>
-              <div className="content-info text-neutral-400 tracking-tight leading-tight">
+              <div className="content-header">
+                <FontAwesomeIcon icon={faBurger} size="xl" /> Track Your Macros
+              </div>
+              <div className="content-info">
                 Experience the convenience of our Macro Tracker, a user-friendly
                 nutrition tool with dynamic features, meal queries, and
                 intuitive calorie and macro visualizations.
@@ -242,10 +178,11 @@ export default function LandingPage() {
           </div>
           <FadeInRight>
             <div className="content-text">
-              <div className="content-right content-header ">
-                Personalized Workout Plan
+              <div className="content-header">
+                <FontAwesomeIcon icon={faPerson} size="xl" /> Personalized
+                Workout Plan
               </div>
-              <div className=" content-right content-info text-neutral-400 tracking-tight leading-tight">
+              <div className="content-info">
                 Discover our innovative Workout Planner, which generates
                 personalized workouts with a comprehensive exercise library,
                 progress tracking, and expert guidance.
@@ -257,8 +194,11 @@ export default function LandingPage() {
         <div className="content-container">
           <FadeInLeft>
             <div className="content-text">
-              <div className="content-header">Tailored Exercises</div>
-              <div className="content-info text-neutral-400 tracking-tight leading-tight">
+              <div className="content-header">
+                <FontAwesomeIcon icon={faMessage} size="xl" /> Tailored
+                Exercises
+              </div>
+              <div className="content-info">
                 Exercise at your own pace with our specially Tailored Exercises,
                 suitable for beginners to professionals
               </div>
@@ -295,10 +235,11 @@ export default function LandingPage() {
           </div>
           <FadeInRight>
             <div className="content-text">
-              <div className=" content-right content-header">
-                Individual Calendar
+              <div className="content-header">
+                <FontAwesomeIcon icon={faCalendar} size="xl" /> Individual
+                Calendar
               </div>
-              <div className="  content-right content-info text-neutral-400 tracking-tight leading-tight">
+              <div className="content-info">
                 Log your workouts and complete them, strategically planning your
                 daily exercise routines with our advanced Workout Calendar. Stay
                 motivated and in control as you schedule and customize your
@@ -311,8 +252,11 @@ export default function LandingPage() {
         <div className="content-container">
           <FadeInLeft>
             <div className="content-text">
-              <div className="content-header">Progression Tracking</div>
-              <div className=" content-info text-neutral-400 tracking-tight leading-tight">
+              <div className="content-header">
+                <FontAwesomeIcon icon={faChartLine} size="xl" /> Progression
+                Tracking
+              </div>
+              <div className="content-info">
                 Effortlessly track your fitness journey with our Data Tracking.
                 Stay motivated as you schedule and track your exercises with
                 ease, ensuring a successful path to your fitness goals.
