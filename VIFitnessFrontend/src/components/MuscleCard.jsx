@@ -38,11 +38,10 @@ export default function MuscleCard({ img, title, description }) {
       const response = await ExerciseService.queryWorkout(title);
       console.log(response.data);
       setWorkoutData(response.data);
-
+      setOpen(true);
     } catch (error) {
       console.log(error);
     }
-    setOpen(true);
   };
 
   const handleClose = () => {
@@ -56,7 +55,7 @@ export default function MuscleCard({ img, title, description }) {
           <CardMedia sx={{ maxWidth: 350, height: 350 }}
             component="img"
             image={img}
-          />
+          />  
           <CardContent>
             <Typography gutterBottom variant="h3" component="div" className='text-center'>
               {title}

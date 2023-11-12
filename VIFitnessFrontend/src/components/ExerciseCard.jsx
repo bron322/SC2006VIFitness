@@ -23,6 +23,9 @@ import APIDataService from "@/services/APIDataService";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/AuthProvider";
 import NutritionixService from "@/services/NutritionixService";
+import { useTheme } from "@mui/material";
+import { useContext } from "react";
+import { ColorModeContext } from "../routes/theme";
 
 const style = {
   position: "absolute",
@@ -89,7 +92,7 @@ function AddtoCalendarButton(props) {
 
   return (
     <React.Fragment>
-      <Button onClick={handleOpen}>Add to calendar</Button>
+      <Button onClick={handleOpen} style={{color: 'blue'}}>Add to calendar</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -189,6 +192,17 @@ export default function ExerciseCard({
   const intValue = descriptionToValue[description];
   const colorValue = descriptionToColor[description];
 
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
+
+  const getBackgroundColors = () => {
+    if (theme.palette.mode === 'dark') {
+      return 'rgba(0, 0, 0, 1)';
+    } else {
+      return 'rgba(255, 255, 255, 1 )';
+    }
+  };
+
   return (
     <div>
       <Card sx={{ width: 150, height: 250 }} onClick={exercisecardhandleOpen}>
@@ -233,8 +247,11 @@ export default function ExerciseCard({
 
             {/* placeholder overlay */}
             <div
-              className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0 bg-black opacity-50"
-              style={{ backdropFilter: "grayscale(100%) blur(100px)" }}
+              className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0"
+              style={{ 
+                backdropFilter: "grayscale(100%) blur(100px)",
+                backgroundColor: getBackgroundColors()  
+              }}
             />
             <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
               <div className="text-center text-5xl font-bold z-10 pb-5">
