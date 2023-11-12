@@ -17,6 +17,10 @@ function BarChartTest(props) {
     yAxis: [
       {
         label: 'Total Calories',
+        margins: {
+          right: 100,
+          bottom: 10,
+      },
       },
     ],
     width: 700,  // Increase the width
