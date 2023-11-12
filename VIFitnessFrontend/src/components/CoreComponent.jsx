@@ -31,7 +31,7 @@ function CoreComponent() {
                                 img={Abs}
                                 title="Abdominals"
                                 description=""
-                            />
+                            /> 
                         </div>
 
                         {/* Card 2 */}
