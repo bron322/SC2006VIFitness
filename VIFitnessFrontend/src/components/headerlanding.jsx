@@ -131,7 +131,7 @@ function Header() {
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger
-                  className="text-neutral-400 hover:text-neutral-200"
+                  className="text-neutral-400 hover:text-neutral-200 "
                   style={{ backgroundColor: "black" }}
                 >
                   Documentations
