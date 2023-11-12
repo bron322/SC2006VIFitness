@@ -20,6 +20,8 @@ import stravadata from "./styles/photos/stravadata.png";
 import Footer from "@/components/landingPageUI/footer";
 import Splitting from "splitting";
 import gsap from "gsap";
+import Splitting from "splitting";
+import gsap from "gsap";
 
 export default function LandingPage() {
   const initialised = useRef(false);
