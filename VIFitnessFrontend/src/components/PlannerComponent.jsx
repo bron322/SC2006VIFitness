@@ -30,24 +30,35 @@ const texts = ['Lower Body', 'Upper Body', 'Core'];
 const paths = ['/user/workout-lower','/user/workout-upper','/user/workout-core']
 const buttons = [<LowerButton/>,<UpperButton/>,<CoreButton/>]
 
-  return (
-    <div className="flex h-screen">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className="background-image"
-          style={{ backgroundImage: `url(${image})` }}>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
-          <div className="flex flex-col justify-center items-center">
-            <Link to={paths[index]} className="z-10 text-4xl bg-transparent h-1/2">
-              {texts[index]}
-            </Link>
-            <div className="z-10 text-center items-center">{buttons[index]} </div> 
-          </div>
+const getGradientColors = () => {
+  if (theme.palette.mode === 'dark') {
+    return 'transparent, black';
+  } else {
+    return 'transparent, #808080';
+  }
+};
+
+return (
+  <div className="flex h-screen">
+    {images.map((image, index) => (
+      <div
+        key={index}
+        className={`background-image ${hoveredIndex === index ? 'hover-effect' : ''}`}
+        style={{ backgroundImage: `url(${image})` }}
+        onMouseOver={() => setHoveredIndex(index)}
+        onMouseOut={() => setHoveredIndex(null)}
+      >
+        <div style={{position: 'absolute', inset: 0, background: `linear-gradient(to bottom, ${getGradientColors()})`}} className={`${hoveredIndex === index ? 'hover-effect' : ''}`}></div>
+        <div className="flex flex-col justify-center items-center">
+          <Link to={paths[index]} className="z-10 text-4xl bg-transparent h-1/2">
+            {texts[index]}
+          </Link>
+          <div className="z-10 text-center items-center">{buttons[index]} </div>
         </div>
-      ))}
-    </div>
-  );
+      </div>
+    ))}
+  </div>
+);
 };
 
 export default BackgroundImages;
