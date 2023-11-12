@@ -8,13 +8,18 @@ import Triceps from "./styles/photos/Triceps.png";
 import Forearms from "./styles/photos/Forearms.jpeg";
 import MiddleBack from "./styles/photos/Middle Back.jpeg";
 import MuscleCard from './MuscleCard';
+import { Link } from 'react-router-dom';
 
 function UpperBodyComponent(){
     return(
         <>
         <div className="flex">
             <div className="sticky top-0 flex-none w-1/3 h-screen">
-                <img src={Upper} className="h-screen w-full object-cover"/>
+                <Link to="/user/workout-planner">
+                    <img src={Upper} className="h-screen w-full object-cover"
+                    alt="Workout Planner"
+                    />
+                </Link>
             </div>
             <div className="flex-grow px-24 pt-10 pb-10">
                 <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
