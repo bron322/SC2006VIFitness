@@ -93,6 +93,16 @@ export default function Dashboard() {
           className="rounded-lg border"
           borderColor={colors.secondary.default}
         >
+          
+        </Box>
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.background.default}
+          p="30px"
+          className="rounded-lg border"
+          borderColor={colors.secondary.default}
+        >
           <Typography variant="h5" fontWeight="600" style={{ marginTop: '-10px' }}>
             User Profile
           </Typography>
@@ -151,7 +161,8 @@ export default function Dashboard() {
               >
                 <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                      title={workout.name} />
+                      title={workout.name}
+                      subsubtitle={workout.muscle} />
               </Box>
             ))
           ) : (
@@ -169,7 +180,7 @@ export default function Dashboard() {
           )}
 
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.background.default}
@@ -186,9 +197,9 @@ export default function Dashboard() {
           </Typography>
           <Box height="250px" mt="-15px">
             {/* <Calendar /> */}
-            <Calendar />
+            {/* <Calendar />
           </Box> 
-        </Box>
+        </Box> */}
 
         
 
@@ -269,7 +280,8 @@ export default function Dashboard() {
               >
                 <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                      title={workout.name} />
+                      title={workout.name}
+                      subsubtitle={workout.muscle} />
               </Box>
               );
             }
