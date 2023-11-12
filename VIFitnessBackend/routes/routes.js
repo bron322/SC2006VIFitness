@@ -234,17 +234,6 @@ APIrouter.delete("/delete/:username", (req, res) => {
     });
 });
 
-//Delete by email Method
-APIrouter.delete("/deleteByEmail/:email", (req, res) => {
-  User.deleteOne({ email: req.params.email })
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.send(err.message);
-    });
-});
-
 //Update macros-limit method
 APIrouter.patch("/updateLimits/:email", (req, res) => {
   const limitsData = req.body.newLimits;
@@ -379,7 +368,6 @@ APIrouter.patch("/editExercise/:username", (req, res) => {
     },
     {
       $set: {
-        "workouts.$.name": req.body.title,
         "workouts.$.description": req.body.description,
       },
     },
@@ -529,10 +517,6 @@ APIrouter.post("/resetPassword/:id", (req, res) => {
     .catch((err) => {
       res.send(err.message);
     });
-});
-
-APIrouter.get("/test", (req, res) => {
-  res.send(req.header);
 });
 
 //POST profile pic

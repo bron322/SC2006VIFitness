@@ -22,6 +22,4 @@ This section will cover the basics of how you can develop derivative apps from o
 
 ## Obtain API Key
 
-The first step you have to do is to go to your profile settings > Developer Credential and generate a clientID and client Secret. Make sure to keep your client Secret safe.
-
-Proceed to the next section to see the headers requirement for an API request.
+The first step you have to do is to go to your profile settings and generate a API key fo authentication. Make sure to keep this key a secret.

@@ -30,10 +30,7 @@ import { tokens } from "../theme";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { CheckCircle2, XCircle } from "lucide-react";
 import CryptoJS from "crypto-js";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ring } from "ldrs";
-import AuthAPIService from "@/services/AuthAPIService";
+import { Link } from 'react-router-dom';
 
 export default function ProfileSettings() {
   const theme = useTheme();
@@ -59,9 +56,6 @@ export default function ProfileSettings() {
     newPassword: "",
     repeatPassword: "",
   });
-
-  const [isLoading, setIsLoading] = useState(false);
-  ring.register();
 
   //confirmation in update settigns dialog
   const handleUpdateConfirm = async () => {
@@ -141,26 +135,10 @@ export default function ProfileSettings() {
   useEffect(() => {
     console.log(newPassword);
   });
-
-  const handleGetCredentials = async () => {
-    setIsLoading(true);
-    const data = {
-      email: user.email,
-    };
-    try {
-      const response = await AuthAPIService.initialise(data);
-      if (Object.keys(response.data) !== 0) {
-        setUser(response.data);
-        setTimeout(setIsLoading, 2000, false);
-      } else {
-        toast.error("Something went wrong. Try again later!");
-        setTimeout(setIsLoading, 2000, false);
-      }
-    } catch (e) {
-      console.log(e);
-      toast.error("Something went wrong. Try again later!");
-    }
-  };
+  
+  // const handleLogout = () => {
+  //   logout();
+  // };
 
   return (
     <>
@@ -491,8 +469,7 @@ export default function ProfileSettings() {
                 </DialogHeader>
                 <DialogFooter>
                   <DialogClose asChild>
-                    <ShadcnButton
-                      onClick={handleUpdatePassword}
+                    <ShadcnButton onClick={handleUpdatePassword}
                       variant="default"
                     >
                       Update
@@ -577,66 +554,6 @@ export default function ProfileSettings() {
           <StravaButton onClick={() => stravaConnect()}>
             Connect with Strava
           </StravaButton>
-        )}
-
-        {/* Developer Console */}
-
-        <Divider sx={{ my: 2, width: "100%" }} />
-        <Typography
-          variant="h3"
-          component="h1"
-          gutterBottom
-          sx={{ textAlign: "left", fontSize: "2.0rem" }}
-        >
-          Developer Credential
-        </Typography>
-        {isLoading ? (
-          <l-ring
-            size="40"
-            stroke="5"
-            bg-opacity="0"
-            speed="3"
-            color="#737373"
-          ></l-ring>
-        ) : user.clientID ? (
-          <div className="w-full">
-            <div className="flex w-full max-w-xl items-center gap-1.5 mb-3">
-              <Label className="w-[100px]" htmlFor="Client ID">
-                Client ID
-              </Label>
-              <Input
-                id="Client ID"
-                value={user.clientID}
-                disabled
-                className="disabled:cursor-text"
-              />
-            </div>
-            <div className="flex w-full max-w-xl items-center gap-1.5 mb-10">
-              <Label className="w-[100px]" htmlFor="Client Secret">
-                Client Secret
-              </Label>
-              <Input
-                id="Client Secret"
-                value={user.clientSecret}
-                disabled
-                className="disabled:cursor-text"
-              />
-            </div>
-          </div>
-        ) : (
-          <Button
-            variant="contained"
-            sx={{
-              mt: 1,
-              mb: 1,
-              width: "202px",
-              backgroundColor: "rgb(205, 213, 224)",
-              color: "rgb(32, 41, 58)",
-            }}
-            onClick={handleGetCredentials}
-          >
-            Obtain Credentials
-          </Button>
         )}
       </Box>
     </>

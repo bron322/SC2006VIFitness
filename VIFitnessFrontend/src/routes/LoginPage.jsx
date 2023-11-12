@@ -80,7 +80,7 @@ export default function LoginPage() {
       response.data.password !==
         CryptoJS.SHA256(data.password).toString(CryptoJS.enc.Base64)
     ) {
-      toast.error("Invalid credentials");
+      toast.error("Invalid credentials bro");
     } else {
       // if user exist
       login(response.data);

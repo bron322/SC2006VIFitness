@@ -9,15 +9,6 @@ export default axios.create({
   },
 });
 
-const AuthAPIhttp = axios.create({
-  baseURL: "http://localhost:3000/vifitness",
-  // baseURL: "https://expensive-eel-wrap.cyclic.app/vifitness",
-  credentials: true,
-  headers: {
-    "Content-type": "application/json",
-  },
-});
-
 const appID = import.meta.env.VITE_NUTRITIONIX_ID;
 const appKey = import.meta.env.VITE_NUTRITIONIX_KEY;
 
@@ -54,10 +45,4 @@ const BrevoAPIhttp = axios.create({
   },
 });
 
-export {
-  Nutrionixhttp,
-  ExerciseAPIhttp,
-  StravaAPIhttp,
-  BrevoAPIhttp,
-  AuthAPIhttp,
-};
+export { Nutrionixhttp, ExerciseAPIhttp, StravaAPIhttp, BrevoAPIhttp };
