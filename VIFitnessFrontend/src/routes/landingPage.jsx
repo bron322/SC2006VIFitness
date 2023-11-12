@@ -21,7 +21,6 @@ import Footer from "@/components/landingPageUI/footer";
 import Splitting from "splitting";
 import gsap from "gsap";
 
-
 export default function LandingPage() {
   const initialised = useRef(false);
   const [rotation, setRotation] = useState(360);
@@ -213,7 +212,7 @@ export default function LandingPage() {
 
               <div className="cursor cursor-pointer hover:cursor-pointer">
                 <div
-                  className="cursor-text text-neutral-300 cursor-pointer hover:cursor-pointer"
+                  className="text-neutral-300 cursor-pointer hover:cursor-pointer"
                   data-splitting=""
                 >
                   Explore • our • Features •
