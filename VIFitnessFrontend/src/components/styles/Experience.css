@@ -1,9 +1,0 @@
-#leva__root > * {
-  position: fixed !important; /* Ensure the panel is positioned relative to the viewport */
-  top: 5rem;                  /* Distance from the top edge */
-  left: 18rem;                 /* Distance from the left edge */
-}
-
-#leva__root-titlebar > *  {
-    cursor: default !important; /* Indicates the title bar is not draggable */
-  }
