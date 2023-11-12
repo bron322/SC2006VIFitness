@@ -45,8 +45,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         backgroundColor: hover
           ? colors.muted.hover // button color when hover
           : selected === title
-            ? colors.primary.active // button color when active
-            : colors.background.default, // button color for default
+          ? colors.primary.active // button color when active
+          : colors.background.default, // button color for default
         transitionDuration: "0.3s",
       }}
       onClick={() => setSelected(title)}
@@ -65,8 +65,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           color: hover
             ? colors.accent.foreground // button color when hover
             : selected === title
-              ? colors.destructive.foreground // button color when active
-              : colors.muted.foreground, // button color for default
+            ? colors.destructive.foreground // button color when active
+            : colors.muted.foreground, // button color for default
         },
       }}
     >
@@ -76,8 +76,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           hover
             ? colors.accent.foreground // text color for hover
             : selected === title
-              ? colors.destructive.foreground // text color for active
-              : colors.muted.foreground // text color for default
+            ? colors.destructive.foreground // text color for active
+            : colors.muted.foreground // text color for default
         }
         fontWeight="medium"
       >
@@ -105,13 +105,13 @@ const MyProSidebar = () => {
     setIsHovered(false);
   };
 
-  const [postImage, setPostImage] = useState({ myFile: '' })
+  const [postImage, setPostImage] = useState({ myFile: "" });
 
   const createPost = async (newImage) => {
     const data = {
       username: user.username,
       profilepic: newImage,
-    }
+    };
     try {
       const response = await APIDataService.uploadProfilePic(data);
       if (Object.keys(response.data).length !== 0) {
@@ -121,24 +121,25 @@ const MyProSidebar = () => {
         toast.error("Something went wrong. Try again later!");
       }
     } catch (error) {
-      console.log(error)
-      toast.error("Something went wrong. Try again with a picture with smaller size!");
-      console.log(error)
+      toast.error(
+        "Something went wrong. Try again with a picture with smaller size!"
+      );
+      console.log(error);
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createPost(postImage.myFile);
     console.log("Uploaded");
-  }
+  };
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
-    console.log(base64)
-    setPostImage({ ...postImage, myFile: base64 })
-  }
+    console.log(base64);
+    setPostImage({ ...postImage, myFile: base64 });
+  };
 
   const handleLogout = () => {
     logout();
@@ -243,64 +244,84 @@ const MyProSidebar = () => {
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
+                  overflow="hidden"
                   sx={{
                     "& .avater-image": {
                       backgroundColor: colors.background.default,
                     },
                   }}
-                  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {/* Profile Picture */}
-                  <img
-                    className="avatar-image"
-                    alt="profile user"
-                    width="200px"
-                    height="200px"
-                    src={postImage.myFile !== '' ? postImage.myFile : (user.profilePic !== "nil" ? user.profilePic : Profile)}
-                    style={{ cursor: "pointer", borderRadius: "50%" }}
-                  />
+                  <div className="h-36 w-36">
+                    <img
+                      className="avatar-image w-full h-full"
+                      alt="profile user"
+                      src={
+                        postImage.myFile !== ""
+                          ? postImage.myFile
+                          : user.profilePic !== "nil"
+                          ? user.profilePic
+                          : Profile
+                      }
+                      style={{
+                        cursor: "pointer",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
 
                   {/* Form */}
                   {isHovered && (
-                    <Form onSubmit={handleSubmit}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '130%',
-                        height: '40%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}>
-                      <input
-                        type="file"
-                        label="Image"
-                        name="myFile"
-                        id="file-upload"
-                        accept=".jpeg, .png, .jpg"
-                        onChange={(e) => handleFileUpload(e)}
-                      />
-                      {/* Submit button */}
-                      <button
-                        type="submit"
+                    <div className="flex justify-center">
+                      <Form
+                        onSubmit={handleSubmit}
                         style={{
-                          backgroundColor: '#4CAF50', /* Green background color */
-                          border: 'none', /* Remove border */
-                          color: 'white', /* White text color */
-                          padding: '5px 10px', /* Padding */
-                          textAlign: 'center', /* Center text */
-                          textDecoration: 'none', /* Remove underline */
-                          display: 'inline-block', /* Make it an inline block */
-                          fontSize: '16px', /* Set font size */
-                          borderRadius: '4px', /* Rounded corners */
-                          cursor: 'pointer', /* Cursor on hover */
+                          position: "absolute",
+                          top: "150px",
+                          left: 0,
+                          width: "130%",
+                          height: "100px",
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                       >
-                        Submit
-                      </button>
-                    </Form>
+                        <input
+                          type="file"
+                          label="Image"
+                          name="myFile"
+                          id="file-upload"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                          className="w-[90px]"
+                        />
+                        {/* Submit button */}
+                        <button
+                          type="submit"
+                          style={{
+                            backgroundColor:
+                              "#1FD655" /* Green background color */,
+                            border: "none" /* Remove border */,
+                            color: "white" /* White text color */,
+                            padding: "5px 10px" /* Padding */,
+                            textAlign: "center" /* Center text */,
+                            textDecoration: "none" /* Remove underline */,
+                            display:
+                              "inline-block" /* Make it an inline block */,
+                            fontSize: "16px" /* Set font size */,
+                            borderRadius: "4px" /* Rounded corners */,
+                            cursor: "pointer" /* Cursor on hover */,
+                          }}
+                          className="mr-14"
+                        >
+                          Submit
+                        </button>
+                      </Form>
+                    </div>
                   )}
                 </Box>
 
@@ -398,10 +419,10 @@ function convertToBase64(file) {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = () => {
-      resolve(fileReader.result)
+      resolve(fileReader.result);
     };
     fileReader.onerror = (error) => {
-      reject(error)
-    }
-  })
+      reject(error);
+    };
+  });
 }

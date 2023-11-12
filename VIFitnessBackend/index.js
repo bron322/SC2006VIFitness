@@ -1,10 +1,10 @@
 import express from "express";
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import "dotenv/config";
 import { APIrouter } from "./routes/routes.js";
-import { User } from "./model/model.js";
+import { authRouter } from "./routes/authRoutes.js";
 
 ///////////////////////////////////////////////// app set-up //////////////////////////////////////////////////
 const app = express();
@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use("/api", APIrouter);
+app.use("/vifitness", authRouter);
 
 ///////////////////////////////////////////////// cors set-up //////////////////////////////////////////////////
 var corsOptions = {
