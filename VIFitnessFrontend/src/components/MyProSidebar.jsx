@@ -368,13 +368,13 @@ const MyProSidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
+              {/* <Item
                 title="FAQ Page"
                 to="faq"
                 icon={<HelpOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </Box>
             <div className="flex-col w-full absolute bottom-0 justify-center align-middle">
               <Separator

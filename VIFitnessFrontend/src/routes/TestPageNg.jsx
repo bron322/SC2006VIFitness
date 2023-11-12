@@ -1,32 +1,14 @@
-import Experience from "../components/Experience";
+import Experience from "../components/Experience.jsx";
 import { Canvas } from "@react-three/fiber";
 import React from "react";
-import Interface from "../components/Interface";
-import { MantineProvider } from "@mantine/core";
-import { CharacterAnimationsProvider } from "../components/contexts/CharacterAnimations";
 
 const TestPageNg = () => {
   return (
-    <div style={{ overflow: "auto" }}>
-      <MantineProvider>
-        <CharacterAnimationsProvider>
-          <Canvas
-            style={{
-              position: "absolute",
-              zIndex: "10",
-              width: "40%",
-              height: "80%",
-              transform: "translate(0%, 10%)",
-            }}
-            shadows
-            camera={{ position: [0, 3, 18], fov: 8 }}
-          >
-            <Experience />
-          </Canvas>
-          <Interface />
-        </CharacterAnimationsProvider>
-      </MantineProvider>
-    </div>
+    <Canvas style={{ position: "absolute", zIndex: "20", width: "80%", height: "90%"}} 
+    shadows camera={{ position: [3, 3, 3], fov: 30 }}>
+      <color attach="background" args={["#ececec"]} />
+      <Experience />
+    </Canvas>
   );
 };
 
