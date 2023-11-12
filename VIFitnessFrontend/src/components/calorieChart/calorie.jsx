@@ -102,7 +102,7 @@ const now = format(new Date(), "PPP");
   const monthDates = getMonthDates();
 
   return(
-    <Tabs defaultValue="today">
+    <Tabs defaultValue="today" >
       <div className="space-between flex items-center justify-center w-full">
         <TabsList
           style={{ backgroundColor: colors.background.default }}
@@ -118,7 +118,7 @@ const now = format(new Date(), "PPP");
         value="today"
         className="border-none p-0 outline-none"
       >
-          <Box >
+        <Box>
         <BarChart
         meals={user.meals.filter(filterMealsByToday)}
         workouts = {user.workouts.filter(filterWorkoutsByToday)}

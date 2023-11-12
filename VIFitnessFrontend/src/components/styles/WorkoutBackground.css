@@ -1,24 +1,39 @@
 .background-images-container {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .background-image {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-  }
-  
-  .centered-text {
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.7); 
-  }
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.centered-text {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hover-effect {
+  filter: brightness(1.2); /* Adjust the brightness factor as needed */
+  transform: scale(1.08); /* Adjust the scale factor for zooming */
+  transition: transform 0.3s ease; /* Add a smooth transition for the zoom effect */
+  z-index: 1;
+}
+
+/* Add these styles for the hovered effect and zoom effect */
+.hover-return {
+  filter: brightness(0.8); /* Adjust the brightness factor as needed */
+  transform: scale(1.05); /* Adjust the scale factor for zooming */
+  transition: transform 0.3s ease; /* Add a smooth transition for the zoom effect */
+  z-index: 1
+}
