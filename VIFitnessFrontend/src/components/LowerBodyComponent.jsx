@@ -7,13 +7,17 @@ import Quads from "./styles/photos/Quads.png";
 import Adductors from "./styles/photos/Adductors.jpeg";
 import Abductors from "./styles/photos/Abductors.jpeg";
 import MuscleCard from './MuscleCard';
+import { Link } from 'react-router-dom';
 
 function LowerBodyComponent() {
     return (
         <>
         <div className="flex">
             <div className="sticky top-0 flex-none w-1/3 h-screen">
-                <img src={Lower} className="h-screen w-full object-cover"/>
+                <Link to="/user/workout-planner">
+                    <img src={Lower} className="h-screen w-full object-cover"
+                    alt="Workout Planner"/>
+                </Link>
             </div>
             <div className="flex-grow px-24 pt-10 pb-10">
                 <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
