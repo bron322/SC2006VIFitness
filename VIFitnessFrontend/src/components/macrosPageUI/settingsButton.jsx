@@ -105,7 +105,7 @@ export function SettingsButton(props) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Daily Limits</DialogTitle>
+          <DialogTitle className="text-neutral-950">Daily Limits</DialogTitle>
           <DialogDescription>
             Make changes to your daily limits here. Click save when you're done.
           </DialogDescription>
