@@ -25,6 +25,7 @@ export default function LandingPage() {
   const initialised = useRef(false);
   const [rotation, setRotation] = useState(360);
   const [radius, setRadius] = useState(70);
+  const pulse = useRef();
 
   //for spining scroll down button
   useEffect(() => {
@@ -139,10 +140,20 @@ export default function LandingPage() {
 
   const handleMouseEnter = () => {
     setRotation(-360);
+    gsap.to(pulse.current, {
+      opacity: 1,
+      duration: 1,
+      ease: "power2.out",
+    });
   };
 
   const handleMouseLeave = () => {
     setRotation(360);
+    gsap.to(pulse.current, {
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out",
+    });
   };
 
   return (
@@ -177,9 +188,12 @@ export default function LandingPage() {
               <FontAwesomeIcon icon={faArrowDown} />
             </div>
           </a> */}
-          <a href="#macros" className="hover:opacity-70 transition-opactity">
+          <a
+            href="#macros"
+            className="opacity-70 hover:opacity-100 transition-opactity hover:cursor-pointer"
+          >
             <div
-              className="flex justify-center items-center"
+              className="flex justify-center items-center hover:cursor-pointer relative"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -188,9 +202,17 @@ export default function LandingPage() {
                   Scroll • Down •
                 </div>
               </div> */}
-              <div className="cursor cursor-pointer">
+              <div
+                className="w-[100px] h-[100px] absolute hover:opacity-0"
+                ref={pulse}
+              >
+                <div className="pulse absolute"></div>
+                <div className="pulse2 absolute"></div>
+              </div>
+
+              <div className="cursor cursor-pointer hover:cursor-pointer">
                 <div
-                  className="cursor-text text-neutral-300 cursor-pointer"
+                  className="cursor-text text-neutral-300 cursor-pointer hover:cursor-pointer"
                   data-splitting=""
                 >
                   Explore • our • Features •
