@@ -121,6 +121,7 @@ const MyProSidebar = () => {
         toast.error("Something went wrong. Try again later!");
       }
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong. Try again with a picture with smaller size!");
       console.log(error)
     }
