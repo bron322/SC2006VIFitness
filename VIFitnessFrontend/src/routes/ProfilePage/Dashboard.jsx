@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import Header from "./Chart/Header";
 import Macros from "./Chart/macros";
@@ -9,6 +9,9 @@ import { useAuth } from "@/hooks/AuthProvider";
 import Calendar from "../Calendar/components/SmallCalendar"
 import { Link } from 'react-router-dom';
 import BarChart from "../../components/calorieChart/calorie";
+import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export default function Dashboard() {
   const theme = useTheme();
@@ -16,11 +19,62 @@ export default function Dashboard() {
   const { user } = useAuth();
   const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
 
+  const handleDownload = () => {
+    const dashboardElement = document.getElementById('dashboard-container');
+
+    if (dashboardElement) {
+      html2canvas(dashboardElement)
+        .then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF();
+          const imgWidth = pdf.internal.pageSize.getWidth();
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          // Define the maximum height of a single page
+          const maxPageHeight = pdf.internal.pageSize.getHeight();
+
+          // Check if the image height exceeds the maximum height of a single page
+          if (imgHeight > maxPageHeight) {
+            let currentY = 0;
+
+            // Loop to create multiple pages
+            while (currentY < imgHeight) {
+              const pageHeight = Math.min(imgHeight - currentY, maxPageHeight);
+              pdf.addPage();
+              pdf.addImage(imgData, 'PNG', 0, -currentY, imgWidth, imgHeight);
+              currentY += pageHeight;
+            }
+          } else {
+            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+          }
+          pdf.save('dashboard-report.pdf');
+        })
+        .catch((error) => {
+          console.error('Error generating PDF:', error);
+        });
+      }
+    };
   return (
+    <div id="dashboard-container">
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Dashboard" subtitle="Welcome to my dashboard" />
+        <Header title="Dashboard" subtitle={`Welcome to ${user.username}'s dashboard`} />
+
+      <Box>
+          <Button
+            sx={{
+              backgroundColor: colors.accent.foreground,
+              color: colors.secondary.default,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+            }}
+            onClick={handleDownload}
+          >
+            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
+            Download Reports
+          </Button>
+        </Box>
       </Box>
 
       {/* GRID & CHARTS */}
@@ -115,26 +169,6 @@ export default function Dashboard() {
           )}
 
         </Box>
-        {/* <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.background.default}
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-          overflow = "auto"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Completed Workout 
-          </Typography> */}
-
-        {/* <Box height="250px" m="-20px 0 0 0">
-            <BarChart isDashboard={true} />
-          </Box> */}
-        {/* </Box> */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -248,7 +282,8 @@ export default function Dashboard() {
         {/* ROW 3 */}
         <Box
           gridColumn="span 8"
-          gridRow="span 3"
+          gridRow="span 4"
+          // height="115%"
           backgroundColor={colors.background.default}
           className="rounded-lg border"
           borderColor={colors.secondary.default}
@@ -339,5 +374,6 @@ export default function Dashboard() {
         </Box> */}
       </Box>
     </Box>
+    </div>
   );
 }

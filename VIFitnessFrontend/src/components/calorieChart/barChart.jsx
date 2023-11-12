@@ -17,10 +17,14 @@ function BarChartTest(props) {
     yAxis: [
       {
         label: 'Total Calories',
+        margins: {
+          right: 100,
+          bottom: 10,
+      },
       },
     ],
-    width: 600,  // Increase the width
-    height: 400, // Increase the height
+    width: 700,  // Increase the width
+    height: 380, // Increase the height
     // viewBox: '0 0 300 200',
     slotProps: {
       legend: {
@@ -66,12 +70,12 @@ function BarChartTest(props) {
 
 
   return (
-      // <Typography
-      //   className=" text-lg font-semibold tracking-tight w-full mb-[-100]"
-      //   style={{ color: colors.card.foreground }}
-      // >
-      //     {props.title} Statistics
-      // </Typography>
+      <div
+        className=" text-lg font-semibold tracking-tight w-full mb-[-100]"
+        style={{ color: colors.card.foreground }}
+      >
+          {props.title} Statistics
+
       <BarChart
         margin={{
           left: 150,
@@ -98,6 +102,7 @@ function BarChartTest(props) {
         {...chartSetting}
         // {...legendPlacement}
       />
+      </div>
   );
 }
 export default BarChartTest;
