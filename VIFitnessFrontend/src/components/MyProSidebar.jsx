@@ -243,7 +243,6 @@ const MyProSidebar = () => {
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
-                  overflow = "hidden"
                   sx={{
                     "& .avater-image": {
                       backgroundColor: colors.background.default,
@@ -252,14 +251,14 @@ const MyProSidebar = () => {
                   onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
                 >
                   {/* Profile Picture */}
-                  <div className="h-36 w-36">
                   <img
-                    className="avatar-image w-full h-full"
+                    className="avatar-image"
                     alt="profile user"
+                    width="200px"
+                    height="200px"
                     src={postImage.myFile !== '' ? postImage.myFile : (user.profilePic !== "nil" ? user.profilePic : Profile)}
-                    style={{ cursor: "pointer", borderRadius: "50%", objectFit: "cover", }}
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
                   />
-                  </div> 
 
                   {/* Form */}
                   {isHovered && (
@@ -287,7 +286,7 @@ const MyProSidebar = () => {
                       <button
                         type="submit"
                         style={{
-                          backgroundColor: '#1FD655', /* Green background color */
+                          backgroundColor: '#4CAF50', /* Green background color */
                           border: 'none', /* Remove border */
                           color: 'white', /* White text color */
                           padding: '5px 10px', /* Padding */
