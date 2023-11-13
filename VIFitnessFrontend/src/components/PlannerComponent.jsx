@@ -15,8 +15,7 @@ import { useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext } from "../routes/theme";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { useSpring, animated} from "react-spring";         
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'        
 import { useNavigate } from 'react-router-dom'; 
 
 
@@ -24,12 +23,6 @@ const BackgroundImages = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
-  const [flip, setFlip] = useState(false)
-  
-  const props = useSpring({
-    to: {opacity: 1},
-    from: {opacity: 0},
-  });
 
   const DarkImages = [
     Lower,
@@ -70,7 +63,7 @@ const changeImage = () => {
 }
 
 return (
-  <div className="flex h-screen" style ={props}>
+  <div className="flex h-screen">
     {changeImage().map((image, index) => (
       <div
         key={index}
