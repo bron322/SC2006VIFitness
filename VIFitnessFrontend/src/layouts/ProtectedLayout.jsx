@@ -11,6 +11,7 @@ export default function ProtectedLayout() {
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
+    document.documentElement.style.overflow = "auto";
     if (user.hasOwnProperty("strava_data")) {
       setIsStrava(true);
     }
