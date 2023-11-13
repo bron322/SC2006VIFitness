@@ -33,11 +33,13 @@ export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const completedWorkouts = user.workouts.filter(
+    (workout) => workout.isCompleted
+  );
   const calculateBMI = (weight, height) => {
     // Check if weight and height are provided
     if (!weight || !height) {
-        return "Please provide both weight and height for accurate BMI calculation.";
+      return "Please provide both weight and height for accurate BMI calculation.";
     }
 
     // Convert height to meters (if it's in centimeters)
@@ -48,9 +50,9 @@ export default function Dashboard() {
 
     // Round BMI to two decimal places
     return parseFloat(bmi.toFixed(2));
-};
+  };
 
-const bmiResult = calculateBMI(user.weight, user.height);
+  const bmiResult = calculateBMI(user.weight, user.height);
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -164,11 +166,14 @@ const bmiResult = calculateBMI(user.weight, user.height);
                       position: "absolute",
                       zIndex: "10",
                       width: "23%",
-                      height: "80%",
+                      height: "75%",
                       transform: "translate(0%, 10%)",
+                      border: "1px",
+                      borderStyle: "double",
+                      borderRadius: "10px",
                     }}
                     shadows
-                    camera={{ position: [0, 12, 18], fov: 95 }}
+                    camera={{ position: [0, 10, 18], fov: 90 }}
                   >
                     <Experience />
                   </Canvas>
