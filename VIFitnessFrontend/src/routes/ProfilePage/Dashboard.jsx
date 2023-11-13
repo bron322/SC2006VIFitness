@@ -256,8 +256,10 @@ export default function Dashboard() {
               >
                 Completed Workout
               </Typography>
-
             </Box>
+
+            {completedWorkouts.length > 0 ? (
+              <>
               {Object.keys(muscleGroups).map((muscle, i) => (
                 <Box
                   key={`${i}-${muscle}`}
@@ -290,7 +292,8 @@ export default function Dashboard() {
                   )}
                 </Box>
               ))}
-          {/* : (
+              </>           
+              ): (
               <Box
                 display="flex"
                 justifyContent="space-between"
@@ -302,7 +305,7 @@ export default function Dashboard() {
                   Start doing your workout now !!!
                 </Typography>
               </Box>
-            )} */}
+            )} 
 
           </Box>
           <Box
