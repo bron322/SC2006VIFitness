@@ -109,11 +109,11 @@ export default function MacrosPage() {
     <>
       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <div
-        className="macros-page-wrapper h-full min-h-screen pt-2"
+        className="macros-page-wrapper h-fit min-h-screen pt-2 pb-5"
         style={{ backgroundColor: colors.background.children }}
       >
         <Card
-          className="m-10 mb-0"
+          className="m-10 mb-5"
           style={{
             backgroundColor: colors.background.children,
             borderColor: colors.background.default,
@@ -138,7 +138,7 @@ export default function MacrosPage() {
                     style={{ backgroundColor: colors.background.default }}
                   >
                     <TabsTrigger value="stats" className="relative">
-                      Stats
+                      Tracker
                     </TabsTrigger>
                     <TabsTrigger value="setting">Settings</TabsTrigger>
                   </TabsList>
@@ -331,141 +331,147 @@ export default function MacrosPage() {
                   className="border-none p-0 outline-none"
                 >
                   {/* ////////////////// Statistics Children ////////////////// */}
-                <Separator
-                  className="my-3 mt-4"
-                  style={{ backgroundColor: colors.muted.foreground }}
-                />
+                  <Separator
+                    className="my-3 mt-4"
+                    style={{ backgroundColor: colors.muted.foreground }}
+                  />
 
-                <div className="col-span-3 lg:col-span-4">
-                  <div className="h-full px-4 py-6 pt-0 lg:px-8">
-                    <Tabs defaultValue="query" className="h-full space-y-6">
-                      <div className="space-between flex items-center">
-                        <TabsList
-                          style={{
-                            backgroundColor: colors.background.default,
-                          }}
-                        >
-                          <TabsTrigger value="query" className="relative">
-                            Query
-                          </TabsTrigger>
-                          <TabsTrigger value="myMeals">My Meals</TabsTrigger>
-                        </TabsList>
-                      </div>
+                  <div className="col-span-3 lg:col-span-4">
+                    <div className="h-full px-4 py-6 pt-0 lg:px-8">
+                      <Tabs defaultValue="query" className="h-full space-y-6">
+                        <div className="space-between flex items-center">
+                          <TabsList
+                            style={{
+                              backgroundColor: colors.background.default,
+                            }}
+                          >
+                            <TabsTrigger value="query" className="relative">
+                              Query
+                            </TabsTrigger>
+                            <TabsTrigger value="myMeals">My Meals</TabsTrigger>
+                          </TabsList>
+                        </div>
 
-                      {/* ////////////////// My Meals ////////////////// */}
-                      <TabsContent value="myMeals" className="">
-                        <div className="flex items-center justify-center w-full">
-                          <div className="space-y-1 w-full">
-                            {/* <h2
+                        {/* ////////////////// My Meals ////////////////// */}
+                        <TabsContent value="myMeals" className="">
+                          <div className="flex items-center justify-center w-full">
+                            <div className="space-y-1 w-full">
+                              {/* <h2
                                 className=" text-2xl font-semibold tracking-tight w-full"
                                 style={{ color: colors.card.foreground }}
                               >
                                 Meals
                               </h2> */}
-                            <div className="container mx-auto py-5">
-                              <DataTable
-                                columns={TableColumns.columns}
-                                data={user.meals}
-                              />
+                              <div className="container mx-auto py-5">
+                                <DataTable
+                                  columns={TableColumns.columns}
+                                  data={user.meals}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </TabsContent>
+                        </TabsContent>
 
-                      {/* ////////////////// Query Nutritionix ////////////////// */}
-                      <TabsContent value="query" className="">
-                        <div className="flex items-center justify-center w-full">
-                          <div className="space-y-1 w-full">
-                            <h2
-                              className=" text-2xl font-semibold tracking-tight w-full"
-                              style={{ color: colors.card.foreground }}
-                            >
-                              Nutritionix Database Query
-                            </h2>
-                            <div className="grid w-[30vw] gap-1.5">
-                              <Label
-                                htmlFor="query-field"
+                        {/* ////////////////// Query Nutritionix ////////////////// */}
+                        <TabsContent value="query" className="">
+                          <div className="flex items-center justify-center w-full">
+                            <div className="space-y-1 w-full">
+                              <h2
+                                className=" text-2xl font-semibold tracking-tight w-full"
                                 style={{ color: colors.card.foreground }}
                               >
-                                Enter you meal:
-                              </Label>
-                              <div className="text-with-button flex">
-                                <Textarea
-                                  placeholder="e.g. Chicken rice with milo"
-                                  id="query-field"
-                                  maxLength="80"
+                                Nutritionix Database Query
+                              </h2>
+                              <div className="grid w-[30vw] gap-1.5">
+                                <Label
+                                  htmlFor="query-field"
                                   style={{ color: colors.card.foreground }}
-                                  onChange={handleQueryChange}
-                                />
-                                <Button
-                                  variant="secondary"
-                                  size="lg"
-                                  className="w-[5vw] h-full ml-2"
-                                  onClick={handleQuerySubmit}
-                                  disabled={queryButton}
                                 >
-                                  Submit
-                                </Button>
+                                  Enter you meal:
+                                </Label>
+                                <div className="text-with-button flex">
+                                  <Textarea
+                                    placeholder="e.g. Chicken rice with milo"
+                                    id="query-field"
+                                    maxLength="80"
+                                    style={{ color: colors.card.foreground }}
+                                    onChange={handleQueryChange}
+                                  />
+                                  <Button
+                                    variant="secondary"
+                                    size="lg"
+                                    className="w-[5vw] h-full ml-2"
+                                    onClick={handleQuerySubmit}
+                                    disabled={queryButton}
+                                  >
+                                    Submit
+                                  </Button>
+                                </div>
+
+                                <p
+                                  className="text-sm text-muted-foreground"
+                                  style={{ color: colors.muted.foreground }}
+                                >
+                                  Use comma to seperate more than 1 food
+                                </p>
                               </div>
 
-                              <p
-                                className="text-sm text-muted-foreground"
-                                style={{ color: colors.muted.foreground }}
-                              >
-                                Use comma to seperate more than 1 food
-                              </p>
+                              {/* ////////////////// Food Card ////////////////// */}
+                              {isLoading ? null : (
+                                <div>
+                                  {nutritionData.length === 0 ? (
+                                    <p className="text-center text-gray-500 pt-20">
+                                      Please insert food.
+                                    </p>
+                                  ) : (
+                                    <>
+                                      <div className="foodcard-wrapper grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 ">
+                                        {nutritionData.map((item) => (
+                                          <FoodCard
+                                            key={item.ndb_no}
+                                            data={item}
+                                          />
+                                        ))}
+                                      </div>
+
+                                      <Separator
+                                        className="my-4"
+                                        style={{
+                                          backgroundColor:
+                                            colors.muted.foreground,
+                                        }}
+                                      />
+                                    </>
+                                  )}
+                                </div>
+                              )}
+
+                              {isLoading ? (
+                                <div className="loading-wrapper min-h-[50vh] flex justify-center items-center">
+                                  <l-bouncy
+                                    size="45"
+                                    speed="1.75"
+                                    color="#3b82f6"
+                                  ></l-bouncy>
+                                </div>
+                              ) : null}
+
+                              {/* ////////////////// Query Summary ////////////////// */}
+                              {isLoading ? null : (
+                                <div className="summary-wrapper">
+                                  {nutritionData.length >= 1 ? (
+                                    <SummaryCard data={nutritionData} />
+                                  ) : (
+                                    <div className="min-h-[50px]"></div>
+                                  )}
+                                </div>
+                              )}
                             </div>
-
-                            {/* ////////////////// Food Card ////////////////// */}
-                            {isLoading ? null : (
-                              <div>
-                                {nutritionData.length === 0 ? (
-                                  <p className="text-center text-gray-500 pt-20">Please insert food.</p>
-                                ) : (
-                                  <>
-                                    <div className="foodcard-wrapper grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6 ">
-                                      {nutritionData.map((item) => (
-                                        <FoodCard key={item.ndb_no} data={item} />
-                                      ))}
-                                    </div>
-
-                                    <Separator
-                                      className="my-4"
-                                      style={{
-                                        backgroundColor: colors.muted.foreground,
-                                      }}
-                                    />
-                                  </>
-                                )}
-                              </div>
-                            )}
-
-                            {isLoading ? (
-                              <div className="loading-wrapper min-h-[50vh] flex justify-center items-center">
-                                <l-bouncy
-                                  size="45"
-                                  speed="1.75"
-                                  color="#3b82f6"
-                                ></l-bouncy>
-                              </div>
-                            ) : null}
-
-                            {/* ////////////////// Query Summary ////////////////// */}
-                            {isLoading ? null : (
-                              <div className="summary-wrapper">
-                                {nutritionData.length >= 1 ? (
-                                  <SummaryCard data={nutritionData} />
-                                ) : (
-                                  <div className="min-h-[50px]"></div>
-                                )}
-                              </div>
-                            )}
                           </div>
-                        </div>
-                      </TabsContent>
-                    </Tabs>
+                        </TabsContent>
+                      </Tabs>
+                    </div>
                   </div>
-                </div>
                   <Separator
                     className="my-4"
                     style={{ backgroundColor: colors.muted.foreground }}
