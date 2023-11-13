@@ -21,10 +21,12 @@ const BackgroundImages = () => {
 
   const texts = ['Lower Body', 'Upper Body', 'Core'];
   const paths = ['/user/workout-lower', '/user/workout-upper', '/user/workout-core']
-  const part1 = ['Quads', 'Chest', 'Abs'];
-  const part2 = ['Hamstrings', 'Biceps', 'Obliques']
-  const part3 = ['Glutes', 'Shoulders']
-  const part4 = ['Calves', 'Lats']
+  const part1 = ['Abductors', 'Biceps', 'Abdominals'];
+  const part2 = ['Adductors', 'Chest', 'Lower Back']
+  const part3 = ['Calves', 'Forearm']
+  const part4 = ['Glutes', 'Lats']
+  const part5 = ['Hamstrings', 'Middle Back']
+  const part6 = ['Quadriceps', 'Triceps']
   const buttons = [<LowerButton />, <UpperButton />, <CoreButton />]
 
   return (
@@ -47,6 +49,8 @@ const BackgroundImages = () => {
             <div className="z-10 text-xl text-center bg-transparent">{part2[index]}</div>
             <div className="z-10 text-xl text-center bg-transparent">{part3[index]}</div>
             <div className="z-10 text-xl text-center bg-transparent">{part4[index]}</div>
+            <div className="z-10 text-xl text-center bg-transparent">{part5[index]}</div>
+            <div className="z-10 text-xl text-center bg-transparent">{part6[index]}</div>
           </div>
         </div>
       ))}

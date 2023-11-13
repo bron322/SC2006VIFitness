@@ -249,7 +249,7 @@ export default function LandingPage() {
 
               <div className="cursor cursor-pointer hover:cursor-pointer">
                 <div
-                  className="cursor-text text-neutral-300 cursor-pointer hover:cursor-pointer"
+                  className="text-neutral-300 cursor-pointer hover:cursor-pointer"
                   data-splitting=""
                 >
                   Explore • our • Features •
