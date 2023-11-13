@@ -7,10 +7,10 @@ const Interface = () => {
     useCharacterAnimations();
   return (
     <div
-     style={{ 
-      overflow: "hidden",
-      transform: "translate(0%, -10%)"
-    }}
+      style={{
+        overflow: "hidden",
+        transform: "translate(0%, -10%)",
+      }}
     >
       <div>
         <Stack>

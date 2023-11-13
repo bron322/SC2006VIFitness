@@ -14,6 +14,7 @@ import emitter from "@/utils/eventEmitter";
 import ScrollToTop from "@/utils/ScrollToTop";
 import gsap from "gsap";
 
+
 export default function LandingPage() {
   const initialised = useRef(false);
   const [rotation, setRotation] = useState(360);

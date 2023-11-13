@@ -99,29 +99,29 @@ export default function Dashboard() {
           {/* ROW 1 */}
           <Box
             gridColumn="span 4"
-            gridRow="span 2"
+            gridRow="span 5"
             backgroundColor={colors.background.default}
             p="30px"
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-            <div style={{ overflow: "hidden" }}>
+            <div style={{ overflow: "auto" }}>
               <MantineProvider>
                 <CharacterAnimationsProvider>
-                  <Interface style={{ zIndex: "20" }} />
                   <Canvas
                     style={{
-                      position: "relative",
+                      position: "absolute",
                       zIndex: "10",
-                      width: "100%",
-                      height: "20em",
+                      width: "23%",
+                      height: "80%",
                       transform: "translate(0%, 10%)",
                     }}
                     shadows
-                    camera={{ position: [0, 12, 18], fov: 85 }}
+                    camera={{ position: [0, 12, 18], fov: 95 }}
                   >
                     <Experience />
                   </Canvas>
+                  <Interface />
                 </CharacterAnimationsProvider>
               </MantineProvider>
             </div>
@@ -151,6 +151,7 @@ export default function Dashboard() {
               <StatBox subtitle={user.weight + " kg"} title="Weight" />
             </Box>
           </Box>
+
           <Box
             gridColumn="span 4"
             gridRow="span 2"
@@ -172,43 +173,33 @@ export default function Dashboard() {
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
               <Typography variant="h5" fontWeight="600">
-                Completed Workout
+                Upcoming Event
               </Typography>
             </Box>
-
-            {completedWorkouts.length > 0 ? (
-              completedWorkouts.map((workout, i) => (
-                <Box
-                  key={`${i}-${workout.name}`}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`1px solid ${colors.secondary.default}`}
-                  className="flex flex-col justify-evenly"
-                  p="15px"
-                >
-                  <ExerciseBox
-                    subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                    title={workout.name}
-                    subsubtitle={workout.muscle}
-                  />
-                </Box>
-              ))
-            ) : (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                p="15px"
-                component={Link}
-                to="workout-planner"
-              >
-                <Typography variant="h5" fontWeight="600">
-                  Start doing your workout now !!!
-                </Typography>
-              </Box>
-            )}
+            {user.workouts.map((workout, i) => {
+              if (workout.isCompleted === false) {
+                return (
+                  <Box
+                    key={`${i}-${workout.name}`}
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    borderBottom={`1px solid ${colors.secondary.default}`}
+                    className="flex flex-col justify-evenly"
+                    p="15px"
+                  >
+                    <ExerciseBox
+                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                      title={workout.name}
+                      subsubtitle={workout.muscle}
+                    />
+                  </Box>
+                );
+              }
+              return null; // Don't render the workout if it's not completed
+            })}
           </Box>
+
           {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -267,9 +258,10 @@ export default function Dashboard() {
             </Box>
           </Box>
 
+          {/* ROW 3 */}
           <Box
             gridColumn="span 4"
-            gridRow="span 3"
+            gridRow="span 4"
             backgroundColor={colors.background.default}
             overflow="auto"
             className="rounded-lg border"
@@ -288,34 +280,43 @@ export default function Dashboard() {
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
               <Typography variant="h5" fontWeight="600">
-                Upcoming Event
+                Completed Workout
               </Typography>
             </Box>
-            {user.workouts.map((workout, i) => {
-              if (workout.isCompleted === false) {
-                return (
-                  <Box
-                    key={`${i}-${workout.name}`}
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    borderBottom={`1px solid ${colors.secondary.default}`}
-                    className="flex flex-col justify-evenly"
-                    p="15px"
-                  >
-                    <ExerciseBox
-                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                      title={workout.name}
-                      subsubtitle={workout.muscle}
-                    />
-                  </Box>
-                );
-              }
-              return null; // Don't render the workout if it's not completed
-            })}
-          </Box>
 
-          {/* ROW 3 */}
+            {completedWorkouts.length > 0 ? (
+              completedWorkouts.map((workout, i) => (
+                <Box
+                  key={`${i}-${workout.name}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  className="flex flex-col justify-evenly"
+                  p="15px"
+                >
+                  <ExerciseBox
+                    subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                    title={workout.name}
+                    subsubtitle={workout.muscle}
+                  />
+                </Box>
+              ))
+            ) : (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                p="15px"
+                component={Link}
+                to="workout-planner"
+              >
+                <Typography variant="h5" fontWeight="600">
+                  Start doing your workout now !!!
+                </Typography>
+              </Box>
+            )}
+          </Box>
           <Box
             gridColumn="span 8"
             gridRow="span 4"

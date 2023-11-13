@@ -25,7 +25,6 @@
     "@fullcalendar/list": "^6.1.8",
     "@fullcalendar/react": "^6.1.8",
     "@fullcalendar/timegrid": "^6.1.8",
-    "@mantine/core": "^7.2.1",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.10",
     "@mui/x-charts": "^6.0.0-alpha.12",
