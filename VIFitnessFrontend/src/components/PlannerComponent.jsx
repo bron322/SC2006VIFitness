@@ -30,9 +30,9 @@ const BackgroundImages = () => {
   const buttons = [<LowerButton />, <UpperButton />, <CoreButton />]
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden">
       {images.map((image, index) => (
-        <div
+        <Link to={paths[index]} 
           key={index}
           className={`background-image ${hoveredIndex === index ? 'hover-effect' : ''}`}
           style={{ backgroundImage: `url(${image})` }}
@@ -41,9 +41,9 @@ const BackgroundImages = () => {
         >
           <div className={`absolute inset-0 bg-gradient-to-b from-transparent to-black ${hoveredIndex === index ? 'hover-effect' : ''}`}></div>
           <div className="flex flex-col justify-center items-center">
-            <Link to={paths[index]} className="z-10 text-4xl bg-transparent h-1/2">
+            <div className="z-10 text-4xl bg-transparent h-1/2">
               {texts[index]}
-            </Link>
+            </div>
             <div className="z-10 text-center items-center">{buttons[index]} </div>
             <div className="z-10 text-xl text-center bg-transparent">{part1[index]}</div>
             <div className="z-10 text-xl text-center bg-transparent">{part2[index]}</div>
@@ -52,7 +52,7 @@ const BackgroundImages = () => {
             <div className="z-10 text-xl text-center bg-transparent">{part5[index]}</div>
             <div className="z-10 text-xl text-center bg-transparent">{part6[index]}</div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
