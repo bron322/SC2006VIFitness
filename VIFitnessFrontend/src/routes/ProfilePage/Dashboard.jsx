@@ -16,7 +16,7 @@ import jsPDF from "jspdf";
 
 import Experience from "../../components/Experience";
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+// import React from "react";
 import Interface from "../../components/Interface";
 import { MantineProvider } from "@mantine/core";
 import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";

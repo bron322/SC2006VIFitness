@@ -37,3 +37,64 @@
   transition: transform 0.3s ease; /* Add a smooth transition for the zoom effect */
   z-index: 1
 }
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+     opacity: 0;
+     transform: translateX(20px);
+  }
+  100% {
+     opacity: 1;
+     transform: translateX(0);
+  }
+} 
+
+@keyframes flip {
+  0% {
+      transform: perspective(400px) rotateY(0);
+      animation-timing-function: ease-out;
+  }
+  40% {
+      transform: perspective(400px) translateZ(150px) rotateY(170deg);
+      animation-timing-function: ease-out;
+  }
+  50% {
+      transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+      animation-timing-function: ease-in;
+  }
+  80% {
+      transform: perspective(400px) rotateY(360deg) scale(.95);
+      animation-timing-function: ease-in;
+  }
+  100% {
+      transform: perspective(400px) scale(1);
+      animation-timing-function: ease-in;
+  }
+} 
+
+.cssanimation,
+.cssanimation span {
+  animation-duration: 2.5s;
+  animation-fill-mode: both;
+}
+.fadeInBottom {
+  animation-name: fadeInBottom;
+}
+
+.flip{
+  animation-name: flip;
+}
+
+.fadeInRight{
+  animation-name: fadeInRight;
+}

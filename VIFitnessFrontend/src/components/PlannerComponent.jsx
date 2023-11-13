@@ -70,11 +70,11 @@ const changeImage = () => {
 }
 
 return (
-  <animated.div className="flex h-screen" style ={props}>
+  <div className="flex h-screen" style ={props}>
     {changeImage().map((image, index) => (
       <div
         key={index}
-        className={`background-image ${hoveredIndex === index ? 'hover-effect' : ''}`}
+        className={`cssanimation sequence fadeInBottom background-image ${hoveredIndex === index ? 'hover-effect' : ''}`}
         style={{ backgroundImage: `url(${image})`}}
         onMouseOver={() => setHoveredIndex(index)}
         onMouseOut={() => setHoveredIndex(null)}
@@ -89,8 +89,9 @@ return (
         </div>
       </div>
     ))}
-  </animated.div>
+  </div>
 );
 };
 
 export default BackgroundImages;
+
