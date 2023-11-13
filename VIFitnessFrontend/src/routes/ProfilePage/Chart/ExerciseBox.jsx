@@ -35,13 +35,22 @@ function ExerciseBox({ title, subtitle}) {
           <Typography
             variant="h5"
             fontWeight="bold"
-            sx={{ color: colors.accent.foreground }}>
-            {subtitle}
+            mr = "55px"          
+            sx={{ color: colors.accent.foreground }}
+          >
+            {title}
           </Typography>
-        </Box>
-
+      </Box>
+      <Box sx={{ display: 'inline-flex', ml: 'auto' }} justifyContent="space-between" >
+      <Typography 
+            variant="h5" 
+            fontWeight = "bold"
+            sx={{ color: colors.accent.foreground }}>
+          {subtitle}
+        </Typography>
+      </Box>
       </div>
-
+      
     </Box>
   );
 };

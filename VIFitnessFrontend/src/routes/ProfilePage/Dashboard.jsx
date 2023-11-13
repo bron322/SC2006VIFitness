@@ -7,12 +7,19 @@ import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
 import React, { useState } from 'react';
 // import Calendar from "./Chart/Calendar";
-import Calendar from "../Calendar/components/SmallCalendar"
-import { Link } from 'react-router-dom';
+import Calendar from "../Calendar/components/SmallCalendar";
+import { Link } from "react-router-dom";
 import BarChart from "../../components/calorieChart/calorie";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+import Experience from "../../components/Experience";
+import { Canvas } from "@react-three/fiber";
+import React from "react";
+import Interface from "../../components/Interface";
+import { MantineProvider } from "@mantine/core";
+import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
 
 export default function Dashboard() {
   const [expandedMuscle, setExpandedMuscle] = useState(null);
@@ -27,6 +34,23 @@ export default function Dashboard() {
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
   const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const calculateBMI = (weight, height) => {
+    // Check if weight and height are provided
+    if (!weight || !height) {
+        return "Please provide both weight and height for accurate BMI calculation.";
+    }
+
+    // Convert height to meters (if it's in centimeters)
+    const heightInMeters = height / 100;
+
+    // Calculate BMI using the formula: weight (kg) / (height (m) * height (m))
+    const bmi = weight / (heightInMeters * heightInMeters);
+
+    // Round BMI to two decimal places
+    return parseFloat(bmi.toFixed(2));
+};
+
+const bmiResult = calculateBMI(user.weight, user.height);
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -38,12 +62,12 @@ export default function Dashboard() {
   });
 
   const handleDownload = () => {
-    const dashboardElement = document.getElementById('dashboard-container');
+    const dashboardElement = document.getElementById("dashboard-container");
 
     if (dashboardElement) {
       html2canvas(dashboardElement)
         .then((canvas) => {
-          const imgData = canvas.toDataURL('image/png');
+          const imgData = canvas.toDataURL("image/png");
           const pdf = new jsPDF();
           const imgWidth = pdf.internal.pageSize.getWidth();
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -58,16 +82,16 @@ export default function Dashboard() {
             while (currentY < imgHeight) {
               const pageHeight = Math.min(imgHeight - currentY, maxPageHeight);
               pdf.addPage();
-              pdf.addImage(imgData, 'PNG', 0, -currentY, imgWidth, imgHeight);
+              pdf.addImage(imgData, "PNG", 0, -currentY, imgWidth, imgHeight);
               currentY += pageHeight;
             }
           } else {
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
           }
-          pdf.save('dashboard-report.pdf');
+          pdf.save("dashboard-report.pdf");
         })
         .catch((error) => {
-          console.error('Error generating PDF:', error);
+          console.error("Error generating PDF:", error);
         });
     }
   };
@@ -77,7 +101,6 @@ export default function Dashboard() {
         {/* HEADER */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Header title="Dashboard" subtitle={`Welcome to ${user.username}'s dashboard`} />
-
           <Box>
             <Button
               sx={{
@@ -189,7 +212,6 @@ export default function Dashboard() {
             })}
 
           </Box>
-
           {/* ROW 2 */}
           <Box
             gridColumn="span 8"
@@ -225,10 +247,7 @@ export default function Dashboard() {
               <Macros />
             </Box>
           </Box>
-
-
-
-
+          
           {/* ROW 3 */}
           <Box
             gridColumn="span 4"
@@ -306,7 +325,6 @@ export default function Dashboard() {
                 </Typography>
               </Box>
             )} 
-
           </Box>
           <Box
             gridColumn="span 8"
