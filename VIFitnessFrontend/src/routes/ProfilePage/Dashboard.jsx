@@ -194,7 +194,9 @@ const bmiResult = calculateBMI(user.weight, user.height);
               <StatBox
                 subtitle={user.weight + " kg"}
                 title="Weight" />
-
+              <StatBox
+                subtitle={bmiResult}
+                title="BMI" />
             </Box>
           </Box>
 
