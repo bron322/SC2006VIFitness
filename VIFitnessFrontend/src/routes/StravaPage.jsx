@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import InfoIcon from "@mui/icons-material/Info";
 import NotConnectedUI from "@/components/stravaPageUI/notConnectedUI";
 import NotFetchedUI from "@/components/stravaPageUI/notFetchedUI";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import StravaAPIService from "@/services/StravaAPIService";
 import { ring } from "ldrs";
@@ -49,6 +49,53 @@ export default function StravaPage() {
   const [showNoResult, setShowNoResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   ring.register();
+  const initialised = useRef(false);
+
+  useEffect(() => {
+    if (!initialised.current) {
+      initialised.current = true;
+
+      const refreshActionStrava = async () => {
+        const stravaData = {
+          refreshToken: user.strava_data.refreshToken,
+        };
+        try {
+          const response = await StravaAPIService.refreshAuthToken(stravaData);
+          console.log(response.data);
+          const refreshedData = {
+            accessToken: response.data.access_token,
+            expiresAt: response.data.expires_at,
+            expiresIn: response.data.expires_in,
+            refreshToken: response.data.refresh_token,
+            email: user.email,
+          };
+          try {
+            const anotherResponse = await APIDataService.refreshStrava(
+              refreshedData
+            );
+            if (Object.keys(response.data).length !== 0) {
+              console.log(anotherResponse.data);
+              setUser(anotherResponse.data);
+            } else {
+              console.log(err);
+              toast.error("Something went wrong. Try again later!");
+            }
+          } catch (err) {
+            console.log(err);
+            toast.error("Something went wrong. Try again later!");
+          }
+        } catch (err) {
+          console.log(err);
+          toast.error("Something went wrong. Try again later!");
+        }
+      };
+
+      const stravaExpire = new Date(user.strava_data.expiresAt * 1000);
+      if (stravaExpire < new Date()) {
+        refreshActionStrava();
+      }
+    }
+  }, []);
 
   //reduce array with map
   const reductionMap = (activity) => {
@@ -142,8 +189,22 @@ export default function StravaPage() {
   return (
     <>
       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+
       {!Object.hasOwn(user, "strava_data") ? (
         <NotConnectedUI />
+      ) : new Date(user.strava_data.expiresAt * 1000) < new Date() ? (
+        <div className="flex flex-col justify-center items-center h-screen">
+          <div className=" mt-1">
+            <l-ring
+              size="20"
+              stroke="3"
+              bg-opacity="0"
+              speed="2.4"
+              color="#4287f5"
+            ></l-ring>
+          </div>
+          <div>Fetching data... please wait</div>
+        </div>
       ) : (
         <div
           className="macros-page-wrapper h-full min-h-screen pt-2"

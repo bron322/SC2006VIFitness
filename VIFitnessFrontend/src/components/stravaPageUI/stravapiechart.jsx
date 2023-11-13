@@ -13,26 +13,29 @@ function PieChartStrava(props) {
     setPieChartData([
       {
         label: "Run",
-        value: props.data.reduce(
-          (acc, cur) => acc + (cur.type === "Run" ? cur.calorieBurned : 0),
-          0
-        ),
+        value:
+          props.data.reduce(
+            (acc, cur) => acc + (cur.type === "Run" ? cur.calorieBurned : 0),
+            0
+          ) || 0,
       },
       {
         label: "Swim",
-        value: props.data.reduce(
-          (acc, cur) =>
-            acc + (cur.type === "Swim" ? parseFloat(cur.calorieBurned) : 0),
-          0
-        ),
+        value:
+          props.data.reduce(
+            (acc, cur) =>
+              acc + (cur.type === "Swim" ? parseFloat(cur.calorieBurned) : 0),
+            0
+          ) || 0,
       },
       {
         label: "Ride",
-        value: props.data.reduce(
-          (acc, cur) =>
-            acc + (cur.type === "Ride" ? parseFloat(cur.calorieBurned) : 0),
-          0
-        ),
+        value:
+          props.data.reduce(
+            (acc, cur) =>
+              acc + (cur.type === "Ride" ? parseFloat(cur.calorieBurned) : 0),
+            0
+          ) || 0,
       },
     ]);
   }, [props]);
