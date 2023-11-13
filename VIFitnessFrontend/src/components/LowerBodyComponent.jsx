@@ -12,6 +12,8 @@ import Adductors from "./styles/photos/Adductors.jpeg";
 import Abductors from "./styles/photos/Abductors.jpeg";
 import MuscleCard from './MuscleCard';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 function LowerBodyComponent() {
     const [isHovered, setIsHovered] = useState(false);
@@ -37,7 +39,11 @@ function LowerBodyComponent() {
                         <img src={changeImage()} className="h-full w-full object-cover"
                             alt="Workout Planner"
                         />
-                         {isHovered && <p className="z-10 text-4xl bg-transparent h-1/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Return</p>}
+                         {isHovered && (
+                        <p className="z-10 text-4xl bg-transparent h-1/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <FontAwesomeIcon icon={faArrowLeft} /> Return
+                        </p>
+                        )}
                     </Link>
                 </div>
                 <div className="flex-grow px-24">
