@@ -23,11 +23,15 @@ export default function LandingPage() {
   const [isPreloading, setIsPreloading] = useState(true);
 
   const tl = useRef();
+  const tl2 = useRef();
+  const headerRef = useRef();
+  const spinRef = useRef();
 
   //for spining scroll down button
   useEffect(() => {
     if (!initialised.current) {
       // initialised.current = true;
+
       Splitting();
       let cursor = document.querySelector(".cursor"),
         cursorText = cursor.querySelectorAll(".char");
@@ -56,6 +60,7 @@ export default function LandingPage() {
   }, [rotation]);
 
   useEffect(() => {
+    document.documentElement.style.overflow = "hidden";
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
         e.preventDefault();
@@ -146,11 +151,13 @@ export default function LandingPage() {
 
   const handleMouseLeave = () => {
     setRotation(360);
-    gsap.to(pulse.current, {
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out",
-    });
+    gsap
+      .to(pulse.current, {
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+      })
+      .from();
   };
 
   // click event after preloader animation finish
@@ -160,16 +167,38 @@ export default function LandingPage() {
     FadeOutPreloader();
   };
 
+  const FadeInMainPage = () => {
+    tl2.current = gsap
+      .timeline({
+        onComplete: () => {
+          document.documentElement.style.overflow = "auto";
+        },
+      })
+      .to(".hero-text-wrapper", {
+        opacity: 1,
+        duration: 1.5,
+        ease: "power2.out",
+      })
+      .to(
+        spinRef.current,
+        {
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+        },
+        "<"
+      );
+  };
+
   // fade out preloader after animation finish
   const FadeOutPreloader = () => {
     window.removeEventListener("mousedown", MouseDownEvent);
 
-    document.documentElement.style.overflow = "auto";
     tl.current = gsap
       .timeline({
         onComplete: () => {
           setIsPreloading(false);
-          // FadeInMainPage();
+          FadeInMainPage();
         },
       })
       .to(
@@ -196,7 +225,7 @@ export default function LandingPage() {
     <>
       {isPreloading && <Preloader />}
       <div className="landing-page-wrapper">
-        <Header />
+        <Header ref={headerRef} />
 
         <div className="image-container">
           <img src={BG} alt="LOGO"></img>
@@ -206,39 +235,28 @@ export default function LandingPage() {
         </div>
 
         <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
-          <h2 className="cssanimation sequence fadeInBottom justify-self-center hk-font text-transparent hollow">
-            Welcome
-          </h2>
-          <h2 className="cssanimation sequence fadeInBottom justify-self-center hk-font text-transparent hollow">
-            to
-          </h2>
-          <h2 className="cssanimation sequence fadeInBottom pb-20 hk-font text-neutral-100 ">
-            VIFitness
-          </h2>
-          {/* <a
-            href="#macros"
-            id="browse"
-            className="cssanimation sequence fadeInBottom flex flex-col items-center bg-black rounded-3xl p-3 shadow-md"
-          >
-            <div className="text">Browse our features</div>
-            <div className="text">
-              <FontAwesomeIcon icon={faArrowDown} />
-            </div>
-          </a> */}
+          <div className="hero-text-wrapper flex flex-col items-center justify-center opacity-0">
+            <h2 className="cssanimation sequence justify-self-center hk-font text-transparent hollow">
+              Welcome
+            </h2>
+            <h2 className="cssanimation sequence justify-self-center hk-font text-transparent hollow">
+              to
+            </h2>
+            <h2 className="cssanimation sequence pb-20 hk-font text-neutral-100 ">
+              VIFitness
+            </h2>
+          </div>
+
           <a
             href="#macros"
             className="opacity-70 hover:opacity-100 transition-opactity hover:cursor-pointer"
           >
             <div
-              className="flex justify-center items-center hover:cursor-pointer relative"
+              className="spin-text-wrapper flex justify-center items-center hover:cursor-pointer relative opacity-0"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
+              ref={spinRef}
             >
-              {/* <div className="inner absolute cursor-pointer">
-                <div className="inner-text text-neutral-300" data-splitting="">
-                  Scroll • Down •
-                </div>
-              </div> */}
               <div
                 className="w-[100px] h-[100px] absolute opacity-0 "
                 ref={pulse}
