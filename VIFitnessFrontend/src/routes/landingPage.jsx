@@ -2,16 +2,6 @@ import Header from "../components/headerlanding";
 import React, { useEffect, useState, useRef } from "react";
 import "./styles/landingPage.css";
 import BG from "./styles/photos/background.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDown,
-  faBurger,
-  faCalendar,
-  faCapsules,
-  faChartLine,
-  faMessage,
-  faPerson,
-} from "@fortawesome/free-solid-svg-icons";
 import calendar from "./styles/photos/calendar.png";
 import personalizedworkoutplan from "./styles/photos/personalized-workout-plan.png";
 import macrostracker from "./styles/photos/macros-tracker.png";
@@ -20,13 +10,19 @@ import stravadata from "./styles/photos/stravadata.png";
 import Footer from "@/components/landingPageUI/footer";
 import Splitting from "splitting";
 import gsap from "gsap";
-
+import Preloader from "@/components/landingPageUI/preloader";
+import emitter from "@/utils/eventEmitter";
+import ScrollToTop from "@/utils/ScrollToTop";
 
 export default function LandingPage() {
   const initialised = useRef(false);
   const [rotation, setRotation] = useState(360);
   const [radius, setRadius] = useState(70);
   const pulse = useRef();
+  const [isPreloading, setIsPreloading] = useState(true);
+
+  const tl = useRef();
+  const tlSecond = useRef();
 
   //for spining scroll down button
   useEffect(() => {
@@ -157,8 +153,48 @@ export default function LandingPage() {
     });
   };
 
+  // click event after preloader animation finish
+  var MouseDownEvent = function () {
+    document.documentElement.style.cursor = "default";
+
+    FadeOutPreloader();
+  };
+
+  // fade out preloader after animation finish
+  const FadeOutPreloader = () => {
+    window.removeEventListener("mousedown", MouseDownEvent);
+
+    document.documentElement.style.overflow = "auto";
+    tl.current = gsap
+      .timeline({
+        onComplete: () => {
+          setIsPreloading(false);
+          // FadeInMainPage();
+        },
+      })
+      .to(
+        ".preloader-wrapper",
+        {
+          opacity: 0,
+          zIndex: -1,
+          duration: 1,
+          ease: "power2.out",
+        }
+        // "-=0.3"
+      );
+  };
+
+  useEffect(() => {
+    emitter.on("preloader-ready", () => {
+      window.addEventListener("mousedown", MouseDownEvent);
+    });
+  });
+
+  ScrollToTop();
+
   return (
     <>
+      {isPreloading && <Preloader />}
       <div className="landing-page-wrapper">
         <Header />
 
@@ -204,7 +240,7 @@ export default function LandingPage() {
                 </div>
               </div> */}
               <div
-                className="w-[100px] h-[100px] absolute hover:opacity-0"
+                className="w-[100px] h-[100px] absolute opacity-0 "
                 ref={pulse}
               >
                 <div className="pulse absolute"></div>
