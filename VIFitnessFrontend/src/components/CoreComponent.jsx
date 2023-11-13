@@ -5,14 +5,18 @@ import LowerBack from "./styles/photos/Lower Back.jpeg";
 import Oblique from "./styles/photos/Obliques.png";
 import MuscleCard from './MuscleCard';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 function CoreComponent() {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <>
+        <div className="flex">
+            <div className="sticky top-0 flex-none w-1/3 h-screen">
+                <img src={Core} className="h-screen w-full object-cover"/>
+            </div>
+            <div className="flex-grow px-24 pt-10 pb-10">
+                <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
             <div className="flex">
                 <div className={`sticky sticky-container top-0 flex-none w-1/3 h-screen ${isHovered ? 'hover-return' : ''}`}
                     onMouseOver={() => setIsHovered(true)}
