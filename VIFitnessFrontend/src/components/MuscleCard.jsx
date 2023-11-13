@@ -48,9 +48,13 @@ export default function MuscleCard({ img, title, description }) {
     setOpen(false);
   };
 
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div>
-      <Card sx={{ width: 200, height: 400 }} onClick={musclecardhandleOpen}>
+      <Card sx={{ width: 200, height: 400 }} onClick={musclecardhandleOpen} className={`${isHovered ? 'hover-effect' : ''}`} 
+      onMouseOver={() => setIsHovered(true)}
+      onMouseOut={() => setIsHovered(false)}>
         <CardActionArea>
           <CardMedia sx={{ maxWidth: 350, height: 350 }}
             component="img"

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { useTheme } from "@mui/material";
+import { useContext } from "react";
+import { ColorModeContext } from "../routes/theme";
 import Upper from "./styles/photos/UpperBody.jpg";
+import Upper2 from "./styles/photos/Upper2.jpg";
 import Biceps from "./styles/photos/Biceps.png";
 import Chest from "./styles/photos/Chest.png";
 import Lats from "./styles/photos/Lats.png";
@@ -12,6 +16,16 @@ import { Link } from 'react-router-dom';
 
 function UpperBodyComponent() {
     const [isHovered, setIsHovered] = useState(false);
+    const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
+
+    const changeImage = () => {
+        if (theme.palette.mode === 'dark') {
+          return Upper;
+        }else{
+          return Upper2;
+        }
+      }
 
     return (
         <>
@@ -21,7 +35,7 @@ function UpperBodyComponent() {
                     onMouseOut={() => setIsHovered(false)}
                 >
                     <Link to="/user/workout-planner">
-                        <img src={Upper} className="h-screen w-full object-cover"
+                        <img src={changeImage()} className="h-screen w-full object-cover"
                             alt="Workout Planner"
                         />
                         {isHovered && <p className="z-10 text-4xl bg-transparent h-1/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Return</p>}

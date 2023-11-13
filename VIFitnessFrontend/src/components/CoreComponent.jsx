@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { useTheme } from "@mui/material";
+import { useContext } from "react";
+import { ColorModeContext } from "../routes/theme";
 import Core from "./styles/photos/Core.jpg";
+import Core2 from "./styles/photos/Core2.jpg";
 import Abs from "./styles/photos/Abs.png";
 import LowerBack from "./styles/photos/Lower Back.jpeg";
 import Oblique from "./styles/photos/Obliques.png";
@@ -8,6 +12,16 @@ import { Link } from 'react-router-dom';
 
 function CoreComponent() {
     const [isHovered, setIsHovered] = useState(false);
+    const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
+
+    const changeImage = () => {
+        if (theme.palette.mode === 'dark') {
+          return Core;
+        }else{
+          return Core2;
+        }
+      }
 
     return (
         <>
@@ -17,7 +31,7 @@ function CoreComponent() {
                     onMouseOut={() => setIsHovered(false)}
                 >
                     <Link to="/user/workout-planner">
-                        <img src={Core} className="h-screen w-full object-cover"
+                        <img src={changeImage()} className="h-screen w-full object-cover"
                             alt="Workout Planner" />
                         {isHovered && <p className="z-10 text-4xl bg-transparent h-1/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Return</p>}
                     </Link>

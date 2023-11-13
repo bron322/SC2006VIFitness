@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { useTheme } from "@mui/material";
+import { useContext } from "react";
+import { ColorModeContext } from "../routes/theme";
 import Lower from "./styles/photos/LowerBody.jpg";
+import Lower2 from "./styles/photos/Lower2.jpg";
 import Calves from "./styles/photos/Calves.png";
 import Glutes from "./styles/photos/Glutes.png";
 import Hamstring from "./styles/photos/Hamstring.jpg";
@@ -11,6 +15,16 @@ import { Link } from 'react-router-dom';
 
 function LowerBodyComponent() {
     const [isHovered, setIsHovered] = useState(false);
+    const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
+
+    const changeImage = () => {
+        if (theme.palette.mode === 'dark') {
+          return Lower;
+        }else{
+          return Lower2;
+        }
+      }
 
     return (
         <>
@@ -20,14 +34,14 @@ function LowerBodyComponent() {
                     onMouseOut={() => setIsHovered(false)}
                 >
                     <Link to="/user/workout-planner">
-                        <img src={Lower} className="h-full w-full object-cover"
+                        <img src={changeImage()} className="h-full w-full object-cover"
                             alt="Workout Planner"
                         />
                          {isHovered && <p className="z-10 text-4xl bg-transparent h-1/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Return</p>}
                     </Link>
                 </div>
-                <div className="flex-grow px-24 pt-10 pb-10">
-                    <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
+                <div className="flex-grow px-24">
+                    <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 pt-10 pb-10 overflow-y-auto">
 
                         {/* Card 1 */}
                         <div className="flex justify-center">

@@ -5,6 +5,9 @@ import "../components/styles/WorkoutBackground.css";
 import Upper from "./styles/photos/UpperBody.jpg";
 import Lower from "./styles/photos/LowerBody.jpg";
 import Core from "./styles/photos/Core.jpg";
+import Upper2 from "./styles/photos/Upper2.jpg";
+import Lower2 from "./styles/photos/Lower2.jpg";
+import Core2 from "./styles/photos/Core2.jpg";
 import LowerButton from './LowerButton';
 import UpperButton from './UpperButton';
 import CoreButton from './CoreButton';
@@ -13,22 +16,52 @@ import { useContext } from "react";
 import { ColorModeContext } from "../routes/theme";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { useSpring, animated} from "react-spring";         
+import { useNavigate } from 'react-router-dom'; 
 
 
 const BackgroundImages = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  const [flip, setFlip] = useState(false)
+  
+  const props = useSpring({
+    to: {opacity: 1},
+    from: {opacity: 0},
+    revrse: flip,
+    delay: 300,
+    onRest: () => setFlip(!flip),
+  });
 
-  const images = [
+  const transition = (index) => ({
+    opacity: 1,
+    from: { opacity: 0 },
+    config: { duration: 500 },
+    delay: index * 100, // Stagger the delay for each image
+  });
+
+  const DarkImages = [
     Lower,
     Upper,
     Core,
   ];
 
+  const LightImages = [
+    Lower2,
+    Upper2,
+    Core2,
+  ];
+
 const texts = ['Lower Body', 'Upper Body', 'Core'];
 const paths = ['/user/workout-lower','/user/workout-upper','/user/workout-core']
 const buttons = [<LowerButton/>,<UpperButton/>,<CoreButton/>]
+
+const navigate = useNavigate(); 
+
+const handleClick = (path) => {
+  navigate(path); 
+};
 
 const getGradientColors = () => {
   if (theme.palette.mode === 'dark') {
@@ -38,15 +71,24 @@ const getGradientColors = () => {
   }
 };
 
+const changeImage = () => {
+  if (theme.palette.mode === 'dark') {
+    return DarkImages;
+  }else{
+    return LightImages;
+  }
+}
+
 return (
-  <div className="flex h-screen">
-    {images.map((image, index) => (
+  <animated.div className="flex h-screen" style ={props}>
+    {changeImage().map((image, index) => (
       <div
         key={index}
         className={`background-image ${hoveredIndex === index ? 'hover-effect' : ''}`}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${image})`}}
         onMouseOver={() => setHoveredIndex(index)}
         onMouseOut={() => setHoveredIndex(null)}
+        onClick={() => handleClick(paths[index])}
       >
         <div style={{position: 'absolute', inset: 0, background: `linear-gradient(to bottom, ${getGradientColors()})`}} className={`${hoveredIndex === index ? 'hover-effect' : ''}`}></div>
         <div className="flex flex-col justify-center items-center">
@@ -57,7 +99,7 @@ return (
         </div>
       </div>
     ))}
-  </div>
+  </animated.div>
 );
 };
 

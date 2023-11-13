@@ -77,6 +77,7 @@
     "react-icons": "^4.11.0",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-router-dom": "^6.15.0",
+    "react-spring": "^9.7.3",
     "splitting": "^1.0.6",
     "styled-components": "^6.0.8",
     "tailwind": "^4.0.0",
