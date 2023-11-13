@@ -1,12 +1,13 @@
 import { OrbitControls } from "@react-three/drei";
-import Woman from "./Woman";
-import MuscleMan from "./MuscleMan";
-import MuscleMan2 from "./MuscleMan2";
+// import Woman from "./Woman";
+
+// import MuscleMan2 from "./MuscleMan2";
+import MuscleManColor from "./MuscleManColor";
 
 const Experience = () => {
   return (
     <>
-      <OrbitControls />
+      <OrbitControls autoRotate={true} />
       <ambientLight />
       <directionalLight
         position={[-5, 5, 5]}
@@ -15,7 +16,7 @@ const Experience = () => {
         shadow-mapSize-height={1024}
       />
       <group position={[0, -1, 0]}>
-        <MuscleMan2 />
+        <MuscleManColor />
       </group>
       <mesh
         rotation={[-0.5 * Math.PI, 0, 0]}

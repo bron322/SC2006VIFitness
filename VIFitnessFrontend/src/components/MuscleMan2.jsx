@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useCharacterAnimations } from "./contexts/CharacterAnimations";
 
-const MuscleMan = (props) => {
+const MuscleMan2 = (props) => {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
     "../public/models/MuscleMan2.gltf"
@@ -170,6 +170,6 @@ const MuscleMan = (props) => {
     </group>
   );
 };
-export default MuscleMan;
+export default MuscleMan2;
 
 useGLTF.preload("./models/MuscleMan.gltf");

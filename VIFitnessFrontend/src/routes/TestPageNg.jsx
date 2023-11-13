@@ -19,7 +19,7 @@ const TestPageNg = () => {
               transform: "translate(0%, 10%)",
             }}
             shadows
-            camera={{ position: [0, 3, 18], fov: 8 }}
+            camera={{ position: [0, 12, 18], fov: 90 }}
           >
             <Experience />
           </Canvas>

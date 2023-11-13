@@ -6,8 +6,13 @@ const Interface = () => {
   const { animations, animationIndex, setAnimationIndex } =
     useCharacterAnimations();
   return (
-    <div style={{ overflow: "hidden" }}>
-      <div className="translate-x-32 ">
+    <div
+     style={{ 
+      overflow: "hidden",
+      transform: "translate(0%, -10%)"
+    }}
+    >
+      <div>
         <Stack>
           {animations.map((animation, index) => (
             <Button

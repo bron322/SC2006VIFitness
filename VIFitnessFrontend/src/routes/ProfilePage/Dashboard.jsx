@@ -6,26 +6,35 @@ import StatBox from "./Chart/StatBox";
 import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
 // import Calendar from "./Chart/Calendar";
-import Calendar from "../Calendar/components/SmallCalendar"
-import { Link } from 'react-router-dom';
+import Calendar from "../Calendar/components/SmallCalendar";
+import { Link } from "react-router-dom";
 import BarChart from "../../components/calorieChart/calorie";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+import Experience from "../../components/Experience";
+import { Canvas } from "@react-three/fiber";
+import React from "react";
+import Interface from "../../components/Interface";
+import { MantineProvider } from "@mantine/core";
+import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
 
 export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const completedWorkouts = user.workouts.filter(
+    (workout) => workout.isCompleted
+  );
 
   const handleDownload = () => {
-    const dashboardElement = document.getElementById('dashboard-container');
+    const dashboardElement = document.getElementById("dashboard-container");
 
     if (dashboardElement) {
       html2canvas(dashboardElement)
         .then((canvas) => {
-          const imgData = canvas.toDataURL('image/png');
+          const imgData = canvas.toDataURL("image/png");
           const pdf = new jsPDF();
           const imgWidth = pdf.internal.pageSize.getWidth();
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -40,147 +49,169 @@ export default function Dashboard() {
             while (currentY < imgHeight) {
               const pageHeight = Math.min(imgHeight - currentY, maxPageHeight);
               pdf.addPage();
-              pdf.addImage(imgData, 'PNG', 0, -currentY, imgWidth, imgHeight);
+              pdf.addImage(imgData, "PNG", 0, -currentY, imgWidth, imgHeight);
               currentY += pageHeight;
             }
           } else {
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
           }
-          pdf.save('dashboard-report.pdf');
+          pdf.save("dashboard-report.pdf");
         })
         .catch((error) => {
-          console.error('Error generating PDF:', error);
+          console.error("Error generating PDF:", error);
         });
-      }
-    };
+    }
+  };
   return (
     <div id="dashboard-container">
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Dashboard" subtitle={`Welcome to ${user.username}'s dashboard`} />
+      <Box m="20px">
+        {/* HEADER */}
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Header
+            title="Dashboard"
+            subtitle={`Welcome to ${user.username}'s dashboard`}
+          />
 
-      <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.accent.foreground,
-              color: colors.secondary.default,
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-            onClick={handleDownload}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
-      </Box>
-
-      {/* GRID & CHARTS */}
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.background.default}
-          p="30px"
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-        >
-          
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.background.default}
-          p="30px"
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-        >
-          <Typography variant="h5" fontWeight="600" style={{ marginTop: '-10px' }}>
-            User Profile
-          </Typography>
-          {/* sx={{ flexDirection: 'row' }} */}
-          <Box height="250px" className='flex flex-col items-center justify-evenly'>
-            <StatBox
-              subtitle={user.age}
-              title="Age" />
-            <StatBox
-              subtitle={user.height + " cm"}
-              title="Height" />
-            <StatBox
-              subtitle={user.weight + " kg"}
-              title="Weight" />
-
+          <Box>
+            <Button
+              sx={{
+                backgroundColor: colors.accent.foreground,
+                color: colors.secondary.default,
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: "10px 20px",
+              }}
+              onClick={handleDownload}
+            >
+              <DownloadOutlinedIcon sx={{ mr: "10px" }} />
+              Download Reports
+            </Button>
           </Box>
         </Box>
+
+        {/* GRID & CHARTS */}
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.background.default}
-          overflow= 'auto'
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
+          display="grid"
+          gridTemplateColumns="repeat(12, 1fr)"
+          gridAutoRows="140px"
+          gap="20px"
         >
+          {/* ROW 1 */}
           <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary.default}`}
-            colors={colors.secondary.default}
-            p="15px"
-            position="sticky"
-            top="0"
-            zIndex="10"
-            style = {{opacity:1, backgroundColor: colors.background.default}}
+            gridColumn="span 4"
+            gridRow="span 2"
+            backgroundColor={colors.background.default}
+            p="30px"
+            className="rounded-lg border"
+            borderColor={colors.secondary.default}
+          >
+            <div style={{ overflow: "hidden" }}>
+              <MantineProvider>
+                <CharacterAnimationsProvider>
+                  <Interface
+                    style={{ zIndex: "20" }}
+                  />
+                  <Canvas
+                    style={{
+                      position: "relative",
+                      zIndex: "10",
+                      width: "100%",
+                      height: "20em",
+                      transform: "translate(0%, 10%)",
+                    }}
+                    shadows
+                    camera={{ position: [0, 12, 18], fov: 85 }}
+                  >
+                    <Experience />
+                  </Canvas>
+                </CharacterAnimationsProvider>
+              </MantineProvider>
+            </div>
+          </Box>
+          <Box
+            gridColumn="span 4"
+            gridRow="span 2"
+            backgroundColor={colors.background.default}
+            p="30px"
+            className="rounded-lg border"
+            borderColor={colors.secondary.default}
           >
             <Typography
               variant="h5"
               fontWeight="600"
+              style={{ marginTop: "-10px" }}
             >
-              Completed Workout
+              User Profile
             </Typography>
+            {/* sx={{ flexDirection: 'row' }} */}
+            <Box
+              height="250px"
+              className="flex flex-col items-center justify-evenly"
+            >
+              <StatBox subtitle={user.age} title="Age" />
+              <StatBox subtitle={user.height + " cm"} title="Height" />
+              <StatBox subtitle={user.weight + " kg"} title="Weight" />
+            </Box>
           </Box>
-          
-          {completedWorkouts.length > 0 ? (
-            completedWorkouts.map((workout, i) => (
-              <Box
-                key={`${i}-${workout.name}`}
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                borderBottom={`1px solid ${colors.secondary.default}`}
-                className='flex flex-col justify-evenly'
-                p="15px"
-              >
-                <ExerciseBox
-                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                      title={workout.name}
-                      subsubtitle={workout.muscle} />
-              </Box>
-            ))
-          ) : (
-            <Box 
+          <Box
+            gridColumn="span 4"
+            gridRow="span 2"
+            backgroundColor={colors.background.default}
+            overflow="auto"
+            className="rounded-lg border"
+            borderColor={colors.secondary.default}
+          >
+            <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              borderBottom={`4px solid ${colors.primary.default}`}
+              colors={colors.secondary.default}
               p="15px"
-              component = {Link} to="workout-planner"
+              position="sticky"
+              top="0"
+              zIndex="10"
+              style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
               <Typography variant="h5" fontWeight="600">
-                Start doing your workout now !!!
+                Completed Workout
               </Typography>
             </Box>
-          )}
 
-        </Box>
-        {/* <Box
+            {completedWorkouts.length > 0 ? (
+              completedWorkouts.map((workout, i) => (
+                <Box
+                  key={`${i}-${workout.name}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  className="flex flex-col justify-evenly"
+                  p="15px"
+                >
+                  <ExerciseBox
+                    subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                    title={workout.name}
+                    subsubtitle={workout.muscle}
+                  />
+                </Box>
+              ))
+            ) : (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                p="15px"
+                component={Link}
+                to="workout-planner"
+              >
+                <Typography variant="h5" fontWeight="600">
+                  Start doing your workout now !!!
+                </Typography>
+              </Box>
+            )}
+          </Box>
+          {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.background.default}
@@ -197,138 +228,133 @@ export default function Dashboard() {
           </Typography>
           <Box height="250px" mt="-15px">
             {/* <Calendar /> */}
-            {/* <Calendar />
+          {/* <Calendar />
           </Box> 
         </Box> */}
 
-        
-
-        {/* ROW 2 */}
-        <Box
-          gridColumn="span 8"
-          gridRow="span 3"
-          backgroundColor={colors.background.default}
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-        >
+          {/* ROW 2 */}
           <Box
-            mt="25px"
-            p="0 30px"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+            gridColumn="span 8"
+            gridRow="span 3"
+            backgroundColor={colors.background.default}
+            className="rounded-lg border"
+            borderColor={colors.secondary.default}
           >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.accent.foreground}
-              >
-                Macros Tracker
-              </Typography>
+            <Box
+              mt="25px"
+              p="0 30px"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Box>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  color={colors.accent.foreground}
+                >
+                  Macros Tracker
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              height="350px"
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              m="0 30px"
+            >
+              {/* <LineChart isDashboard={true} /> */}
+              <Macros />
             </Box>
           </Box>
-          <Box
-            height="350px"
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            m="0 30px">
-            {/* <LineChart isDashboard={true} /> */}
-            <Macros />
-          </Box>
-        </Box>
 
-        <Box
-          gridColumn="span 4"
-          gridRow="span 3"
-          backgroundColor={colors.background.default}
-          overflow= 'auto'
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-        >
           <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary.default}`}
-            colors={colors.secondary.default}
-            p="15px"
-            position="sticky"
-            top="0"
-            zIndex="10"
-            style = {{opacity:1, backgroundColor: colors.background.default}}
+            gridColumn="span 4"
+            gridRow="span 3"
+            backgroundColor={colors.background.default}
+            overflow="auto"
+            className="rounded-lg border"
+            borderColor={colors.secondary.default}
           >
-            <Typography
-              variant="h5"
-              fontWeight="600"
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary.default}`}
+              colors={colors.secondary.default}
+              p="15px"
+              position="sticky"
+              top="0"
+              zIndex="10"
+              style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              Upcoming Event
-            </Typography>
-          </Box>
-          {user.workouts.map((workout, i) => {
-            if (workout.isCompleted === false) {
-              return (
-              <Box
-                key={`${i}-${workout.name}`}
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                borderBottom={`1px solid ${colors.secondary.default}`}
-                className='flex flex-col justify-evenly'
-                p="15px"
-              >
-                <ExerciseBox
+              <Typography variant="h5" fontWeight="600">
+                Upcoming Event
+              </Typography>
+            </Box>
+            {user.workouts.map((workout, i) => {
+              if (workout.isCompleted === false) {
+                return (
+                  <Box
+                    key={`${i}-${workout.name}`}
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    borderBottom={`1px solid ${colors.secondary.default}`}
+                    className="flex flex-col justify-evenly"
+                    p="15px"
+                  >
+                    <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name}
-                      subsubtitle={workout.muscle} />
-              </Box>
-              );
-            }
-            return null; // Don't render the workout if it's not completed
-          })}
+                      subsubtitle={workout.muscle}
+                    />
+                  </Box>
+                );
+              }
+              return null; // Don't render the workout if it's not completed
+            })}
+          </Box>
 
-        </Box>
-
-        
-        {/* ROW 3 */}
-        <Box
-          gridColumn="span 8"
-          gridRow="span 4"
-          // height="115%"
-          backgroundColor={colors.background.default}
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-        >
+          {/* ROW 3 */}
           <Box
-            mt="25px"
-            p="0 30px"
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+            gridColumn="span 8"
+            gridRow="span 4"
+            // height="115%"
+            backgroundColor={colors.background.default}
+            className="rounded-lg border"
+            borderColor={colors.secondary.default}
           >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.accent.foreground}
-              >
-                Calories Taken vs Calories Burn
-              </Typography>
+            <Box
+              mt="25px"
+              p="0 30px"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Box>
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  color={colors.accent.foreground}
+                >
+                  Calories Taken vs Calories Burn
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              height="500px"
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              m="0 30px"
+            >
+              <BarChart />
             </Box>
           </Box>
-          <Box 
-            height="500px"
-            alignItems= "center" 
-            justifyContent= "center" 
-            display = "flex" 
-            m = "0 30px">
-            <BarChart/>
-          </Box>
-          
-        </Box>
 
-        {/* <Box
+          {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           overflow="auto"
@@ -384,8 +410,8 @@ export default function Dashboard() {
             </Box>
           ))}
         </Box> */}
+        </Box>
       </Box>
-    </Box>
     </div>
   );
 }
