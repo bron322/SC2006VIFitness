@@ -5,7 +5,7 @@ import Macros from "./Chart/macros";
 import StatBox from "./Chart/StatBox";
 import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ import jsPDF from "jspdf";
 
 import Experience from "../../components/Experience";
 import { Canvas } from "@react-three/fiber";
-import React from "react";
+
 import Interface from "../../components/Interface";
 import { MantineProvider } from "@mantine/core";
 import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
@@ -33,7 +33,9 @@ export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const completedWorkouts = user.workouts.filter(
+    (workout) => workout.isCompleted
+  );
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -83,7 +85,10 @@ export default function Dashboard() {
       <Box m="20px">
         {/* HEADER */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Header title="Dashboard" subtitle={`Welcome to ${user.username}'s dashboard`} />
+          <Header
+            title="Dashboard"
+            subtitle={`Welcome to ${user.username}'s dashboard`}
+          />
 
           <Box>
             <Button
@@ -169,7 +174,7 @@ export default function Dashboard() {
             gridColumn="span 4"
             gridRow="span 2"
             backgroundColor={colors.background.default}
-            overflow='auto'
+            overflow="auto"
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
@@ -185,10 +190,7 @@ export default function Dashboard() {
               zIndex="10"
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              <Typography
-                variant="h5"
-                fontWeight="600"
-              >
+              <Typography variant="h5" fontWeight="600">
                 Upcoming Event
               </Typography>
             </Box>
@@ -201,19 +203,19 @@ export default function Dashboard() {
                     justifyContent="space-between"
                     alignItems="center"
                     borderBottom={`1px solid ${colors.secondary.default}`}
-                    className='flex flex-col justify-evenly'
+                    className="flex flex-col justify-evenly"
                     p="15px"
                   >
                     <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name}
-                      subsubtitle={workout.muscle} />
+                      subsubtitle={workout.muscle}
+                    />
                   </Box>
                 );
               }
               return null; // Don't render the workout if it's not completed
             })}
-
           </Box>
 
           {/* ROW 2 */}
@@ -246,21 +248,19 @@ export default function Dashboard() {
               alignItems="center"
               justifyContent="center"
               display="flex"
-              m="0 30px">
+              m="0 30px"
+            >
               {/* <LineChart isDashboard={true} /> */}
               <Macros />
             </Box>
           </Box>
-
-
-
 
           {/* ROW 3 */}
           <Box
             gridColumn="span 4"
             gridRow="span 4"
             backgroundColor={colors.background.default}
-            overflow='auto'
+            overflow="auto"
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
@@ -276,63 +276,66 @@ export default function Dashboard() {
               zIndex="10"
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              <Typography
-                variant="h5"
-                fontWeight="600"
-              >
+              <Typography variant="h5" fontWeight="600">
                 Completed Workout
               </Typography>
             </Box>
 
             {completedWorkouts.length > 0 ? (
               <>
-              {Object.keys(muscleGroups).map((muscle, i) => (
-                <Box
-                  key={`${i}-${muscle}`}
-                  // display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`1px solid ${colors.secondary.default}`}
-                  className="flex-col"
-                  p="15px"
-                  onClick={() => toggleExpand(muscle)}
-                  style={{ cursor: 'pointer'}}
-                >
-                  <div className="flex justify-between w-full">
-                    <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
-                      {muscle}
-                    </Typography>
-                    <Typography variant="h5" fontWeight="bold">Frequency: {muscleGroups[muscle].length}</Typography>
-                  </div>
-                  {expandedMuscle === muscle && (
-                    <div>
-                      {/* Render exercise details, you can use ExerciseBox or other components */}
-                      {muscleGroups[muscle].map((workout, index) => (
-                        <ExerciseBox
-                          key={index}
-                          subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                          title={workout.name}
-                        />
-                      ))}
+                {Object.keys(muscleGroups).map((muscle, i) => (
+                  <Box
+                    key={`${i}-${muscle}`}
+                    // display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    borderBottom={`1px solid ${colors.secondary.default}`}
+                    className="flex-col"
+                    p="15px"
+                    onClick={() => toggleExpand(muscle)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="flex justify-between w-full">
+                      <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                        sx={{ textTransform: "capitalize" }}
+                      >
+                        {muscle}
+                      </Typography>
+                      <Typography variant="h5" fontWeight="bold">
+                        Frequency: {muscleGroups[muscle].length}
+                      </Typography>
                     </div>
-                  )}
-                </Box>
-              ))}
-              </>           
-              ): (
+                    {expandedMuscle === muscle && (
+                      <div>
+                        {/* Render exercise details, you can use ExerciseBox or other components */}
+                        {muscleGroups[muscle].map((workout, index) => (
+                          <ExerciseBox
+                            key={index}
+                            subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                            title={workout.name}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </Box>
+                ))}
+              </>
+            ) : (
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
                 p="15px"
-                component={Link} to="workout-planner"
+                component={Link}
+                to="workout-planner"
               >
                 <Typography variant="h5" fontWeight="600">
                   Start doing your workout now !!!
                 </Typography>
               </Box>
-            )} 
-
+            )}
           </Box>
           <Box
             gridColumn="span 8"
@@ -364,10 +367,10 @@ export default function Dashboard() {
               alignItems="center"
               justifyContent="center"
               display="flex"
-              m="0 30px">
+              m="0 30px"
+            >
               <BarChart />
             </Box>
-
           </Box>
 
           {/* <Box
