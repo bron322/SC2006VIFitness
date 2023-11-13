@@ -28,7 +28,7 @@ export default function Preloader() {
       return;
     }
     const timer = setInterval(() => {
-      setProgress((prev) => (prev >= 100 ? prev : prev + 2));
+      setProgress((prev) => (prev >= 100 ? prev : prev + 4));
     }, 100);
     return () => {
       clearInterval(timer);
@@ -75,10 +75,10 @@ export default function Preloader() {
               amount: 0.8,
             },
           },
-          "-=1"
+          "-=1.5"
         )
         .to(".loading .char", {
-          delay: 3,
+          delay: 1,
           opacity: 0,
           fontFamily: "StarrailGlyph",
           color: "yellow",
