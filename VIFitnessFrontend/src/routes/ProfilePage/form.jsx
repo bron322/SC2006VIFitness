@@ -344,6 +344,7 @@ export default function ProfileSettings() {
             fullWidth
             variant="outlined"
             margin="normal"
+            type = "password"
             {...register("currentPassword")}
             error={!!errors.currentPassword}
             helperText={errors.currentPassword?.message}
@@ -354,7 +355,7 @@ export default function ProfileSettings() {
                 currentPassword: event.target.value,
               })
             }
-          />
+          />       
 
           {/* New Password Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
@@ -365,6 +366,7 @@ export default function ProfileSettings() {
             fullWidth
             variant="outlined"
             margin="normal"
+            type = "password"
             {...register("newPassword")}
             error={!!errors.newPassword}
             helperText={errors.newPassword?.message}
@@ -411,6 +413,7 @@ export default function ProfileSettings() {
             fullWidth
             variant="outlined"
             margin="normal"
+            type = "password"
             {...register("confirmNewPassword")}
             error={!!errors.confirmNewPassword}
             helperText={errors.confirmNewPassword?.message}
