@@ -87,7 +87,7 @@ export default function Dashboard() {
         {/* ROW 1 */}
         <Box
           gridColumn="span 4"
-          gridRow="span 2"
+          gridRow="span 5"
           backgroundColor={colors.background.default}
           p="30px"
           className="rounded-lg border"
@@ -120,6 +120,7 @@ export default function Dashboard() {
 
           </Box>
         </Box>
+
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -144,12 +145,12 @@ export default function Dashboard() {
               variant="h5"
               fontWeight="600"
             >
-              Completed Workout
+              Upcoming Event
             </Typography>
           </Box>
-          
-          {completedWorkouts.length > 0 ? (
-            completedWorkouts.map((workout, i) => (
+          {user.workouts.map((workout, i) => {
+            if (workout.isCompleted === false) {
+              return (
               <Box
                 key={`${i}-${workout.name}`}
                 display="flex"
@@ -164,22 +165,13 @@ export default function Dashboard() {
                       title={workout.name}
                       subsubtitle={workout.muscle} />
               </Box>
-            ))
-          ) : (
-            <Box 
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              p="15px"
-              component = {Link} to="workout-planner"
-            >
-              <Typography variant="h5" fontWeight="600">
-                Start doing your workout now !!!
-              </Typography>
-            </Box>
-          )}
+              );
+            }
+            return null; // Don't render the workout if it's not completed
+          })}
 
         </Box>
+        
         {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -239,9 +231,13 @@ export default function Dashboard() {
           </Box>
         </Box>
 
+        
+
+        
+        {/* ROW 3 */}
         <Box
           gridColumn="span 4"
-          gridRow="span 3"
+          gridRow="span 4"
           backgroundColor={colors.background.default}
           overflow= 'auto'
           className="rounded-lg border"
@@ -263,12 +259,12 @@ export default function Dashboard() {
               variant="h5"
               fontWeight="600"
             >
-              Upcoming Event
+              Completed Workout
             </Typography>
           </Box>
-          {user.workouts.map((workout, i) => {
-            if (workout.isCompleted === false) {
-              return (
+          
+          {completedWorkouts.length > 0 ? (
+            completedWorkouts.map((workout, i) => (
               <Box
                 key={`${i}-${workout.name}`}
                 display="flex"
@@ -283,15 +279,22 @@ export default function Dashboard() {
                       title={workout.name}
                       subsubtitle={workout.muscle} />
               </Box>
-              );
-            }
-            return null; // Don't render the workout if it's not completed
-          })}
+            ))
+          ) : (
+            <Box 
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              p="15px"
+              component = {Link} to="workout-planner"
+            >
+              <Typography variant="h5" fontWeight="600">
+                Start doing your workout now !!!
+              </Typography>
+            </Box>
+          )}
 
         </Box>
-
-        
-        {/* ROW 3 */}
         <Box
           gridColumn="span 8"
           gridRow="span 4"
