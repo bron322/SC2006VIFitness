@@ -29,16 +29,6 @@ const BackgroundImages = () => {
   const props = useSpring({
     to: {opacity: 1},
     from: {opacity: 0},
-    revrse: flip,
-    delay: 300,
-    onRest: () => setFlip(!flip),
-  });
-
-  const transition = (index) => ({
-    opacity: 1,
-    from: { opacity: 0 },
-    config: { duration: 500 },
-    delay: index * 100, // Stagger the delay for each image
   });
 
   const DarkImages = [

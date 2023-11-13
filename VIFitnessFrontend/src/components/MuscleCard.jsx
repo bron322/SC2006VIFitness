@@ -15,6 +15,8 @@ import APIDataService from "../services/APIDataService";
 import { useState } from "react";
 import ExerciseService from "../services/ExerciseService";
 import { IndeterminateCheckBoxRounded } from '@mui/icons-material';
+import CircularIndeterminate from './CircularLoading';
+import { useSpring, animated} from "react-spring";  
 
 const style = {
   position: 'absolute',
@@ -32,15 +34,22 @@ const style = {
 export default function MuscleCard({ img, title, description }) {
   const [workoutData, setWorkoutData] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [flip, setFlip] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
 
   const musclecardhandleOpen = async () => {
     try {
+      setLoading(true); //Set loading to true when waiting for data
       const response = await ExerciseService.queryWorkout(title);
       console.log(response.data);
       setWorkoutData(response.data);
       setOpen(true);
+      setLoading(false); // Set loading to false when the modal is ready to be shown
+      setFlip(!flip);
     } catch (error) {
       console.log(error);
+      setLoading(false); // Ensure loading is set to false on error as well
     }
   };
 
@@ -48,10 +57,14 @@ export default function MuscleCard({ img, title, description }) {
     setOpen(false);
   };
 
-  const [isHovered, setIsHovered] = useState(false);
+  const props = useSpring({
+    to: { opacity: open ? 1 : 0 },
+    from: { opacity: 0 },  
+  });
 
   return (
     <div>
+      {loading && <CircularIndeterminate />} 
       <Card sx={{ width: 200, height: 400, boxShadow: 24}} onClick={musclecardhandleOpen} className={`${isHovered ? 'hover-effect' : ''}`} 
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}>
@@ -76,33 +89,35 @@ export default function MuscleCard({ img, title, description }) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 800, height: 650 }}>
-          <Typography variant="h1" className="text-center">
-            Exercises
-          </Typography>
-          <div className="flex-grow pb-8">
-            <div className="grid grid-cols-3 grid-rows-2 gap-x-0 gap-y-8 overflow-y-auto">
+        <animated.div style={{ ...style, ...props }}>
+          <Box sx={{ ...style, width: 800, height: 650 }}>
+            <Typography variant="h1" className="text-center">
+              Exercises
+            </Typography>
+            <div className="flex-grow pb-8">
+              <div className="grid grid-cols-3 grid-rows-2 gap-x-0 gap-y-8 overflow-y-auto">
 
-              {workoutData.slice(0,6).map((item, index) => {
-                const correctedName = item.name === "Rocky Pull-Ups/Pulldowns" ? "Shotgun row" : item.name;
-                return (
-                  <div key={item.instructions}>
-                    <div className="flex justify-center">
-                      <ExerciseCard
-                        img= {`/exerciseImage/${correctedName}.jpg`} // Match name of image with title
-                        title={correctedName} // Use the corrected name as the title
-                        description={item.difficulty} // Use the item difficulty
-                        instruction={item.instructions} // Passing in the instruction
-                        equipment={item.equipment}
-                        muscle={item.muscle} 
-                      />
+                {workoutData.slice(0,6).map((item, index) => {
+                  const correctedName = item.name === "Rocky Pull-Ups/Pulldowns" ? "Shotgun row" : item.name;
+                  return (
+                    <div key={item.instructions}>
+                      <div className="flex justify-center">
+                        <ExerciseCard
+                          img= {`/exerciseImage/${correctedName}.jpg`} // Match name of image with title
+                          title={correctedName} // Use the corrected name as the title
+                          description={item.difficulty} // Use the item difficulty
+                          instruction={item.instructions} // Passing in the instruction
+                          equipment={item.equipment}
+                          muscle={item.muscle} 
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </Box>
+          </Box>
+        </animated.div>
       </Modal>
     </div>
   );

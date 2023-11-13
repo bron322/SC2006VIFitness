@@ -15,6 +15,7 @@ import MuscleCard from './MuscleCard';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import "./styles/BodyComponent.css";
 
 function UpperBodyComponent() {
     const [isHovered, setIsHovered] = useState(false);
@@ -32,7 +33,7 @@ function UpperBodyComponent() {
     return (
         <>
             <div className="flex">
-                <div className={`sticky sticky-container top-0 flex-none w-1/3 h-screen ${isHovered ? 'hover-return' : ''}`}
+                <div className={`sticky sticky-container top-0 flex-none w-1/3 h-screen cssanimation fadeInRight ${isHovered ? 'hover-return' : ''}`}
                     onMouseOver={() => setIsHovered(true)}
                     onMouseOut={() => setIsHovered(false)}
                 >
@@ -51,7 +52,7 @@ function UpperBodyComponent() {
                     <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 pt-10 pb-10 overflow-y-auto">
 
                         {/* Card 1 */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center cssanimation sequence flip">
                             <MuscleCard
                                 img={Biceps}
                                 title="Biceps"
@@ -60,7 +61,7 @@ function UpperBodyComponent() {
                         </div>
 
                         {/* Card 2 */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center cssanimation sequence flip">
                             <MuscleCard
                                 img={Chest}
                                 title="Chest"
@@ -69,7 +70,7 @@ function UpperBodyComponent() {
                         </div>
 
                         {/* Card 3 */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center cssanimation sequence flip">
                             <MuscleCard
                                 img={Forearms}
                                 title="Forearms"
@@ -78,7 +79,7 @@ function UpperBodyComponent() {
                         </div>
 
                         {/* Card 4 */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center cssanimation sequence flip">
                             <MuscleCard
                                 img={Lats}
                                 title="Lats"
@@ -87,7 +88,7 @@ function UpperBodyComponent() {
                         </div>
 
                         {/* Card 5 */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center cssanimation sequence flip">
                             <MuscleCard
                                 img={MiddleBack}
                                 title="Middle_Back"
@@ -96,7 +97,7 @@ function UpperBodyComponent() {
                         </div>
 
                         {/* Card 6 */}
-                        <div className="flex justify-center">
+                        <div className="flex justify-center cssanimation sequence flip">
                             <MuscleCard
                                 img={Triceps}
                                 title="Triceps"
