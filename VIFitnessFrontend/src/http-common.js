@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:3000/api",
-  // baseURL: "https://expensive-eel-wrap.cyclic.app/api",
+  // baseURL: "http://localhost:3000/api",
+  baseURL: "https://expensive-eel-wrap.cyclic.app/api",
   credentials: true,
   headers: {
     "Content-type": "application/json",
@@ -10,8 +10,8 @@ export default axios.create({
 });
 
 const AuthAPIhttp = axios.create({
-  baseURL: "http://localhost:3000/vifitness",
-  // baseURL: "https://expensive-eel-wrap.cyclic.app/vifitness",
+  // baseURL: "http://localhost:3000/vifitness",
+  baseURL: "https://expensive-eel-wrap.cyclic.app/vifitness",
   credentials: true,
   headers: {
     "Content-type": "application/json",
