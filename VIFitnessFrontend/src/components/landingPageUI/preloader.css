@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "StarrailGlyph";
+  src: url(/font/StarRailNeue-Sans-Regular.ttf);
+}
+
+.preloader-wrapper {
+  position: fixed;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loading {
+  animation: pulse 3s ease-out infinite;
+}
+
+.loading2 {
+  animation: pulse 3s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+.progress-bar-wrapper {
+  color: rgba(240, 248, 255, 0.863);
+}
+
+.MuiLinearProgress-colorPrimary {
+  background-color: azure;
+}
