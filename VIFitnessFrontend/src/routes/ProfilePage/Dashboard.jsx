@@ -114,7 +114,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
           {/* ROW 1 */}
           <Box
             gridColumn="span 4"
-            gridRow="span 6"
+            gridRow="span 5"
             backgroundColor={colors.background.default}
             p="30px"
             className="rounded-lg border"
