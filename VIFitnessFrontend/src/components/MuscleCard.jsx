@@ -97,26 +97,26 @@ export default function MuscleCard({ img, title, description }) {
             <div className="flex-grow pb-8">
               <div className="grid grid-cols-3 grid-rows-2 gap-x-0 gap-y-8 overflow-y-auto">
 
-                {workoutData.slice(0,6).map((item, index) => {
-                  const correctedName = item.name === "Rocky Pull-Ups/Pulldowns" ? "Shotgun row" : item.name;
-                  return (
-                    <div key={item.instructions}>
-                      <div className="flex justify-center">
-                        <ExerciseCard
-                          img= {`/exerciseImage/${correctedName}.jpg`} // Match name of image with title
-                          title={correctedName} // Use the corrected name as the title
-                          description={item.difficulty} // Use the item difficulty
-                          instruction={item.instructions} // Passing in the instruction
-                          equipment={item.equipment}
-                        />
-                      </div>
+              {workoutData.slice(0,6).map((item, index) => {
+                const correctedName = item.name === "Rocky Pull-Ups/Pulldowns" ? "Shotgun row" : item.name;
+                return (
+                  <div key={item.instructions}>
+                    <div className="flex justify-center">
+                      <ExerciseCard
+                        img= {`/exerciseImage/${correctedName}.jpg`} // Match name of image with title
+                        title={correctedName} // Use the corrected name as the title
+                        description={item.difficulty} // Use the item difficulty
+                        instruction={item.instructions} // Passing in the instruction
+                        equipment={item.equipment} 
+                        muscle={item.muscle}
+                      />
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-          </Box>
-        </animated.div>
+          </div>
+        </Box>
       </Modal>
     </div>
   );

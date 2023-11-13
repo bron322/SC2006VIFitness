@@ -16,7 +16,6 @@ import jsPDF from "jspdf";
 
 import Experience from "../../components/Experience";
 import { Canvas } from "@react-three/fiber";
-// import React from "react";
 import Interface from "../../components/Interface";
 import { MantineProvider } from "@mantine/core";
 import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
@@ -134,7 +133,26 @@ const bmiResult = calculateBMI(user.weight, user.height);
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-
+            <div style={{ overflow: "auto" }}>
+              <MantineProvider>
+                <CharacterAnimationsProvider>
+                  <Canvas
+                    style={{
+                      position: "absolute",
+                      zIndex: "10",
+                      width: "23%",
+                      height: "80%",
+                      transform: "translate(0%, 10%)",
+                    }}
+                    shadows
+                    camera={{ position: [0, 12, 18], fov: 95 }}
+                  >
+                    <Experience />
+                  </Canvas>
+                  <Interface />
+                </CharacterAnimationsProvider>
+              </MantineProvider>
+            </div>
           </Box>
           <Box
             gridColumn="span 4"
@@ -158,7 +176,9 @@ const bmiResult = calculateBMI(user.weight, user.height);
               <StatBox
                 subtitle={user.weight + " kg"}
                 title="Weight" />
-
+              <StatBox
+                subtitle={bmiResult}
+                title="BMI" />
             </Box>
           </Box>
 
@@ -210,7 +230,6 @@ const bmiResult = calculateBMI(user.weight, user.height);
               }
               return null; // Don't render the workout if it's not completed
             })}
-
           </Box>
           {/* ROW 2 */}
           <Box
@@ -247,7 +266,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
               <Macros />
             </Box>
           </Box>
-          
+
           {/* ROW 3 */}
           <Box
             gridColumn="span 4"
@@ -288,10 +307,8 @@ const bmiResult = calculateBMI(user.weight, user.height);
                   borderBottom={`1px solid ${colors.secondary.default}`}
                   className="flex-col"
                   p="15px"
-                  onClick={() => toggleExpand(muscle)}
-                  style={{ cursor: 'pointer'}}
                 >
-                  <div className="flex justify-between w-full">
+                  <div onClick={() => toggleExpand(muscle)} style={{ cursor: 'pointer' }} className="flex justify-between w-full">
                     <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
                       {muscle}
                     </Typography>
@@ -325,6 +342,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
                 </Typography>
               </Box>
             )} 
+
           </Box>
           <Box
             gridColumn="span 8"
