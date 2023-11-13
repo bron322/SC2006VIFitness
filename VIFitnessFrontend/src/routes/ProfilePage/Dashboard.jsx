@@ -33,9 +33,42 @@ export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(
-    (workout) => workout.isCompleted
-  );
+  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const calculateBMI = (weight, height) => {
+    // Check if weight and height are provided
+    if (!weight || !height) {
+        return "Please provide both weight and height for accurate BMI calculation.";
+    }
+
+    // Convert height to meters (if it's in centimeters)
+    const heightInMeters = height / 100;
+
+    // Calculate BMI using the formula: weight (kg) / (height (m) * height (m))
+    const bmi = weight / (heightInMeters * heightInMeters);
+
+    // Round BMI to two decimal places
+    return parseFloat(bmi.toFixed(2));
+};
+
+const bmiResult = calculateBMI(user.weight, user.height);
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {

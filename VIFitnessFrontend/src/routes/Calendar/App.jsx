@@ -10,6 +10,7 @@ import EventModal from "./components/EventModal";
 function App() {
   const [currenMonth, setCurrentMonth] = useState(getMonth());
   const { monthIndex, showEventModal } = useContext(GlobalContext);
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(null);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
@@ -22,8 +23,8 @@ function App() {
       <div className="h-50 flex flex-col">
         <CalendarHeader />
         <div className="flex flex-1">
-          <Sidebar />
-          <Month month={currenMonth} />
+          <Sidebar setSelectedMuscleGroup={setSelectedMuscleGroup} />
+          <Month month={currenMonth} selectedMuscleGroup={selectedMuscleGroup} />
         </div>
       </div>
     </>
