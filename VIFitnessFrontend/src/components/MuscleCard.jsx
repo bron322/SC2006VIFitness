@@ -7,15 +7,10 @@ import { CardActionArea } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import ExerciseCard from './ExerciseCard';
-import Calves from "./styles/photos/Calves.png";
-import Glutes from "./styles/photos/Glutes.png";
-import Hamstring from "./styles/photos/Hamstring.jpg";
-import Quads from "./styles/photos/Quads.png";
 import APIDataService from "../services/APIDataService";
 import { useState } from "react";
 import ExerciseService from "../services/ExerciseService";
 import { IndeterminateCheckBoxRounded } from '@mui/icons-material';
-import CircularIndeterminate from './CircularLoading';
 import { useSpring, animated} from "react-spring";  
 import { bouncy } from "ldrs";
 
