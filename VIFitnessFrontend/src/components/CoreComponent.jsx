@@ -42,8 +42,8 @@ function CoreComponent() {
                         )}
                     </Link>
                 </div>
-                <div className="flex-grow px-24 pt-10 pb-10">
-                    <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 overflow-y-auto">
+                <div className="flex-grow px-24">
+                    <div className="grid grid-cols-2 grid-rows-3 gap-x-24 gap-y-20 pt-10 pb-10overflow-y-auto">
 
                         {/* Card 1 */}
                         <div className="flex justify-center">

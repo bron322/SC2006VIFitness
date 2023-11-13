@@ -23,7 +23,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   border: '2px solid #000',
-  boxShadow: 24,
+  boxShadow: 10,
   pt: 3,
   px: 3,
   pb: 3,
@@ -52,7 +52,7 @@ export default function MuscleCard({ img, title, description }) {
 
   return (
     <div>
-      <Card sx={{ width: 200, height: 400 }} onClick={musclecardhandleOpen} className={`${isHovered ? 'hover-effect' : ''}`} 
+      <Card sx={{ width: 200, height: 400, boxShadow: 24}} onClick={musclecardhandleOpen} className={`${isHovered ? 'hover-effect' : ''}`} 
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}>
         <CardActionArea>
