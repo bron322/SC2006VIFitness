@@ -5,6 +5,13 @@ body {
 
 html {
   scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+.scroll-visible {
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @font-face {
