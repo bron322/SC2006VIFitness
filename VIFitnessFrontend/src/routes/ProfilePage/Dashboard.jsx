@@ -5,7 +5,7 @@ import Macros from "./Chart/macros";
 import StatBox from "./Chart/StatBox";
 import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import jsPDF from "jspdf";
 
 import Experience from "../../components/Experience";
 import { Canvas } from "@react-three/fiber";
+
 import Interface from "../../components/Interface";
 import { MantineProvider } from "@mantine/core";
 import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
@@ -32,11 +33,13 @@ export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const completedWorkouts = user.workouts.filter(
+    (workout) => workout.isCompleted
+  );
   const calculateBMI = (weight, height) => {
     // Check if weight and height are provided
     if (!weight || !height) {
-        return "Please provide both weight and height for accurate BMI calculation.";
+      return "Please provide both weight and height for accurate BMI calculation.";
     }
 
     // Convert height to meters (if it's in centimeters)
@@ -47,7 +50,7 @@ export default function Dashboard() {
 
     // Round BMI to two decimal places
     return parseFloat(bmi.toFixed(2));
-};
+  };
 
 const bmiResult = calculateBMI(user.weight, user.height);
 
@@ -99,7 +102,11 @@ const bmiResult = calculateBMI(user.weight, user.height);
       <Box m="20px">
         {/* HEADER */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Header title="Dashboard" subtitle={`Welcome to ${user.username}'s dashboard`} />
+          <Header
+            title="Dashboard"
+            subtitle={`Welcome to ${user.username}'s dashboard`}
+          />
+
           <Box>
             <Button
               sx={{
@@ -141,11 +148,14 @@ const bmiResult = calculateBMI(user.weight, user.height);
                       position: "absolute",
                       zIndex: "10",
                       width: "23%",
-                      height: "80%",
+                      height: "75%",
                       transform: "translate(0%, 10%)",
+                      border: "1px",
+                      borderStyle: "double",
+                      borderRadius: "10px",
                     }}
                     shadows
-                    camera={{ position: [0, 12, 18], fov: 95 }}
+                    camera={{ position: [0, 10, 18], fov: 90 }}
                   >
                     <Experience />
                   </Canvas>
@@ -162,7 +172,11 @@ const bmiResult = calculateBMI(user.weight, user.height);
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-            <Typography variant="h5" fontWeight="600" style={{ marginTop: '-10px' }}>
+            <Typography
+              variant="h5"
+              fontWeight="600"
+              style={{ marginTop: "-10px" }}
+            >
               User Profile
             </Typography>
             {/* sx={{ flexDirection: 'row' }} */}
@@ -186,7 +200,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
             gridColumn="span 4"
             gridRow="span 2"
             backgroundColor={colors.background.default}
-            overflow='auto'
+            overflow="auto"
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
@@ -202,10 +216,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
               zIndex="10"
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              <Typography
-                variant="h5"
-                fontWeight="600"
-              >
+              <Typography variant="h5" fontWeight="600">
                 Upcoming Event
               </Typography>
             </Box>
@@ -218,19 +229,21 @@ const bmiResult = calculateBMI(user.weight, user.height);
                     justifyContent="space-between"
                     alignItems="center"
                     borderBottom={`1px solid ${colors.secondary.default}`}
-                    className='flex flex-col justify-evenly'
+                    className="flex flex-col justify-evenly"
                     p="15px"
                   >
                     <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name}
-                      subsubtitle={workout.muscle} />
+                      subsubtitle={workout.muscle}
+                    />
                   </Box>
                 );
               }
               return null; // Don't render the workout if it's not completed
             })}
           </Box>
+
           {/* ROW 2 */}
           <Box
             gridColumn="span 8"
@@ -261,7 +274,8 @@ const bmiResult = calculateBMI(user.weight, user.height);
               alignItems="center"
               justifyContent="center"
               display="flex"
-              m="0 30px">
+              m="0 30px"
+            >
               {/* <LineChart isDashboard={true} /> */}
               <Macros />
             </Box>
@@ -272,7 +286,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
             gridColumn="span 4"
             gridRow="span 4"
             backgroundColor={colors.background.default}
-            overflow='auto'
+            overflow="auto"
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
@@ -288,10 +302,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
               zIndex="10"
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              <Typography
-                variant="h5"
-                fontWeight="600"
-              >
+              <Typography variant="h5" fontWeight="600">
                 Completed Workout
               </Typography>
             </Box>
@@ -335,14 +346,14 @@ const bmiResult = calculateBMI(user.weight, user.height);
                 justifyContent="space-between"
                 alignItems="center"
                 p="15px"
-                component={Link} to="workout-planner"
+                component={Link}
+                to="workout-planner"
               >
                 <Typography variant="h5" fontWeight="600">
                   Start doing your workout now !!!
                 </Typography>
               </Box>
-            )} 
-
+            )}
           </Box>
           <Box
             gridColumn="span 8"
@@ -374,10 +385,10 @@ const bmiResult = calculateBMI(user.weight, user.height);
               alignItems="center"
               justifyContent="center"
               display="flex"
-              m="0 30px">
+              m="0 30px"
+            >
               <BarChart />
             </Box>
-
           </Box>
 
           {/* <Box

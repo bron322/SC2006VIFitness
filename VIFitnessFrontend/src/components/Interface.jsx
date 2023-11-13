@@ -19,6 +19,7 @@ const Interface = () => {
               key={animation}
               variant={index === animationIndex ? "filled" : "light"}
               onClick={() => setAnimationIndex(index)}
+              style={{border: ""}}
             >
               {animation}
             </Button>
