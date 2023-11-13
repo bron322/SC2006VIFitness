@@ -151,7 +151,26 @@ const bmiResult = calculateBMI(user.weight, user.height);
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-
+            <div style={{ overflow: "auto" }}>
+              <MantineProvider>
+                <CharacterAnimationsProvider>
+                  <Canvas
+                    style={{
+                      position: "absolute",
+                      zIndex: "10",
+                      width: "23%",
+                      height: "80%",
+                      transform: "translate(0%, 10%)",
+                    }}
+                    shadows
+                    camera={{ position: [0, 12, 18], fov: 95 }}
+                  >
+                    <Experience />
+                  </Canvas>
+                  <Interface />
+                </CharacterAnimationsProvider>
+              </MantineProvider>
+            </div>
           </Box>
           <Box
             gridColumn="span 4"
