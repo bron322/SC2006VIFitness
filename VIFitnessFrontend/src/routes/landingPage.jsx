@@ -9,10 +9,10 @@ import exerciseinstructions from "./styles/photos/exercise-instruction.png";
 import stravadata from "./styles/photos/stravadata.png";
 import Footer from "@/components/landingPageUI/footer";
 import Splitting from "splitting";
-import gsap from "gsap";
 import Preloader from "@/components/landingPageUI/preloader";
 import emitter from "@/utils/eventEmitter";
 import ScrollToTop from "@/utils/ScrollToTop";
+import gsap from "gsap";
 
 export default function LandingPage() {
   const initialised = useRef(false);
@@ -22,7 +22,6 @@ export default function LandingPage() {
   const [isPreloading, setIsPreloading] = useState(true);
 
   const tl = useRef();
-  const tlSecond = useRef();
 
   //for spining scroll down button
   useEffect(() => {
@@ -53,7 +52,7 @@ export default function LandingPage() {
 
       rotate(radius, rotation);
     }
-  }, [rotation, radius]);
+  }, [rotation]);
 
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -188,7 +187,7 @@ export default function LandingPage() {
     emitter.on("preloader-ready", () => {
       window.addEventListener("mousedown", MouseDownEvent);
     });
-  });
+  }, []);
 
   ScrollToTop();
 
@@ -249,7 +248,7 @@ export default function LandingPage() {
 
               <div className="cursor cursor-pointer hover:cursor-pointer">
                 <div
-                  className="text-neutral-300 cursor-pointer hover:cursor-pointer"
+                  className="cursor-text text-neutral-300 cursor-pointer hover:cursor-pointer"
                   data-splitting=""
                 >
                   Explore • our • Features •
