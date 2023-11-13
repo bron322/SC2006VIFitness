@@ -14,6 +14,7 @@ import emitter from "@/utils/eventEmitter";
 import ScrollToTop from "@/utils/ScrollToTop";
 import gsap from "gsap";
 
+
 export default function LandingPage() {
   const initialised = useRef(false);
   const [rotation, setRotation] = useState(360);
@@ -166,38 +167,38 @@ export default function LandingPage() {
     FadeOutPreloader();
   };
 
-  // const FadeInMainPage = () => {
-  //   tl2.current = gsap
-  //     .timeline({
-  //       onComplete: () => {
-
-  //       },
-  //     })
-  //     .to(".hero-text-wrapper", {
-  //       opacity: 1,
-  //       duration: 1.5,
-  //       ease: "power2.out",
-  //     })
-  //     .to(
-  //       spinRef.current,
-  //       {
-  //         opacity: 1,
-  //         duration: 1,
-  //         ease: "power2.out",
-  //       },
-  //       "<"
-  //     );
-  // };
+  const FadeInMainPage = () => {
+    tl2.current = gsap
+      .timeline({
+        onComplete: () => {
+          document.documentElement.style.overflow = "auto";
+        },
+      })
+      .to(".hero-text-wrapper", {
+        opacity: 1,
+        duration: 1.5,
+        ease: "power2.out",
+      })
+      .to(
+        spinRef.current,
+        {
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+        },
+        "<"
+      );
+  };
 
   // fade out preloader after animation finish
   const FadeOutPreloader = () => {
     window.removeEventListener("mousedown", MouseDownEvent);
-    document.documentElement.style.overflow = "auto";
+
     tl.current = gsap
       .timeline({
         onComplete: () => {
           setIsPreloading(false);
-          // FadeInMainPage();
+          FadeInMainPage();
         },
       })
       .to(
@@ -234,7 +235,7 @@ export default function LandingPage() {
         </div>
 
         <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
-          <div className="hero-text-wrapper flex flex-col items-center justify-center ">
+          <div className="hero-text-wrapper flex flex-col items-center justify-center opacity-0">
             <h2 className="cssanimation sequence justify-self-center hk-font text-transparent hollow">
               Welcome
             </h2>
@@ -251,7 +252,7 @@ export default function LandingPage() {
             className="opacity-70 hover:opacity-100 transition-opactity hover:cursor-pointer"
           >
             <div
-              className="spin-text-wrapper flex justify-center items-center hover:cursor-pointer relative "
+              className="spin-text-wrapper flex justify-center items-center hover:cursor-pointer relative opacity-0"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               ref={spinRef}
