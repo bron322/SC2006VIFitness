@@ -68,7 +68,7 @@ export default function Footer() {
                       Powered by
                     </span>
                     <span className="absolute w-fit top-[25px] start-[30px] text-neutral-200 font-black text-2xl">
-                      Nutritionix API
+                      Strava API
                     </span>
                   </a>
                 </div>

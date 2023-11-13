@@ -52,25 +52,7 @@ export default function Dashboard() {
     return parseFloat(bmi.toFixed(2));
   };
 
-  const bmiResult = calculateBMI(user.weight, user.height);
-
-  // Aggregate exercises for each muscle part
-  completedWorkouts.forEach((workout) => {
-    const muscle = workout.muscle;
-    if (!muscleGroups[muscle]) {
-      muscleGroups[muscle] = [];
-    }
-    muscleGroups[muscle].push(workout);
-  });
-
-  // Aggregate exercises for each muscle part
-  completedWorkouts.forEach((workout) => {
-    const muscle = workout.muscle;
-    if (!muscleGroups[muscle]) {
-      muscleGroups[muscle] = [];
-    }
-    muscleGroups[muscle].push(workout);
-  });
+const bmiResult = calculateBMI(user.weight, user.height);
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -198,13 +180,19 @@ export default function Dashboard() {
               User Profile
             </Typography>
             {/* sx={{ flexDirection: 'row' }} */}
-            <Box
-              height="250px"
-              className="flex flex-col items-center justify-evenly"
-            >
-              <StatBox subtitle={user.age} title="Age" />
-              <StatBox subtitle={user.height + " cm"} title="Height" />
-              <StatBox subtitle={user.weight + " kg"} title="Weight" />
+            <Box height="250px" className='flex flex-col items-center justify-evenly'>
+              <StatBox
+                subtitle={user.age}
+                title="Age" />
+              <StatBox
+                subtitle={user.height + " cm"}
+                title="Height" />
+              <StatBox
+                subtitle={user.weight + " kg"}
+                title="Weight" />
+              <StatBox
+                subtitle={bmiResult}
+                title="BMI" />
             </Box>
           </Box>
 
@@ -321,46 +309,38 @@ export default function Dashboard() {
 
             {completedWorkouts.length > 0 ? (
               <>
-                {Object.keys(muscleGroups).map((muscle, i) => (
-                  <Box
-                    key={`${i}-${muscle}`}
-                    // display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    borderBottom={`1px solid ${colors.secondary.default}`}
-                    className="flex-col"
-                    p="15px"
-                    onClick={() => toggleExpand(muscle)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <div className="flex justify-between w-full">
-                      <Typography
-                        variant="h5"
-                        fontWeight="bold"
-                        sx={{ textTransform: "capitalize" }}
-                      >
-                        {muscle}
-                      </Typography>
-                      <Typography variant="h5" fontWeight="bold">
-                        Frequency: {muscleGroups[muscle].length}
-                      </Typography>
+              {Object.keys(muscleGroups).map((muscle, i) => (
+                <Box
+                  key={`${i}-${muscle}`}
+                  // display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  className="flex-col"
+                  p="15px"
+                >
+                  <div onClick={() => toggleExpand(muscle)} style={{ cursor: 'pointer' }} className="flex justify-between w-full">
+                    <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
+                      {muscle}
+                    </Typography>
+                    <Typography variant="h5" fontWeight="bold">Frequency: {muscleGroups[muscle].length}</Typography>
+                  </div>
+                  {expandedMuscle === muscle && (
+                    <div>
+                      {/* Render exercise details, you can use ExerciseBox or other components */}
+                      {muscleGroups[muscle].map((workout, index) => (
+                        <ExerciseBox
+                          key={index}
+                          subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                          title={workout.name}
+                        />
+                      ))}
                     </div>
-                    {expandedMuscle === muscle && (
-                      <div>
-                        {/* Render exercise details, you can use ExerciseBox or other components */}
-                        {muscleGroups[muscle].map((workout, index) => (
-                          <ExerciseBox
-                            key={index}
-                            subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                            title={workout.name}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </Box>
-                ))}
-              </>
-            ) : (
+                  )}
+                </Box>
+              ))}
+              </>           
+              ): (
               <Box
                 display="flex"
                 justifyContent="space-between"

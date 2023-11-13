@@ -23,6 +23,11 @@ import APIDataService from "@/services/APIDataService";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/AuthProvider";
 import NutritionixService from "@/services/NutritionixService";
+import { useTheme } from "@mui/material";
+import { useContext } from "react";
+import { ColorModeContext } from "../routes/theme";
+import { useState } from "react";
+import { useSpring, animated} from "react-spring";  
 
 const style = {
   position: "absolute",
@@ -90,7 +95,7 @@ function AddtoCalendarButton(props) {
 
   return (
     <React.Fragment>
-      <Button onClick={handleOpen}>Add to calendar</Button>
+      <Button onClick={handleOpen} style={{color: 'blue'}}>Add to calendar</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -145,9 +150,11 @@ export default function ExerciseCard({
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
+  const [flip, setFlip] = useState(false)
 
   const exercisecardhandleOpen = () => {
     setOpen(true);
+    setFlip(!flip);
     // Define the exercise name you want to look up
     const exerciseName = title; // Replace with the actual exercise name
 
@@ -191,6 +198,22 @@ export default function ExerciseCard({
   const intValue = descriptionToValue[description];
   const colorValue = descriptionToColor[description];
 
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
+
+  const getBackgroundColors = () => {
+    if (theme.palette.mode === 'dark') {
+      return 'rgba(0, 0, 0, 1)';
+    } else {
+      return 'rgba(255, 255, 255, 1 )';
+    }
+  };
+
+  const props = useSpring({
+    to: { opacity: open ? 1 : 0 },
+    from: { opacity: 0 },  
+  });
+
   return (
     <div>
       <Card sx={{ width: 150, height: 250 }} onClick={exercisecardhandleOpen}>
@@ -225,68 +248,73 @@ export default function ExerciseCard({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
-          <div className="flex">
-            <img
-              className="absolute w-full h-full top-0 left-0"
-              src={`/exerciseImage/${title}.jpg`}
-              alt="Exercise"
-            />
+        <animated.div style={{ ...style, ...props }}>
+          <Box sx={{ ...style, width: 1000, height: 730, display: "flex" }}>
+            <div className="flex">
+              <img
+                className="absolute w-full h-full top-0 left-0"
+                src={`/exerciseImage/${title}.jpg`}
+                alt="Exercise"
+              />
 
-            {/* placeholder overlay */}
-            <div
-              className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0 bg-black opacity-50"
-              style={{ backdropFilter: "grayscale(100%) blur(100px)" }}
-            />
-            <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
-              <div className="text-center text-5xl font-bold z-10 pb-5">
-                {title}
-              </div>
-
-              <div className="flex-grow pb-5 z-20 pl-3">
-                <div className="font-semibold text-2xl">{"Difficulty: "}</div>
-                <br></br>
-                <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
-                  <div className="text-center">
-                    <style> {""} </style>
-                    <CircularProgress
-                      variant="determinate"
-                      color={colorValue}
-                      value={intValue}
-                      size="60px"
-                    />
-                  </div>
-                  <div className="pl-1 text-center">{description}</div>
+              {/* placeholder overlay */}
+              <div
+                className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0"
+                style={{ 
+                  backdropFilter: "grayscale(100%) blur(100px)",
+                  backgroundColor: getBackgroundColors()  
+                }}
+              />
+              <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
+                <div className="text-center text-5xl font-bold z-10 pb-5">
+                  {title}
                 </div>
-              </div>
 
-              <div className="flex-grow pb-5 z-20 pl-3">
-                <div className="font-semibold text-2xl">{"Instructions: "}</div>
-                <br></br>
-                {instruction}
-              </div>
+                <div className="flex-grow pb-5 z-20 pl-3">
+                  <div className="font-semibold text-2xl">{"Difficulty: "}</div>
+                  <br></br>
+                  <div className="flex-col justify-center content-center items-center place-content-center place-items-center">
+                    <div className="text-center">
+                      <style> {""} </style>
+                      <CircularProgress
+                        variant="determinate"
+                        color={colorValue}
+                        value={intValue}
+                        size="60px"
+                      />
+                    </div>
+                    <div className="pl-1 text-center">{description}</div>
+                  </div>
+                </div>
 
-              <div className="flex-grow pb-5 z-20 pl-3">
-                <div className="font-semibold text-2xl">{"Equipment: "}</div>
-                <br></br>
-                {equipment}
-              </div>
+                <div className="flex-grow pb-5 z-20 pl-3">
+                  <div className="font-semibold text-2xl">{"Instructions: "}</div>
+                  <br></br>
+                  {instruction}
+                </div>
 
-              <div className="flex-grow pb-8 z-20 pl-3">
-                <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
-                <br></br>
-                {caloriesBurnt}
-              </div>
-              {/* This is for calories burnt for the exercise */}
+                <div className="flex-grow pb-5 z-20 pl-3">
+                  <div className="font-semibold text-2xl">{"Equipment: "}</div>
+                  <br></br>
+                  {equipment}
+                </div>
+
+                <div className="flex-grow pb-8 z-20 pl-3">
+                  <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
+                  <br></br>
+                  {caloriesBurnt}
+                </div>
+                {/* This is for calories burnt for the exercise */}
 
               <div className="flex-grow pb-8 z-20 text-center">
                 <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} muscle={muscle} />
                 {/* add to calendar button */}
               </div>
 
+              </div>
             </div>
-          </div>
-        </Box>
+          </Box>
+        </animated.div>
       </Modal>
     </div>
   );
