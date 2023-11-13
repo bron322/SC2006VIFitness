@@ -557,4 +557,28 @@ APIrouter.patch("/uploadProfilePic/:username", (req, res) => {
     });
 });
 
+//PATCH refresh Strava
+APIrouter.patch("/refreshStrava/:email", (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    {
+      $set: {
+        strava_data: {
+          accessToken: req.body.accessToken,
+          expiresAt: req.body.expiresAt,
+          expiresIn: req.body.expiresIn,
+          refreshToken: req.body.refreshToken,
+        },
+      },
+    },
+    { returnOriginal: false }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+});
+
 export { APIrouter };

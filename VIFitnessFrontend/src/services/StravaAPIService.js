@@ -1,6 +1,5 @@
 import axios from "axios";
 import { StravaAPIhttp } from "../http-common";
-import { data } from "autoprefixer";
 
 //Options for RedirectAuthorisation
 const STRAVA_ID = import.meta.env.VITE_STRAVA_ID;
@@ -15,6 +14,12 @@ const redirectAuthorisation = async () => {
 
 const redirectConnect = async () => {
   window.location = `http://www.strava.com/oauth/authorize?client_id=${STRAVA_ID}&response_type=code&redirect_uri=${redirectConnectUrl}/exchange_token&approval_prompt=force&scope=${scope}`;
+};
+
+const refreshAuthToken = async (data) => {
+  return StravaAPIhttp.post(
+    `oauth/token?client_id=${STRAVA_ID}&client_secret=${STRAVA_SECRET}&grant_type=refresh_token&refresh_token=${data.refreshToken}`
+  );
 };
 
 //Get Authorization token
@@ -65,6 +70,7 @@ const StravaAPIService = {
   getAthleteData,
   redirectConnect,
   getAthleteActivities,
+  refreshAuthToken,
 };
 
 export default StravaAPIService;
