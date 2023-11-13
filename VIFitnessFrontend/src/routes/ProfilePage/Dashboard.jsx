@@ -108,9 +108,7 @@ export default function Dashboard() {
             <div style={{ overflow: "hidden" }}>
               <MantineProvider>
                 <CharacterAnimationsProvider>
-                  <Interface
-                    style={{ zIndex: "20" }}
-                  />
+                  <Interface style={{ zIndex: "20" }} />
                   <Canvas
                     style={{
                       position: "relative",
