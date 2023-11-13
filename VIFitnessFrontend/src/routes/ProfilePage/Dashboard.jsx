@@ -60,15 +60,6 @@ const bmiResult = calculateBMI(user.weight, user.height);
     muscleGroups[muscle].push(workout);
   });
 
-  // Aggregate exercises for each muscle part
-  completedWorkouts.forEach((workout) => {
-    const muscle = workout.muscle;
-    if (!muscleGroups[muscle]) {
-      muscleGroups[muscle] = [];
-    }
-    muscleGroups[muscle].push(workout);
-  });
-
   const handleDownload = () => {
     const dashboardElement = document.getElementById("dashboard-container");
 
