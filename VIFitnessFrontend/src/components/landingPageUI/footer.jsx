@@ -35,7 +35,7 @@ export default function Footer() {
               </div>
 
               <div className="w-fit flex mt-10 ml-10">
-                <div className="relative w-[200px] h-[70px] hover:opacity-70 transition-opacity m-2">
+                <div className="relative w-[200px] h-[70px] opacity-70 hover:opacity-100 transition-opacity m-2">
                   <a
                     href="https://www.nutritionix.com/business/api"
                     target="_blank"
@@ -54,7 +54,7 @@ export default function Footer() {
                   </a>
                 </div>
 
-                <div className="relative w-[200px] h-[70px] hover:opacity-70 transition-opacity m-2">
+                <div className="relative w-[200px] h-[70px] opacity-70 hover:opacity-100 transition-opacity m-2">
                   <a
                     href="https://developers.strava.com/docs/reference/"
                     target="_blank"
@@ -73,7 +73,7 @@ export default function Footer() {
                   </a>
                 </div>
 
-                <div className="relative w-[200px] h-[70px] hover:opacity-70 transition-opacity m-2">
+                <div className="relative w-[200px] h-[70px] opacity-70 hover:opacity-100 transition-opacity m-2">
                   <a
                     href="https://api-ninjas.com/api/exercises"
                     target="_blank"

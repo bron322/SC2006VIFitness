@@ -7,12 +7,19 @@ import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
 import React, { useState } from 'react';
 // import Calendar from "./Chart/Calendar";
-import Calendar from "../Calendar/components/SmallCalendar"
-import { Link } from 'react-router-dom';
+import Calendar from "../Calendar/components/SmallCalendar";
+import { Link } from "react-router-dom";
 import BarChart from "../../components/calorieChart/calorie";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+import Experience from "../../components/Experience";
+import { Canvas } from "@react-three/fiber";
+import React from "react";
+import Interface from "../../components/Interface";
+import { MantineProvider } from "@mantine/core";
+import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
 
 export default function Dashboard() {
   const [expandedMuscle, setExpandedMuscle] = useState(null);
@@ -26,7 +33,18 @@ export default function Dashboard() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const completedWorkouts = user.workouts.filter(
+    (workout) => workout.isCompleted
+  );
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -38,12 +56,12 @@ export default function Dashboard() {
   });
 
   const handleDownload = () => {
-    const dashboardElement = document.getElementById('dashboard-container');
+    const dashboardElement = document.getElementById("dashboard-container");
 
     if (dashboardElement) {
       html2canvas(dashboardElement)
         .then((canvas) => {
-          const imgData = canvas.toDataURL('image/png');
+          const imgData = canvas.toDataURL("image/png");
           const pdf = new jsPDF();
           const imgWidth = pdf.internal.pageSize.getWidth();
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -58,16 +76,16 @@ export default function Dashboard() {
             while (currentY < imgHeight) {
               const pageHeight = Math.min(imgHeight - currentY, maxPageHeight);
               pdf.addPage();
-              pdf.addImage(imgData, 'PNG', 0, -currentY, imgWidth, imgHeight);
+              pdf.addImage(imgData, "PNG", 0, -currentY, imgWidth, imgHeight);
               currentY += pageHeight;
             }
           } else {
-            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
           }
-          pdf.save('dashboard-report.pdf');
+          pdf.save("dashboard-report.pdf");
         })
         .catch((error) => {
-          console.error('Error generating PDF:', error);
+          console.error("Error generating PDF:", error);
         });
     }
   };
@@ -111,7 +129,26 @@ export default function Dashboard() {
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-
+            <div style={{ overflow: "auto" }}>
+              <MantineProvider>
+                <CharacterAnimationsProvider>
+                  <Canvas
+                    style={{
+                      position: "absolute",
+                      zIndex: "10",
+                      width: "23%",
+                      height: "80%",
+                      transform: "translate(0%, 10%)",
+                    }}
+                    shadows
+                    camera={{ position: [0, 12, 18], fov: 95 }}
+                  >
+                    <Experience />
+                  </Canvas>
+                  <Interface />
+                </CharacterAnimationsProvider>
+              </MantineProvider>
+            </div>
           </Box>
           <Box
             gridColumn="span 4"
@@ -121,21 +158,21 @@ export default function Dashboard() {
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-            <Typography variant="h5" fontWeight="600" style={{ marginTop: '-10px' }}>
+            <Typography
+              variant="h5"
+              fontWeight="600"
+              style={{ marginTop: "-10px" }}
+            >
               User Profile
             </Typography>
             {/* sx={{ flexDirection: 'row' }} */}
-            <Box height="250px" className='flex flex-col items-center justify-evenly'>
-              <StatBox
-                subtitle={user.age}
-                title="Age" />
-              <StatBox
-                subtitle={user.height + " cm"}
-                title="Height" />
-              <StatBox
-                subtitle={user.weight + " kg"}
-                title="Weight" />
-
+            <Box
+              height="250px"
+              className="flex flex-col items-center justify-evenly"
+            >
+              <StatBox subtitle={user.age} title="Age" />
+              <StatBox subtitle={user.height + " cm"} title="Height" />
+              <StatBox subtitle={user.weight + " kg"} title="Weight" />
             </Box>
           </Box>
 
