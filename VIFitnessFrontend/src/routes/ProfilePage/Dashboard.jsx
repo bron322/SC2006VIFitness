@@ -45,15 +45,6 @@ export default function Dashboard() {
     muscleGroups[muscle].push(workout);
   });
 
-  // Aggregate exercises for each muscle part
-  completedWorkouts.forEach((workout) => {
-    const muscle = workout.muscle;
-    if (!muscleGroups[muscle]) {
-      muscleGroups[muscle] = [];
-    }
-    muscleGroups[muscle].push(workout);
-  });
-
   const handleDownload = () => {
     const dashboardElement = document.getElementById("dashboard-container");
 
@@ -305,10 +296,8 @@ export default function Dashboard() {
                   borderBottom={`1px solid ${colors.secondary.default}`}
                   className="flex-col"
                   p="15px"
-                  onClick={() => toggleExpand(muscle)}
-                  style={{ cursor: 'pointer'}}
                 >
-                  <div className="flex justify-between w-full">
+                  <div onClick={() => toggleExpand(muscle)} style={{ cursor: 'pointer' }} className="flex justify-between w-full">
                     <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
                       {muscle}
                     </Typography>

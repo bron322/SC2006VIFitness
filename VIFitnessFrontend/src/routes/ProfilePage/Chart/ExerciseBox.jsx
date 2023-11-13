@@ -8,12 +8,12 @@ function ExerciseBox ({ title, subtitle}) {
 
   return (
     <Box width="100%"  flexDirection='row'>
-      <div className="flex justify-between">
+      <div className="flex justify-between pt-3">
         <Box sx={{ flexDirection:"row" }} justifyContent="space-between" className="w-2/3"> 
           <Typography
             variant="h5"
             fontWeight="bold"
-            mr = "55px"          
+            mr = "55px"      
             sx={{ color: colors.accent.foreground }}
           >
             {title}

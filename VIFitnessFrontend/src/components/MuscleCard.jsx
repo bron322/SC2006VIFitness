@@ -91,6 +91,7 @@ export default function MuscleCard({ img, title, description }) {
                         description={item.difficulty} // Use the item difficulty
                         instruction={item.instructions} // Passing in the instruction
                         equipment={item.equipment} 
+                        muscle={item.muscle}
                       />
                     </div>
                   </div>
