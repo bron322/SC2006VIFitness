@@ -62,6 +62,7 @@
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
+    "events": "^3.3.0",
     "formik": "^2.4.4",
     "gsap": "^3.12.2",
     "html2canvas": "^1.4.1",

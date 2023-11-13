@@ -5,6 +5,7 @@ import Macros from "./Chart/macros";
 import StatBox from "./Chart/StatBox";
 import ExerciseBox from "./Chart/ExerciseBox";
 import { useAuth } from "@/hooks/AuthProvider";
+import React, { useState } from 'react';
 // import Calendar from "./Chart/Calendar";
 import Calendar from "../Calendar/components/SmallCalendar";
 import { Link } from "react-router-dom";
@@ -21,12 +22,44 @@ import { MantineProvider } from "@mantine/core";
 import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
 
 export default function Dashboard() {
+  const [expandedMuscle, setExpandedMuscle] = useState(null);
+
+  const toggleExpand = (muscle) => {
+    setExpandedMuscle((prev) => (prev === muscle ? null : muscle));
+  };
+
+  const muscleGroups = {};
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
-  const completedWorkouts = user.workouts.filter(
-    (workout) => workout.isCompleted
-  );
+  const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const calculateBMI = (weight, height) => {
+    // Check if weight and height are provided
+    if (!weight || !height) {
+        return "Please provide both weight and height for accurate BMI calculation.";
+    }
+
+    // Convert height to meters (if it's in centimeters)
+    const heightInMeters = height / 100;
+
+    // Calculate BMI using the formula: weight (kg) / (height (m) * height (m))
+    const bmi = weight / (heightInMeters * heightInMeters);
+
+    // Round BMI to two decimal places
+    return parseFloat(bmi.toFixed(2));
+};
+
+const bmiResult = calculateBMI(user.weight, user.height);
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
 
   const handleDownload = () => {
     const dashboardElement = document.getElementById("dashboard-container");
@@ -67,11 +100,7 @@ export default function Dashboard() {
       <Box m="20px">
         {/* HEADER */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Header
-            title="Dashboard"
-            subtitle={`Welcome to ${user.username}'s dashboard`}
-          />
-
+          <Header title="Dashboard" subtitle={`Welcome to ${user.username}'s dashboard`} />
           <Box>
             <Button
               sx={{
@@ -99,32 +128,13 @@ export default function Dashboard() {
           {/* ROW 1 */}
           <Box
             gridColumn="span 4"
-            gridRow="span 2"
+            gridRow="span 5"
             backgroundColor={colors.background.default}
             p="30px"
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-            <div style={{ overflow: "hidden" }}>
-              <MantineProvider>
-                <CharacterAnimationsProvider>
-                  <Interface style={{ zIndex: "20" }} />
-                  <Canvas
-                    style={{
-                      position: "relative",
-                      zIndex: "10",
-                      width: "100%",
-                      height: "20em",
-                      transform: "translate(0%, 10%)",
-                    }}
-                    shadows
-                    camera={{ position: [0, 12, 18], fov: 85 }}
-                  >
-                    <Experience />
-                  </Canvas>
-                </CharacterAnimationsProvider>
-              </MantineProvider>
-            </div>
+
           </Box>
           <Box
             gridColumn="span 4"
@@ -134,28 +144,29 @@ export default function Dashboard() {
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
-            <Typography
-              variant="h5"
-              fontWeight="600"
-              style={{ marginTop: "-10px" }}
-            >
+            <Typography variant="h5" fontWeight="600" style={{ marginTop: '-10px' }}>
               User Profile
             </Typography>
             {/* sx={{ flexDirection: 'row' }} */}
-            <Box
-              height="250px"
-              className="flex flex-col items-center justify-evenly"
-            >
-              <StatBox subtitle={user.age} title="Age" />
-              <StatBox subtitle={user.height + " cm"} title="Height" />
-              <StatBox subtitle={user.weight + " kg"} title="Weight" />
+            <Box height="250px" className='flex flex-col items-center justify-evenly'>
+              <StatBox
+                subtitle={user.age}
+                title="Age" />
+              <StatBox
+                subtitle={user.height + " cm"}
+                title="Height" />
+              <StatBox
+                subtitle={user.weight + " kg"}
+                title="Weight" />
+
             </Box>
           </Box>
+
           <Box
             gridColumn="span 4"
             gridRow="span 2"
             backgroundColor={colors.background.default}
-            overflow="auto"
+            overflow='auto'
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
@@ -171,65 +182,36 @@ export default function Dashboard() {
               zIndex="10"
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              <Typography variant="h5" fontWeight="600">
-                Completed Workout
+              <Typography
+                variant="h5"
+                fontWeight="600"
+              >
+                Upcoming Event
               </Typography>
             </Box>
+            {user.workouts.map((workout, i) => {
+              if (workout.isCompleted === false) {
+                return (
+                  <Box
+                    key={`${i}-${workout.name}`}
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    borderBottom={`1px solid ${colors.secondary.default}`}
+                    className='flex flex-col justify-evenly'
+                    p="15px"
+                  >
+                    <ExerciseBox
+                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                      title={workout.name}
+                      subsubtitle={workout.muscle} />
+                  </Box>
+                );
+              }
+              return null; // Don't render the workout if it's not completed
+            })}
 
-            {completedWorkouts.length > 0 ? (
-              completedWorkouts.map((workout, i) => (
-                <Box
-                  key={`${i}-${workout.name}`}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`1px solid ${colors.secondary.default}`}
-                  className="flex flex-col justify-evenly"
-                  p="15px"
-                >
-                  <ExerciseBox
-                    subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                    title={workout.name}
-                    subsubtitle={workout.muscle}
-                  />
-                </Box>
-              ))
-            ) : (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                p="15px"
-                component={Link}
-                to="workout-planner"
-              >
-                <Typography variant="h5" fontWeight="600">
-                  Start doing your workout now !!!
-                </Typography>
-              </Box>
-            )}
           </Box>
-          {/* <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.background.default}
-          padding="20px"
-          className="rounded-lg border"
-          borderColor={colors.secondary.default}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "5px" }}
-          >
-            Calendar
-          </Typography>
-          <Box height="250px" mt="-15px">
-            {/* <Calendar /> */}
-          {/* <Calendar />
-          </Box> 
-        </Box> */}
-
           {/* ROW 2 */}
           <Box
             gridColumn="span 8"
@@ -260,18 +242,18 @@ export default function Dashboard() {
               alignItems="center"
               justifyContent="center"
               display="flex"
-              m="0 30px"
-            >
+              m="0 30px">
               {/* <LineChart isDashboard={true} /> */}
               <Macros />
             </Box>
           </Box>
-
+          
+          {/* ROW 3 */}
           <Box
             gridColumn="span 4"
-            gridRow="span 3"
+            gridRow="span 4"
             backgroundColor={colors.background.default}
-            overflow="auto"
+            overflow='auto'
             className="rounded-lg border"
             borderColor={colors.secondary.default}
           >
@@ -287,35 +269,63 @@ export default function Dashboard() {
               zIndex="10"
               style={{ opacity: 1, backgroundColor: colors.background.default }}
             >
-              <Typography variant="h5" fontWeight="600">
-                Upcoming Event
+              <Typography
+                variant="h5"
+                fontWeight="600"
+              >
+                Completed Workout
               </Typography>
             </Box>
-            {user.workouts.map((workout, i) => {
-              if (workout.isCompleted === false) {
-                return (
-                  <Box
-                    key={`${i}-${workout.name}`}
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    borderBottom={`1px solid ${colors.secondary.default}`}
-                    className="flex flex-col justify-evenly"
-                    p="15px"
-                  >
-                    <ExerciseBox
-                      subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                      title={workout.name}
-                      subsubtitle={workout.muscle}
-                    />
-                  </Box>
-                );
-              }
-              return null; // Don't render the workout if it's not completed
-            })}
-          </Box>
 
-          {/* ROW 3 */}
+            {completedWorkouts.length > 0 ? (
+              <>
+              {Object.keys(muscleGroups).map((muscle, i) => (
+                <Box
+                  key={`${i}-${muscle}`}
+                  // display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`1px solid ${colors.secondary.default}`}
+                  className="flex-col"
+                  p="15px"
+                  onClick={() => toggleExpand(muscle)}
+                  style={{ cursor: 'pointer'}}
+                >
+                  <div className="flex justify-between w-full">
+                    <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
+                      {muscle}
+                    </Typography>
+                    <Typography variant="h5" fontWeight="bold">Frequency: {muscleGroups[muscle].length}</Typography>
+                  </div>
+                  {expandedMuscle === muscle && (
+                    <div>
+                      {/* Render exercise details, you can use ExerciseBox or other components */}
+                      {muscleGroups[muscle].map((workout, index) => (
+                        <ExerciseBox
+                          key={index}
+                          subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                          title={workout.name}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </Box>
+              ))}
+              </>           
+              ): (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                p="15px"
+                component={Link} to="workout-planner"
+              >
+                <Typography variant="h5" fontWeight="600">
+                  Start doing your workout now !!!
+                </Typography>
+              </Box>
+            )} 
+          </Box>
           <Box
             gridColumn="span 8"
             gridRow="span 4"
@@ -346,10 +356,10 @@ export default function Dashboard() {
               alignItems="center"
               justifyContent="center"
               display="flex"
-              m="0 30px"
-            >
+              m="0 30px">
               <BarChart />
             </Box>
+
           </Box>
 
           {/* <Box

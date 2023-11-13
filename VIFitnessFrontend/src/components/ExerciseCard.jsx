@@ -67,7 +67,6 @@ function AddtoCalendarButton(props) {
           day: date.getDate(),
           year: date.getFullYear(),
           calories: props.caloriesBurnt,
-          muscle : props.muscle,
           createdAt: new Date(),
         },
       ],
@@ -146,7 +145,6 @@ export default function ExerciseCard({
   description,
   instruction,
   equipment,
-  muscle,
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
@@ -306,10 +304,10 @@ export default function ExerciseCard({
                 </div>
                 {/* This is for calories burnt for the exercise */}
 
-                <div className="flex-grow pb-8 z-20 text-center">
-                  <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} muscle={muscle} />
-                  {/* add to calendar button */}
-                </div>
+              <div className="flex-grow pb-8 z-20 text-center">
+                <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} />
+                {/* add to calendar button */}
+              </div>
 
               </div>
             </div>
