@@ -60,6 +60,24 @@ const bmiResult = calculateBMI(user.weight, user.height);
     muscleGroups[muscle].push(workout);
   });
 
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
+
   const handleDownload = () => {
     const dashboardElement = document.getElementById("dashboard-container");
 
@@ -209,7 +227,6 @@ const bmiResult = calculateBMI(user.weight, user.height);
               }
               return null; // Don't render the workout if it's not completed
             })}
-
           </Box>
           {/* ROW 2 */}
           <Box
@@ -246,7 +263,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
               <Macros />
             </Box>
           </Box>
-          
+
           {/* ROW 3 */}
           <Box
             gridColumn="span 4"
@@ -324,6 +341,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
                 </Typography>
               </Box>
             )} 
+
           </Box>
           <Box
             gridColumn="span 8"
