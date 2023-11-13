@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, Sidebar, MenuItem } from "react-pro-sidebar";
 import { useProSidebar } from "react-pro-sidebar";
 import { useSidebarContext } from "./sidebarContext";
-import { NavLink, Form } from "react-router-dom";
+import { NavLink, Form, Link } from "react-router-dom";
 import { tokens } from "../routes/theme";
 import { useTheme, Box, Typography, IconButton } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -145,6 +145,10 @@ const MyProSidebar = () => {
     logout();
   };
 
+  const handleLinkClick = () => {
+    setSelected("Dashboard");
+  };
+
   return (
     <>
       <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
@@ -214,6 +218,7 @@ const MyProSidebar = () => {
                   alignItems="center"
                   ml="5px"
                 >
+                  <Link to="/user" onClick={handleLinkClick}>
                   <img
                     alt="logo"
                     width="90px"
@@ -224,7 +229,8 @@ const MyProSidebar = () => {
                       borderRadius: "50%",
                       filter: "invert(75)",
                     }}
-                  />
+                    />
+                  </Link>
 
                   <IconButton
                     onClick={
@@ -386,13 +392,6 @@ const MyProSidebar = () => {
                 title="Profile Settings"
                 to="form"
                 icon={<PersonOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="FAQ Page"
-                to="faq"
-                icon={<HelpOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
