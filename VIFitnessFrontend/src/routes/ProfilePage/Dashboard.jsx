@@ -16,7 +16,6 @@ import jsPDF from "jspdf";
 
 import Experience from "../../components/Experience";
 import { Canvas } from "@react-three/fiber";
-import React from "react";
 import Interface from "../../components/Interface";
 import { MantineProvider } from "@mantine/core";
 import { CharacterAnimationsProvider } from "../../components/contexts/CharacterAnimations.jsx";
@@ -51,6 +50,24 @@ export default function Dashboard() {
 };
 
 const bmiResult = calculateBMI(user.weight, user.height);
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
+
+  // Aggregate exercises for each muscle part
+  completedWorkouts.forEach((workout) => {
+    const muscle = workout.muscle;
+    if (!muscleGroups[muscle]) {
+      muscleGroups[muscle] = [];
+    }
+    muscleGroups[muscle].push(workout);
+  });
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -210,7 +227,6 @@ const bmiResult = calculateBMI(user.weight, user.height);
               }
               return null; // Don't render the workout if it's not completed
             })}
-
           </Box>
           {/* ROW 2 */}
           <Box
@@ -247,7 +263,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
               <Macros />
             </Box>
           </Box>
-          
+
           {/* ROW 3 */}
           <Box
             gridColumn="span 4"
@@ -325,6 +341,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
                 </Typography>
               </Box>
             )} 
+
           </Box>
           <Box
             gridColumn="span 8"
