@@ -18,6 +18,23 @@ export default function Dashboard() {
   const colors = tokens(theme.palette.mode);
   const { user } = useAuth();
   const completedWorkouts = user.workouts.filter(workout => workout.isCompleted);
+  const calculateBMI = (weight, height) => {
+    // Check if weight and height are provided
+    if (!weight || !height) {
+        return "Please provide both weight and height for accurate BMI calculation.";
+    }
+
+    // Convert height to meters (if it's in centimeters)
+    const heightInMeters = height / 100;
+
+    // Calculate BMI using the formula: weight (kg) / (height (m) * height (m))
+    const bmi = weight / (heightInMeters * heightInMeters);
+
+    // Round BMI to two decimal places
+    return parseFloat(bmi.toFixed(2));
+};
+
+const bmiResult = calculateBMI(user.weight, user.height);
 
   const handleDownload = () => {
     const dashboardElement = document.getElementById('dashboard-container');
@@ -87,7 +104,7 @@ export default function Dashboard() {
         {/* ROW 1 */}
         <Box
           gridColumn="span 4"
-          gridRow="span 5"
+          gridRow="span 6"
           backgroundColor={colors.background.default}
           p="30px"
           className="rounded-lg border"
@@ -97,7 +114,7 @@ export default function Dashboard() {
         </Box>
         <Box
           gridColumn="span 4"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.background.default}
           p="30px"
           className="rounded-lg border"
@@ -117,13 +134,16 @@ export default function Dashboard() {
             <StatBox
               subtitle={user.weight + " kg"}
               title="Weight" />
+            <StatBox
+              subtitle={bmiResult}
+              title="BMI" />
 
           </Box>
         </Box>
 
         <Box
           gridColumn="span 4"
-          gridRow="span 2"
+          gridRow="span 3"
           backgroundColor={colors.background.default}
           overflow= 'auto'
           className="rounded-lg border"
