@@ -7,7 +7,7 @@ import '../components/styles/WorkoutBackground.css';
 export default function WorkoutPlannerPage() {
   return (
     <>
-          <div>
+          <div className="overflow-hidden">
               <PlannerComponent />
               <Outlet/>
           </div>

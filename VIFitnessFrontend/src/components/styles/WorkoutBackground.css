@@ -37,3 +37,41 @@
   transition: transform 0.3s ease; /* Add a smooth transition for the zoom effect */
   z-index: 1
 }
+
+@keyframes fadeInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+     opacity: 0;
+     transform: translateX(20px);
+  }
+  100% {
+     opacity: 1;
+     transform: translateX(0);
+  }
+} 
+
+.cssanimation,
+.cssanimation span {
+  animation-duration: 2.5s;
+  animation-fill-mode: both;
+}
+.fadeInBottom {
+  animation-name: fadeInBottom;
+}
+
+.flip{
+  animation-name: flip;
+}
+
+.fadeInRight{
+  animation-name: fadeInRight;
+}
