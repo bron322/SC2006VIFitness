@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/AuthProvider";
 import { useTheme } from "@mui/material"; 
 import { tokens } from "@/routes/theme"; 
 
-export default function Day({ day, rowIdx, selectedMuscleGroup }) {
+export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -18,22 +18,13 @@ export default function Day({ day, rowIdx, selectedMuscleGroup }) {
     setSelectedEvent,
   } = useContext(GlobalContext);
 
-  // useEffect(() => { 
-  //   const events = user.workouts.filter( 
-  //     (evt) => 
-  //       dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY") 
-  //   ); 
-  //   setDayEvents(events);  
-  // },[filteredEvents,day]);
   useEffect(() => { 
-    const events = user.workouts.filter((evt) => {
-      const isSameDay = dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY");
-      const isMatchingMuscleGroup = !selectedMuscleGroup || evt.muscle === selectedMuscleGroup;
-      return isSameDay && isMatchingMuscleGroup;
-    }); 
-    setDayEvents(events);
-  }, [selectedMuscleGroup, day, user.workouts]);
-  
+    const events = user.workouts.filter( 
+      (evt) => 
+        dayjs(evt.date).format("DD-MM-YY") === day.format("DD-MM-YY") 
+    ); 
+    setDayEvents(events);  
+  },[filteredEvents,day]);
 
   function getCurrentDayClass() {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
