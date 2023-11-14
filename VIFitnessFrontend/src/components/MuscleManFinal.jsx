@@ -10,7 +10,7 @@ import { useCharacterAnimations } from "./contexts/CharacterAnimations";
 const MuscleManFinal = (props) => {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
-    "../public/models/MuscleManFinal.gltf"
+    "/models/MuscleManFinal.gltf"
   );
   const { setAnimations, animationIndex } = useCharacterAnimations();
   const { actions, names } = useAnimations(animations, group);

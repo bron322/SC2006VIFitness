@@ -41,11 +41,15 @@ export default function Preloader() {
   };
 
   useLayoutEffect(() => {
+    let loadingText = gsap.utils.selector(".loading-text-preloader");
+    let loadingChar = loadingText(".char");
+    let enterText = gsap.utils.selector(".loading2");
+    let enterChar = enterText(".char");
     let context = gsap.context(() => {
       tl.current = gsap
         .timeline({ onComplete: OnPreloaderFinish })
         .from(
-          textWrapper.current,
+          ".loading-bars-wrapper",
           {
             opacity: 0,
             duration: 2,
@@ -63,7 +67,7 @@ export default function Preloader() {
           "<"
         )
         .from(
-          ".loading .char",
+          loadingChar,
           {
             opacity: 0,
             fontFamily: "StarrailGlyph",
@@ -75,9 +79,9 @@ export default function Preloader() {
               amount: 0.8,
             },
           },
-          "-=1.5"
+          "-=1"
         )
-        .to(".loading .char", {
+        .to(loadingChar, {
           delay: 1,
           opacity: 0,
           fontFamily: "StarrailGlyph",
@@ -90,7 +94,7 @@ export default function Preloader() {
           },
         })
         .from(
-          ".loading2 .char",
+          enterChar,
           {
             opacity: 0,
             fontFamily: "StarrailGlyph",
@@ -114,26 +118,29 @@ export default function Preloader() {
           className="text-wrapper flex flex-col items-center"
           ref={textWrapper}
         >
-          <l-trefoil
-            size="150"
-            stroke="3"
-            stroke-length="0.2"
-            bg-opacity="0.05"
-            speed="7"
-            color="white"
-          ></l-trefoil>
-          <div className="progress-bar-wrapper">
-            <LinearProgress
-              sx={{ "& .MuiLinearProgress": { maxHeight: "2px" } }}
-              className="progress-bar mt-5 w-[10vw] h-[1px]"
-              variant="determinate"
-              color="inherit"
-              value={progress}
-            />
+          <div className="loading-bars-wrapper flex flex-col items-center justify-center">
+            <l-trefoil
+              size="150"
+              stroke="3"
+              stroke-length="0.2"
+              bg-opacity="0.05"
+              speed="7"
+              color="white"
+            ></l-trefoil>
+            <div className="progress-bar-wrapper">
+              <LinearProgress
+                sx={{ "& .MuiLinearProgress": { maxHeight: "2px" } }}
+                className="progress-bar mt-5 w-[10vw] h-[1px]"
+                variant="determinate"
+                color="inherit"
+                value={progress}
+              />
+            </div>
           </div>
+
           <div className="flex flex-col justify-center items-center relative">
             <div
-              className="loading text-neutral-300 mt-5 text-sm"
+              className="loading-text-preloader text-neutral-300 mt-5 text-sm"
               data-splitting=""
               ref={loading}
             >
