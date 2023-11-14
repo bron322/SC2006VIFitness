@@ -89,10 +89,11 @@ export default function StravaPage() {
           toast.error("Something went wrong. Try again later!");
         }
       };
-
-      const stravaExpire = new Date(user.strava_data.expiresAt * 1000);
-      if (stravaExpire < new Date()) {
-        refreshActionStrava();
+      if (Object.hasOwn(user, "strava_data")) {
+        const stravaExpire = new Date(user.strava_data.expiresAt * 1000);
+        if (stravaExpire < new Date()) {
+          refreshActionStrava();
+        }
       }
     }
   }, []);
