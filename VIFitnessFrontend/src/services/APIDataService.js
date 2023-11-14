@@ -118,7 +118,12 @@ const resetPasswordStart = async (data) => {
 //Upload Profile pic
 const uploadProfilePic = async (data) => {
   return http.patch(`uploadProfilePic/${data.username}`, data);
-}
+};
+
+//PATCH refresh Strava token
+const refreshStrava = async (data) => {
+  return http.patch(`refreshStrava/${data.email}`, data);
+};
 
 const APIDataService = {
   getAll,
@@ -145,6 +150,7 @@ const APIDataService = {
   resetPassword,
   resetPasswordStart,
   uploadProfilePic,
+  refreshStrava,
 };
 
 export default APIDataService;
