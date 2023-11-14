@@ -41,6 +41,10 @@ export default function Preloader() {
   };
 
   useLayoutEffect(() => {
+    let loadingText = gsap.utils.selector(".loading-text-preloader");
+    let loadingChar = loadingText(".char");
+    let enterText = gsap.utils.selector(".loading2");
+    let enterChar = enterText(".char");
     let context = gsap.context(() => {
       tl.current = gsap
         .timeline({ onComplete: OnPreloaderFinish })
@@ -63,7 +67,7 @@ export default function Preloader() {
           "<"
         )
         .from(
-          ".loading .char",
+          loadingChar,
           {
             opacity: 0,
             fontFamily: "StarrailGlyph",
@@ -77,7 +81,7 @@ export default function Preloader() {
           },
           "-=1.5"
         )
-        .to(".loading .char", {
+        .to(loadingChar, {
           delay: 1,
           opacity: 0,
           fontFamily: "StarrailGlyph",
@@ -90,7 +94,7 @@ export default function Preloader() {
           },
         })
         .from(
-          ".loading2 .char",
+          enterChar,
           {
             opacity: 0,
             fontFamily: "StarrailGlyph",
@@ -133,7 +137,7 @@ export default function Preloader() {
           </div>
           <div className="flex flex-col justify-center items-center relative">
             <div
-              className="loading text-neutral-300 mt-5 text-sm"
+              className="loading-text-preloader text-neutral-300 mt-5 text-sm"
               data-splitting=""
               ref={loading}
             >
