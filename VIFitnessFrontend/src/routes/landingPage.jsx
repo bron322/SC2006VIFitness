@@ -234,7 +234,7 @@ export default function LandingPage() {
         </div>
 
         <div className="-translate-y-1/2 -translate-x-1/2 flex flex-col items-center justify-center top-2/3 left-1/2 z-10 absolute">
-          <div className="hero-text-wrapper flex flex-col items-center justify-center opacity-0">
+          <div className="hero-text-wrapper flex flex-col items-center justify-center">
             <h2 className="cssanimation sequence justify-self-center hk-font text-transparent hollow">
               Welcome
             </h2>
