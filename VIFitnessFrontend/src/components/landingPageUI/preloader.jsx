@@ -70,7 +70,7 @@ export default function Preloader() {
           loadingChar,
           {
             opacity: 0,
-            fontFamily: "StarrailGlyph",
+            // fontFamily: "StarrailGlyph",
             color: "yellow",
             duration: 0.15,
             ease: "power2.out",
@@ -84,7 +84,7 @@ export default function Preloader() {
         .to(loadingChar, {
           delay: 1,
           opacity: 0,
-          fontFamily: "StarrailGlyph",
+          // fontFamily: "StarrailGlyph",
           color: "yellow",
           duration: 0.15,
           ease: "power2.out",
@@ -97,7 +97,7 @@ export default function Preloader() {
           enterChar,
           {
             opacity: 0,
-            fontFamily: "StarrailGlyph",
+            // fontFamily: "StarrailGlyph",
             color: "yellow",
             duration: 0.15,
             ease: "power2.out",
