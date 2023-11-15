@@ -82,9 +82,10 @@ function AddtoCalendarButton(props) {
 
         // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
         setTimeout(() => {
-          // window.location.reload(true)
-          navigate(0);
-        }, 400);
+          window.location.reload(true);
+          // navigate(0);
+          // setOpen(false);
+        }, 300);
       } else {
         toast.error("Something went wrong. Try again later!");
       }
