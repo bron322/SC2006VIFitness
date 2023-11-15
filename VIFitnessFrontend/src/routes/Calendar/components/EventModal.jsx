@@ -55,6 +55,7 @@ export default function EventModal() {
             // window.location.reload();
             // navigate(0);
             navigate("/user/calendar", { state: "" });
+            setShowEventModal(false);
           }, 100);
         }, 500);
       } else {
@@ -80,6 +81,7 @@ export default function EventModal() {
         toast.success("Exercise updated!");
         // window.location.reload(true);
         navigate("/user/calendar", { state: "" });
+        setShowEventModal(false);
       } else {
         toast.error("Something went wrong. Try again later!");
       }
@@ -104,6 +106,7 @@ export default function EventModal() {
         // window.location.reload(true)
         // navigate(0);
         navigate("/user/calendar", { state: "" });
+        setShowEventModal(false);
 
         // Set setShowEventModal to false after a 0.5-second delay
       } else {
