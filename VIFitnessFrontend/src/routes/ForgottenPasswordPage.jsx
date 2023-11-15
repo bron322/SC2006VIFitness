@@ -43,7 +43,7 @@ export default function ForgotPasswordPage() {
         const emailData = {
           email: email,
           link: import.meta.env.PROD
-            ? `https://sc-2006-vi-fitness-frontend.vercel.app/resetpassword?token=${response.data.token}&id=${response.data.id}`
+            ? `sc-2006-vi-fitness-frontend.vercel.app/resetpassword?token=${response.data.token}&id=${response.data.id}`
             : `localhost:5173/resetpassword?token=${response.data.token}&id=${response.data.id}`,
         };
         const response2 = await BrevoAPIService.sendResetLink(emailData);
