@@ -12,7 +12,6 @@
 <img src="https://img.shields.io/badge/GSAP-88CE02?style=flat-square&logo=greensock&logoColor=white" alt="Tailwind-CSS">
 <img src="https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white" alt="Node.js">
 <img src="https://img.shields.io/badge/Express.js-17202C?style=flat-square&logo=express" alt="Express.js">
-<img src="https://img.shields.io/badge/Express.js-17202C?style=flat-square&logo=express" alt="Express.js">
 <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB">
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" alt="Axios">
 </div>
@@ -53,7 +52,7 @@ First, clone the repository into your local device, the directory should look so
 |   ├── VIFitnessDocumentation
 ```
 
-Initialise your `.env` file. Check `.env.example` in both VIFitnessFrontend and VIFitnessBackend for the environment variables you require.
+Initialise your `.env` file. Check `.env.example` in both VIFitnessFrontend and VIFitnessBackend for the environment variables required.
 
 You will require:
 
