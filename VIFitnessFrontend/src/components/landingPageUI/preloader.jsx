@@ -66,7 +66,7 @@ export default function Preloader() {
           },
           "<"
         )
-        .from(
+        .to(
           loadingChar,
           {
             opacity: 0,
@@ -93,7 +93,7 @@ export default function Preloader() {
             amount: 0.8,
           },
         })
-        .from(
+        .to(
           enterChar,
           {
             opacity: 0,
