@@ -28,10 +28,11 @@ export default function EventModal() {
   // );
 
   const [reload, setReload] = useState(0);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("reload");
-  }, [reload])
+  // useEffect(() => {
+  //   console.log("reload");
+  // }, [reload]);
 
   const handleDeleteExercise = async (e) => {
     e.preventDefault();
@@ -51,7 +52,9 @@ export default function EventModal() {
 
           // Reload the page after 0.1 seconds
           setTimeout(() => {
-            window.location.reload();
+            // window.location.reload();
+            // navigate(0);
+            navigate("/user/calendar", { state: "" });
           }, 100);
         }, 500);
       } else {
@@ -75,14 +78,15 @@ export default function EventModal() {
       if (Object.keys(response.data).length !== 0) {
         setUser(response.data);
         toast.success("Exercise updated!");
-        window.location.reload(true)
+        // window.location.reload(true);
+        navigate("/user/calendar", { state: "" });
       } else {
         toast.error("Something went wrong. Try again later!");
       }
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const handleMarkAsCompleted = async (e) => {
     e.preventDefault();
@@ -97,17 +101,18 @@ export default function EventModal() {
         setUser(response.data);
         toast.success("Exercise mark as completed!");
         console.log("Test");
-        window.location.reload(true)
+        // window.location.reload(true)
+        // navigate(0);
+        navigate("/user/calendar", { state: "" });
 
         // Set setShowEventModal to false after a 0.5-second delay
-
       } else {
         toast.error("Something went wrong. Try again later!");
       }
     } catch (err) {
       console.log("test");
     }
-  }
+  };
 
   return (
     <>
@@ -130,7 +135,6 @@ export default function EventModal() {
           </header>
           <div className="p-3 text-gray-900">
             <div className="grid grid-cols-1/5 items-end gap-y-7">
-              
               {/* ////////////////// Title ////////////////// */}
               <div></div>
               <input
@@ -164,7 +168,6 @@ export default function EventModal() {
             </div>
           </div>
           <footer className="flex justify-end border-t p-3 mt-5 border-gray-400">
-
             <div className="flex justify-end w-2/3 ">
               {selectedEvent && selectedEvent.isCompleted ? (
                 <button
@@ -183,7 +186,6 @@ export default function EventModal() {
               )}
 
               <button
-
                 onClick={handleEditWorkout}
                 className="bg-gray-300 hover:bg-green-400 rounded-2xl px-6 py-2 text-black border-2 border-gray-900 ml-2"
               >
