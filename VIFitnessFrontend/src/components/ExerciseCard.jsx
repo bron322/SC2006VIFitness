@@ -27,7 +27,8 @@ import { useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext } from "../routes/theme";
 import { useState } from "react";
-import { useSpring, animated} from "react-spring";  
+import { useSpring, animated } from "react-spring";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -46,6 +47,7 @@ function AddtoCalendarButton(props) {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
   const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
@@ -61,13 +63,13 @@ function AddtoCalendarButton(props) {
         {
           name: props.exerciseName,
           isCompleted: false,
-          description:'',
+          description: "",
           date: date,
           month: date.getMonth() + 1,
           day: date.getDate(),
           year: date.getFullYear(),
           calories: props.caloriesBurnt,
-          muscle : props.muscle,
+          muscle: props.muscle,
           createdAt: new Date(),
         },
       ],
@@ -80,8 +82,10 @@ function AddtoCalendarButton(props) {
 
         // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
         setTimeout(() => {
-          window.location.reload(true)
-        }, 400);
+          window.location.reload(true);
+          // navigate(0);
+          // setOpen(false);
+        }, 300);
       } else {
         toast.error("Something went wrong. Try again later!");
       }
@@ -95,7 +99,9 @@ function AddtoCalendarButton(props) {
 
   return (
     <React.Fragment>
-      <Button onClick={handleOpen} style={{color: 'blue'}}>Add to calendar</Button>
+      <Button onClick={handleOpen} style={{ color: "blue" }}>
+        Add to calendar
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -150,7 +156,7 @@ export default function ExerciseCard({
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
-  const [flip, setFlip] = useState(false)
+  const [flip, setFlip] = useState(false);
 
   const exercisecardhandleOpen = () => {
     setOpen(true);
@@ -164,7 +170,10 @@ export default function ExerciseCard({
     })
       .then((response) => {
         // Check if the response is an empty array
-        if (Array.isArray(response.data.exercises) && response.data.exercises.length === 0) {
+        if (
+          Array.isArray(response.data.exercises) &&
+          response.data.exercises.length === 0
+        ) {
           // Set a default value for nf_calories (e.g., 170)
           setCaloriesBurnt(170);
         } else {
@@ -202,16 +211,16 @@ export default function ExerciseCard({
   const colorMode = useContext(ColorModeContext);
 
   const getBackgroundColors = () => {
-    if (theme.palette.mode === 'dark') {
-      return 'rgba(0, 0, 0, 1)';
+    if (theme.palette.mode === "dark") {
+      return "rgba(0, 0, 0, 1)";
     } else {
-      return 'rgba(255, 255, 255, 1 )';
+      return "rgba(255, 255, 255, 1 )";
     }
   };
 
   const props = useSpring({
     to: { opacity: open ? 1 : 0 },
-    from: { opacity: 0 },  
+    from: { opacity: 0 },
   });
 
   return (
@@ -260,9 +269,9 @@ export default function ExerciseCard({
               {/* placeholder overlay */}
               <div
                 className="animated fadeInLeft absolute w-6/12 h-full z-10 top-0 left-0"
-                style={{ 
+                style={{
                   backdropFilter: "grayscale(100%) blur(100px)",
-                  backgroundColor: getBackgroundColors()  
+                  backgroundColor: getBackgroundColors(),
                 }}
               />
               <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
@@ -288,7 +297,9 @@ export default function ExerciseCard({
                 </div>
 
                 <div className="flex-grow pb-5 z-20 pl-3">
-                  <div className="font-semibold text-2xl">{"Instructions: "}</div>
+                  <div className="font-semibold text-2xl">
+                    {"Instructions: "}
+                  </div>
                   <br></br>
                   {instruction}
                 </div>
@@ -300,17 +311,22 @@ export default function ExerciseCard({
                 </div>
 
                 <div className="flex-grow pb-8 z-20 pl-3">
-                  <div className="font-semibold text-2xl">{"Calories burnt: "}</div>
+                  <div className="font-semibold text-2xl">
+                    {"Calories burnt: "}
+                  </div>
                   <br></br>
                   {caloriesBurnt}
                 </div>
                 {/* This is for calories burnt for the exercise */}
 
-              <div className="flex-grow pb-8 z-20 text-center">
-                <AddtoCalendarButton exerciseName={title} caloriesBurnt={caloriesBurnt} muscle={muscle} />
-                {/* add to calendar button */}
-              </div>
-
+                <div className="flex-grow pb-8 z-20 text-center">
+                  <AddtoCalendarButton
+                    exerciseName={title}
+                    caloriesBurnt={caloriesBurnt}
+                    muscle={muscle}
+                  />
+                  {/* add to calendar button */}
+                </div>
               </div>
             </div>
           </Box>

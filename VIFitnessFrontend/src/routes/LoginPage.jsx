@@ -19,11 +19,17 @@ import CryptoJS from "crypto-js";
 import "./styles/loginpage.css";
 import { useTheme } from "@mui/material";
 import { ColorModeContext, tokens } from "../routes/theme";
-
+import { ring } from "ldrs";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+} from "@/components/ui/dialog";
 
 export default function LoginPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -35,7 +41,8 @@ export default function LoginPage() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
+  const [isLoading, setIsLoading] = useState(false);
+  ring.register();
   //tracks value of login form
   const [data, setData] = useState({
     email: "",
@@ -46,12 +53,16 @@ export default function LoginPage() {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
+        setIsLoading(true);
         const response = await GoogleAPIService.getGoogleData(tokenResponse);
         googleAuthLogin(response.data);
       } catch (e) {
         console.log(e);
         toast.error("Something went wrong. Try again later!");
       }
+    },
+    onError: () => {
+      setIsLoading(false);
     },
   });
 
@@ -66,12 +77,14 @@ export default function LoginPage() {
 
     //Query database for this user
     try {
+      setIsLoading(true);
       response = await APIDataService.getByEmail(data.email);
     } catch (err) {
       console.log(err);
       if (err instanceof AxiosError) {
         toast.error("Something went wrong. Try again later!");
       }
+      setIsLoading(false);
     }
 
     //when user doesn't exist or when user keys in wrong password
@@ -81,6 +94,7 @@ export default function LoginPage() {
         CryptoJS.SHA256(data.password).toString(CryptoJS.enc.Base64)
     ) {
       toast.error("Invalid credentials");
+      setTimeout(setIsLoading, 1500, false);
     } else {
       // if user exist
       login(response.data);
@@ -101,6 +115,8 @@ export default function LoginPage() {
   useEffect(() => {
     checkEmpty();
   }, [data]);
+
+  const handleDialogOpen = () => {};
 
   // JSX code for login form
   const renderForm = (
@@ -171,6 +187,19 @@ export default function LoginPage() {
     <>
       <Header />
       <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
+      <Dialog open={isLoading} onOpenChange={handleDialogOpen}>
+        <DialogOverlay>
+          <div className="w-screen h-screen flex justify-center items-center">
+            <l-ring
+              size="40"
+              stroke="5"
+              bg-opacity="0"
+              speed="3"
+              color="#0e548a"
+            ></l-ring>
+          </div>
+        </DialogOverlay>
+      </Dialog>
       <div className="h-full w-full flex items-center justify-center bg-black absolute top-0">
         <div className="h-4/5 w-4/5 bg-logincolor flex items-center justify-center">
           <div className="flex-1 w-full h-full p-4 flex-col items-center justify-center">
@@ -201,7 +230,12 @@ export default function LoginPage() {
             {/* Socials button */}
             <div className="flex flex-col items-center justify-center pt-2">
               {/* Google button */}
-              <GoogleButton onClick={() => googleLogin()}>
+              <GoogleButton
+                onClick={() => {
+                  setIsLoading(true);
+                  googleLogin();
+                }}
+              >
                 Login with Google
               </GoogleButton>
               <div id="google-button"></div>
