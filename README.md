@@ -21,11 +21,11 @@
 ### Team Member:
 
 - [Oscar Qian](https://github.com/oscarqjh)
-- [Lim Jing Jie]()
-- [Ng Yuen Herng]()
-- [Tan Wei Yin]()
-- [Jiang Jinyi]()
-- [Prakritipong Phuvajakrt]()
+- [Lim Jing Jie](https://github.com/bron322)
+- [Ng Yuen Herng](https://github.com/ngyh6726)
+- [Tan Wei Yin](https://github.com/wytan12)
+- [Jiang Jinyi](https://github.com/Jinyi087)
+- [Prakritipong Phuvajakrt](https://github.com/Phuvj)
 
 ---
 
