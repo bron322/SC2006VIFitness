@@ -2,7 +2,9 @@ import axios from "axios";
 import { StravaAPIhttp } from "../http-common";
 
 //Options for RedirectAuthorisation
-const STRAVA_ID = import.meta.env.VITE_STRAVA_ID;
+const STRAVA_ID = import.meta.env.PROD
+  ? "116746"
+  : import.meta.env.VITE_STRAVA_ID;
 const STRAVA_SECRET = import.meta.env.VITE_STRAVA_SECRET;
 const redirectUrl = import.meta.env.PROD
   ? "sc-2006-vi-fitness-frontend.vercel.app/stravaredirect"
