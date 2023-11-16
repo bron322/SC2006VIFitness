@@ -77,8 +77,13 @@ export default function Preloader() {
           },
           "<"
         )
-        .to(
+        .fromTo(
           loadingChar,
+          {
+            opacity: 0,
+            fontFamily: "StarrailGlyph",
+            color: "yellow",
+          },
           {
             opacity: 1,
             fontFamily: "Roboto",
@@ -104,8 +109,13 @@ export default function Preloader() {
             amount: 0.8,
           },
         })
-        .to(
+        .fromTo(
           enterChar,
+          {
+            opacity: 0,
+            fontFamily: "StarrailGlyph",
+            color: "yellow",
+          },
           {
             opacity: 1,
             fontFamily: "Roboto",
