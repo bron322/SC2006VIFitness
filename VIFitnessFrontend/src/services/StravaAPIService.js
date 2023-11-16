@@ -5,12 +5,14 @@ import { StravaAPIhttp } from "../http-common";
 const STRAVA_ID = import.meta.env.PROD
   ? 116798
   : import.meta.env.VITE_STRAVA_ID;
-const STRAVA_SECRET = import.meta.env.VITE_STRAVA_SECRET;
+const STRAVA_SECRET = import.meta.env.PROD
+  ? "871d28ab42b4a413618f1ec6229d55511865cde4"
+  : import.meta.env.VITE_STRAVA_SECRET;
 const redirectUrl = import.meta.env.PROD
   ? "https://sc-2006-vi-fitness-frontend.vercel.app/stravaredirect"
   : "http://localhost:5173/stravaredirect";
 const redirectConnectUrl = import.meta.env.PROD
-  ? "https://sc-2006-vi-fitness-frontend.vercel.app/stravaconnectredirect"
+  ? "https://sc-2006-vi-fitness-frontend.vercel.app/user/stravaconnectredirect"
   : "http://localhost:5173/user/stravaconnectredirect";
 const scope = "activity:read,activity:read_all,read";
 

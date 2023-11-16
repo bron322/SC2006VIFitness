@@ -43,11 +43,22 @@ export default function Preloader() {
   useLayoutEffect(() => {
     let loadingText = gsap.utils.selector(".loading-text-preloader");
     let loadingChar = loadingText(".char");
+    // console.log(loadingChar);
     let enterText = gsap.utils.selector(".loading2");
     let enterChar = enterText(".char");
     let context = gsap.context(() => {
       tl.current = gsap
         .timeline({ onComplete: OnPreloaderFinish })
+        .set(loadingChar, {
+          opacity: 0,
+          fontFamily: "StarrailGlyph",
+          color: "yellow",
+        })
+        .set(enterChar, {
+          opacity: 0,
+          fontFamily: "StarrailGlyph",
+          color: "yellow",
+        })
         .from(
           ".loading-bars-wrapper",
           {
@@ -69,9 +80,9 @@ export default function Preloader() {
         .to(
           loadingChar,
           {
-            opacity: 0,
-            // fontFamily: "StarrailGlyph",
-            color: "yellow",
+            opacity: 1,
+            fontFamily: "Roboto",
+            color: "white",
             duration: 0.15,
             ease: "power2.out",
             stagger: {
@@ -84,9 +95,9 @@ export default function Preloader() {
         .to(loadingChar, {
           delay: 1,
           opacity: 0,
-          // fontFamily: "StarrailGlyph",
+          fontFamily: "StarrailGlyph",
           color: "yellow",
-          duration: 0.15,
+          duration: 0.3,
           ease: "power2.out",
           stagger: {
             from: "random",
@@ -96,9 +107,9 @@ export default function Preloader() {
         .to(
           enterChar,
           {
-            opacity: 0,
-            // fontFamily: "StarrailGlyph",
-            color: "yellow",
+            opacity: 1,
+            fontFamily: "Roboto",
+            color: "white",
             duration: 0.15,
             ease: "power2.out",
             stagger: {
@@ -147,7 +158,7 @@ export default function Preloader() {
               loading ... please wait
             </div>
             <div
-              className="loading2 text-neutral-300 mt-5 text-sm absolute"
+              className="loading2 text-neutral-300 mt-5 text-sm absolute opacity-0"
               data-splitting=""
               ref={loading}
             >
