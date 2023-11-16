@@ -158,9 +158,8 @@ export default function Preloader() {
               />
             </div>
           </div>
-
-          <div className="flex flex-col justify-center items-center relative">
-            {import.meta.env.PROD ? null : (
+          {import.meta.env.PROD ? null : (
+            <div className="flex flex-col justify-center items-center relative">
               <div
                 className="loading-text-preloader text-neutral-300 mt-5 text-sm"
                 data-splitting=""
@@ -168,15 +167,15 @@ export default function Preloader() {
               >
                 loading ... please wait
               </div>
-            )}
-            <div
-              className="loading2 text-neutral-300 mt-5 text-sm absolute opacity-0"
-              data-splitting=""
-              ref={loading}
-            >
-              click to enter
+              <div
+                className="loading2 text-neutral-300 mt-5 text-sm absolute opacity-0"
+                data-splitting=""
+                ref={loading}
+              >
+                click to enter
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
