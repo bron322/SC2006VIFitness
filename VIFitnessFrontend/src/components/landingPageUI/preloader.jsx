@@ -160,13 +160,15 @@ export default function Preloader() {
           </div>
 
           <div className="flex flex-col justify-center items-center relative">
-            <div
-              className="loading-text-preloader text-neutral-300 mt-5 text-sm"
-              data-splitting=""
-              ref={loading}
-            >
-              loading ... please wait
-            </div>
+            {import.meta.env.PROD ? null : (
+              <div
+                className="loading-text-preloader text-neutral-300 mt-5 text-sm"
+                data-splitting=""
+                ref={loading}
+              >
+                loading ... please wait
+              </div>
+            )}
             <div
               className="loading2 text-neutral-300 mt-5 text-sm absolute opacity-0"
               data-splitting=""
