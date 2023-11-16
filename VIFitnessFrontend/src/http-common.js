@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default axios.create({
   baseURL: import.meta.env.PROD
-    ? "https://expensive-eel-wrap.cyclic.app/api"
+    ? "https://thankful-rose-cuff.cyclic.app/api"
     : "http://localhost:3000/api",
 
   credentials: true,
@@ -13,7 +13,7 @@ export default axios.create({
 
 const AuthAPIhttp = axios.create({
   baseURL: import.meta.env.PROD
-    ? "https://expensive-eel-wrap.cyclic.app/vifitness"
+    ? "https://thankful-rose-cuff.cyclic.app/vifitness"
     : "http://localhost:3000/vifitness",
 
   credentials: true,

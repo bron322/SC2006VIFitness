@@ -43,11 +43,22 @@ export default function Preloader() {
   useLayoutEffect(() => {
     let loadingText = gsap.utils.selector(".loading-text-preloader");
     let loadingChar = loadingText(".char");
+    // console.log(loadingChar);
     let enterText = gsap.utils.selector(".loading2");
     let enterChar = enterText(".char");
     let context = gsap.context(() => {
       tl.current = gsap
         .timeline({ onComplete: OnPreloaderFinish })
+        .set(loadingChar, {
+          opacity: 0,
+          fontFamily: "StarrailGlyph",
+          color: "yellow",
+        })
+        .set(enterChar, {
+          opacity: 0,
+          fontFamily: "StarrailGlyph",
+          color: "yellow",
+        })
         .from(
           ".loading-bars-wrapper",
           {
@@ -66,12 +77,17 @@ export default function Preloader() {
           },
           "<"
         )
-        .from(
+        .fromTo(
           loadingChar,
           {
             opacity: 0,
             fontFamily: "StarrailGlyph",
             color: "yellow",
+          },
+          {
+            opacity: 1,
+            fontFamily: "Roboto",
+            color: "white",
             duration: 0.15,
             ease: "power2.out",
             stagger: {
@@ -86,19 +102,24 @@ export default function Preloader() {
           opacity: 0,
           fontFamily: "StarrailGlyph",
           color: "yellow",
-          duration: 0.15,
+          duration: 0.3,
           ease: "power2.out",
           stagger: {
             from: "random",
             amount: 0.8,
           },
         })
-        .from(
+        .fromTo(
           enterChar,
           {
             opacity: 0,
             fontFamily: "StarrailGlyph",
             color: "yellow",
+          },
+          {
+            opacity: 1,
+            fontFamily: "Roboto",
+            color: "white",
             duration: 0.15,
             ease: "power2.out",
             stagger: {
@@ -137,23 +158,24 @@ export default function Preloader() {
               />
             </div>
           </div>
-
-          <div className="flex flex-col justify-center items-center relative">
-            <div
-              className="loading-text-preloader text-neutral-300 mt-5 text-sm"
-              data-splitting=""
-              ref={loading}
-            >
-              loading ... please wait
+          {import.meta.env.PROD ? null : (
+            <div className="flex flex-col justify-center items-center relative">
+              <div
+                className="loading-text-preloader text-neutral-300 mt-5 text-sm"
+                data-splitting=""
+                ref={loading}
+              >
+                loading ... please wait
+              </div>
+              <div
+                className="loading2 text-neutral-300 mt-5 text-sm absolute opacity-0"
+                data-splitting=""
+                ref={loading}
+              >
+                click to enter
+              </div>
             </div>
-            <div
-              className="loading2 text-neutral-300 mt-5 text-sm absolute"
-              data-splitting=""
-              ref={loading}
-            >
-              click to enter
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </>
