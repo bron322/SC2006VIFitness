@@ -51,6 +51,14 @@ function AddtoCalendarButton(props) {
   const navigate = useNavigate();
   const [isCompleted, setIsCompleted] = useState(false);
 
+  React.useEffect(() => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    console.log(currentDate);
+    console.log(selectedDate);
+    console.log(selectedDate > currentDate);
+  });
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -63,8 +71,8 @@ function AddtoCalendarButton(props) {
   };
 
   const handleSubmitForm = async () => {
-    const currentDate = new Date(date);
-    const selectedDate = { date };
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
     if (isCompleted) {
       if (selectedDate > currentDate) {
         toast.error("Cannot mark as completed with a future date!");
@@ -207,11 +215,7 @@ function AddtoCalendarButton(props) {
           <div className="flex mt-5 justify-end">
             <div className="mr-4">
               Mark As Completed
-              <Checkbox
-                onChange={handleChange}
-                defaultChecked
-                color="success"
-              />
+              <Checkbox onChange={handleChange} color="success" />
             </div>
             <ShadcnButton
               onClick={handleSubmitForm}
