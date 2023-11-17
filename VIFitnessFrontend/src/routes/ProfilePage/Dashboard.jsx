@@ -259,7 +259,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
                     justifyContent="space-between"
                     alignItems="center"
                     borderBottom={`1px solid ${colors.secondary.default}`}
-                    className="flex flex-col justify-evenly"
+                    className="flex flex-row justify-evenly"
                     p="15px"
                   >
                     <Checkbox {...label}
