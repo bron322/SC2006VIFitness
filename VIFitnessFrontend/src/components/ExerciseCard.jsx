@@ -97,9 +97,57 @@ function AddtoCalendarButton(props) {
     }
   };
 
+  const handleSubmitCompleted = async () => {
+    const data = {
+      username: user.username,
+      exerciseData: [
+        {
+          name: props.exerciseName,
+          isCompleted: true,
+          description: "",
+          date: date,
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+          year: date.getFullYear(),
+          calories: props.caloriesBurnt,
+          muscle: props.muscle,
+          createdAt: new Date(),
+        },
+      ],
+    };
+    try {
+      const response = await APIDataService.addingExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Workout added!");
+
+        // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
+        setTimeout(() => {
+          window.location.reload(true);
+          // navigate(0);
+          // setOpen(false);
+        }, 300);
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log(err);
+      if (err instanceof AxiosError) {
+        toast.error("Something went wrong. Try again later!");
+      }
+    }
+  };
+
   return (
     <React.Fragment>
-      <Button onClick={handleOpen} style={{ color: "blue" }}>
+      <Button
+        onClick={handleOpen}
+        style={{
+          color: "",
+          border: "2px solid white",
+          backgroundColor: "white",
+        }}
+      >
         Add to calendar
       </Button>
       <Modal
@@ -136,6 +184,14 @@ function AddtoCalendarButton(props) {
           </div>
 
           <div className="flex mt-5 justify-end">
+            <ShadcnButton
+              onClick={handleSubmitCompleted}
+              variant="secondary"
+              size="sm"
+              style={{ marginRight: "10px" }}
+            >
+              Add As Completed
+            </ShadcnButton>
             <ShadcnButton onClick={handleSubmit} variant="secondary" size="sm">
               Add
             </ShadcnButton>
@@ -153,6 +209,7 @@ export default function ExerciseCard({
   instruction,
   equipment,
   muscle,
+  videoUrl,
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
@@ -265,6 +322,19 @@ export default function ExerciseCard({
                 src={`/exerciseImage/${title}.jpg`}
                 alt="Exercise"
               />
+              <Box display="flex" alignItems="center" className="absolute fade-in-10 z-30 right-0 h-full w-1/2">
+                {videoUrl && (
+                  <iframe
+                    width="400"
+                    height="250"
+                    className="ml-12 mb-16"
+                    src={videoUrl}
+                    title={title}
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                )}
+              </Box>
 
               {/* placeholder overlay */}
               <div
@@ -274,6 +344,7 @@ export default function ExerciseCard({
                   backgroundColor: getBackgroundColors(),
                 }}
               />
+
               <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
                 <div className="text-center text-5xl font-bold z-10 pb-5">
                   {title}
@@ -319,7 +390,7 @@ export default function ExerciseCard({
                 </div>
                 {/* This is for calories burnt for the exercise */}
 
-                <div className="flex-grow pb-8 z-20 text-center">
+                <div className="flex-grow pb-8 z-20 text-center ">
                   <AddtoCalendarButton
                     exerciseName={title}
                     caloriesBurnt={caloriesBurnt}
