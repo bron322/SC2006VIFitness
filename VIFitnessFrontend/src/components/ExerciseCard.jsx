@@ -322,6 +322,19 @@ export default function ExerciseCard({
                 src={`/exerciseImage/${title}.jpg`}
                 alt="Exercise"
               />
+              <Box display="flex" alignItems="center" className="absolute fade-in-10 z-30 right-0 h-full w-1/2">
+                {videoUrl && (
+                  <iframe
+                    width="400"
+                    height="250"
+                    className="ml-12 mb-16"
+                    src={videoUrl}
+                    title={title}
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                )}
+              </Box>
 
               {/* placeholder overlay */}
               <div
@@ -331,18 +344,7 @@ export default function ExerciseCard({
                   backgroundColor: getBackgroundColors(),
                 }}
               />
-              <div className="flex-grow pb-8 z-20 text-center right-0">
-                  {videoUrl && (
-                    <iframe
-                      width="350"
-                      height="200"
-                      src={videoUrl}
-                      title={title}
-                      frameBorder="0"
-                      allowFullScreen
-                    ></iframe>
-                  )}
-                </div>
+
               <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
                 <div className="text-center text-5xl font-bold z-10 pb-5">
                   {title}
