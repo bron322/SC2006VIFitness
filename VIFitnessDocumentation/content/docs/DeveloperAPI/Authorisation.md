@@ -22,7 +22,7 @@ Congraduations on obtaining your own client ID and client Secret. Follow along t
 
 ## Base URL
 
-All request should be made to this base URL: `https://expensive-eel-wrap.cyclic.app/vifitness`
+All request should be made to this base URL: `https://thankful-rose-cuff.cyclic.app/vifitness`
 
 ## Headers
 
