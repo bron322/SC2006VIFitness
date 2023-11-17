@@ -153,6 +153,7 @@ export default function ExerciseCard({
   instruction,
   equipment,
   muscle,
+  videoUrl,
 }) {
   const [open, setOpen] = React.useState(false);
   const [caloriesBurnt, setCaloriesBurnt] = React.useState(null);
@@ -274,6 +275,18 @@ export default function ExerciseCard({
                   backgroundColor: getBackgroundColors(),
                 }}
               />
+              <div className="flex-grow pb-8 z-20 text-center right-0">
+                  {videoUrl && (
+                    <iframe
+                      width="350"
+                      height="200"
+                      src={videoUrl}
+                      title={title}
+                      frameBorder="0"
+                      allowFullScreen
+                    ></iframe>
+                  )}
+                </div>
               <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
                 <div className="text-center text-5xl font-bold z-10 pb-5">
                   {title}
