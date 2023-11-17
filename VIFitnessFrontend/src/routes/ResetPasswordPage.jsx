@@ -20,6 +20,8 @@ import { Typography } from "@mui/material";
 import { CheckCircle2, XCircle } from "lucide-react";
 import CryptoJS from "crypto-js";
 import { ring } from "ldrs";
+import PasswordValidator from "@/components/passwordValidator.jsx";
+import checkPassword from "@/utils/passwordChecker";
 
 export default function ResetPasswordPage() {
   const [params, setParams] = useSearchParams();
@@ -55,6 +57,10 @@ export default function ResetPasswordPage() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(checkPassword(password.new));
+  }, [password]);
+
   //hash
   const hashPassword = async (password) => {
     return CryptoJS.SHA256(password);
@@ -63,8 +69,10 @@ export default function ResetPasswordPage() {
   const handleSubmit = async () => {
     if (password.new.length === 0 || password.repeat.length === 0) {
       toast.error("Please fill in all fields.");
-    } else if (password.new.length < 6 || password.repeat !== password.new) {
-      toast.error("Invalid password. Please check again!");
+    } else if (!checkPassword(password.new)) {
+      toast.error("Invalid password format. Please check again!");
+    } else if (password.repeat !== password.new) {
+      toast.error("Password does not match. Please check again!");
     } else {
       setIsLoading(true);
       try {
@@ -155,37 +163,7 @@ export default function ResetPasswordPage() {
                       }
                     ></Input>
 
-                    {password.new.length === 0 ? null : password.new.length >
-                      6 ? (
-                      <div className="flex align-center mb-3">
-                        <Typography
-                          level="body-sm"
-                          sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
-                          color={"#0e8a37"}
-                        >
-                          Length of password must be more than 6 characters
-                        </Typography>
-                        <CheckCircle2
-                          className="ml-5 w-4"
-                          style={{ color: "#0e8a37" }}
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex align-center mb-3">
-                        <Typography
-                          level="body-sm"
-                          sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
-                          color={"#750e0e"}
-                        >
-                          Length of password must be more than 6 characters
-                        </Typography>
-
-                        <XCircle
-                          className="ml-5 w-4"
-                          style={{ color: "#750e0e" }}
-                        />
-                      </div>
-                    )}
+                    <PasswordValidator newPassword={password.new} />
 
                     <div className="my-6">
                       <span className="text-stone-300">

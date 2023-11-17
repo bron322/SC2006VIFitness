@@ -8,8 +8,14 @@ import Header from "../components/headerlogin";
 import { Link, Form } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { EmailVerificationButton } from "@/components/EmailVerificationButton";
-import { useTheme } from "@mui/material";
+import { InputAdornment, useTheme } from "@mui/material";
 import { ColorModeContext, tokens } from "../routes/theme";
+import PasswordValidator from "@/components/passwordValidator";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function RegisterPage() {
   const [errorMessages, setErrorMessages] = useState({});
@@ -17,6 +23,7 @@ export default function RegisterPage() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [pwFocus, setPwFocus] = useState(false);
 
   const [data, setData] = useState({
     username: "",
@@ -32,6 +39,8 @@ export default function RegisterPage() {
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
+
+  const handlePopover = () => {};
 
   // JSX code for login form
   const renderForm = (
@@ -69,7 +78,25 @@ export default function RegisterPage() {
             InputLabelProps={{
               style: { color: "black" },
             }}
+            onFocus={() => setPwFocus(true)}
+            onBlur={() => setPwFocus(false)}
+            autoComplete="off"
           />
+          <Popover open={pwFocus} onOpenChange={handlePopover}>
+            <PopoverTrigger></PopoverTrigger>
+            <PopoverContent
+              className="w-[30vw] border-stone-700"
+              onOpenAutoFocus={(event) => {
+                event.preventDefault();
+              }}
+            >
+              <PasswordValidator
+                newPassword={data.password}
+                showContent={true}
+              />
+            </PopoverContent>
+          </Popover>
+
           {renderErrorMessage("pass")}
           <div className="gap-[20px] font-semibold flex ">
             <TextField
@@ -84,22 +111,36 @@ export default function RegisterPage() {
             />
             <TextField
               id="standard-basic"
-              label="WEIGHT (KG)"
+              label="WEIGHT"
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, weight: e.target.value })}
               InputLabelProps={{
                 style: { color: "black" },
               }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment sx={{ color: "#1f1f1f" }} position="end">
+                    <span>kg</span>
+                  </InputAdornment>
+                ),
+              }}
             />
             <TextField
               id="standard-basic"
-              label="HEIGHT (CM)"
+              label="HEIGHT"
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, height: e.target.value })}
               InputLabelProps={{
                 style: { color: "black" },
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment sx={{ color: "#1f1f1f" }} position="end">
+                    <span>cm</span>
+                  </InputAdornment>
+                ),
               }}
             />
           </div>

@@ -34,6 +34,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ring } from "ldrs";
 import AuthAPIService from "@/services/AuthAPIService";
+import PasswordValidator from "@/components/passwordValidator";
+import checkPassword from "@/utils/passwordChecker";
 
 export default function ProfileSettings() {
   const theme = useTheme();
@@ -344,7 +346,7 @@ export default function ProfileSettings() {
             fullWidth
             variant="outlined"
             margin="normal"
-            type = "password"
+            type="password"
             {...register("currentPassword")}
             error={!!errors.currentPassword}
             helperText={errors.currentPassword?.message}
@@ -355,7 +357,7 @@ export default function ProfileSettings() {
                 currentPassword: event.target.value,
               })
             }
-          />       
+          />
 
           {/* New Password Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
@@ -366,7 +368,7 @@ export default function ProfileSettings() {
             fullWidth
             variant="outlined"
             margin="normal"
-            type = "password"
+            type="password"
             {...register("newPassword")}
             error={!!errors.newPassword}
             helperText={errors.newPassword?.message}
@@ -378,31 +380,7 @@ export default function ProfileSettings() {
               })
             }
           />
-          {newPassword.newPassword.length === 0 ? null : newPassword.newPassword
-              .length > 6 ? (
-            <div className="flex align-center mb-3">
-              <Typography
-                level="body-sm"
-                sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
-                color={"#0e8a37"}
-              >
-                Length of password must be more than 6 characters
-              </Typography>
-              <CheckCircle2 className="ml-5 w-4" style={{ color: "#0e8a37" }} />
-            </div>
-          ) : (
-            <div className="flex align-center mb-3">
-              <Typography
-                level="body-sm"
-                sx={{ fontSize: "0.8rem", paddingTop: "2px" }}
-                color={"#750e0e"}
-              >
-                Length of password must be more than 6 characters
-              </Typography>
-
-              <XCircle className="ml-5 w-4" style={{ color: "#750e0e" }} />
-            </div>
-          )}
+          <PasswordValidator newPassword={newPassword.newPassword} />
 
           {/* Confirm New Password Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
@@ -413,7 +391,7 @@ export default function ProfileSettings() {
             fullWidth
             variant="outlined"
             margin="normal"
-            type = "password"
+            type="password"
             {...register("confirmNewPassword")}
             error={!!errors.confirmNewPassword}
             helperText={errors.confirmNewPassword?.message}
@@ -467,7 +445,7 @@ export default function ProfileSettings() {
                 disabled={
                   newPassword.repeatPassword.length === 0 ||
                   newPassword.currentPassword.length === 0 ||
-                  newPassword.newPassword.length <= 6 ||
+                  !checkPassword(newPassword.newPassword) ||
                   newPassword.newPassword !== newPassword.repeatPassword
                     ? true
                     : false
