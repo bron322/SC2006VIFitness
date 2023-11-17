@@ -36,6 +36,7 @@ import { ring } from "ldrs";
 import AuthAPIService from "@/services/AuthAPIService";
 import PasswordValidator from "@/components/passwordValidator";
 import checkPassword from "@/utils/passwordChecker";
+import UpdateSettingsButton from "@/components/updateSettingsButton";
 
 export default function ProfileSettings() {
   const theme = useTheme();
@@ -201,126 +202,146 @@ export default function ProfileSettings() {
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
             Username
           </Typography>
-          <TextField
-            size="small"
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            {...register("username")}
-            defaultValue={user.username}
-            error={!!errors.username}
-            helperText={errors.username?.message}
-            sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
-            onChange={(event) =>
-              setNewSettings({ ...newSettings, username: event.target.value })
-            }
-          />
+          <div className="flex">
+            <TextField
+              size="small"
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              {...register("username")}
+              defaultValue={user.username}
+              error={!!errors.username}
+              helperText={errors.username?.message}
+              sx={{
+                width: "80%",
+                marginTop: 1,
+                marginBottom: 2,
+                marginRight: 3,
+              }}
+              onChange={(event) =>
+                setNewSettings({ ...newSettings, username: event.target.value })
+              }
+            />
+            <UpdateSettingsButton
+              content="Update Username"
+              current={user.username}
+              new={newSettings.username}
+              disabled={
+                newSettings.username.length === 0 ||
+                newSettings.username === user.username
+              }
+              height="40px"
+              for="username"
+            />
+          </div>
 
           {/* Age Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
             Age
           </Typography>
-          <TextField
-            size="small"
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            type="number"
-            {...register("age")}
-            defaultValue={user.age}
-            error={!!errors.age}
-            helperText={errors.age?.message}
-            sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
-            onChange={(event) =>
-              setNewSettings({ ...newSettings, age: event.target.value })
-            }
-          />
+          <div className="flex">
+            <TextField
+              size="small"
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              type="number"
+              {...register("age")}
+              defaultValue={user.age}
+              error={!!errors.age}
+              helperText={errors.age?.message}
+              sx={{
+                width: "80%",
+                marginTop: 1,
+                marginBottom: 2,
+                marginRight: 3,
+              }}
+              onChange={(event) =>
+                setNewSettings({ ...newSettings, age: event.target.value })
+              }
+            />
+            <UpdateSettingsButton
+              content="Update Age"
+              current={user.age}
+              new={newSettings.age}
+              disabled={
+                newSettings.age.length === 0 || newSettings.age == user.age
+              }
+              height="35px"
+              for="age"
+            />
+          </div>
 
           {/* Weight Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
             Weight (kg)
           </Typography>
-          <TextField
-            size="small"
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            type="number"
-            {...register("weight")}
-            defaultValue={user.weight}
-            error={!!errors.weight}
-            helperText={errors.weight?.message}
-            sx={{ width: "90%", marginTop: 1, marginBottom: 2 }}
-            onChange={(event) =>
-              setNewSettings({ ...newSettings, weight: event.target.value })
-            }
-          />
+          <div className="flex">
+            <TextField
+              size="small"
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              type="number"
+              {...register("weight")}
+              defaultValue={user.weight}
+              error={!!errors.weight}
+              helperText={errors.weight?.message}
+              sx={{
+                width: "80%",
+                marginTop: 1,
+                marginBottom: 2,
+                marginRight: 3,
+              }}
+              onChange={(event) =>
+                setNewSettings({ ...newSettings, weight: event.target.value })
+              }
+            />
+            <UpdateSettingsButton
+              content="Update weight"
+              current={user.weight}
+              new={newSettings.weight}
+              disabled={
+                newSettings.weight.length === 0 ||
+                newSettings.weight == user.weight
+              }
+              height="35px"
+              for="weight"
+            />
+          </div>
 
           {/* Height Field */}
           <Typography variant="subtitle1" sx={{ fontSize: "1.1rem" }}>
             Height (cm)
           </Typography>
-          <TextField
-            size="small"
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            type="number"
-            {...register("height")}
-            defaultValue={user.height}
-            error={!!errors.height}
-            helperText={errors.height?.message}
-            sx={{ width: "90%", marginTop: 1 }}
-            onChange={(event) =>
-              setNewSettings({ ...newSettings, height: event.target.value })
-            }
-          />
-
-          {/* Update Profile Button */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                variant="contained"
-                sx={{
-                  mt: 1,
-                  mb: 1,
-                  width: "202px",
-                  backgroundColor: "rgb(205, 213, 224)",
-                  color: "rgb(32, 41, 58)",
-                }}
-                disabled={
-                  newSettings.age === "" ||
-                  newSettings.username === "" ||
-                  newSettings.weight === "" ||
-                  newSettings.height === ""
-                    ? true
-                    : false
-                }
-              >
-                Update Profile
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle
-                  className="pb-1"
-                  style={{ color: colors.secondary.default }}
-                >
-                  Are you sure?
-                </DialogTitle>
-                <DialogDescription>
-                  Please confirm to update your user settings.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <ShadcnButton onClick={handleUpdateConfirm} variant="default">
-                    Update
-                  </ShadcnButton>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <div className="flex">
+            <TextField
+              size="small"
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              type="number"
+              {...register("height")}
+              defaultValue={user.height}
+              error={!!errors.height}
+              helperText={errors.height?.message}
+              sx={{ width: "80%", marginTop: 1, marginRight: 3 }}
+              onChange={(event) =>
+                setNewSettings({ ...newSettings, height: event.target.value })
+              }
+            />
+            <UpdateSettingsButton
+              content="Update height"
+              current={user.height}
+              new={newSettings.height}
+              disabled={
+                newSettings.height.length === 0 ||
+                newSettings.height == user.height
+              }
+              height="35px"
+              for="height"
+            />
+          </div>
         </Box>
 
         <Divider sx={{ my: 2, width: "100%" }} />
