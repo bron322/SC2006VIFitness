@@ -11,9 +11,10 @@ import Calendar from "../Calendar/components/SmallCalendar";
 import { Link } from "react-router-dom";
 import BarChart from "../../components/calorieChart/calorie";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import Checkbox from '@mui/material/Checkbox';
-import APIDataService from "@/services/APIDataService";
-import toast from "react-hot-toast";
+// import Checkbox from '@mui/material/Checkbox';
+// import APIDataService from "@/services/APIDataService";
+// import toast from "react-hot-toast";
+import Checkbox from "../../components/checkbox"
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -26,7 +27,6 @@ import { CharacterAnimationsProvider } from "../../components/contexts/Character
 
 export default function Dashboard() {
   const [expandedMuscle, setExpandedMuscle] = useState(null);
-
   const toggleExpand = (muscle) => {
     setExpandedMuscle((prev) => (prev === muscle ? null : muscle));
   };
@@ -101,29 +101,30 @@ const bmiResult = calculateBMI(user.weight, user.height);
     }
   };
 
-  const handleMarkAsCompleted = async (e, workout) => {
-    e.preventDefault();
-    console.log(workout);
-    const data = {
-      username: user.username,
-      date: workout.createdAt,
-    };
+  // const handleMarkAsCompleted = async (e, workout) => {
+  //   e.preventDefault();
+  //   console.log(workout);
+  //   const data = {
+  //     username: user.username,
+  //     date: workout.createdAt,
+  //   };
 
-    try {
-      const response = await APIDataService.updateExercise(data);
-      if (Object.keys(response.data).length !== 0) {
-        setUser(response.data);
-        toast.success("Exercise mark as completed!");
-        console.log("Test");
+  //   try {
+  //     const response = await APIDataService.updateExercise(data);
+  //     if (Object.keys(response.data).length !== 0) {
+  //       setUser(response.data);
+  //       toast.success("Exercise mark as completed!");
+  //       console.log("Test");
 
-      } else {
-        toast.error("Something went wrong. Try again later!");
-      }
-    } catch (err) {
-      console.log("test");
-      console.error("Error updating exercise:", err.message);
-    }
-  };
+  //     } else {
+  //       toast.error("Something went wrong. Try again later!");
+  //     }
+  //   } catch (err) {
+  //     console.log("test");
+  //     console.error("Error updating exercise:", err.message);
+  //   }
+  //   setShowDialog(e.target.checked);
+  // };
 
 
   return (
@@ -262,9 +263,10 @@ const bmiResult = calculateBMI(user.weight, user.height);
                     className="flex flex-row justify-evenly"
                     p="15px"
                   >
-                    <Checkbox {...label}
+                    {/* <Checkbox {...label}
                       onChange={(e) => handleMarkAsCompleted(e, workout)}
-                      />
+                    /> */}
+                    <Checkbox data={workout}/>
                     <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name}
