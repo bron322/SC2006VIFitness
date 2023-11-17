@@ -84,7 +84,7 @@ export default function RegisterPage() {
             />
             <TextField
               id="standard-basic"
-              label="WEIGHT"
+              label="WEIGHT (KG)"
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, weight: e.target.value })}
@@ -94,7 +94,7 @@ export default function RegisterPage() {
             />
             <TextField
               id="standard-basic"
-              label="HEIGHT"
+              label="HEIGHT (CM)"
               variant="standard"
               margin="dense"
               onChange={(e) => setData({ ...data, height: e.target.value })}
