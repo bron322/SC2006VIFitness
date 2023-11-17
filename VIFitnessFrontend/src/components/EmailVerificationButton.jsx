@@ -20,6 +20,7 @@ import APIDataService from "@/services/APIDataService";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import checkPassword from "@/utils/passwordChecker";
 
 export function EmailVerificationButton(props) {
   const [requested, setRequested] = useState(false); //tracks state of request code button
@@ -135,6 +136,8 @@ export function EmailVerificationButton(props) {
     } else if (props.data.height === "") {
       return setDisableButton(true);
     } else if (props.data.age === "") {
+      return setDisableButton(true);
+    } else if (!checkPassword(props.data.password)) {
       return setDisableButton(true);
     } else {
       return setDisableButton(false);
