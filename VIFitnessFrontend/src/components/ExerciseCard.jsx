@@ -7,6 +7,7 @@ import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import { CircularProgress } from "@mui/material";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -48,12 +49,32 @@ function AddtoCalendarButton(props) {
   const [date, setDate] = React.useState(new Date());
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChange = () => {
+    setIsCompleted(!isCompleted);
+  };
+
+  const handleSubmitForm = async () => {
+    const currentDate = new Date(date);
+    const selectedDate = { date };
+    if (isCompleted) {
+      if (selectedDate > currentDate) {
+        toast.error("Cannot mark as completed with a future date!");
+        return;
+      } else {
+        await handleSubmitCompleted();
+      }
+    } else {
+      await handleSubmit();
+    }
   };
 
   const handleSubmit = async () => {
@@ -184,15 +205,19 @@ function AddtoCalendarButton(props) {
           </div>
 
           <div className="flex mt-5 justify-end">
+            <div className="mr-4">
+              Mark As Completed
+              <Checkbox
+                onChange={handleChange}
+                defaultChecked
+                color="success"
+              />
+            </div>
             <ShadcnButton
-              onClick={handleSubmitCompleted}
+              onClick={handleSubmitForm}
               variant="secondary"
               size="sm"
-              style={{ marginRight: "10px" }}
             >
-              Add As Completed
-            </ShadcnButton>
-            <ShadcnButton onClick={handleSubmit} variant="secondary" size="sm">
               Add
             </ShadcnButton>
           </div>
@@ -322,7 +347,11 @@ export default function ExerciseCard({
                 src={`/exerciseImage/${title}.jpg`}
                 alt="Exercise"
               />
-              <Box display="flex" alignItems="center" className="absolute fade-in-10 z-30 right-0 h-full w-1/2">
+              <Box
+                display="flex"
+                alignItems="center"
+                className="absolute fade-in-10 z-30 right-0 h-full w-1/2"
+              >
                 {videoUrl && (
                   <iframe
                     width="400"
