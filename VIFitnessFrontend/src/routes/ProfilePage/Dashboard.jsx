@@ -11,6 +11,9 @@ import Calendar from "../Calendar/components/SmallCalendar";
 import { Link } from "react-router-dom";
 import BarChart from "../../components/calorieChart/calorie";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import Checkbox from '@mui/material/Checkbox';
+import APIDataService from "@/services/APIDataService";
+import toast from "react-hot-toast";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -32,7 +35,7 @@ export default function Dashboard() {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { user } = useAuth();
+  const { user, setUser} = useAuth();
   const completedWorkouts = user.workouts.filter(
     (workout) => workout.isCompleted
   );
@@ -97,6 +100,32 @@ const bmiResult = calculateBMI(user.weight, user.height);
         });
     }
   };
+
+  const handleMarkAsCompleted = async (e, workout) => {
+    e.preventDefault();
+    console.log(workout);
+    const data = {
+      username: user.username,
+      date: workout.createdAt,
+    };
+
+    try {
+      const response = await APIDataService.updateExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Exercise mark as completed!");
+        console.log("Test");
+
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log("test");
+      console.error("Error updating exercise:", err.message);
+    }
+  };
+
+
   return (
     <div id="dashboard-container">
       <Box m="20px">
@@ -222,6 +251,7 @@ const bmiResult = calculateBMI(user.weight, user.height);
             </Box>
             {user.workouts.map((workout, i) => {
               if (workout.isCompleted === false) {
+                const label = { inputProps: { 'aria-label': `${workout.name}` } };
                 return (
                   <Box
                     key={`${i}-${workout.name}`}
@@ -232,11 +262,15 @@ const bmiResult = calculateBMI(user.weight, user.height);
                     className="flex flex-col justify-evenly"
                     p="15px"
                   >
+                    <Checkbox {...label}
+                      onChange={(e) => handleMarkAsCompleted(e, workout)}
+                      />
                     <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name}
                       subsubtitle={workout.muscle}
                     />
+
                   </Box>
                 );
               }
