@@ -15,9 +15,7 @@ export default function Preloader() {
   const [isLoading, setIsloading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    Splitting();
-  }, []);
+  useEffect(() => {}, []);
 
   // progress bar animation
   useEffect(() => {
@@ -41,6 +39,7 @@ export default function Preloader() {
   };
 
   useLayoutEffect(() => {
+    Splitting();
     let loadingText = gsap.utils.selector(".loading-text-preloader");
     let loadingChar = loadingText(".char");
     // console.log(loadingChar);
@@ -158,7 +157,7 @@ export default function Preloader() {
               />
             </div>
           </div>
-          {import.meta.env.PROD ? null : (
+          {/* {import.meta.env.PROD ? null : (
             <div className="flex flex-col justify-center items-center relative">
               <div
                 className="loading-text-preloader text-neutral-300 mt-5 text-sm"
@@ -175,7 +174,23 @@ export default function Preloader() {
                 click to enter
               </div>
             </div>
-          )}
+          )} */}
+          <div className="flex flex-col justify-center items-center relative">
+            <div
+              className="loading-text-preloader text-neutral-300 mt-5 text-sm"
+              data-splitting=""
+              ref={loading}
+            >
+              loading ... please wait
+            </div>
+            <div
+              className="loading2 text-neutral-300 mt-5 text-sm absolute opacity-0"
+              data-splitting=""
+              ref={loading}
+            >
+              click to enter
+            </div>
+          </div>
         </div>
       </div>
     </>

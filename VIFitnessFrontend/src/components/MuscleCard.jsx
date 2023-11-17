@@ -60,6 +60,15 @@ export default function MuscleCard({ img, title, description }) {
     from: { opacity: 0 },
   });
 
+  const urls={
+    "Hip Circles (Prone)": "https://www.youtube.com/embed/UyY0ZoeELdo",
+    "Standing Hip Circles": "https://www.youtube.com/embed/5legRVBfFxk",
+    "Clam": "https://www.youtube.com/embed/Mra0MJnMHh0",
+    "Incline Hammer Curls": "https://www.youtube.com/embed/Uxs6P7obg3I",
+    // Find more
+    // Must change endpoint from watch to embed
+  };
+
   return (
     <>
       <div>
@@ -121,6 +130,7 @@ export default function MuscleCard({ img, title, description }) {
                           item.name === "Rocky Pull-Ups/Pulldowns"
                             ? "Shotgun row"
                             : item.name;
+                            console.log(item.name)
                         return (
                           <div key={item.instructions}>
                             <div className="flex justify-center">
@@ -131,6 +141,7 @@ export default function MuscleCard({ img, title, description }) {
                                 instruction={item.instructions} // Passing in the instruction
                                 equipment={item.equipment}
                                 muscle={item.muscle}
+                                videoUrl={urls[item.name]}
                               />
                             </div>
                           </div>
