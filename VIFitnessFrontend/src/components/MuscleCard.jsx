@@ -220,7 +220,7 @@ export default function MuscleCard({ img, title, description }) {
                                 instruction={item.instructions} // Passing in the instruction
                                 equipment={item.equipment}
                                 muscle={item.muscle}
-                                videoUrl={urls[item.name]}
+                                videoUrl={urls[correctedName]}
                               />
                             </div>
                           </div>
