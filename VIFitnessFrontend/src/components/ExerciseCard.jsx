@@ -30,6 +30,7 @@ import { ColorModeContext } from "../routes/theme";
 import { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { useNavigate } from "react-router-dom";
+import { Item } from "@radix-ui/react-navigation-menu";
 
 const style = {
   position: "absolute",
@@ -109,7 +110,7 @@ function AddtoCalendarButton(props) {
         setUser(response.data);
         toast.success("Workout added!");
 
-        // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
+        // Delay the setOpen(false) for 3 seconds 
         setTimeout(() => {
           window.location.reload(true);
           // navigate(0);
@@ -150,7 +151,7 @@ function AddtoCalendarButton(props) {
         setUser(response.data);
         toast.success("Workout added!");
 
-        // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
+        // Delay the setOpen(false) for 3 seconds 
         setTimeout(() => {
           window.location.reload(true);
           // navigate(0);
@@ -363,7 +364,7 @@ export default function ExerciseCard({
                     className="ml-12 mb-16"
                     src={videoUrl}
                     title={title}
-                    frameBorder="0"
+                    frameborder="0"
                     allowFullScreen
                   ></iframe>
                 )}
