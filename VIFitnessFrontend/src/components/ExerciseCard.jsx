@@ -7,6 +7,7 @@ import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import { CircularProgress } from "@mui/material";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -48,12 +49,40 @@ function AddtoCalendarButton(props) {
   const [date, setDate] = React.useState(new Date());
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  React.useEffect(() => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    console.log(currentDate);
+    console.log(selectedDate);
+    console.log(selectedDate > currentDate);
+  });
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChange = () => {
+    setIsCompleted(!isCompleted);
+  };
+
+  const handleSubmitForm = async () => {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    if (isCompleted) {
+      if (selectedDate > currentDate) {
+        toast.error("Cannot mark as completed with a future date!");
+        return;
+      } else {
+        await handleSubmitCompleted();
+      }
+    } else {
+      await handleSubmit();
+    }
   };
 
   const handleSubmit = async () => {
@@ -97,9 +126,57 @@ function AddtoCalendarButton(props) {
     }
   };
 
+  const handleSubmitCompleted = async () => {
+    const data = {
+      username: user.username,
+      exerciseData: [
+        {
+          name: props.exerciseName,
+          isCompleted: true,
+          description: "",
+          date: date,
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+          year: date.getFullYear(),
+          calories: props.caloriesBurnt,
+          muscle: props.muscle,
+          createdAt: new Date(),
+        },
+      ],
+    };
+    try {
+      const response = await APIDataService.addingExercise(data);
+      if (Object.keys(response.data).length !== 0) {
+        setUser(response.data);
+        toast.success("Workout added!");
+
+        // Delay the setOpen(false) for 3 seconds (adjust the duration as needed)
+        setTimeout(() => {
+          window.location.reload(true);
+          // navigate(0);
+          // setOpen(false);
+        }, 300);
+      } else {
+        toast.error("Something went wrong. Try again later!");
+      }
+    } catch (err) {
+      console.log(err);
+      if (err instanceof AxiosError) {
+        toast.error("Something went wrong. Try again later!");
+      }
+    }
+  };
+
   return (
     <React.Fragment>
-      <Button onClick={handleOpen} style={{ color: "blue" }}>
+      <Button
+        onClick={handleOpen}
+        style={{
+          color: "",
+          border: "2px solid white",
+          backgroundColor: "white",
+        }}
+      >
         Add to calendar
       </Button>
       <Modal
@@ -136,7 +213,15 @@ function AddtoCalendarButton(props) {
           </div>
 
           <div className="flex mt-5 justify-end">
-            <ShadcnButton onClick={handleSubmit} variant="secondary" size="sm">
+            <div className="mr-4">
+              Mark As Completed
+              <Checkbox onChange={handleChange} color="success" />
+            </div>
+            <ShadcnButton
+              onClick={handleSubmitForm}
+              variant="secondary"
+              size="sm"
+            >
               Add
             </ShadcnButton>
           </div>
@@ -266,6 +351,23 @@ export default function ExerciseCard({
                 src={`/exerciseImage/${title}.jpg`}
                 alt="Exercise"
               />
+              <Box
+                display="flex"
+                alignItems="center"
+                className="absolute fade-in-10 z-30 right-0 h-full w-1/2"
+              >
+                {videoUrl && (
+                  <iframe
+                    width="400"
+                    height="250"
+                    className="ml-12 mb-16"
+                    src={videoUrl}
+                    title={title}
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                )}
+              </Box>
 
               {/* placeholder overlay */}
               <div
@@ -275,18 +377,7 @@ export default function ExerciseCard({
                   backgroundColor: getBackgroundColors(),
                 }}
               />
-              <div className="flex-grow pb-8 z-20 text-center right-0">
-                  {videoUrl && (
-                    <iframe
-                      width="350"
-                      height="200"
-                      src={videoUrl}
-                      title={title}
-                      frameBorder="0"
-                      allowFullScreen
-                    ></iframe>
-                  )}
-                </div>
+
               <div className="animated2 fadeInLeft2 absolute w-6/12 h-full z-10 top-0 left-0 overflow-y-auto">
                 <div className="text-center text-5xl font-bold z-10 pb-5">
                   {title}
@@ -332,7 +423,7 @@ export default function ExerciseCard({
                 </div>
                 {/* This is for calories burnt for the exercise */}
 
-                <div className="flex-grow pb-8 z-20 text-center">
+                <div className="flex-grow pb-8 z-20 text-center ">
                   <AddtoCalendarButton
                     exerciseName={title}
                     caloriesBurnt={caloriesBurnt}
