@@ -39,19 +39,33 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
   return (
     <MenuItem
-      active={selected === title}
+      // active={selected === title}
       style={{
         color: colors.secondary.foreground,
-        backgroundColor: hover
-          ? colors.muted.hover // button color when hover
-          : selected === title
-          ? colors.primary.active // button color when active
-          : colors.background.default, // button color for default
         transitionDuration: "0.3s",
       }}
       onClick={() => setSelected(title)}
       icon={icon}
-      component={<NavLink to={to} />}
+      component={
+        <NavLink
+          to={to}
+          style={({ isActive, isPending, isTransitioning }) => {
+            return {
+              color: hover
+                ? colors.accent.foreground // button color when hover
+                : isActive
+                ? colors.destructive.foreground // button color when active
+                : colors.muted.foreground, // button color for default
+              backgroundColor: hover
+                ? colors.muted.hover // button color when hover
+                : isActive
+                ? colors.primary.active // button color when active
+                : colors.background.default, // button color for default
+            };
+          }}
+          end
+        />
+      }
       className="pb-2 flex justify-center "
       // Set hover state for the button
       onMouseEnter={() => {
@@ -59,15 +73,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       }}
       onMouseLeave={() => {
         setHover(false);
-      }}
-      rootStyles={{
-        [".ps-menu-icon"]: {
-          color: hover
-            ? colors.accent.foreground // button color when hover
-            : selected === title
-            ? colors.destructive.foreground // button color when active
-            : colors.muted.foreground, // button color for default
-        },
       }}
     >
       {/* Text for Menu Items */}
@@ -219,16 +224,16 @@ const MyProSidebar = () => {
                   ml="5px"
                 >
                   <Link to="/user" onClick={handleLinkClick}>
-                  <img
-                    alt="logo"
-                    width="90px"
-                    height="90px"
-                    src={Logo}
-                    style={{
-                      cursor: "pointer",
-                      borderRadius: "50%",
-                      filter: "invert(75)",
-                    }}
+                    <img
+                      alt="logo"
+                      width="90px"
+                      height="90px"
+                      src={Logo}
+                      style={{
+                        cursor: "pointer",
+                        borderRadius: "50%",
+                        filter: "invert(75)",
+                      }}
                     />
                   </Link>
 
@@ -347,7 +352,7 @@ const MyProSidebar = () => {
             <Box className="flex-verticle justify-items-center align-center">
               <Item
                 title="Dashboard"
-                to="/"
+                to=""
                 icon={<HomeOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
