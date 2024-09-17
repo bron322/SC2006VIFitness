@@ -6,15 +6,6 @@ import "dotenv/config";
 import { APIrouter } from "./routes/routes.js";
 import { authRouter } from "./routes/authRoutes.js";
 
-///////////////////////////////////////////////// app set-up //////////////////////////////////////////////////
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors(corsOptions));
-app.use("/api", APIrouter);
-app.use("/vifitness", authRouter);
-
 ///////////////////////////////////////////////// cors set-up //////////////////////////////////////////////////
 var corsOptions = {
   origin: "http://localhost:5173",
@@ -26,6 +17,15 @@ var corsOptions = {
     "Access-Control-Allow-Headers": "*", // Allow specified headers
   },
 };
+
+///////////////////////////////////////////////// app set-up //////////////////////////////////////////////////
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors(corsOptions));
+app.use("/api", APIrouter);
+app.use("/vifitness", authRouter);
 
 //////////////////////////////////////////////////  mongoDB ///////////////////////////////////////////////////
 const mongoURLString = process.env.DATABASE_URL;
