@@ -7,6 +7,7 @@ import { APIrouter } from "./routes/routes.js";
 import { authRouter } from "./routes/authRoutes.js";
 
 ///////////////////////////////////////////////// app set-up //////////////////////////////////////////////////
+const express = require('express')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -60,6 +61,7 @@ database.on("error", (error) => {
 
 ///////////////////////////////////////////////  port /////////////////////////////////////////////////////////
 
+module.exports = app
 // app.listen(port, function () {
 //   console.log(`Server is running on ${port}`);
 // });
