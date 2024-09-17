@@ -184,7 +184,7 @@ export default function Dashboard() {
                       borderRadius: "10px",
                     }}
                     shadows
-                    camera={{ position: [0, 10, 18], fov: 90 }}
+                    camera={{ position: [0, 8, 25], fov: 95 }}
                   >
                     <Experience />
                   </Canvas>
