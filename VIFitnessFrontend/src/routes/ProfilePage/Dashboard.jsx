@@ -11,9 +11,10 @@ import Calendar from "../Calendar/components/SmallCalendar";
 import { Link } from "react-router-dom";
 import BarChart from "../../components/calorieChart/calorie";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import Checkbox from '@mui/material/Checkbox';
-import APIDataService from "@/services/APIDataService";
-import toast from "react-hot-toast";
+// import Checkbox from '@mui/material/Checkbox';
+// import APIDataService from "@/services/APIDataService";
+// import toast from "react-hot-toast";
+import Checkbox from "../../components/checkbox";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -26,7 +27,6 @@ import { CharacterAnimationsProvider } from "../../components/contexts/Character
 
 export default function Dashboard() {
   const [expandedMuscle, setExpandedMuscle] = useState(null);
-
   const toggleExpand = (muscle) => {
     setExpandedMuscle((prev) => (prev === muscle ? null : muscle));
   };
@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { user, setUser} = useAuth();
+  const { user, setUser } = useAuth();
   const completedWorkouts = user.workouts.filter(
     (workout) => workout.isCompleted
   );
@@ -55,7 +55,7 @@ export default function Dashboard() {
     return parseFloat(bmi.toFixed(2));
   };
 
-const bmiResult = calculateBMI(user.weight, user.height);
+  const bmiResult = calculateBMI(user.weight, user.height);
 
   // Aggregate exercises for each muscle part
   completedWorkouts.forEach((workout) => {
@@ -101,30 +101,30 @@ const bmiResult = calculateBMI(user.weight, user.height);
     }
   };
 
-  const handleMarkAsCompleted = async (e, workout) => {
-    e.preventDefault();
-    console.log(workout);
-    const data = {
-      username: user.username,
-      date: workout.createdAt,
-    };
+  // const handleMarkAsCompleted = async (e, workout) => {
+  //   e.preventDefault();
+  //   console.log(workout);
+  //   const data = {
+  //     username: user.username,
+  //     date: workout.createdAt,
+  //   };
 
-    try {
-      const response = await APIDataService.updateExercise(data);
-      if (Object.keys(response.data).length !== 0) {
-        setUser(response.data);
-        toast.success("Exercise mark as completed!");
-        console.log("Test");
+  //   try {
+  //     const response = await APIDataService.updateExercise(data);
+  //     if (Object.keys(response.data).length !== 0) {
+  //       setUser(response.data);
+  //       toast.success("Exercise mark as completed!");
+  //       console.log("Test");
 
-      } else {
-        toast.error("Something went wrong. Try again later!");
-      }
-    } catch (err) {
-      console.log("test");
-      console.error("Error updating exercise:", err.message);
-    }
-  };
-
+  //     } else {
+  //       toast.error("Something went wrong. Try again later!");
+  //     }
+  //   } catch (err) {
+  //     console.log("test");
+  //     console.error("Error updating exercise:", err.message);
+  //   }
+  //   setShowDialog(e.target.checked);
+  // };
 
   return (
     <div id="dashboard-container">
@@ -209,19 +209,14 @@ const bmiResult = calculateBMI(user.weight, user.height);
               User Profile
             </Typography>
             {/* sx={{ flexDirection: 'row' }} */}
-            <Box height="250px" className='flex flex-col items-center justify-evenly'>
-              <StatBox
-                subtitle={user.age}
-                title="Age" />
-              <StatBox
-                subtitle={user.height + " cm"}
-                title="Height" />
-              <StatBox
-                subtitle={user.weight + " kg"}
-                title="Weight" />
-              <StatBox
-                subtitle={bmiResult}
-                title="BMI" />
+            <Box
+              height="250px"
+              className="flex flex-col items-center justify-evenly"
+            >
+              <StatBox subtitle={user.age} title="Age" />
+              <StatBox subtitle={user.height + " cm"} title="Height" />
+              <StatBox subtitle={user.weight + " kg"} title="Weight" />
+              <StatBox subtitle={bmiResult} title="BMI" />
             </Box>
           </Box>
 
@@ -251,7 +246,9 @@ const bmiResult = calculateBMI(user.weight, user.height);
             </Box>
             {user.workouts.map((workout, i) => {
               if (workout.isCompleted === false) {
-                const label = { inputProps: { 'aria-label': `${workout.name}` } };
+                const label = {
+                  inputProps: { "aria-label": `${workout.name}` },
+                };
                 return (
                   <Box
                     key={`${i}-${workout.name}`}
@@ -259,18 +256,18 @@ const bmiResult = calculateBMI(user.weight, user.height);
                     justifyContent="space-between"
                     alignItems="center"
                     borderBottom={`1px solid ${colors.secondary.default}`}
-                    className="flex flex-row justify-evenly"
-                    p="15px"
+                    className="flex flex-row justify-evenly align-middle"
+                    p="10px"
                   >
-                    <Checkbox {...label}
+                    {/* <Checkbox {...label}
                       onChange={(e) => handleMarkAsCompleted(e, workout)}
-                      />
+                    /> */}
+                    <Checkbox data={workout} />
                     <ExerciseBox
                       subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
                       title={workout.name}
                       subsubtitle={workout.muscle}
                     />
-
                   </Box>
                 );
               }
@@ -343,38 +340,48 @@ const bmiResult = calculateBMI(user.weight, user.height);
 
             {completedWorkouts.length > 0 ? (
               <>
-              {Object.keys(muscleGroups).map((muscle, i) => (
-                <Box
-                  key={`${i}-${muscle}`}
-                  // display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottom={`1px solid ${colors.secondary.default}`}
-                  className="flex-col"
-                  p="15px"
-                >
-                  <div onClick={() => toggleExpand(muscle)} style={{ cursor: 'pointer' }} className="flex justify-between w-full">
-                    <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
-                      {muscle}
-                    </Typography>
-                    <Typography variant="h5" fontWeight="bold">Frequency: {muscleGroups[muscle].length}</Typography>
-                  </div>
-                  {expandedMuscle === muscle && (
-                    <div>
-                      {/* Render exercise details, you can use ExerciseBox or other components */}
-                      {muscleGroups[muscle].map((workout, index) => (
-                        <ExerciseBox
-                          key={index}
-                          subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
-                          title={workout.name}
-                        />
-                      ))}
+                {Object.keys(muscleGroups).map((muscle, i) => (
+                  <Box
+                    key={`${i}-${muscle}`}
+                    // display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    borderBottom={`1px solid ${colors.secondary.default}`}
+                    className="flex-col"
+                    p="15px"
+                  >
+                    <div
+                      onClick={() => toggleExpand(muscle)}
+                      style={{ cursor: "pointer" }}
+                      className="flex justify-between w-full"
+                    >
+                      <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                        sx={{ textTransform: "capitalize" }}
+                      >
+                        {muscle}
+                      </Typography>
+                      <Typography variant="h5" fontWeight="bold">
+                        Frequency: {muscleGroups[muscle].length}
+                      </Typography>
                     </div>
-                  )}
-                </Box>
-              ))}
-              </>           
-              ): (
+                    {expandedMuscle === muscle && (
+                      <div>
+                        {/* Render exercise details, you can use ExerciseBox or other components */}
+                        {muscleGroups[muscle].map((workout, index) => (
+                          <ExerciseBox
+                            key={index}
+                            subtitle={`${workout.day} - ${workout.month} - ${workout.year}`}
+                            title={workout.name}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </Box>
+                ))}
+              </>
+            ) : (
               <Box
                 display="flex"
                 justifyContent="space-between"
